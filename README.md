@@ -62,8 +62,9 @@ git commit -m "<prefix>: <commit message>"
 5. Push code to remote repository
 6. Create pull request on [github](https://github.com/brain-flowing-company/pprp-frontend/pulls)
 
-- Compare changes with **base**: `dev` &#8592; **compare**: `<branch-name>`
-- Put fancy title and description
+- compare changes with **base**: `dev` &#8592; **compare**: `<branch-name>`
+- title also apply [commit message convention](#commit-message-convention)
+- put fancy description
 
 ### Commit message convention
 
