@@ -43,19 +43,11 @@ export default function LoginPage() {
             onChange={(e) => (password.current = e.target.value)}
           />
 
-          <div className="flex w-[507px] flex-row py-[20px]">
-            <div className="flex flex-row">
-              <input
-                autoComplete="off"
-                className="h-[30px] w-[30px] rounded-[20px] border border-[#B3B3B3]"
-                type="checkbox"
-              ></input>
-              <div className="px-2">Remember me</div>
-              <div className="relative left-[137px] text-[#3AAEEF]">
-                Forgot Password?
-              </div>
+          <LoginOption>
+            <div className="relative left-[137px] text-[#3AAEEF]">
+              Forgot Password?
             </div>
-          </div>
+          </LoginOption>
 
           <button className="my-[10px] h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-[24px] font-bold text-white">
             Log in
