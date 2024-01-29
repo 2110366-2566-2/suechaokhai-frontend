@@ -8,7 +8,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const TextBox = React.forwardRef<HTMLInputElement, IProps>(
   ({ className, children, label, type = "text", error, ...props }, ref) => {
     return (
-      <div className="py-[9px]">
+      <div className={className + "py-[9px]"}>
         {label && (
           <label className="inline-block pb-[8px]" htmlFor="txt">
             {label}:
