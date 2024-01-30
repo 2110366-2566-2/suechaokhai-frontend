@@ -7,7 +7,7 @@ export default function Home() {
         Hi, mom!
       </span>
       <div>wedrtyuiop;</div>
-      <OwnerInfo name="thanaphat" tel='1234565456' mail="dfghjkl" imgSrc="/img/Boss.png"></OwnerInfo>
+      <OwnerInfo name="Thanaphat" tel='1234565456' mail="dfghjkl" imgSrc="/img/Boss.png"></OwnerInfo>
 
     </div>
   );
