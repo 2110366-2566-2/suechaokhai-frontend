@@ -64,9 +64,22 @@ export default function LoginPage() {
             <span className="w-full border-t border-[#B3B3B3]"></span>
           </div>
         </form>
-        <button onClick={test} className="bg-slate-400 p-3">
-          test
+        <button className="mt-[30px] rounded-lg border border-[#B3B3B3] px-6 py-2">
+          <div className="flex w-full flex-row items-center justify-center">
+            <div className="flex w-full items-center justify-center gap-4">
+              <Image
+                src={"/img/google-icon.png"}
+                width={48}
+                height={48}
+                alt="Google Icon"
+              />
+              <span className="text-xl font-semibold">Google</span>
+            </div>
+          </div>
         </button>
+        {/* <button onClick={test} className="bg-slate-400 p-3">
+          test
+        </button> */}
       </div>
     </div>
   );
