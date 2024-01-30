@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const OwnerInfo = ({name,tel,mail,imgSrc}:{name:string,tel:string,mail:string,imgSrc:string}) => {
     return ( 
-        <div className="flex flex-col bg-white w-[792px]">
-            <div className="text-[28px]">Owner</div>
+        <div className="flex flex-col bg-white w-[500px]">
+            <div className="text-4xl">Owner</div>
             <div className="flex flex-row  p-[8px] m-[8px] ">
                 <div className="h-[120px] w-[120px] relative justify-between items-center m-[8px] ">
                     <Image
@@ -14,9 +14,9 @@ const OwnerInfo = ({name,tel,mail,imgSrc}:{name:string,tel:string,mail:string,im
                     />
                 </div>
                 <div className="flex-col m-[8px]">
-                    <div className="text-xl">{name}</div>
-                    <div>{tel}</div>
-                    <div>{mail}</div>
+                    <div className="text-3xl">{name}</div>
+                    <div className="text-xl">{tel}</div>
+                    <div className="text-xl">{mail}</div>
                 </div>
             </div>
         </div>
