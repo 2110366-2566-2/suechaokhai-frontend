@@ -49,7 +49,7 @@ export default function LoginPage() {
             </div>
           </LoginOption>
 
-          <button className="my-[10px] h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-[24px] font-bold text-white">
+          <button className="my-[10px] h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
             Log in
           </button>
 
@@ -58,8 +58,10 @@ export default function LoginPage() {
             <div className="mx-[8px] text-[#3AAEEF]"> Register here</div>
           </div>
 
-          <div className="flex flex-row items-center justify-center">
-            <div>Or continue with</div>
+          <div className="flex flex-row items-center justify-center gap-3">
+            <span className="w-full border-t border-[#B3B3B3]"></span>
+            <div className="min-w-max">Or continue with</div>
+            <span className="w-full border-t border-[#B3B3B3]"></span>
           </div>
         </form>
         <button onClick={test} className="bg-slate-400 p-3">
