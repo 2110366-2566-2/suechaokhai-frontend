@@ -1,3 +1,5 @@
+import OwnerInfo from "@/components/OwnerInfo";
+
 export default function Home() {
   return (
     <div className="flex h-dvh w-dvw items-center justify-center bg-gray-800">
