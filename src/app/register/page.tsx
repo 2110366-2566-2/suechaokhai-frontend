@@ -17,7 +17,7 @@ export default function RegisterPage() {
           alt="test"
           width={80}
           height={80}
-          className="mt-[41px]"
+          className="pt-[41px]"
         ></Image>
         <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Register</div>
         <form className="px-[70px] text-left text-[20px]">
@@ -30,14 +30,25 @@ export default function RegisterPage() {
 
             <TextField
               label="Password"
-              placeholder="Enter your password here"
+              placeholder="Enter your password"
+              type="password"
+              onChange={(e) => (password.current = e.target.value)}
+            />
+
+            <div className="text-[16px]">
+              Password must be 8 or more characters and contain at least 1
+              number
+            </div>
+            <TextField
+              label="Confirm Password"
+              placeholder="Re-enter your password"
               type="password"
               onChange={(e) => (password.current = e.target.value)}
             />
           </div>
 
           <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
-            Log in
+            Confirm
           </button>
         </form>
       </div>

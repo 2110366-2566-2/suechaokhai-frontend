@@ -31,7 +31,7 @@ export default function LoginPage() {
           alt="test"
           width={80}
           height={80}
-          className="mt-[41px]"
+          className="pt-[41px]"
         ></Image>
         <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Login</div>
         <form className="px-[70px] text-left text-[20px]" onSubmit={userLogin}>
