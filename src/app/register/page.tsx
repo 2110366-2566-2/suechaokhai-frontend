@@ -1,29 +1,53 @@
 "use client";
 
 import TextField from "@/components/TextField";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
-  const [color, changeColor] = useState("#B3B3B3");
+
+  const [color1, changeColor1] = useState("#B3B3B3");
   const [passValid, changeValid] = useState(0);
+  const [color2, changeColor2] = useState("#B3B3B3");
+  const [passValid2, changeValid2] = useState(0);
+
   const email = useRef("");
   const password = useRef("");
+  const conPass = useRef("");
 
   function isPassValid(password: string) {
     if (password.length === 0) {
-      changeColor("#B3B3B3");
+      changeColor1("#B3B3B3");
       changeValid(0);
     } else {
       if (!/[0-9]/.test(password) || password.length < 8) {
-        changeColor("#D22F42");
+        changeColor1("#D22F42");
         changeValid(1);
       } else {
-        changeColor("#30AD53");
+        changeColor1("#30AD53");
         changeValid(2);
       }
     }
+  }
+
+  function isSame(password2: string) {
+    if (password2.length === 0) {
+      changeColor2("#B3B3B3");
+      changeValid2(0);
+    } else {
+      if (password2 !== password.current) {
+        changeColor2("#D22F42");
+        changeValid2(1);
+      } else {
+        changeColor2("#30AD53");
+        changeValid2(2);
+      }
+    }
+  }
+
+  function userReg(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
   }
 
   return (
@@ -37,7 +61,7 @@ export default function RegisterPage() {
           className="pt-[41px]"
         ></Image>
         <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Register</div>
-        <form className="px-[70px] text-left text-[20px]">
+        <form className="px-[70px] text-left text-[20px]" onSubmit={userReg}>
           <div className="flex flex-col gap-[22px]">
             <TextField
               label="Email"
@@ -53,7 +77,9 @@ export default function RegisterPage() {
                 onChange={(e) => {
                   password.current = e.target.value;
                   isPassValid(password.current);
+                  isSame(conPass.current);
                 }}
+                style={{ borderColor: color1 }}
               />
 
               <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
@@ -102,7 +128,7 @@ export default function RegisterPage() {
                   />
                 ) : null}
 
-                <div style={{ color }}>
+                <div style={{ color: color1 }}>
                   Password must be 8 or more characters and contain <br></br>
                   at least 1 number
                 </div>
@@ -112,11 +138,68 @@ export default function RegisterPage() {
               label="Confirm Password"
               placeholder="Re-enter your password"
               type="password"
-              onChange={(e) => (password.current = e.target.value)}
+              onChange={(e) => {
+                conPass.current = e.target.value;
+                isSame(conPass.current);
+              }}
+              style={{ borderColor: color2 }}
             />
-          </div>
+            <div className="flex flex-row text-[16px]">
+              {passValid2 === 0 ? (
+                <div className="flex flex-row gap-[7px]">
+                  <Image
+                    src="/img/NormalIcon.png"
+                    width={16}
+                    height={0}
+                    alt={"state"}
+                    style={{
+                      objectFit: "contain",
+                      alignContent: "flex-start",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  />
+                  <div style={{ color: color2 }}>Please confirm password</div>
+                </div>
+              ) : null}
+              {passValid2 === 1 ? (
+                <div className="flex flex-row gap-[7px]">
+                  <Image
+                    src="/img/InvalidIcon.png"
+                    width={16}
+                    height={0}
+                    alt={"state"}
+                    style={{
+                      objectFit: "contain",
+                      alignContent: "flex-start",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  />
+                  <div style={{ color: color2 }}>Password do not match</div>
+                </div>
+              ) : null}
 
-          <div className="pt-[64px]">
+              {passValid2 === 2 ? (
+                <div className="flex flex-row gap-[7px]">
+                  <Image
+                    src="/img/ValidIcon.png"
+                    width={16}
+                    height={0}
+                    alt={"state"}
+                    style={{
+                      objectFit: "contain",
+                      alignContent: "flex-start",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  />
+                  <div style={{ color: color2 }}>Password match</div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <div className="pt-[45px]">
             <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
               Confirm
             </button>
