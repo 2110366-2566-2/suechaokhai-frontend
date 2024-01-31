@@ -1,56 +1,54 @@
 "use client";
 
 import TextField from "@/components/TextField";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
+import RegisterPage1 from "@/components/RegisterPage1";
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
-  const email = useRef("");
-  const password = useRef("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conPass, setConPass] = useState("");
 
+  function test() {
+    console.log(email);
+    console.log(password);
+    console.log(conPass);
+  }
+
+  function nextStage() {
+    changeRegState((registerStage + 1) % 3);
+  }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
-      <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
-        <Image
-          src="/img/compIcon.png"
-          alt="test"
-          width={80}
-          height={80}
-          className="pt-[41px]"
-        ></Image>
-        <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Register</div>
-        <form className="px-[70px] text-left text-[20px]">
-          <div className="flex flex-col gap-[18px]">
-            <TextField
-              label="Email"
-              placeholder="Enter your email here"
-              onChange={(e) => (email.current = e.target.value)}
-            />
+      {registerStage === 0 ? (
+        <RegisterPage1
+          setEmail={setEmail}
+          setPassword={setPassword}
+          setConPass={setConPass}
+          changeRegState={changeRegState}
+        />
+      ) : null}
 
-            <TextField
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-              onChange={(e) => (password.current = e.target.value)}
-            />
+      {registerStage === 1 ? <div>Stage 2</div> : null}
+      {registerStage === 2 ? <div>Stage 3</div> : null}
+      {registerStage === 3 ? <div>Stage 4</div> : null}
 
-            <div className="text-[16px]">
-              Password must be 8 or more characters and contain at least 1
-              number
-            </div>
-            <TextField
-              label="Confirm Password"
-              placeholder="Re-enter your password"
-              type="password"
-              onChange={(e) => (password.current = e.target.value)}
-            />
-          </div>
-
-          <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
-            Confirm
-          </button>
-        </form>
+      {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
+      <div className="absolute left-[350px] flex flex-col gap-4">
+        <button
+          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+          onClick={nextStage}
+        >
+          Next Page
+        </button>
+        <button
+          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+          onClick={test}
+        >
+          test
+        </button>
       </div>
     </div>
   );

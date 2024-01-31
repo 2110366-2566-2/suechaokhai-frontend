@@ -5,3 +5,7 @@
 body {
   overflow: auto;
 }
+
+input:focus {
+  outline: none;
+}
