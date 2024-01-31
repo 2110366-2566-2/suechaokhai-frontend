@@ -22,8 +22,12 @@ const PropertyDescription = ({
     <div className="flex flex-col space-y-4">
       <div className="flex space-x-0">
         {/* TODO: Fix each child should have unique key */}
-        {features.map((feature) => (
-          <PropertyFeature icon={feature.icon} feature={feature.feature} />
+        {features.map((feature, index) => (
+          <PropertyFeature
+            icon={feature.icon}
+            key={index}
+            feature={feature.feature}
+          />
         ))}
       </div>
       <h1 className="text-2xl">{price}</h1>
