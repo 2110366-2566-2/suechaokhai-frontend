@@ -1,20 +1,24 @@
 import React from "react";
-import Image from "next/image";
+import Icon from "@mui/material/Icon";
 
-type PropertyFeatureProps = {
+export type PropertyFeatureProps = {
   icon: string;
   feature: string;
 };
 
 const PropertyFeature = ({ icon, feature }: PropertyFeatureProps) => {
   return (
-    <div>
-      <div className="flex space-x-1">
-        <Image src="/icon/bedroom.svg" width={50} height={50} alt="Bedroom" />
-        <p className="text flex flex-col items-center justify-center text-nowrap align-middle">
-          {feature}
-        </p>
-      </div>
+    <div className="flex space-x-1">
+      {/* TODO: Do this `link` in global */}
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
+      {/* TODO: Adjustible size */}
+      <Icon>{icon}</Icon>
+      <p className="text flex flex-col items-center justify-center text-nowrap align-middle">
+        {feature}
+      </p>
     </div>
   );
 };
