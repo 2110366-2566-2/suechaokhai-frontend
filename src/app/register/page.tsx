@@ -35,6 +35,7 @@ export default function RegisterPage() {
       {registerStage === 2 ? <div>Stage 3</div> : null}
       {registerStage === 3 ? <div>Stage 4</div> : null}
 
+      {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
       <div className="absolute left-[350px] flex flex-col gap-4">
         <button
           className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
