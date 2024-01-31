@@ -1,6 +1,7 @@
 import Image from "next/image";
 import TextField from "./TextField";
 import { FormEvent, useRef, useState } from "react";
+import PasswordField from "./PasswordField";
 
 export default function RegisterPage1({
   setEmail,
@@ -54,7 +55,6 @@ export default function RegisterPage1({
 
   function userReg1(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    changeRegState(1);
   }
 
   return (
@@ -79,7 +79,7 @@ export default function RegisterPage1({
           />
 
           <div>
-            <TextField
+            <PasswordField
               label="Password"
               placeholder="Enter your password"
               type="password"
@@ -144,7 +144,7 @@ export default function RegisterPage1({
               </div>
             </div>
           </div>
-          <TextField
+          <PasswordField
             label="Confirm Password"
             placeholder="Re-enter your password"
             type="password"
