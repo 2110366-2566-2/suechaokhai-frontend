@@ -14,6 +14,7 @@ const TextBox = React.forwardRef<HTMLInputElement, IProps>(
             {label}:
           </label>
         )}
+
         <input
           id="txt"
           autoComplete="off"
