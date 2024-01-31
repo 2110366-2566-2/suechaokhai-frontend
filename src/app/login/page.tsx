@@ -3,17 +3,18 @@
 import TextField from "@/components/TextField";
 import LoginOption from "@/components/LoginOption";
 import GoogleButton from "@/components/GoogleButton";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
+import PasswordField from "@/components/PasswordField";
 
 export default function LoginPage() {
   const email = useRef("");
   const password = useRef("");
-  const remember = useRef(false);
+  const remember = useRef<boolean>(false);
 
   const test = () => {
     console.log(email);
-    console.log(password);
+    console.log(password.current);
     if (remember) {
       console.log(remember);
     }
@@ -42,14 +43,15 @@ export default function LoginPage() {
               onChange={(e) => (email.current = e.target.value)}
             />
 
-            <TextField
+            <PasswordField
               label="Password"
               placeholder="Enter your password here"
               type="password"
+              // setPassword={setPassword}
               onChange={(e) => (password.current = e.target.value)}
             />
           </div>
-          <LoginOption>
+          <LoginOption onChange={(e) => (remember.current = e.target.checked)}>
             <div className="relative left-[137px] text-[#3AAEEF]">
               Forgot Password?
             </div>
@@ -59,7 +61,7 @@ export default function LoginPage() {
             Log in
           </button>
         </form>
-
+        <button onClick={test}>test</button>
         <GoogleButton />
       </div>
     </div>
