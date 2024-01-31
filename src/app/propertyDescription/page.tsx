@@ -1,4 +1,4 @@
-import PropertyDescription from "../components/PropertyDescription";
+import PropertyDescription from "../../components/PropertyDescription";
 
 // Mock data
 type FeatureProps = {
