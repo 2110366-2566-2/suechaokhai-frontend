@@ -61,7 +61,7 @@ export default function LoginPage() {
             Log in
           </button>
         </form>
-        <button onClick={test}>test</button>
+        {/* <button onClick={test}>test</button> */}
         <GoogleButton />
       </div>
     </div>
