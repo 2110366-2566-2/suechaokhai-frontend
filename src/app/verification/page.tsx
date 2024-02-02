@@ -3,11 +3,13 @@
 import TextField from "@/components/TextField";
 import FileUploadField from "@/components/FileUploadField";
 import { FormEvent, useRef, useState } from "react";
+import Image from "next/image"
 
 export default function LoginPage() {
   const id = useRef("");
   const file = useRef("");
   const [isIdValid, setIsIdValid] = useState(true);
+  const [isIdEntered, setIsIdEntered] = useState(false);
 
 
   const validateId = () => {
@@ -22,7 +24,9 @@ export default function LoginPage() {
     return false
   };
 
-
+  const handleVerify = (e: FormEvent) => {
+    setIsIdEntered(true);
+    e.preventDefault();
     const isIdValid = validateId();
 
     if (isIdValid) {
@@ -42,6 +46,18 @@ export default function LoginPage() {
           label="ID card number" 
           placeholder="Enter your national ID no."
           onChange={(e) => (id.current = e.target.value)}/>
+          {!isIdValid && isIdEntered &&(
+            <div className="flex items-center">
+              <Image
+              alt="Invalid" 
+              src="/img/InvalidIcon2.png"
+              height={20}
+              width={20}
+              style={{ maxHeight: '20px', maxWidth: '20px' }}
+              className=""/>
+              <div className="text-red-500 px-1">Please enter a valid ID number.</div>
+            </div>
+          )}
         </div>
         <div className="pb-[71px]">
           <FileUploadField/>
