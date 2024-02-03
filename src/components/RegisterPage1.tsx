@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "../../node_modules/next/image";
 import TextField from "./TextField";
 import { FormEvent, useRef, useState } from "react";
 import PasswordField from "./PasswordField";

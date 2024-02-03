@@ -2,8 +2,9 @@
 
 import TextField from "@/components/TextField";
 import { FormEvent, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "../../../node_modules/next/image";
 import RegisterPage1 from "@/components/RegisterPage1";
+import PersonalInformation from "@/components/PersonalInformation";
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
@@ -31,7 +32,7 @@ export default function RegisterPage() {
         />
       ) : null}
 
-      {registerStage === 1 ? <div>Stage 2</div> : null}
+      {registerStage === 1 ? <div><PersonalInformation/></div> : null}
       {registerStage === 2 ? <div>Stage 3</div> : null}
       {registerStage === 3 ? <div>Stage 4</div> : null}
 
@@ -53,3 +54,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+
