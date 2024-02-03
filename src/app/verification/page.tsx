@@ -60,7 +60,10 @@ export default function LoginPage() {
           )}
         </div>
         <div className="pb-[71px]">
-          <FileUploadField/>
+          <FileUploadField
+            label = 'Upload your valid ID card'
+            maxFileSize={512000}
+            minFileSize={1024}/>
         </div>
         <button 
         onClick={handleVerify}
