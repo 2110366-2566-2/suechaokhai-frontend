@@ -50,7 +50,7 @@ export default function LoginPage() {
             <div className="flex items-center">
               <Image
               alt="Invalid" 
-              src="/img/InvalidIcon2.png"
+              src="/img/InvalidIcon.png"
               height={20}
               width={20}
               style={{ maxHeight: '20px', maxWidth: '20px' }}
