@@ -19,6 +19,9 @@ const customPickerDate =({props,highlightedDays}:{props:PickersDayProps<Dayjs>,h
    
 }
 
+const handleReservation = () =>{
+    //do something here
+}
 
 const RoomTourRes = ({Property}:{Property:string}) => {
     const today = dayjs();
@@ -40,12 +43,26 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                         {date?.toDate().toDateString()}
                         </div>
                     </div>
-                    
-                </div>
+
+                    <div className="flex-row w-[60%] left-[25%] justify-around relative">
+                      
+                      <button className="w-[40%] mx-1 bg-black hover:bg-[#DFDFDF] my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
+                              onClick={(e)=>{e.preventDefault(); setReserve(false);}}      
+                          >No</button>
+                      
+                     
+                     <button className="w-[40%] mx-1 bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
+                                
+                                onClick={(e)=>{e.preventDefault();handleReservation();}}
+                        >Yes, Confirm!</button>
+                     
+                     
+                  </div>
+              </div>
             </div> : null}
           <div className='text-xl font-medium'>Room Tour Reservation</div>
           <div className=''>Please select whenever you are free.</div>
-          <form>
+          <div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
 
               {/* <DateCalendar
@@ -60,27 +77,27 @@ const RoomTourRes = ({Property}:{Property:string}) => {
             {date ? 
                 <div className="flex-row">
                     <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "
-                                type="submit"
+                               
                         >Save</button>
                     <button className="w-[50%] bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
-                              type="submit"
+                              
                               onClick={(e)=>{e.preventDefault();setReserve(true);}}
                       >Reserve Now</button>
                 </div>
             :
             <div className="flex-row">
               <button className="w-[50%]  my-4 font-semibold  text-[#DFDFDF] py-2 px-4 rounded-md shadow "
-                          type="submit" disabled
+                           disabled
                   >Save</button>
               <button className="w-[50%]  my-4 font-semibold  bg-[#DFDFDF] text-white py-2 px-4 rounded-md shadow"
-                         type="submit" disabled
+                          disabled
                 >Reserve Now</button>
             </div>
             
             }
             
    
-          </form>
+          </div>
           
         </div> 
        
