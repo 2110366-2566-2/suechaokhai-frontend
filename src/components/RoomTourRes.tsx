@@ -22,9 +22,16 @@ const customPickerDate =({props,highlightedDays}:{props:PickersDayProps<Dayjs>,h
 const RoomTourRes = () => {
     const today = dayjs();
     const [date,setDate]=useState<Dayjs|null>(null);
+    const [isReserving,setReserve] = useState<boolean>(false);
 
     return (
         <div className="flex flex-col bg-white p-4 ">
+          {isReserving ?  
+          <div className='z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
+                <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
+                    {date?.toDate().toDateString()}
+                </div>
+            </div> : null}
           <div className='text-xl font-medium'>Room Tour Reservation</div>
           <div className=''>Please select whenever you are free.</div>
           <form>
@@ -39,14 +46,16 @@ const RoomTourRes = () => {
               <DateCalendar minDate={today} onChange={(newDate)=>{setDate(newDate)}}></DateCalendar>
 
             </LocalizationProvider>
-            {date ? <div className="flex-row">
-              <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "
-                          type="submit"
-                  >Save</button>
-              <button className="w-[50%] bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
-                         type="submit"
-                >Reserve Now</button>
-            </div>
+            {date ? 
+                <div className="flex-row">
+                    <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "
+                                type="submit"
+                        >Save</button>
+                    <button className="w-[50%] bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
+                              type="submit"
+                              onClick={(e)=>{e.preventDefault();setReserve(true);}}
+                      >Reserve Now</button>
+                </div>
             :
             <div className="flex-row">
               <button className="w-[50%]  my-4 font-semibold  text-[#DFDFDF] py-2 px-4 rounded-md shadow "
