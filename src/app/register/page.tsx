@@ -4,6 +4,8 @@ import TextField from "@/components/TextField";
 import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import RegisterPage1 from "@/components/RegisterPage1";
+import AccountCreated from "@/components/AccountCreated";
+import FinancialPage from "@/components/FinancialPage";
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
@@ -32,8 +34,16 @@ export default function RegisterPage() {
       ) : null}
 
       {registerStage === 1 ? <div>Stage 2</div> : null}
-      {registerStage === 2 ? <div>Stage 3</div> : null}
-      {registerStage === 3 ? <div>Stage 4</div> : null}
+      {registerStage === 2 ? (
+        <div>
+          <FinancialPage changeRegState={changeRegState} />
+        </div>
+      ) : null}
+      {registerStage === 3 ? (
+        <div>
+          <AccountCreated changeRegState={changeRegState} />
+        </div>
+      ) : null}
 
       {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
       <div className="absolute left-[350px] flex flex-col gap-4">
