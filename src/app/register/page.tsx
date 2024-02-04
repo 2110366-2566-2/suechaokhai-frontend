@@ -12,6 +12,10 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [conPass, setConPass] = useState("");
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   function test() {
     console.log(email);
     console.log(password);
@@ -32,7 +36,13 @@ export default function RegisterPage() {
         />
       ) : null}
 
-      {registerStage === 1 ? <div><PersonalInformation/></div> : null}
+      {registerStage === 1 ? 
+        <div>
+          <PersonalInformation
+            changeRegState={changeRegState}
+          />
+        </div> : null
+      }
       {registerStage === 2 ? <div>Stage 3</div> : null}
       {registerStage === 3 ? <div>Stage 4</div> : null}
 
