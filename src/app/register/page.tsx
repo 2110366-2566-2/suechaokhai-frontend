@@ -20,7 +20,7 @@ export default function RegisterPage() {
   }
 
   function nextStage() {
-    changeRegState((registerStage + 1) % 3);
+    changeRegState((registerStage + 1) % 4);
   }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
