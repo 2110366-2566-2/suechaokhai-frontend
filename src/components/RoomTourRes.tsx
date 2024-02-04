@@ -21,7 +21,9 @@ const customPickerDate =({props,highlightedDays}:{props:PickersDayProps<Dayjs>,h
 const RoomTourRes = () => {
     const today = dayjs();
     return (
-        <div className="flex bg-white">
+        <div className="flex flex-col bg-white p-4 ">
+          <div className='text-xl font-medium'>Room Tour Reservation</div>
+          <div className=''>Please select whenever you are free.</div>
           <form>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
 
