@@ -7,7 +7,7 @@ export default function Home() {
       <span className="animate-spin text-xl font-normal text-white">
         Hi, mom!
       </span>
-      <RoomTourRes></RoomTourRes>
+      <RoomTourRes Property="Boss's House"></RoomTourRes>
     </div>
   );
 }

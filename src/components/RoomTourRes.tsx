@@ -10,6 +10,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { PickersDay, PickersDayProps ,DayCalendarSkeleton}  from '@mui/x-date-pickers';
 import { PickersLayout } from '@mui/x-date-pickers';
 import { useState } from 'react';
+import OwnerInfo from './OwnerInfo';
 const customPickerDate =({props,highlightedDays}:{props:PickersDayProps<Dayjs>,highlightedDays?: number[]})=>{
 
   return(
@@ -19,7 +20,7 @@ const customPickerDate =({props,highlightedDays}:{props:PickersDayProps<Dayjs>,h
 }
 
 
-const RoomTourRes = () => {
+const RoomTourRes = ({Property}:{Property:string}) => {
     const today = dayjs();
     const [date,setDate]=useState<Dayjs|null>(null);
     const [isReserving,setReserve] = useState<boolean>(false);
@@ -29,7 +30,17 @@ const RoomTourRes = () => {
           {isReserving ?  
           <div className='z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
                 <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
-                    {date?.toDate().toDateString()}
+                    <div className="text-2xl font-semibold ">Confirm request reservation ?</div>
+                    <div className='font-semibold'>{Property}</div>
+                    <OwnerInfo name='Boss' tel='45654' mail='dsvfd' imgSrc='/img/Boss.png' ></OwnerInfo>
+                    <div className=''>Your selected date</div>
+
+                    <div className='flex-col '>
+                        <div className=' rounded-md border-2 border-black text-center p-2' >
+                        {date?.toDate().toDateString()}
+                        </div>
+                    </div>
+                    
                 </div>
             </div> : null}
           <div className='text-xl font-medium'>Room Tour Reservation</div>
