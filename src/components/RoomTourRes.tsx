@@ -29,6 +29,12 @@ const RoomTourRes = ({Property}:{Property:string}) => {
     const handleReservation = () =>{
       //do something here
       setReserve(false);
+      alert('Confirm Success');
+    }
+
+    const handleSave = () =>{
+      alert('Save Success');
+
     }
 
     return (
@@ -73,7 +79,8 @@ const RoomTourRes = ({Property}:{Property:string}) => {
             </LocalizationProvider>
             {date ? 
                 <div className="flex-row">
-                    <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "                               
+                    <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "   
+                              onClick={(e)=>{e.preventDefault();handleSave();}}                            
                         >Save</button>
                     <button className="w-[50%] bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
                               onClick={(e)=>{e.preventDefault();setReserve(true);}}
