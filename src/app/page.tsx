@@ -1,4 +1,5 @@
 import OwnerInfo from "@/components/OwnerInfo";
+import RoomTourRes from "@/components/RoomTourRes";
 
 export default function Home() {
   return (
@@ -6,6 +7,7 @@ export default function Home() {
       <span className="animate-spin text-xl font-normal text-white">
         Hi, mom!
       </span>
+      <RoomTourRes></RoomTourRes>
     </div>
   );
 }
