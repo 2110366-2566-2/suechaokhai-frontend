@@ -1,5 +1,3 @@
-// ImageSlider.tsx
-
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -19,11 +17,15 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full h-99">
-      <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+    <div className="relative w-full h-99 mx-50">
+      <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 50}%)` }}>
         {images.map((image, index) => (
-          <div key={index} className="flex-shrink-0 mx-auto flex items-center justify-center h-full w-full">
-            <Image src={image} alt={`Image ${index + 1}`} width={500} height={300} />
+          <div key={index} className="flex-shrink-0 mx-auto flex items-center justify-center h-full w-1/2 min-w-[50%]">
+            <Image 
+            src={image} 
+            alt={`Image ${index + 1}`} 
+            width={500} 
+            height={300} />
           </div>
         ))}
       </div>
