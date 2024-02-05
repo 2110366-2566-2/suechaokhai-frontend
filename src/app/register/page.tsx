@@ -23,8 +23,8 @@ export default function RegisterPage() {
     console.log(phoneNumber);
   }
 
-  function nextStage() {
-    changeRegState((registerStage + 1) % 3);
+  function nextStage(next: number) {
+    changeRegState((registerStage + next) % 3);
   }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
@@ -60,7 +60,7 @@ export default function RegisterPage() {
       <div className="absolute left-[350px] flex flex-col gap-4">
         <button
           className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={nextStage}
+          onClick={() => nextStage(1)}
         >
           Next Page
         </button>

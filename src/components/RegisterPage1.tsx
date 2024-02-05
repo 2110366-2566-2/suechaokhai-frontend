@@ -88,7 +88,7 @@ export default function RegisterPage1({
 
   function nextStage() {
     if (isInfoValid == 1) {
-      changeRegState();
+      changeRegState(1);
     }
   }
 

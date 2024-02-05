@@ -62,7 +62,7 @@ export default function PersonalInformation({
 
   function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
-      changeRegState();
+      changeRegState(1);
     }
   }
 
@@ -132,7 +132,10 @@ export default function PersonalInformation({
       </form>
       <div className="grid grid-cols-2 gap-x-[130px] pt-[50px]">
         <div>
-          <button className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] text-[24px] font-bold text-white">
+          <button
+            onClick={() => changeRegState(-1)}
+            className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] text-[24px] font-bold text-white"
+          >
             Back
           </button>
         </div>
