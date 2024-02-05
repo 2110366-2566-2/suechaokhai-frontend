@@ -3,21 +3,32 @@ import Image from "../../node_modules/next/image";
 import TextBox from "./TextField";
 
 export default function PersonalInformation({
+  firsttmp,
+  lasttmp,
+  numtemp,
   changeRegState,
   setFirstName,
   setLastName,
   setPhoneNumber,
 }: {
+  firsttmp: string;
+  lasttmp: string;
+  numtemp: string;
   changeRegState: Function;
   setFirstName: Function;
   setLastName: Function;
   setPhoneNumber: Function;
 }) {
   const [nextColor, setNextColor] = useState("#D9D9D9");
-  //   const [phoneNumber, setPhoneNumber] = useState("");
   const firstName = useRef("");
   const lastName = useRef("");
   const phoneNumber = useRef("");
+
+  function initial(fname: string, lname: string, pnum: string) {
+    firstName.current = fname;
+    lastName.current = lname;
+    phoneNumber.current = pnum;
+  }
 
   function formatPhoneNumber(phoneNum: String) {
     const currentPhoneNumber = phoneNum.replace(/[^\d]/g, "");
@@ -56,7 +67,10 @@ export default function PersonalInformation({
   }
 
   return (
-    <div className="flex h-[870px] w-[664px] flex-col items-center rounded-[20px] bg-white">
+    <div
+      onLoad={() => initial(firsttmp, lasttmp, numtemp)}
+      className="flex h-[870px] w-[664px] flex-col items-center rounded-[20px] bg-white"
+    >
       <div className="pb-[50px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
@@ -91,6 +105,7 @@ export default function PersonalInformation({
               firstName.current = e.target.value;
               setFirstName(firstName.current);
             }}
+            value={firsttmp}
           ></TextBox>
         </div>
         <div className="flex flex-col gap-[22px] pt-[22px]">
@@ -101,6 +116,7 @@ export default function PersonalInformation({
               lastName.current = e.target.value;
               setLastName(lastName.current);
             }}
+            value={lasttmp}
           ></TextBox>
         </div>
         <div className="flex flex-col gap-[22px] pt-[22px]">
@@ -110,6 +126,7 @@ export default function PersonalInformation({
             onChange={(e) => {
               formatPhoneNumber(e.target.value);
             }}
+            value={numtemp}
           ></TextBox>
         </div>
       </form>

@@ -44,46 +44,46 @@ export default function RegisterPage1({
     if (password.length === 0) {
       changeColor1("#B3B3B3");
       changeValid(0);
+      setValidColor("#D9D9D9");
+      setInfoValid(0);
     } else {
       if (!/[0-9]/.test(password) || password.length < 8) {
         changeColor1("#D22F42");
         changeValid(1);
+        setValidColor("#D9D9D9");
+        setInfoValid(0);
       } else {
         changeColor1("#30AD53");
         changeValid(2);
       }
     }
-    checkInfoValid();
   }
 
   function isSame(password2: string) {
     if (password2.length === 0) {
       changeColor2("#B3B3B3");
       changeValid2(0);
+      setValidColor("#D9D9D9");
+      setInfoValid(0);
     } else {
       if (password2 !== password.current) {
         changeColor2("#D22F42");
         changeValid2(1);
+        setValidColor("#D9D9D9");
+        setInfoValid(0);
       } else {
         changeColor2("#30AD53");
         changeValid2(2);
+        if (email.current.length !== 0) {
+          setInfoValid(1);
+          setValidColor("#3AAEEF");
+        }
       }
     }
-    checkInfoValid();
   }
 
   function userReg1(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-  }
-
-  function checkInfoValid() {
-    if (email.current.length !== 0 && passValid == 2 && passValid2 == 2) {
-      setInfoValid(1);
-      setValidColor("#3AAEEF");
-    } else {
-      setValidColor("#D9D9D9");
-      setInfoValid(0);
-    }
   }
 
   function nextStage() {
@@ -110,10 +110,10 @@ export default function RegisterPage1({
           <TextField
             label="Email"
             placeholder="Enter your email here"
+            required
             onChange={(e) => {
               email.current = e.target.value;
               setEmail(email.current);
-              checkInfoValid();
             }}
             value={emailtmp}
           />

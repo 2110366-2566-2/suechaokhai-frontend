@@ -1,8 +1,6 @@
 "use client";
 
-import TextField from "@/components/TextField";
 import { FormEvent, useRef, useState } from "react";
-import Image from "../../../node_modules/next/image";
 import RegisterPage1 from "@/components/RegisterPage1";
 import PersonalInformation from "@/components/PersonalInformation";
 
@@ -38,13 +36,16 @@ export default function RegisterPage() {
           setEmail={setEmail}
           setPassword={setPassword}
           setConPass={setConPass}
-          changeRegState={changeRegState}
+          changeRegState={nextStage}
         />
       ) : null}
 
       {registerStage === 1 ? (
         <div>
           <PersonalInformation
+            firsttmp={firstName}
+            lasttmp={lastName}
+            numtemp={phoneNumber}
             setFirstName={setFirstName}
             setLastName={setLastName}
             setPhoneNumber={setPhoneNumber}
