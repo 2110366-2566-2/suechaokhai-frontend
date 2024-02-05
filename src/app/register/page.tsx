@@ -32,6 +32,9 @@ export default function RegisterPage() {
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       {registerStage === 0 ? (
         <RegisterPage1
+          emailtmp={email}
+          passtmp={password}
+          conpasstmp={conPass}
           setEmail={setEmail}
           setPassword={setPassword}
           setConPass={setConPass}

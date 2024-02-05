@@ -45,7 +45,7 @@ export default function PersonalInformation({
 
   function handleClick() {
     if (hiddenFileInput.current != null) {
-      //   hiddenFileInput.current.click();
+      hiddenFileInput.current.click();
     }
   }
 
