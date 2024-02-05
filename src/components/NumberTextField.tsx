@@ -38,7 +38,7 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
         const formattedValue = numbers.join(" ").trim();
         target.value = formattedValue;
         setNum(formattedValue);
-        // console.log(formattedValue);
+        console.log(formattedValue);
       };
 
       if (inputRef.current) {

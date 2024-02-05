@@ -23,7 +23,7 @@ export default function FinancialPage({
 
   const handleSelect = (option: any) => {
     setBank(option);
-    // console.log(option);
+    console.log(option);
   };
 
   return (
@@ -51,7 +51,7 @@ export default function FinancialPage({
                 uppercase={true}
                 onChange={(e) => {
                   setName(e.target.value);
-                  //   console.log(e.target.value);
+                  console.log(e.target.value);
                 }}
               />
 
