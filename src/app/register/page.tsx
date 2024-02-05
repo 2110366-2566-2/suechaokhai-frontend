@@ -3,6 +3,8 @@
 import { FormEvent, useRef, useState } from "react";
 import RegisterPage1 from "@/components/RegisterPage1";
 import PersonalInformation from "@/components/PersonalInformation";
+import AccountCreated from "@/components/AccountCreated";
+import FinancialPage from "@/components/FinancialPage";
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
@@ -23,8 +25,8 @@ export default function RegisterPage() {
     console.log(phoneNumber);
   }
 
-  function nextStage(next: number) {
-    changeRegState((registerStage + next) % 3);
+  function nextStage() {
+    changeRegState((registerStage + 1) % 4);
   }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
@@ -53,8 +55,16 @@ export default function RegisterPage() {
           />
         </div>
       ) : null}
-      {registerStage === 2 ? <div>Stage 3</div> : null}
-      {registerStage === 3 ? <div>Stage 4</div> : null}
+      {registerStage === 2 ? (
+        <div>
+          <FinancialPage changeRegState={changeRegState} />
+        </div>
+      ) : null}
+      {registerStage === 3 ? (
+        <div>
+          <AccountCreated changeRegState={changeRegState} />
+        </div>
+      ) : null}
 
       {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
       <div className="absolute left-[350px] flex flex-col gap-4">
