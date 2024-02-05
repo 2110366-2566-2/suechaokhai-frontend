@@ -20,6 +20,9 @@ export default function RegisterPage() {
     console.log(email);
     console.log(password);
     console.log(conPass);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(phoneNumber);
   }
 
   function nextStage() {
@@ -36,13 +39,16 @@ export default function RegisterPage() {
         />
       ) : null}
 
-      {registerStage === 1 ? 
+      {registerStage === 1 ? (
         <div>
           <PersonalInformation
-            changeRegState={changeRegState}
+            setFirstName={setFirstName}
+            setLastName={setLastName}
+            setPhoneNumber={setPhoneNumber}
+            changeRegState={nextStage}
           />
-        </div> : null
-      }
+        </div>
+      ) : null}
       {registerStage === 2 ? <div>Stage 3</div> : null}
       {registerStage === 3 ? <div>Stage 4</div> : null}
 
@@ -64,4 +70,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
