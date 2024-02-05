@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function AccountCreated({
   changeRegState,
 }: {
@@ -7,7 +9,7 @@ export default function AccountCreated({
 }) {
   return (
     <div className="flex h-[713px] w-[1214px] flex-col items-center rounded-[10px] bg-white">
-      <div className="pb-[90px] pt-[19px] text-[40px] font-bold">
+      <div className="pb-[90px] pt-[50px] text-[40px] font-bold">
         Account Created
       </div>
 
@@ -20,7 +22,12 @@ export default function AccountCreated({
             alignSelf: "center",
           }}
         >
-          icon here
+          <Image
+            src={"/img/blue-valid-icon.png"}
+            width={150}
+            height={150}
+            alt="BlueValidIcon"
+          />
         </div>
         <div
           className="font-regular text-[24px]"
