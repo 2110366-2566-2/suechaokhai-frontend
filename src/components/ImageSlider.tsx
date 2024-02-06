@@ -13,26 +13,42 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   const goToPrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
+    );
   };
 
   return (
-    <div className="relative w-full h-99 mx-50">
-      <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 50}%)` }}>
+    <div className="relative my-10 w-full overflow-hidden">
+      <div
+        className="flex items-center transition-transform duration-500 ease-in-out"
+        style={{ transform: `translateX(-${currentIndex * 50}%)` }}
+      >
         {images.map((image, index) => (
-          <div key={index} className="flex-shrink-0 mx-auto flex items-center justify-center h-full w-1/2 min-w-[50%]">
-            <Image 
-            src={image} 
-            alt={`Image ${index + 1}`} 
-            width={500} 
-            height={300} />
+          <div
+            key={index}
+            className="flex max-h-80 min-h-80 min-w-[50%] justify-center "
+          >
+            <Image
+              className="object-cover"
+              src={image}
+              alt={`Image ${index + 1}`}
+              width={400}
+              height={200}
+            />
           </div>
         ))}
       </div>
-      <button className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[40px] text-black bg-transparent border-none cursor-pointer" onClick={goToPrev}>
+      <button
+        className="absolute left-4 top-1/2 -translate-y-1/2 transform cursor-pointer border-none bg-transparent text-[40px] text-black"
+        onClick={goToPrev}
+      >
         {"<"}
       </button>
-      <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[40px] text-black bg-transparent border-none cursor-pointer" onClick={goToNext}>
+      <button
+        className="absolute right-4 top-1/2 -translate-y-1/2 transform cursor-pointer border-none bg-transparent text-[40px] text-black"
+        onClick={goToNext}
+      >
         {">"}
       </button>
     </div>
