@@ -26,8 +26,8 @@ const propertyLongitude = -74.006; // Replace with actual longitude
 const propertyImages = [
   "/img/Property.png",
   "/img/Boss.png",
-  "/img/Property.png",
-  "/img/Property.png",
+  "/img/arthur.JPG",
+  "/img/babywinsmoking.JPG",
 ];
 const propertyOwner = "";
 

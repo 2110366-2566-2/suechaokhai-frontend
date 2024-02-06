@@ -19,7 +19,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative my-10 w-full overflow-hidden">
+    <div className="relative my-[2%] w-full overflow-hidden">
       <div
         className="flex items-center transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 50}%)` }}
@@ -27,13 +27,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         {images.map((image, index) => (
           <div
             key={index}
-            className="flex max-h-80 min-h-80 min-w-[50%] justify-center "
+            className="flex max-h-80 min-h-80 min-w-[50%] justify-center"
           >
             <Image
-              className="object-cover"
+              className="object-cover w-[89%]"
               src={image}
               alt={`Image ${index + 1}`}
-              width={400}
+              width={500}
               height={200}
             />
           </div>
