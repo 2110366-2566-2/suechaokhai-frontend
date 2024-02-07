@@ -80,7 +80,6 @@ export default function RegisterPage() {
           <FinancialPage
             changeRegState={changeRegState}
             setFinanceInfo={setFinanceInfo}
-            financeInfo={financeInfo}
           />
         </div>
       ) : null}

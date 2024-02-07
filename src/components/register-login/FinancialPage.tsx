@@ -10,11 +10,9 @@ import { FinancialInfo } from "@/app/register/page";
 export default function FinancialPage({
   changeRegState,
   setFinanceInfo,
-  financeInfo,
 }: {
   changeRegState: Function;
   setFinanceInfo: Function;
-  financeInfo: FinancialInfo;
 }) {
   const [name, setName] = useState("");
   const [card, setCard] = useState("");
