@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
 import AccountCreated from "@/components/register-login/AccountCreated";
 import FinancialPage from "@/components/register-login/FinancialPage";
+import userRegister from "@/libs/userRegister";
+
+export interface PersonalInfo {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+}
 export interface FinancialInfo {
   name: string;
   card: string;
@@ -33,6 +42,21 @@ export default function RegisterPage() {
     cvv: "",
     bank: "",
     bankNum: "",
+  });
+
+  useEffect(() => {
+    const register = async () => {
+      const userRegis = await userRegister(
+        {
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+        },
+        financeInfo
+      );
+    };
   });
 
   function test() {
@@ -80,6 +104,7 @@ export default function RegisterPage() {
           <FinancialPage
             changeRegState={changeRegState}
             setFinanceInfo={setFinanceInfo}
+            register={register}
           />
         </div>
       ) : null}
