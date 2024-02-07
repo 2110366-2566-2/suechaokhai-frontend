@@ -1,5 +1,5 @@
 import { FormEvent, useRef, useState } from "react";
-import Image from "../../node_modules/next/image";
+import Image from "next/image";
 import TextBox from "./TextField";
 
 export default function PersonalInformation({

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import RegisterPage1 from "@/components/RegisterPage1";
-import PersonalInformation from "@/components/PersonalInformation";
-import AccountCreated from "@/components/AccountCreated";
-import FinancialPage from "@/components/FinancialPage";
+import RegisterPage1 from "@/components/register-login/RegisterPage1";
+import PersonalInformation from "@/components/register-login/PersonalInformation";
+import AccountCreated from "@/components/register-login/AccountCreated";
+import FinancialPage from "@/components/register-login/FinancialPage";
 export interface FinancialInfo {
   name: string;
   card: string;

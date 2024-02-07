@@ -1,7 +1,7 @@
 "use client";
-import PropertyNavigationBar from "@/components/PropertyNavigationBar";
-import PropertyDescription from "../../components/PropertyDescription";
-import ImageSlider from "@/components/ImageSlider";
+import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
+import PropertyDescription from "../../components/propertyDesc/PropertyDescription";
+import ImageSlider from "@/components/propertyDesc/ImageSlider";
 // Mock data
 type FeatureProps = {
   icon: string;
