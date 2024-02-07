@@ -1,4 +1,4 @@
-import OwnerInfo from "@/components/OwnerInfo";
+import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
 
 export default function Home() {
   return (

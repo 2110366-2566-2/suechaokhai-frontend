@@ -1,11 +1,11 @@
 "use client";
 
-import TextField from "@/components/TextField";
-import LoginOption from "@/components/LoginOption";
-import GoogleButton from "@/components/GoogleButton";
+import TextField from "@/components/register-login/TextField";
+import LoginOption from "@/components/register-login/LoginOption";
+import GoogleButton from "@/components/register-login/GoogleButton";
 import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
-import PasswordField from "@/components/PasswordField";
+import PasswordField from "@/components/register-login/PasswordField";
 
 export default function LoginPage() {
   const email = useRef("");

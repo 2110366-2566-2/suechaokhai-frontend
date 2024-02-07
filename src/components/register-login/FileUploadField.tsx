@@ -49,7 +49,7 @@ const FileUploadField: React.FC<FileUploadProps> = ({
             alt="File"
             width={32}
             height={35}
-            style={{ maxHeight: '35px', maxWidth: '32px' }}
+            style={{ maxHeight: '35px', maxWidth: '32px'}}
             className="pt-1"
           />
         )}
