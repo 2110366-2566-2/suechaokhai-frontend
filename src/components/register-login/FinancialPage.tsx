@@ -24,14 +24,6 @@ export default function FinancialPage({
   const [bank, setBank] = useState("");
   const [banknum, setBanknum] = useState("");
 
-  // const nametmp = useRef("");
-  // const cardtmp = useRef("");
-  // const monthtmp = useRef("");
-  // const yeartmp = useRef("");
-  // const cvvtmp = useRef("");
-  // const banktmp = useRef("");
-  // const banknumtmp = useRef("");
-
   const options = ["Option 1", "Option 2", "Option 3"];
 
   const handleSelect = (option: any) => {
