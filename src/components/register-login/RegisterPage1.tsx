@@ -110,6 +110,7 @@ export default function RegisterPage1({
           <TextField
             label="Email"
             placeholder="Enter your email here"
+            type="email"
             required
             onChange={(e) => {
               email.current = e.target.value;

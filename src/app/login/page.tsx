@@ -6,6 +6,7 @@ import GoogleButton from "@/components/register-login/GoogleButton";
 import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import PasswordField from "@/components/register-login/PasswordField";
+import userLogin from "@/libs/userLogin";
 
 export default function LoginPage() {
   const email = useRef("");
@@ -20,8 +21,9 @@ export default function LoginPage() {
     }
   };
 
-  function userLogin(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    userLogin(email.current, password.current);
   }
 
   return (
@@ -35,10 +37,15 @@ export default function LoginPage() {
           className="pt-[41px]"
         ></Image>
         <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Login</div>
-        <form className="px-[70px] text-left text-[20px]" onSubmit={userLogin}>
+        <form
+          className="px-[70px] text-left text-[20px]"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col gap-[18px]">
             <TextField
               label="Email"
+              type="email"
+              required
               placeholder="Enter your email here"
               onChange={(e) => (email.current = e.target.value)}
             />
@@ -47,6 +54,7 @@ export default function LoginPage() {
               label="Password"
               placeholder="Enter your password here"
               type="password"
+              required
               // setPassword={setPassword}
               onChange={(e) => (password.current = e.target.value)}
             />
