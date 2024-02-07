@@ -57,25 +57,11 @@ export default function FinancialPage({
   }
 
   function back() {
-    submit();
     changeRegState(1);
   }
 
-  function initial(fInfo: FinancialInfo) {
-    setName(fInfo.name);
-    setCard(fInfo.card);
-    setMonth(fInfo.month);
-    setYear(fInfo.year);
-    setCVV(fInfo.cvv);
-    setBank(fInfo.bank);
-    setBanknum(fInfo.bankNum);
-  }
-
   return (
-    <div
-      onLoad={() => initial(financeInfo)}
-      className="flex h-[1228px] w-[664px] flex-col items-center rounded-[10px] bg-white"
-    >
+    <div className="flex h-[1228px] w-[664px] flex-col items-center rounded-[10px] bg-white">
       <form className="px-[70px] text-left text-[20px]" onSubmit={userReg1}>
         <div className="flex flex-col gap-[50px]">
           <div
