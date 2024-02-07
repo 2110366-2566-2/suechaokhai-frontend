@@ -1,10 +1,19 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { useState } from "react";
 import RegisterPage1 from "@/components/RegisterPage1";
 import PersonalInformation from "@/components/PersonalInformation";
 import AccountCreated from "@/components/AccountCreated";
 import FinancialPage from "@/components/FinancialPage";
+export interface FinancialInfo {
+  name: string;
+  card: string;
+  month: string;
+  year: string;
+  cvv: string;
+  bank: string;
+  bankNum: string;
+}
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
@@ -16,6 +25,16 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const [financeInfo, setFinanceInfo] = useState<FinancialInfo>({
+    name: "",
+    card: "",
+    month: "",
+    year: "",
+    cvv: "",
+    bank: "",
+    bankNum: "",
+  });
+
   function test() {
     console.log(email);
     console.log(password);
@@ -23,6 +42,7 @@ export default function RegisterPage() {
     console.log(firstName);
     console.log(lastName);
     console.log(phoneNumber);
+    console.log(financeInfo);
   }
 
   function nextStage() {
@@ -51,13 +71,17 @@ export default function RegisterPage() {
             setFirstName={setFirstName}
             setLastName={setLastName}
             setPhoneNumber={setPhoneNumber}
-            changeRegState={nextStage}
+            changeRegState={changeRegState}
           />
         </div>
       ) : null}
       {registerStage === 2 ? (
         <div>
-          <FinancialPage changeRegState={changeRegState} />
+          <FinancialPage
+            changeRegState={changeRegState}
+            setFinanceInfo={setFinanceInfo}
+            financeInfo={financeInfo}
+          />
         </div>
       ) : null}
       {registerStage === 3 ? (
@@ -70,7 +94,7 @@ export default function RegisterPage() {
       <div className="absolute left-[350px] flex flex-col gap-4">
         <button
           className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={() => nextStage(1)}
+          onClick={() => nextStage()}
         >
           Next Page
         </button>

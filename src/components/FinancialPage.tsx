@@ -4,12 +4,17 @@ import NumberTextField from "@/components/NumberTextField";
 import UppercaseTextField from "@/components/UppercaseTextField";
 import ExpiryDateInput from "@/components/ExpiredDateTextField";
 import Dropdown from "@/components/DropDown";
-import React, { useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
+import { FinancialInfo } from "@/app/register/page";
 
 export default function FinancialPage({
   changeRegState,
+  setFinanceInfo,
+  financeInfo,
 }: {
   changeRegState: Function;
+  setFinanceInfo: Function;
+  financeInfo: FinancialInfo;
 }) {
   const [name, setName] = useState("");
   const [card, setCard] = useState("");
@@ -19,6 +24,14 @@ export default function FinancialPage({
   const [bank, setBank] = useState("");
   const [banknum, setBanknum] = useState("");
 
+  // const nametmp = useRef("");
+  // const cardtmp = useRef("");
+  // const monthtmp = useRef("");
+  // const yeartmp = useRef("");
+  // const cvvtmp = useRef("");
+  // const banktmp = useRef("");
+  // const banknumtmp = useRef("");
+
   const options = ["Option 1", "Option 2", "Option 3"];
 
   const handleSelect = (option: any) => {
@@ -26,9 +39,44 @@ export default function FinancialPage({
     console.log(option);
   };
 
+  function userReg1(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
+
+  function submit() {
+    setFinanceInfo({
+      name: name,
+      card: card,
+      month: month,
+      year: year,
+      cvv: cvv,
+      bank: bank,
+      bankNum: banknum,
+    });
+    changeRegState(3);
+  }
+
+  function back() {
+    submit();
+    changeRegState(1);
+  }
+
+  function initial(fInfo: FinancialInfo) {
+    setName(fInfo.name);
+    setCard(fInfo.card);
+    setMonth(fInfo.month);
+    setYear(fInfo.year);
+    setCVV(fInfo.cvv);
+    setBank(fInfo.bank);
+    setBanknum(fInfo.bankNum);
+  }
+
   return (
-    <div className="flex h-[1228px] w-[664px] flex-col items-center rounded-[10px] bg-white">
-      <form className="px-[70px] text-left text-[20px]">
+    <div
+      onLoad={() => initial(financeInfo)}
+      className="flex h-[1228px] w-[664px] flex-col items-center rounded-[10px] bg-white"
+    >
+      <form className="px-[70px] text-left text-[20px]" onSubmit={userReg1}>
         <div className="flex flex-col gap-[50px]">
           <div
             className="pb-[9px] pt-[19px] text-[40px] font-bold"
@@ -79,7 +127,6 @@ export default function FinancialPage({
               />
             </div>
           </div>
-
           <div>
             <div className="pb-[9px] pt-[19px] text-[30px] font-semibold">
               Bank Account
@@ -102,7 +149,10 @@ export default function FinancialPage({
             </div>
           </div>
           <div>
-            <button className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] font-bold text-white">
+            <button
+              onClick={back}
+              className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] font-bold text-white"
+            >
               Back
             </button>
             {name !== "" &&
@@ -134,6 +184,7 @@ export default function FinancialPage({
               <button
                 className="h-[60px] w-[190px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
                 style={{ marginLeft: "135px" }} //Blue Button
+                onClick={submit}
               >
                 Done
               </button>
