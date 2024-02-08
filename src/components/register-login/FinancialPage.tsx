@@ -79,7 +79,7 @@ export default function FinancialPage({
 
   return (
     <div
-      className="flex h-[850px] w-[650px] flex-col items-center rounded-[10px] bg-white"
+      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
       style={{ overflowY: "scroll" }}
     >
       <form className="px-[50px] text-left text-[20px]" onSubmit={userReg1}>
