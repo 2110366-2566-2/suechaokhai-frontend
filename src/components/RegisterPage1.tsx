@@ -1,14 +1,20 @@
-import Image from "next/image";
+import Image from "../../node_modules/next/image";
 import TextField from "./TextField";
 import { FormEvent, useRef, useState } from "react";
 import PasswordField from "./PasswordField";
 
 export default function RegisterPage1({
+  emailtmp,
+  passtmp,
+  conpasstmp,
   setEmail,
   setPassword,
   setConPass,
   changeRegState,
 }: {
+  emailtmp: string;
+  passtmp: string;
+  conpasstmp: string;
   setEmail: Function;
   setPassword: Function;
   setConPass: Function;
@@ -18,19 +24,34 @@ export default function RegisterPage1({
   const [passValid, changeValid] = useState(0);
   const [color2, changeColor2] = useState("#B3B3B3");
   const [passValid2, changeValid2] = useState(0);
+  const [isValidColor, setValidColor] = useState("#D9D9D9");
+  const [isInfoValid, setInfoValid] = useState(0);
 
   const email = useRef("");
   const password = useRef("");
   const conPass = useRef("");
 
+  function initial(emailtmp: string, pass: string, conpass: string) {
+    email.current = emailtmp;
+    password.current = pass;
+    conPass.current = conpass;
+
+    isPassValid(password.current);
+    isSame(conPass.current);
+  }
+
   function isPassValid(password: string) {
     if (password.length === 0) {
       changeColor1("#B3B3B3");
       changeValid(0);
+      setValidColor("#D9D9D9");
+      setInfoValid(0);
     } else {
       if (!/[0-9]/.test(password) || password.length < 8) {
         changeColor1("#D22F42");
         changeValid(1);
+        setValidColor("#D9D9D9");
+        setInfoValid(0);
       } else {
         changeColor1("#30AD53");
         changeValid(2);
@@ -42,13 +63,21 @@ export default function RegisterPage1({
     if (password2.length === 0) {
       changeColor2("#B3B3B3");
       changeValid2(0);
+      setValidColor("#D9D9D9");
+      setInfoValid(0);
     } else {
       if (password2 !== password.current) {
         changeColor2("#D22F42");
         changeValid2(1);
+        setValidColor("#D9D9D9");
+        setInfoValid(0);
       } else {
         changeColor2("#30AD53");
         changeValid2(2);
+        if (email.current.length !== 0) {
+          setInfoValid(1);
+          setValidColor("#3AAEEF");
+        }
       }
     }
   }
@@ -57,8 +86,17 @@ export default function RegisterPage1({
     event.preventDefault();
   }
 
+  function nextStage() {
+    if (isInfoValid == 1) {
+      changeRegState(1);
+    }
+  }
+
   return (
-    <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
+    <div
+      onLoad={() => initial(emailtmp, passtmp, conpasstmp)}
+      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
+    >
       <Image
         src="/img/compIcon.png"
         alt="test"
@@ -72,10 +110,12 @@ export default function RegisterPage1({
           <TextField
             label="Email"
             placeholder="Enter your email here"
+            required
             onChange={(e) => {
               email.current = e.target.value;
               setEmail(email.current);
             }}
+            value={emailtmp}
           />
 
           <div>
@@ -90,6 +130,7 @@ export default function RegisterPage1({
                 isSame(conPass.current);
               }}
               style={{ borderColor: color1 }}
+              value={passtmp}
             />
 
             <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
@@ -154,6 +195,7 @@ export default function RegisterPage1({
               isSame(conPass.current);
             }}
             style={{ borderColor: color2 }}
+            value={conpasstmp}
           />
           <div className="flex flex-row text-[16px]">
             {passValid2 === 0 ? (
@@ -211,7 +253,10 @@ export default function RegisterPage1({
           </div>
         </div>
         <div className="pt-[45px]">
-          <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
+          <button
+            className={`h-[60px] w-[510px] rounded-[10px] bg-[${isValidColor}] font-bold text-white`}
+            onClick={nextStage}
+          >
             Confirm
           </button>
         </div>
