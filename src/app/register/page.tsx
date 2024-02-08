@@ -44,20 +44,18 @@ export default function RegisterPage() {
     bankNum: "",
   });
 
-  useEffect(() => {
-    const register = async () => {
-      const userRegis = await userRegister(
-        {
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          phoneNumber: phoneNumber,
-        },
-        financeInfo
-      );
-    };
-  });
+  const register = async () => {
+    const userRegis = await userRegister(
+      {
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+      },
+      financeInfo
+    );
+  };
 
   function test() {
     console.log(email);

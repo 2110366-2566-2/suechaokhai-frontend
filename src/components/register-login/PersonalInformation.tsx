@@ -77,15 +77,15 @@ export default function PersonalInformation({
   return (
     <div
       onLoad={() => initial(firsttmp, lasttmp, numtemp)}
-      className="flex h-[870px] w-[664px] flex-col items-center rounded-[20px] bg-white"
+      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
     >
-      <div className="pb-[50px] pt-[50px] text-[40px] font-bold">
+      <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
       <Image
         src="/img/ProfilePhoto_square.png"
         alt="profilePic"
-        width={267}
+        width={220}
         height={220}
       ></Image>
       <div className="text-[20px] font-bold text-[#3AAEEF]">

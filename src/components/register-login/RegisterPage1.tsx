@@ -2,6 +2,7 @@ import Image from "next/image";
 import TextField from "./TextField";
 import { FormEvent, useRef, useState } from "react";
 import PasswordField from "./PasswordField";
+import Link from "next/link";
 
 export default function RegisterPage1({
   emailtmp,
@@ -106,10 +107,11 @@ export default function RegisterPage1({
       ></Image>
       <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Register</div>
       <form className="px-[70px] text-left text-[20px]" onSubmit={userReg1}>
-        <div className="flex flex-col gap-[22px]">
+        <div className="flex flex-col gap-[18px]">
           <TextField
             label="Email"
             placeholder="Enter your email here"
+            type="email"
             required
             onChange={(e) => {
               email.current = e.target.value;
@@ -262,9 +264,11 @@ export default function RegisterPage1({
         </div>
       </form>
 
-      <div className="flex flex-row items-center justify-center pt-[14px] text-[20px]">
+      <div className="flex flex-row items-center justify-center pt-[30px] text-[20px]">
         <div className="">Already have an account?</div>
-        <div className="pl-[16px] text-[#3AAEEF] ">Login</div>
+        <Link href="/login">
+          <div className="pl-[16px] text-[#3AAEEF] ">Login</div>
+        </Link>
       </div>
     </div>
   );
