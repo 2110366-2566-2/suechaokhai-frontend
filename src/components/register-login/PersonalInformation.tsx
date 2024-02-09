@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import Image from "../../node_modules/next/image";
+import { FormEvent, useRef, useState } from "react";
+import Image from "next/image";
 import TextBox from "./TextField";
 
 export default function PersonalInformation({
@@ -28,6 +28,7 @@ export default function PersonalInformation({
     firstName.current = fname;
     lastName.current = lname;
     phoneNumber.current = pnum;
+    formatPhoneNumber(pnum);
   }
 
   function formatPhoneNumber(phoneNum: String) {
@@ -62,22 +63,29 @@ export default function PersonalInformation({
 
   function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
-      changeRegState(1);
+      changeRegState(2);
     }
   }
 
+  function back() {
+    changeRegState(0);
+  }
+
+  function userReg1(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
   return (
     <div
       onLoad={() => initial(firsttmp, lasttmp, numtemp)}
-      className="flex h-[870px] w-[664px] flex-col items-center rounded-[20px] bg-white"
+      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
     >
-      <div className="pb-[50px] pt-[50px] text-[40px] font-bold">
+      <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
       <Image
         src="/img/ProfilePhoto_square.png"
         alt="profilePic"
-        width={267}
+        width={220}
         height={220}
       ></Image>
       <div className="text-[20px] font-bold text-[#3AAEEF]">
@@ -96,7 +104,7 @@ export default function PersonalInformation({
           Upload your photo
         </div>
       </div>
-      <form className="px-[67px] text-left text-[20px]" action="">
+      <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
         <div className="flex flex-col gap-[22px] pt-[22px]">
           <TextBox
             label="First Name"
@@ -133,7 +141,7 @@ export default function PersonalInformation({
       <div className="grid grid-cols-2 gap-x-[130px] pt-[50px]">
         <div>
           <button
-            onClick={() => changeRegState(-1)}
+            onClick={back}
             className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] text-[24px] font-bold text-white"
           >
             Back
@@ -141,7 +149,7 @@ export default function PersonalInformation({
         </div>
         <div>
           <button
-            onClick={() => nextPageStatus()}
+            onClick={nextPageStatus}
             className={`h-[60px] w-[190px] rounded-[10px] bg-[${nextColor}] text-[24px] font-bold text-white`}
           >
             Next

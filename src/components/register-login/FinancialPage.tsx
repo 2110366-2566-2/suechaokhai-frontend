@@ -1,15 +1,20 @@
 "use client";
 
-import NumberTextField from "@/components/NumberTextField";
-import UppercaseTextField from "@/components/UppercaseTextField";
-import ExpiryDateInput from "@/components/ExpiredDateTextField";
-import Dropdown from "@/components/DropDown";
-import React, { useState } from "react";
+import NumberTextField from "@/components/register-login/NumberTextField";
+import UppercaseTextField from "@/components/register-login/UppercaseTextField";
+import ExpiryDateInput from "@/components/register-login/ExpiredDateTextField";
+import Dropdown from "@/components/register-login/DropDown";
+import React, { FormEvent, useRef, useState } from "react";
+import { FinancialInfo } from "@/app/register/page";
 
 export default function FinancialPage({
   changeRegState,
+  setFinanceInfo,
+  register,
 }: {
   changeRegState: Function;
+  setFinanceInfo: Function;
+  register: Function;
 }) {
   const [name, setName] = useState("");
   const [card, setCard] = useState("");
@@ -19,23 +24,73 @@ export default function FinancialPage({
   const [bank, setBank] = useState("");
   const [banknum, setBanknum] = useState("");
 
-  const options = ["Option 1", "Option 2", "Option 3"];
+  const options = [
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4",
+    "Option 5",
+    "Option 6",
+    "Option 7",
+    "Option 8",
+    "Option 9",
+    "Option 10",
+  ];
 
   const handleSelect = (option: any) => {
     setBank(option);
-    console.log(option);
   };
 
+  function userReg1(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
+
+  function submit() {
+    setFinanceInfo({
+      name: name,
+      card: card,
+      month: month,
+      year: year,
+      cvv: cvv,
+      bank: bank,
+      bankNum: banknum,
+    });
+    register();
+    changeRegState(3);
+  }
+
+  function skip() {
+    setFinanceInfo({
+      name: "",
+      card: "",
+      month: "",
+      year: "",
+      cvv: "",
+      bank: "",
+      bankNum: "",
+    });
+    register();
+    changeRegState(3);
+  }
+
+  function back() {
+    changeRegState(1);
+  }
+
   return (
-    <div className="flex h-[1228px] w-[664px] flex-col items-center rounded-[10px] bg-white">
-      <form className="px-[70px] text-left text-[20px]">
-        <div className="flex flex-col gap-[50px]">
+    <div
+      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
+      style={{ overflowY: "scroll" }}
+    >
+      <form className="px-[50px] text-left text-[20px]" onSubmit={userReg1}>
+        <div className="flex flex-col gap-[30px]">
           <div
             className="pb-[9px] pt-[19px] text-[40px] font-bold"
             style={{
               display: "flex",
               flexDirection: "column",
               alignSelf: "center",
+              marginTop: "30px",
             }}
           >
             Financial Information
@@ -44,14 +99,13 @@ export default function FinancialPage({
             <div className="pb-[9px] pt-[19px] text-[30px] font-semibold">
               Credit Card
             </div>
-            <div className="flex flex-col gap-[20px]">
+            <div className="flex flex-col gap-[15px]">
               <UppercaseTextField
                 label="Cardholder Name"
                 placeholder="Enter cardholder name"
                 uppercase={true}
                 onChange={(e) => {
                   setName(e.target.value);
-                  console.log(e.target.value);
                 }}
               />
 
@@ -79,13 +133,12 @@ export default function FinancialPage({
               />
             </div>
           </div>
-
           <div>
             <div className="pb-[9px] pt-[19px] text-[30px] font-semibold">
               Bank Account
             </div>
 
-            <div className="flex flex-col gap-[20px]">
+            <div className="flex flex-col gap-[15px]">
               <Dropdown
                 label="Bank Name"
                 options={options}
@@ -101,8 +154,11 @@ export default function FinancialPage({
               />
             </div>
           </div>
-          <div>
-            <button className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] font-bold text-white">
+          <div className="flex justify-center">
+            <button
+              onClick={back}
+              className="h-[50px] w-[150px] rounded-[10px] bg-[#B3B3B3] font-bold text-white"
+            >
               Back
             </button>
             {name !== "" &&
@@ -132,14 +188,15 @@ export default function FinancialPage({
             banknum !== "" &&
             banknum.length == 13 ? (
               <button
-                className="h-[60px] w-[190px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+                className="h-[50px] w-[150px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
                 style={{ marginLeft: "135px" }} //Blue Button
+                onClick={submit}
               >
                 Done
               </button>
             ) : (
               <button
-                className="h-[60px] w-[190px] rounded-[10px] bg-[#D9D9D9] font-bold text-white"
+                className="h-[50px] w-[150px] rounded-[10px] bg-[#D9D9D9] font-bold text-white"
                 style={{ marginLeft: "135px" }}
                 disabled={true} //Gray Button
               >
@@ -148,24 +205,12 @@ export default function FinancialPage({
             )}
           </div>
 
-          <div
-            className="font-regular text-[20px]"
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <div style={{ marginBottom: "1px", alignSelf: "center" }}>
-              This information is optional.
-            </div>
-            <div style={{ alignSelf: "center", marginBottom: "10px" }}>
-              You can add the information later.
-            </div>
+          <div className="text-center text-[15px] font-normal">
+            <div>This information is optional.</div>
+            <div>You can add the information later.</div>
             <button
-              className="font-regular text-[20px]"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignSelf: "center",
-                color: "#3AAEEF",
-              }}
+              className="mt-[10px] cursor-pointer pb-[20px] text-center text-[15px] font-normal text-[#3AAEEF]"
+              onClick={skip}
             >
               Skip and Create an Account
             </button>

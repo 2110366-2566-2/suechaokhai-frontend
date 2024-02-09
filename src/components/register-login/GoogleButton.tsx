@@ -1,11 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function GoogleButton() {
   return (
     <div className="flex flex-col gap-[28px] pt-[26px] text-[20px]">
       <div className="flex flex-row items-center justify-center">
         <div className="">Doesn’t have an account yet?</div>
-        <div className="pl-[16px] text-[#3AAEEF]"> Register here</div>
+        <Link href="/register">
+          <div className="pl-[16px] text-[#3AAEEF]"> Register here</div>
+        </Link>
       </div>
 
       <div className="flex flex-row items-center justify-center">

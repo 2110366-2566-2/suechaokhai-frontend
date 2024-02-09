@@ -1,63 +1,38 @@
 'use client'
-
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import dayjs , { Dayjs } from 'dayjs';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-import { PickersDay, PickersDayProps ,DayCalendarSkeleton}  from '@mui/x-date-pickers';
-import { PickersLayout } from '@mui/x-date-pickers';
 import { useReducer, useState } from 'react';
 import OwnerInfo from './OwnerInfo';
-const customPickerDate =(props:PickersDayProps<Dayjs>)=>{
 
-  return(
-    <PickersDay {...props} selected={true} ></PickersDay>
-  );
-   
-}
-
-
+import { isSameDay } from 'date-fns';
+import { DayClickEventHandler, DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
 const RoomTourRes = ({Property}:{Property:string}) => {
-    const today = dayjs();
+    const today = new Date();
     const [isReserving,setReserve] = useState<boolean>(false);
 
-    const [selectedDate,setSelected] = useState<Array<Dayjs>>([]);
+    const [selectedDays, setSelectedDays] = useState<Date[]>([]);
 
-    const updateDates = (newDate:Dayjs)=>{
-      // console.log(selectedDate,newDate.toDate());
-
-        if(selectedDate.find((date:Dayjs)=>date.toDate().getTime()===newDate.toDate().getTime())!==undefined){
-          setSelected(selectedDate=>selectedDate.filter((date:Dayjs)=>!date.isSame(newDate)))
+    const handleDayClick: DayClickEventHandler = (day:Date, modifiers:any) => {
+      const newSelectedDays = [...selectedDays];
+      if (modifiers.selected) {
+          const index = selectedDays.findIndex((selectedDay) =>isSameDay(day, selectedDay));
+          newSelectedDays.splice(index, 1);
+        } 
+      else {
+          newSelectedDays.push(day);
         }
-        else{
-          setSelected(selectedDate=>[...selectedDate,newDate]);
-        }
+      setSelectedDays(newSelectedDays);
 
+    };
+
+    const disableDate =(day:Date)=>{
+
+        if(!isSameDay(day,today)  && day.getTime()<today.getTime()){
+          return true
+        }
+        return false
     }
-    // const selectReducer = (selectedDate:Array<Dayjs>,newDate:Dayjs)=>{
-    //     console.log('1',selectedDate)
-
-    //     console.log(newDate.toDate().getTime())
-    //     console.log(selectedDate.find((Date:Dayjs)=>{Date.isSame(newDate,'day')})===undefined)
-
-
-    //     if(selectedDate.find((Date:Dayjs)=>{Date.toDate().getTime()===newDate.toDate().getTime()})===undefined){
-    //       selectedDate.push(newDate);
-    //     }
-    //     else{
-    //       selectedDate.filter((Date:Dayjs)=>{Date.toDate().getTime()!==newDate.toDate().getTime()});
-    //     }
-
-    //     console.log('2',selectedDate)
-    //     return selectedDate;
-    // }
-
-    // const [selectedDate , dispatchSelected] = useReducer(selectReducer,new Array<Dayjs>())
-
+  
     const handleReservation = () =>{
       //do something here
       setReserve(false);
@@ -80,10 +55,10 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                     <div className=''>Your selected date</div>
 
                     <div className='flex-col '>
-                        {selectedDate.map((date:Dayjs)=>(
+                        {selectedDays.map((date:Date)=>(
                             <div className=' rounded-md border-2 border-black text-center p-2' >
                           
-                            {date.toDate().toDateString()}
+                            {date.toDateString()}
                             </div>
                         ))}
                         
@@ -103,18 +78,15 @@ const RoomTourRes = ({Property}:{Property:string}) => {
           <div className='text-xl font-medium'>Room Tour Reservation</div>
           <div className=''>Please select whenever you are free.</div>
           <div>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
 
-              <DateCalendar
-                minDate={today}
-                onChange={(newDate)=>{updateDates(newDate)}}
-                slots={{ day: customPickerDate}}
-                // slotProps={{day:{day:today}}}
-                
-              />
-            </LocalizationProvider>
+          <DayPicker
+            onDayClick={handleDayClick}
+            selected={selectedDays}
+            disabled={disableDate}
+            // minDate={new Date()}
+          />
 
-            {selectedDate.length===0 ? 
+            {selectedDays.length===0 ? 
                 <div className="flex-row">
                   <button className="w-[50%]  my-4 font-semibold  text-[#DFDFDF] py-2 px-4 rounded-md shadow "
                               disabled
@@ -127,14 +99,16 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                 <div className="flex-row">
                   <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "   
                             onClick={(e)=>{e.preventDefault();handleSave();}}                            
-                      >Save</button>
+                      disabled={selectedDays.length===0}>Save</button>
                   <button className="w-[50%] bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
                             onClick={(e)=>{e.preventDefault();setReserve(true);}}
                     >Reserve Now</button>
                 </div>
             }
-          </div>         
+
+          </div>  
         </div>      
+
      );
 }
  
