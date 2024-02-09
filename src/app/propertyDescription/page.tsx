@@ -2,6 +2,9 @@
 import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
 import PropertyDescription from "../../components/propertyDesc/PropertyDescription";
 import ImageSlider from "@/components/propertyDesc/ImageSlider";
+import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
+import { Toaster} from 'sonner'
+
 // Mock data
 type FeatureProps = {
   icon: string;
@@ -37,14 +40,20 @@ export default function PropertyDescriptionPage() {
       <PropertyNavigationBar icon="w" feature="w" />
       <div className="mx-40">
         <ImageSlider images={propertyImages} />
-        <PropertyDescription
-          name={propertyName}
-          features={propertyFeatures}
-          price={propertyPrice}
-          description={propertyDescription}
-          address={propertyAddress}
-        />
+        <div className="flex-row">
+          <PropertyDescription
+            name={propertyName}
+            features={propertyFeatures}
+            price={propertyPrice}
+            description={propertyDescription}
+            address={propertyAddress}
+          />
+          <RoomTourRes Property="Boss's House"></RoomTourRes>
+
+        </div>
+        
       </div>
+      <Toaster></Toaster>
     </div>
   );
 }

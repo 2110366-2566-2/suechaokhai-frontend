@@ -5,6 +5,8 @@ import { isSameDay } from 'date-fns';
 import { DayClickEventHandler, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
+import { toast } from "sonner"
+
 const RoomTourRes = ({Property}:{Property:string}) => {
     const today = new Date();
     const [isReserving,setReserve] = useState<boolean>(false);
@@ -33,7 +35,6 @@ const RoomTourRes = ({Property}:{Property:string}) => {
     const handleReservation = () =>{
       //do something here
       setReserve(false);
-      alert('Confirm Success');
     }
 
     const handleSave = () =>{
@@ -66,11 +67,13 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                               onClick={(e)=>{e.preventDefault(); setReserve(false);}}      
                           >No</button>                      
                      <button className="w-[40%] mx-1 bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "                               
-                                onClick={(e)=>{e.preventDefault();handleReservation();}}
+                                onClick={(e)=>{e.preventDefault();toast("test");handleReservation();}}
                         >Yes, Confirm!</button>                    
                   </div>
               </div>
           </div> : null}
+      
+
 
           <div className='text-xl font-medium'>Room Tour Reservation</div>
           <div className=''>Please select whenever you are free.</div>
