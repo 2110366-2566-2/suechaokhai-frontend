@@ -1,6 +1,5 @@
 'use client'
 import { useReducer, useState } from 'react';
-import OwnerInfo from './OwnerInfo';
 
 import { isSameDay } from 'date-fns';
 import { DayClickEventHandler, DayPicker } from 'react-day-picker';
@@ -9,7 +8,6 @@ import 'react-day-picker/dist/style.css';
 const RoomTourRes = ({Property}:{Property:string}) => {
     const today = new Date();
     const [isReserving,setReserve] = useState<boolean>(false);
-
     const [selectedDays, setSelectedDays] = useState<Date[]>([]);
 
     const handleDayClick: DayClickEventHandler = (day:Date, modifiers:any) => {
@@ -26,7 +24,6 @@ const RoomTourRes = ({Property}:{Property:string}) => {
     };
 
     const disableDate =(day:Date)=>{
-
         if(!isSameDay(day,today)  && day.getTime()<today.getTime()){
           return true
         }
@@ -40,6 +37,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
     }
 
     const handleSave = () =>{
+      //save to db
       alert('Save Success');
 
     }
@@ -50,9 +48,8 @@ const RoomTourRes = ({Property}:{Property:string}) => {
           <div className='z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
                 <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
                     <div className="text-2xl font-semibold ">Confirm request reservation ?</div>
-                    <div className='font-semibold'>{Property}</div>
-                    <OwnerInfo name='Boss' tel='45654' mail='dsvfd' imgSrc='/img/Boss.png' ></OwnerInfo>
-                    <div className=''>Your selected date</div>
+                    <div className='text-2xl font-semibold m-3'>{Property}</div>
+                    <div className='m-1'>Your selected date</div>
 
                     <div className='flex-col '>
                         {selectedDays.map((date:Date)=>(
@@ -64,7 +61,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                         
                     </div>
 
-                    <div className="flex-row w-[60%] left-[25%] justify-around relative">                      
+                    <div className="flex-row w-[100%] left-[5%] justify-around relative">                      
                       <button className="w-[40%] mx-1 bg-black hover:bg-[#DFDFDF] my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
                               onClick={(e)=>{e.preventDefault(); setReserve(false);}}      
                           >No</button>                      
@@ -83,7 +80,6 @@ const RoomTourRes = ({Property}:{Property:string}) => {
             onDayClick={handleDayClick}
             selected={selectedDays}
             disabled={disableDate}
-            // minDate={new Date()}
           />
 
             {selectedDays.length===0 ? 
