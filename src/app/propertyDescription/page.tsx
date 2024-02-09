@@ -40,7 +40,7 @@ export default function PropertyDescriptionPage() {
       <PropertyNavigationBar icon="w" feature="w" />
       <div className="mx-40">
         <ImageSlider images={propertyImages} />
-        <div className="flex-row">
+        <div className="flex flex-row">
           <PropertyDescription
             name={propertyName}
             features={propertyFeatures}
@@ -48,6 +48,7 @@ export default function PropertyDescriptionPage() {
             description={propertyDescription}
             address={propertyAddress}
           />
+
           <RoomTourRes Property="Boss's House"></RoomTourRes>
 
         </div>
