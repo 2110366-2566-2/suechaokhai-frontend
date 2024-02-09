@@ -54,7 +54,7 @@ export default function PropertyDescriptionPage() {
         </div>
         
       </div>
-      <Toaster></Toaster>
+      <Toaster richColors></Toaster>
     </div>
   );
 }

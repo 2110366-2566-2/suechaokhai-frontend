@@ -4,7 +4,7 @@ import { useReducer, useState } from 'react';
 import { isSameDay } from 'date-fns';
 import { DayClickEventHandler, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { toast } from "sonner"
 
 const RoomTourRes = ({Property}:{Property:string}) => {
@@ -35,6 +35,32 @@ const RoomTourRes = ({Property}:{Property:string}) => {
     const handleReservation = () =>{
       //do something here
       setReserve(false);
+
+      //render reservation success popup
+      // toast("Reservation request sent!", {
+      //   description: 'Your reservation request has been sent successfully',
+      // });
+
+      const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Sonner' }), 500));
+
+      toast.promise(promise, {
+        loading: 'Sending reservation request...',
+        success: (data) => {
+          return (
+            <div className="flex flex-row items-center">
+              <CheckCircleIcon fontSize="large"></CheckCircleIcon>
+              <div className='flex flex-col mx-2'>
+                  <div className='font-bold text-base'>Reservation request sent!</div>
+                  <div className='text-sm'>Your reservation request has been sent successfully</div>
+                  {/* <div>test data : {data.name}</div> */}
+              </div>
+            </div>
+          
+          
+          );
+        },
+        error: 'Error',
+      });
     }
 
     const handleSave = () =>{
@@ -67,7 +93,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                               onClick={(e)=>{e.preventDefault(); setReserve(false);}}      
                           >No</button>                      
                      <button className="w-[40%] mx-1 bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "                               
-                                onClick={(e)=>{e.preventDefault();toast("test");handleReservation();}}
+                                onClick={(e)=>{e.preventDefault();handleReservation();}}
                         >Yes, Confirm!</button>                    
                   </div>
               </div>
