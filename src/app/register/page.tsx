@@ -6,6 +6,7 @@ import PersonalInformation from "@/components/register-login/PersonalInformation
 import AccountCreated from "@/components/register-login/AccountCreated";
 import FinancialPage from "@/components/register-login/FinancialPage";
 import userRegister from "@/libs/userRegister";
+import userGreeting from "@/libs/userGreeting";
 
 export interface PersonalInfo {
   email: string;
@@ -66,7 +67,10 @@ export default function RegisterPage() {
     console.log(phoneNumber);
     console.log(financeInfo);
   }
-
+  async function test2() {
+    const greet = await userGreeting();
+    console.log(greet);
+  }
   function nextStage() {
     changeRegState((registerStage + 1) % 4);
   }
@@ -125,6 +129,12 @@ export default function RegisterPage() {
           onClick={test}
         >
           test
+        </button>
+        <button
+          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+          onClick={test2}
+        >
+          test2
         </button>
       </div>
     </div>

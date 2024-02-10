@@ -69,7 +69,6 @@ export default function FinancialPage({
       bank: "",
       bankNum: "",
     });
-    register();
     changeRegState(3);
   }
 

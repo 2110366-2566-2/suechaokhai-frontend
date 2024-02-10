@@ -24,7 +24,7 @@ export default function LoginPage() {
       console.log(remember);
     }
     userLogin(email.current, password.current);
-    // router.push("/propertyDescription");
+    router.push("/propertyDescription");
   };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

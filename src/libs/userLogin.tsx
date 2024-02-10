@@ -16,5 +16,5 @@ export default async function userLogin(
   if (!response.ok) {
     throw new Error("Failed to fetch login");
   }
-  return response;
+  return await response.json();
 }
