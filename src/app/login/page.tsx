@@ -7,25 +7,33 @@ import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import PasswordField from "@/components/register-login/PasswordField";
 import userLogin from "@/libs/userLogin";
+import { useRouter } from "next/navigation";
+import userGreeting from "@/libs/userGreeting";
 
 export default function LoginPage() {
   const email = useRef("");
   const password = useRef("");
   const remember = useRef<boolean>(false);
+  // const router = useRouter();
+  // const cookieStore = cookies();
 
-  const test = () => {
+  const test = async () => {
     console.log(email);
     console.log(password.current);
     if (remember) {
       console.log(remember);
     }
     userLogin(email.current, password.current);
+    // router.push("/propertyDescription");
   };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
 
+  function test2() {
+    userGreeting();
+  }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
@@ -72,7 +80,7 @@ export default function LoginPage() {
             Log in
           </button>
         </form>
-        {/* <button onClick={test}>test</button> */}
+        <button onClick={test2}>test</button>
         <GoogleButton />
       </div>
     </div>

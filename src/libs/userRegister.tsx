@@ -4,7 +4,7 @@ export default async function userRegister(
   personalInfo: PersonalInfo,
   financeInfo: FinancialInfo
 ) {
-  const response = await fetch("http://localhost:8000/register", {
+  const response = await fetch("http://localhost:8000/api/v1/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export default async function userRegister(
     }),
   });
   if (!response.ok) {
-    throw new Error("Failed to fetch login");
+    throw new Error("Failed to fetch register");
   }
   return await response.json();
 }
