@@ -47,6 +47,7 @@ export default function RegisterPage() {
   });
 
   const [user, setUser] = useState();
+  const [isGoogle, setIsGoogle] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -56,13 +57,15 @@ export default function RegisterPage() {
         if (data) {
           setUser(data);
           console.log(data);
+          setEmail(data.email);
+          setIsGoogle(true);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
     getUser();
-  },[]);
+  }, []);
 
   const register = async () => {
     const userRegis = await userRegister(
@@ -107,6 +110,7 @@ export default function RegisterPage() {
           setPassword={setPassword}
           setConPass={setConPass}
           changeRegState={nextStage}
+          isGoogle={isGoogle}
         />
       ) : null}
 
