@@ -4,7 +4,7 @@ export default async function userRegister(
   personalInfo: PersonalInfo,
   financeInfo: FinancialInfo
 ) {
-  const response = await fetch("http://localhost:5000/register", {
+  const response = await fetch("http://localhost:8000/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

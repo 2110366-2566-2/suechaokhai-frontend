@@ -19,11 +19,11 @@ export default function LoginPage() {
     if (remember) {
       console.log(remember);
     }
+    userLogin(email.current, password.current);
   };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    userLogin(email.current, password.current);
   }
 
   return (
@@ -65,7 +65,10 @@ export default function LoginPage() {
             </div>
           </LoginOption>
 
-          <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
+          <button
+            className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+            onClick={test}
+          >
             Log in
           </button>
         </form>
