@@ -46,20 +46,23 @@ export default function RegisterPage() {
     bankNum: "",
   });
 
-  // const [user, setUser] = useState();
+  const [user, setUser] = useState();
 
-  // useEffect(() => {
-  //   async function getUser() {
-  //     try {
-  //       const data = await getCurrentUser();
-  //       setUser(data);
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   }
-  //   const user = getUser();
-  // });
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const data = await getCurrentUser();
+
+        if (data) {
+          setUser(data);
+          console.log(data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    getUser();
+  },[]);
 
   const register = async () => {
     const userRegis = await userRegister(
@@ -83,13 +86,16 @@ export default function RegisterPage() {
     console.log(phoneNumber);
     console.log(financeInfo);
   }
+
   async function test2() {
     const greet = await userGreeting();
     console.log(greet);
   }
+
   function nextStage() {
     changeRegState((registerStage + 1) % 4);
   }
+
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       {registerStage === 0 ? (
