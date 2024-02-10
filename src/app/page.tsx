@@ -1,5 +1,5 @@
 import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
-
+import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
 export default function Home() {
   return (
     <div className="flex h-dvh w-dvw items-center justify-center bg-gray-800">

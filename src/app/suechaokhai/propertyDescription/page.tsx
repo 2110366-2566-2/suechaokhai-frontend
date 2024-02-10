@@ -1,7 +1,13 @@
 "use client";
 import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
-import PropertyDescription from "../../components/propertyDesc/PropertyDescription";
+import PropertyDescription from "../../../components/propertyDesc/PropertyDescription";
 import ImageSlider from "@/components/propertyDesc/ImageSlider";
+import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
+import { Toaster} from 'sonner'
+import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
+import WestIcon from '@mui/icons-material/West';
+import PropertyTag from "@/components/propertyDesc/PropertyTag";
+
 // Mock data
 type FeatureProps = {
   icon: string;
@@ -29,14 +35,36 @@ const propertyImages = [
   "/img/arthur.JPG",
   "/img/babywinsmoking.JPG",
 ];
-const propertyOwner = "";
+const propertyOwner = {
+  name:"Thanapat",
+  tel:"789456123",
+  mail:"something@mymail.coom",
+  imgSrc:"/img/Boss.png"
+};
+const propertyTag = [
+  "Condomenium",
+  "Sathon",
+  "BTS",
+  "MRT"
+]
 
 export default function PropertyDescriptionPage() {
   return (
-    <div>
-      <PropertyNavigationBar icon="w" feature="w" />
-      <div className="mx-40">
-        <ImageSlider images={propertyImages} />
+    <div className="px-40">
+      
+      <div className="flex flex-row items-center ">
+        <WestIcon className="mx-3"></WestIcon>
+        <div className="text-3xl font-bold m-3">{propertyName}</div>
+      </div>
+
+      <div className="flex flex-row">
+        {propertyTag.map((name:string)=>(
+          <PropertyTag name={name}/>
+        ))}
+      </div>
+
+      <ImageSlider images={propertyImages} />
+      <div className="flex flex-row">
         <PropertyDescription
           name={propertyName}
           features={propertyFeatures}
@@ -44,7 +72,12 @@ export default function PropertyDescriptionPage() {
           description={propertyDescription}
           address={propertyAddress}
         />
+
+        <RoomTourRes Property={propertyName}></RoomTourRes>
       </div>
+      <OwnerInfo {...propertyOwner}></OwnerInfo>
+        
+      <Toaster richColors></Toaster>
     </div>
   );
 }

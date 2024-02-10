@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15.5-alpine
+    container_name: sck-database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - sck
+
+  backend:
+    image: cosmtrek/air
+    container_name: sck-backend
+    working_dir: /app
+    ports:
+      - 3000:3000
+    environment:
+      - DB_URL=postgres://postgres:123456@sck-database:5432/postgres_db
+    volumes:
+      - ./:/app/
+    networks:
+      - sck
+      
+  frontend:
+    image: sck-frontend
+    container_name: sck-frontend
+    working_dir: /app
+    ports:
+      - 8080:8080
+    environment:
+      - name=value
+    volumes:
+      - ./frontend:/app/
+    networks:
+      - sck
+
+networks:
+  sck: {}

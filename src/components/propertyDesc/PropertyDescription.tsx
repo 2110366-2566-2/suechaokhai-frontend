@@ -19,7 +19,7 @@ const PropertyDescription = ({
   address,
 }: PropertyDescriptionProps) => {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 ">
       <div className="flex space-x-0">
         {/* TODO: Fix each child should have unique key */}
         {features.map((feature, index) => (
@@ -33,7 +33,7 @@ const PropertyDescription = ({
       <h1 className="text-2xl">{price}</h1>
       <p>{description}</p>
       <div>
-        <h2 className="text-lg font-bold">Address</h2>
+        <h2 className="text-xl font-bold">Address</h2>
         <p>{address}</p>
         <PropertyMap name={name} />
       </div>
