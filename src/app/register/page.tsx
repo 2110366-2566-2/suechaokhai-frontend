@@ -7,6 +7,7 @@ import AccountCreated from "@/components/register-login/AccountCreated";
 import FinancialPage from "@/components/register-login/FinancialPage";
 import userRegister from "@/libs/userRegister";
 import userGreeting from "@/libs/userGreeting";
+import getCurrentUser from "@/libs/getCurrentUser";
 
 export interface PersonalInfo {
   email: string;
@@ -43,6 +44,21 @@ export default function RegisterPage() {
     cvv: "",
     bank: "",
     bankNum: "",
+  });
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const data = await getCurrentUser();
+        setUser(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    const user = getUser();
   });
 
   const register = async () => {

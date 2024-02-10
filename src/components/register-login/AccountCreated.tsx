@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AccountCreated({
   changeRegState,
@@ -51,9 +52,11 @@ export default function AccountCreated({
             alignSelf: "center",
           }}
         >
-          <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
-            Let's Log in with your account
-          </button>
+          <Link href="/login">
+            <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
+              Let's Log in with your account
+            </button>
+          </Link>
         </div>
       </div>
     </div>

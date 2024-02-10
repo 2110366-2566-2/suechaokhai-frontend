@@ -24,18 +24,7 @@ export default function FinancialPage({
   const [bank, setBank] = useState("");
   const [banknum, setBanknum] = useState("");
 
-  const options = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4",
-    "Option 5",
-    "Option 6",
-    "Option 7",
-    "Option 8",
-    "Option 9",
-    "Option 10",
-  ];
+  const options = ["KBANK", "BBL", "KTB", "BAY", "CIMB", "TTB", "SCB", "GSB"];
 
   const handleSelect = (option: any) => {
     setBank(option);
@@ -45,7 +34,7 @@ export default function FinancialPage({
     event.preventDefault();
   }
 
-  function submit() {
+  async function submit() {
     setFinanceInfo({
       name: name,
       card: card,
@@ -55,11 +44,12 @@ export default function FinancialPage({
       bank: bank,
       bankNum: banknum,
     });
-    register();
+    const reg = await register();
+    console.log(reg);
     changeRegState(3);
   }
 
-  function skip() {
+  async function skip() {
     setFinanceInfo({
       name: "",
       card: "",
@@ -69,6 +59,8 @@ export default function FinancialPage({
       bank: "",
       bankNum: "",
     });
+    const reg = await register();
+    console.log(reg);
     changeRegState(3);
   }
 
@@ -111,8 +103,8 @@ export default function FinancialPage({
               <NumberTextField
                 label="Card Number"
                 placeholder="Enter card number"
-                maxLength={19}
-                spaceIndices={[4, 8, 12]}
+                maxLength={16}
+                spaceIndices={[]}
                 setNum={setCard}
               />
 
@@ -147,8 +139,8 @@ export default function FinancialPage({
               <NumberTextField
                 label="Bank Account Number"
                 placeholder="Enter your bank account number"
-                maxLength={13}
-                spaceIndices={[3, 4, 9]}
+                maxLength={10}
+                spaceIndices={[]}
                 setNum={setBanknum}
               />
             </div>
@@ -162,7 +154,7 @@ export default function FinancialPage({
             </button>
             {name !== "" &&
             card !== "" &&
-            card.length == 19 &&
+            card.length == 16 &&
             month !== "" &&
             month.length == 2 &&
             [
@@ -185,7 +177,7 @@ export default function FinancialPage({
             cvv.length == 3 &&
             bank !== "" &&
             banknum !== "" &&
-            banknum.length == 13 ? (
+            banknum.length == 10 ? (
               <button
                 className="h-[50px] w-[150px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
                 style={{ marginLeft: "135px" }} //Blue Button

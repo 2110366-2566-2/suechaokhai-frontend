@@ -31,9 +31,6 @@ export default function LoginPage() {
     event.preventDefault();
   }
 
-  function test2() {
-    userGreeting();
-  }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
@@ -80,7 +77,7 @@ export default function LoginPage() {
             Log in
           </button>
         </form>
-        <button onClick={test2}>test</button>
+        {/* <button onClick={test2}>test</button> */}
         <GoogleButton />
       </div>
     </div>

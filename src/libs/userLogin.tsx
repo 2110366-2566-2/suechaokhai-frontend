@@ -12,6 +12,7 @@ export default async function userLogin(
       email: userEmail,
       password: userPassword,
     }),
+    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("Failed to fetch login");
