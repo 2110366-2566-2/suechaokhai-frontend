@@ -70,7 +70,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
     }
 
     return (
-        <div className="flex flex-col bg-white p-4 ">
+        <div className="flex flex-col  bg-white p-4 ">
           {isReserving ?  
           <div className='z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
                 <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
@@ -109,6 +109,22 @@ const RoomTourRes = ({Property}:{Property:string}) => {
             onDayClick={handleDayClick}
             selected={selectedDays}
             disabled={disableDate}
+            modifiersStyles={{
+              selected: {
+                backgroundColor: "#3AAEEF",
+                color: 'white',
+                borderRadius : 8,
+              },
+              
+            }}
+            styles={
+              {
+                day:{
+                  margin : 3,
+                }
+              }
+            }
+          
           />
 
             {selectedDays.length===0 ? 
