@@ -34,7 +34,12 @@ const propertyImages = [
   "/img/arthur.JPG",
   "/img/babywinsmoking.JPG",
 ];
-const propertyOwner = "";
+const propertyOwner = {
+  name:"Thanapat",
+  tel:"789456123",
+  mail:"something@mymail.coom",
+  imgSrc:"/img/Boss.png"
+};
 
 export default function PropertyDescriptionPage() {
   return (
@@ -45,14 +50,21 @@ export default function PropertyDescriptionPage() {
       </div>
       <div className="mx-40">
         <ImageSlider images={propertyImages} />
-        <PropertyDescription
-          name={propertyName}
-          features={propertyFeatures}
-          price={propertyPrice}
-          description={propertyDescription}
-          address={propertyAddress}
-        />
+        <div className="flex flex-row">
+          <PropertyDescription
+            name={propertyName}
+            features={propertyFeatures}
+            price={propertyPrice}
+            description={propertyDescription}
+            address={propertyAddress}
+          />
+
+          <RoomTourRes Property={propertyName}></RoomTourRes>
+        </div>
+        <OwnerInfo {...propertyOwner}></OwnerInfo>
+        
       </div>
+      <Toaster richColors></Toaster>
     </div>
   );
 }
