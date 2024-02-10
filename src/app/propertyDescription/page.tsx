@@ -55,7 +55,7 @@ export default function PropertyDescriptionPage() {
             address={propertyAddress}
           />
 
-          <RoomTourRes Property="Boss's House"></RoomTourRes>
+          <RoomTourRes Property={propertyName}></RoomTourRes>
         </div>
         <OwnerInfo {...propertyOwner}></OwnerInfo>
         

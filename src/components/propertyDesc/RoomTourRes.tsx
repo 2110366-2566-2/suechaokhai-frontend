@@ -75,7 +75,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
           <div className='z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
                 <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
                     <div className="text-2xl font-semibold ">Confirm request reservation ?</div>
-                    <div className='text-2xl font-semibold m-3'>{Property}</div>
+                    <div className='text-xl font-semibold my-3'>{Property}</div>
                     <div className='m-1'>Your selected date</div>
 
                     <div className='flex-col '>
