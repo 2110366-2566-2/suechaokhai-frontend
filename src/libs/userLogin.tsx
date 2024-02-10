@@ -2,7 +2,8 @@ export default async function userLogin(
   userEmail: string,
   userPassword: string
 ) {
-  const response = await fetch("http://localhost:5000/login", {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const response = await fetch("http://localhost:8000/api/v1/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,6 +12,7 @@ export default async function userLogin(
       email: userEmail,
       password: userPassword,
     }),
+    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("Failed to fetch login");
