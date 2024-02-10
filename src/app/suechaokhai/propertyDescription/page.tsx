@@ -6,6 +6,7 @@ import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
 import { Toaster} from 'sonner'
 import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
 import WestIcon from '@mui/icons-material/West';
+import PropertyTag from "@/components/propertyDesc/PropertyTag";
 
 // Mock data
 type FeatureProps = {
@@ -40,32 +41,42 @@ const propertyOwner = {
   mail:"something@mymail.coom",
   imgSrc:"/img/Boss.png"
 };
+const propertyTag = [
+  "Condomenium",
+  "Sathon",
+  "BTS",
+  "MRT"
+]
 
 export default function PropertyDescriptionPage() {
   return (
     <div className="px-40">
       
       <div className="flex flex-row items-center ">
-        <WestIcon></WestIcon>
+        <WestIcon className="mx-3"></WestIcon>
         <div className="text-3xl font-bold m-3">{propertyName}</div>
       </div>
 
-      <div className="">
-        <ImageSlider images={propertyImages} />
-        <div className="flex flex-row">
-          <PropertyDescription
-            name={propertyName}
-            features={propertyFeatures}
-            price={propertyPrice}
-            description={propertyDescription}
-            address={propertyAddress}
-          />
-
-          <RoomTourRes Property={propertyName}></RoomTourRes>
-        </div>
-        <OwnerInfo {...propertyOwner}></OwnerInfo>
-        
+      <div className="flex flex-row">
+        {propertyTag.map((name:string)=>(
+          <PropertyTag name={name}/>
+        ))}
       </div>
+
+      <ImageSlider images={propertyImages} />
+      <div className="flex flex-row">
+        <PropertyDescription
+          name={propertyName}
+          features={propertyFeatures}
+          price={propertyPrice}
+          description={propertyDescription}
+          address={propertyAddress}
+        />
+
+        <RoomTourRes Property={propertyName}></RoomTourRes>
+      </div>
+      <OwnerInfo {...propertyOwner}></OwnerInfo>
+        
       <Toaster richColors></Toaster>
     </div>
   );
