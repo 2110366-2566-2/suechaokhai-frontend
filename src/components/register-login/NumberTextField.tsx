@@ -26,6 +26,7 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
     useEffect(() => {
       const formatNumber = (event: Event) => {
         const target = event.target as HTMLInputElement;
+        setNum(target.value);
         const input = target.value.replace(/\D/g, "").substring(0, maxLength);
         const numbers = [];
         let lastIndex = 0;
@@ -37,7 +38,6 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
         numbers.push(input.substring(lastIndex));
         const formattedValue = numbers.join(" ").trim();
         target.value = formattedValue;
-        setNum(formattedValue);
         console.log(formattedValue);
       };
 
