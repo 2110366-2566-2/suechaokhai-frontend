@@ -15,17 +15,25 @@ export default function LoginPage() {
   const password = useRef("");
   const remember = useRef<boolean>(false);
   const router = useRouter();
+
   // const cookieStore = cookies();
 
-  const test = () => {
+  const test = async () => {
     console.log(email);
     console.log(password.current);
     if (remember) {
       console.log(remember);
     }
-    const success = userLogin(email.current, password.current);
 
-    router.push("/propertyDescription");
+    try {
+      const success = await userLogin(email.current, password.current);
+
+      if (success) {
+        router.push("/propertyDescription");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
