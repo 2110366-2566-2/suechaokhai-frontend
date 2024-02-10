@@ -33,7 +33,7 @@ const PropertyDescription = ({
       <h1 className="text-2xl">{price}</h1>
       <p>{description}</p>
       <div>
-        <h2 className="text-lg font-bold">Address</h2>
+        <h2 className="text-xl font-bold">Address</h2>
         <p>{address}</p>
         <PropertyMap name={name} />
       </div>
