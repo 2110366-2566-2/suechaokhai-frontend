@@ -1,6 +1,6 @@
 "use client";
 import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
-import PropertyDescription from "../../components/propertyDesc/PropertyDescription";
+import PropertyDescription from "../../../components/propertyDesc/PropertyDescription";
 import ImageSlider from "@/components/propertyDesc/ImageSlider";
 import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
 import { Toaster} from 'sonner'
@@ -43,12 +43,14 @@ const propertyOwner = {
 
 export default function PropertyDescriptionPage() {
   return (
-    <div>
-      <PropertyNavigationBar icon="w" feature="w" />
-      <div className="flex-row">
+    <div className="px-40">
+      
+      <div className="flex flex-row items-center ">
         <WestIcon></WestIcon>
+        <div className="text-3xl font-bold m-3">{propertyName}</div>
       </div>
-      <div className="mx-40">
+
+      <div className="">
         <ImageSlider images={propertyImages} />
         <div className="flex flex-row">
           <PropertyDescription
