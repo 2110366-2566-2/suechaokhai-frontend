@@ -103,8 +103,8 @@ export default function FinancialPage({
               <NumberTextField
                 label="Card Number"
                 placeholder="Enter card number"
-                maxLength={16}
-                spaceIndices={[]}
+                maxLength={19}
+                spaceIndices={[4, 8, 12]}
                 setNum={setCard}
               />
 
@@ -139,8 +139,8 @@ export default function FinancialPage({
               <NumberTextField
                 label="Bank Account Number"
                 placeholder="Enter your bank account number"
-                maxLength={10}
-                spaceIndices={[]}
+                maxLength={13}
+                spaceIndices={[3, 4, 9]}
                 setNum={setBanknum}
               />
             </div>
@@ -154,7 +154,7 @@ export default function FinancialPage({
             </button>
             {name !== "" &&
             card !== "" &&
-            card.length == 16 &&
+            card.length == 19 &&
             month !== "" &&
             month.length == 2 &&
             [
@@ -177,7 +177,7 @@ export default function FinancialPage({
             cvv.length == 3 &&
             bank !== "" &&
             banknum !== "" &&
-            banknum.length == 10 ? (
+            banknum.length == 13 ? (
               <button
                 className="h-[50px] w-[150px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
                 style={{ marginLeft: "135px" }} //Blue Button

@@ -35,16 +35,15 @@ export default function PersonalInformation({
     const currentPhoneNumber = phoneNum.replace(/[^\d]/g, "");
     const phoneLength = currentPhoneNumber.length;
 
-    // if (phoneLength <= 3) {
-    //   phoneNumber.current = currentPhoneNumber;
-    // } else if (phoneLength <= 6) {
-    //   phoneNumber.current = `${currentPhoneNumber.slice(0, 3)} ${currentPhoneNumber.slice(3)}`;
-    // } else {
-    //   phoneNumber.current = `${currentPhoneNumber.slice(0, 3)} ${currentPhoneNumber.slice(3, 6)} ${currentPhoneNumber.slice(6, 10)}`;
+    if (phoneLength <= 3) {
+      phoneNumber.current = currentPhoneNumber;
+    } else if (phoneLength <= 6) {
+      phoneNumber.current = `${currentPhoneNumber.slice(0, 3)} ${currentPhoneNumber.slice(3)}`;
+    } else {
+      phoneNumber.current = `${currentPhoneNumber.slice(0, 3)} ${currentPhoneNumber.slice(3, 6)} ${currentPhoneNumber.slice(6, 10)}`;
+    }
 
-    // }
-
-    setPhoneNumber(currentPhoneNumber);
+    setPhoneNumber(phoneNumber.current);
 
     if (phoneLength >= 10) {
       setNextColor("#3AAEEF");
@@ -135,7 +134,6 @@ export default function PersonalInformation({
               formatPhoneNumber(e.target.value);
             }}
             value={numtemp}
-            maxLength={10}
           ></TextBox>
         </div>
       </form>

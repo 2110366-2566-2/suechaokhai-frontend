@@ -46,20 +46,20 @@ export default function RegisterPage() {
     bankNum: "",
   });
 
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const data = await getCurrentUser();
-        setUser(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    const user = getUser();
-  });
+  // useEffect(() => {
+  //   async function getUser() {
+  //     try {
+  //       const data = await getCurrentUser();
+  //       setUser(data);
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+  //   const user = getUser();
+  // });
 
   const register = async () => {
     const userRegis = await userRegister(

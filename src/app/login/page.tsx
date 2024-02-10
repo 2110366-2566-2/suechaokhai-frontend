@@ -23,7 +23,8 @@ export default function LoginPage() {
     if (remember) {
       console.log(remember);
     }
-    userLogin(email.current, password.current);
+    const success = userLogin(email.current, password.current);
+
     router.push("/propertyDescription");
   };
 
