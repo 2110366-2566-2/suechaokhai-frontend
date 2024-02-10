@@ -14,10 +14,10 @@ export default function LoginPage() {
   const email = useRef("");
   const password = useRef("");
   const remember = useRef<boolean>(false);
-  // const router = useRouter();
+  const router = useRouter();
   // const cookieStore = cookies();
 
-  const test = async () => {
+  const test = () => {
     console.log(email);
     console.log(password.current);
     if (remember) {
