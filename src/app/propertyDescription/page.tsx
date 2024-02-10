@@ -4,6 +4,7 @@ import PropertyDescription from "../../components/propertyDesc/PropertyDescripti
 import ImageSlider from "@/components/propertyDesc/ImageSlider";
 import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
 import { Toaster} from 'sonner'
+import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
 
 // Mock data
 type FeatureProps = {
@@ -32,7 +33,12 @@ const propertyImages = [
   "/img/arthur.JPG",
   "/img/babywinsmoking.JPG",
 ];
-const propertyOwner = "";
+const propertyOwner = {
+  name:"Thanapat",
+  tel:"789456123",
+  mail:"something@mymail.coom",
+  imgSrc:"/img/Boss.png"
+};
 
 export default function PropertyDescriptionPage() {
   return (
@@ -50,8 +56,8 @@ export default function PropertyDescriptionPage() {
           />
 
           <RoomTourRes Property="Boss's House"></RoomTourRes>
-
         </div>
+        <OwnerInfo {...propertyOwner}></OwnerInfo>
         
       </div>
       <Toaster richColors></Toaster>

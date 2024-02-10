@@ -4,9 +4,9 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 const OwnerInfo = ({name,tel,mail,imgSrc}:{name:string,tel:string,mail:string,imgSrc:string}) => {
     return ( 
-        <div className="flex flex-col bg-white w-[700px]">
-            <div className="text-4xl">Owner</div>
-            <div className="flex flex-row  p-[8px] m-[8px] ">
+        <div className="flex flex-col bg-white w-[700px] mt-3">
+            <div className="text-xl font-bold p-2">Owner</div>
+            <div className="flex flex-row   m-[8px] ">
                 <div className="h-[120px] w-[120px] relative justify-between items-center m-[8px] ">
                     <Image
                         src={imgSrc}
@@ -16,7 +16,7 @@ const OwnerInfo = ({name,tel,mail,imgSrc}:{name:string,tel:string,mail:string,im
                     />
                 </div>
                 <div className="flex-col m-[8px]">
-                    <div className="text-3xl">{name}</div>
+                    <div className="text-xl font-bold">{name}</div>
                     <div className="text-xl flex-row">
                         <LocalPhoneOutlinedIcon className="m-1"></LocalPhoneOutlinedIcon> 
                         {tel}

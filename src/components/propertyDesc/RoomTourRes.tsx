@@ -101,7 +101,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
       
 
 
-          <div className='text-xl font-medium'>Room Tour Reservation</div>
+          <div className='text-xl font-bold'>Room Tour Reservation</div>
           <div className=''>Please select whenever you are free.</div>
           <div>
 
