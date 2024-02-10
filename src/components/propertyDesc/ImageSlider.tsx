@@ -40,13 +40,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         ))}
       </div>
       <button
-        className="absolute left-4 top-1/2 -translate-y-1/2 transform cursor-pointer border-none bg-transparent text-[40px] text-black"
+        className="absolute left-2 top-1/2 -translate-y-1/2 transform cursor-pointer border-none bg-transparent text-[40px] text-black"
         onClick={goToPrev}
       >
         {"<"}
       </button>
       <button
-        className="absolute right-4 top-1/2 -translate-y-1/2 transform cursor-pointer border-none bg-transparent text-[40px] text-black"
+        className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer border-none bg-transparent text-[40px] text-black"
         onClick={goToNext}
       >
         {">"}

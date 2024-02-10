@@ -89,7 +89,7 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                     </div>
 
                     <div className="flex-row w-[100%] left-[5%] justify-around relative">                      
-                      <button className="w-[40%] mx-1 bg-black hover:bg-[#DFDFDF] my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
+                      <button className="w-[40%] mx-1 bg-black hover:bg-gray-700 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
                               onClick={(e)=>{e.preventDefault(); setReserve(false);}}      
                           >No</button>                      
                      <button className="w-[40%] mx-1 bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "                               
@@ -115,13 +115,19 @@ const RoomTourRes = ({Property}:{Property:string}) => {
                 color: 'white',
                 borderRadius : 8,
               },
+
+              disabled:{
+                backgroundColor: "#DFDFDF",
+              }
               
             }}
             styles={
               {
                 day:{
                   margin : 3,
-                }
+                  border: "solid 1px",
+                  borderRadius : 8,
+                }, 
               }
             }
           
@@ -129,19 +135,19 @@ const RoomTourRes = ({Property}:{Property:string}) => {
 
             {selectedDays.length===0 ? 
                 <div className="flex-row">
-                  <button className="w-[50%]  my-4 font-semibold  text-[#DFDFDF] py-2 px-4 rounded-md shadow "
+                  <button className="w-[48%]  my-4 mx-0.5 font-semibold  text-[#DFDFDF] py-2 px-4 rounded-md shadow "
                               disabled
                       >Save</button>
-                  <button className="w-[50%]  my-4 font-semibold  bg-[#DFDFDF] text-white py-2 px-4 rounded-md shadow"
+                  <button className="w-[48%]  my-4 mx-0.5 font-semibold  bg-[#DFDFDF] text-white py-2 px-4 rounded-md shadow"
                               disabled
                     >Reserve Now</button>
                 </div>
             :     
                 <div className="flex-row">
-                  <button className="w-[50%] hover:bg-[#DFDFDF] my-4 font-semibold text-black py-2 px-4 rounded-md shadow "   
+                  <button className="w-[48%] mx-0.5 hover:bg-[#DFDFDF] my-4 border-[1px] border-black font-semibold text-black py-2 px-4 rounded-md shadow "   
                             onClick={(e)=>{e.preventDefault();handleSave();}}                            
                       disabled={selectedDays.length===0}>Save</button>
-                  <button className="w-[50%] bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
+                  <button className="w-[48%] mx-0.5 bg-[#3AAEEF] hover:bg-blue-800 my-4 font-semibold text-white py-2 px-4 rounded-md shadow "
                             onClick={(e)=>{e.preventDefault();setReserve(true);}}
                     >Reserve Now</button>
                 </div>
