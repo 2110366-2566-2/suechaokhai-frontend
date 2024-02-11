@@ -118,7 +118,6 @@ export default function editProfilePage() {
 
   return (
     <div onLoad={() => initial(phoneNumber)}>
-      <PropertyNavigationBar icon="w" feature="w" />
       <div className="flex">
         {/* column 1 */}
         <div className="flex flex-col items-center pl-[100px] pt-[40px] ">

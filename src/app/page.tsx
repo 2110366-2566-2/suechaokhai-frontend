@@ -46,6 +46,11 @@ export default function Home() {
       >
         {isLogin ? <div>Logout</div> : <div>Login</div>}
       </button>
+      <Link href="/suechaokhai/editProfile">
+        <button className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white">
+          Edit Profile
+        </button>
+      </Link>
     </div>
   );
 }
