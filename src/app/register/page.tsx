@@ -45,9 +45,10 @@ export default function RegisterPage() {
     bank: "",
     bankNum: "",
   });
-
   const [user, setUser] = useState();
   const [isGoogle, setIsGoogle] = useState(false);
+
+  
 
   useEffect(() => {
     async function getUser() {
