@@ -7,23 +7,37 @@ import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import PasswordField from "@/components/register-login/PasswordField";
 import userLogin from "@/libs/userLogin";
+import { useRouter } from "next/navigation";
+import userGreeting from "@/libs/userGreeting";
 
 export default function LoginPage() {
   const email = useRef("");
   const password = useRef("");
   const remember = useRef<boolean>(false);
+  const router = useRouter();
 
-  const test = () => {
+  // const cookieStore = cookies();
+
+  const test = async () => {
     console.log(email);
     console.log(password.current);
     if (remember) {
       console.log(remember);
     }
+
+    try {
+      const success = await userLogin(email.current, password.current);
+
+      if (success) {
+        router.push("/propertyDescription");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    userLogin(email.current, password.current);
   }
 
   return (
@@ -65,11 +79,14 @@ export default function LoginPage() {
             </div>
           </LoginOption>
 
-          <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
+          <button
+            className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+            onClick={test}
+          >
             Log in
           </button>
         </form>
-        {/* <button onClick={test}>test</button> */}
+        {/* <button onClick={test2}>test</button> */}
         <GoogleButton />
       </div>
     </div>

@@ -1,7 +1,11 @@
+import userGoogleLogin from "@/libs/userGoogleLogin";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function GoogleButton() {
+  const test = () => {
+    userGoogleLogin();
+  };
   return (
     <div className="flex flex-col gap-[28px] pt-[26px] text-[20px]">
       <div className="flex flex-row items-center justify-center">
@@ -17,7 +21,10 @@ export default function GoogleButton() {
         <span className="w-full border-t border-[#B3B3B3]"></span>
       </div>
       <div className="flex items-center justify-center">
-        <button className="rounded-lg border border-[#B3B3B3] px-6 py-2">
+        <button
+          onClick={test}
+          className="rounded-lg border border-[#B3B3B3] px-6 py-2"
+        >
           <div className="flex w-full flex-row items-center justify-center">
             <div className="flex w-full items-center justify-center gap-[24px]">
               <Image

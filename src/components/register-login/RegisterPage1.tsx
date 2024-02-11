@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 import TextField from "./TextField";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import PasswordField from "./PasswordField";
 import Link from "next/link";
+import checkCookie from "./checkCookie";
+import getCurrentUser from "@/libs/getCurrentUser";
 
 export default function RegisterPage1({
   emailtmp,
@@ -12,6 +15,7 @@ export default function RegisterPage1({
   setPassword,
   setConPass,
   changeRegState,
+  isGoogle,
 }: {
   emailtmp: string;
   passtmp: string;
@@ -20,6 +24,7 @@ export default function RegisterPage1({
   setPassword: Function;
   setConPass: Function;
   changeRegState: Function;
+  isGoogle: boolean;
 }) {
   const [color1, changeColor1] = useState("#B3B3B3");
   const [passValid, changeValid] = useState(0);
@@ -32,7 +37,7 @@ export default function RegisterPage1({
   const password = useRef("");
   const conPass = useRef("");
 
-  function initial(emailtmp: string, pass: string, conpass: string) {
+  async function initial(emailtmp: string, pass: string, conpass: string) {
     email.current = emailtmp;
     password.current = pass;
     conPass.current = conpass;
@@ -118,6 +123,7 @@ export default function RegisterPage1({
               setEmail(email.current);
             }}
             value={emailtmp}
+            readOnly={isGoogle}
           />
 
           <div>

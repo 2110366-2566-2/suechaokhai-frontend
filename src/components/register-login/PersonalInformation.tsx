@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, SetStateAction, useRef, useState } from "react";
 import Image from "next/image";
 import TextBox from "./TextField";
 
@@ -24,6 +24,8 @@ export default function PersonalInformation({
   const lastName = useRef("");
   const phoneNumber = useRef("");
 
+  const [src, setSrc] = useState("/img/prof_pic.png");
+
   function initial(fname: string, lname: string, pnum: string) {
     firstName.current = fname;
     lastName.current = lname;
@@ -37,14 +39,13 @@ export default function PersonalInformation({
 
     if (phoneLength <= 3) {
       phoneNumber.current = currentPhoneNumber;
-      setPhoneNumber(phoneNumber.current);
     } else if (phoneLength <= 6) {
       phoneNumber.current = `${currentPhoneNumber.slice(0, 3)} ${currentPhoneNumber.slice(3)}`;
-      setPhoneNumber(phoneNumber.current);
     } else {
       phoneNumber.current = `${currentPhoneNumber.slice(0, 3)} ${currentPhoneNumber.slice(3, 6)} ${currentPhoneNumber.slice(6, 10)}`;
-      setPhoneNumber(phoneNumber.current);
     }
+
+    setPhoneNumber(phoneNumber.current);
 
     if (phoneLength >= 10) {
       setNextColor("#3AAEEF");
@@ -60,6 +61,11 @@ export default function PersonalInformation({
       hiddenFileInput.current.click();
     }
   }
+
+  function handleChange(e: { target: { files: (Blob | MediaSource)[]; }; }) {
+    console.log(e.target.files);
+    setSrc(URL.createObjectURL(e.target.files[0]));
+}
 
   function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
@@ -82,18 +88,22 @@ export default function PersonalInformation({
       <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
+      <div className="rounded-full overflow-hidden w-[167px] h-[167px]">
       <Image
-        src="/img/ProfilePhoto_square.png"
-        alt="profilePic"
-        width={220}
-        height={220}
-      ></Image>
-      <div className="text-[20px] font-bold text-[#3AAEEF]">
+        src={src}
+        alt="Your Image"
+        width={167}
+        height={167}
+        layout="responsive"
+      />
+      </div>
+      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF]">
         <input
           type="file"
           accept="image/*"
           ref={hiddenFileInput}
           style={{ display: "none" }}
+          onChange={handleChange}
         />
         <div
           onClick={() => {
