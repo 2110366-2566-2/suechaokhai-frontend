@@ -9,6 +9,7 @@ export default async function userRegister(
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({
       email: personalInfo.email,
       password: personalInfo.password,

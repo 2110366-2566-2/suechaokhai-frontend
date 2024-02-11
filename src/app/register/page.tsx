@@ -48,14 +48,12 @@ export default function RegisterPage() {
   const [user, setUser] = useState();
   const [isGoogle, setIsGoogle] = useState(false);
 
-  
-
   useEffect(() => {
     async function getUser() {
       try {
         const data = await getCurrentUser();
 
-        if (data) {
+        if (data.registered_type === "GOOGLE") {
           setUser(data);
           console.log(data);
           setEmail(data.email);
