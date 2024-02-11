@@ -3,13 +3,15 @@ import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationB
 import PropertyDescription from "../../../components/propertyDesc/PropertyDescription";
 import ImageSlider from "@/components/propertyDesc/ImageSlider";
 import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
-import { Toaster} from 'sonner'
+import { Toaster } from "sonner";
 import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
-import WestIcon from '@mui/icons-material/West';
+import WestIcon from "@mui/icons-material/West";
 import PropertyTag from "@/components/propertyDesc/PropertyTag";
+import { useEffect, useState } from "react";
+import getPropertyDetail from "@/libs/getPropertyDetail";
 
-// Mock data
-type FeatureProps = {
+// Mock property
+type FeaturePProperty = {
   icon: string;
   feature: string;
 };
@@ -36,30 +38,40 @@ const propertyImages = [
   "/img/babywinsmoking.JPG",
 ];
 const propertyOwner = {
-  name:"Thanapat",
-  tel:"789456123",
-  mail:"something@mymail.coom",
-  imgSrc:"/img/Boss.png"
+  name: "Thanapat",
+  tel: "789456123",
+  mail: "something@mymail.coom",
+  imgSrc: "/img/Boss.png",
 };
-const propertyTag = [
-  "Condomenium",
-  "Sathon",
-  "BTS",
-  "MRT"
-]
+const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
 
 export default function PropertyDescriptionPage() {
+  // interface property{
+  //   address: string;
+  // }
+  const [property, setProperty] = useState({
+    address: "",
+    description: "",
+  });
+  const fetchData = async () => {
+    const result = await getPropertyDetail(
+      "f38f80b3-f326-4825-9afc-ebc331626875"
+    );
+    setProperty(result);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="px-40">
-      
       <div className="flex flex-row items-center ">
         <WestIcon className="mx-3"></WestIcon>
-        <div className="text-3xl font-bold m-3">{propertyName}</div>
+        <div className="m-3 text-3xl font-bold">{propertyName}</div>
       </div>
 
       <div className="flex flex-row">
-        {propertyTag.map((name:string)=>(
-          <PropertyTag name={name}/>
+        {propertyTag.map((name: string) => (
+          <PropertyTag name={name} />
         ))}
       </div>
 
@@ -69,14 +81,14 @@ export default function PropertyDescriptionPage() {
           name={propertyName}
           features={propertyFeatures}
           price={propertyPrice}
-          description={propertyDescription}
+          description={property.description}
           address={propertyAddress}
         />
 
         <RoomTourRes Property={propertyName}></RoomTourRes>
       </div>
       <OwnerInfo {...propertyOwner}></OwnerInfo>
-        
+
       <Toaster richColors></Toaster>
     </div>
   );
