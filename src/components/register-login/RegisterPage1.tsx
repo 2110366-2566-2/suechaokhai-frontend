@@ -15,6 +15,7 @@ export default function RegisterPage1({
   setPassword,
   setConPass,
   changeRegState,
+  isGoogle,
 }: {
   emailtmp: string;
   passtmp: string;
@@ -23,6 +24,7 @@ export default function RegisterPage1({
   setPassword: Function;
   setConPass: Function;
   changeRegState: Function;
+  isGoogle: boolean;
 }) {
   const [color1, changeColor1] = useState("#B3B3B3");
   const [passValid, changeValid] = useState(0);
@@ -121,6 +123,7 @@ export default function RegisterPage1({
               setEmail(email.current);
             }}
             value={emailtmp}
+            readOnly={isGoogle}
           />
 
           <div>

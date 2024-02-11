@@ -45,24 +45,26 @@ export default function RegisterPage() {
     bank: "",
     bankNum: "",
   });
-
   const [user, setUser] = useState();
+  const [isGoogle, setIsGoogle] = useState(false);
 
   useEffect(() => {
     async function getUser() {
       try {
         const data = await getCurrentUser();
 
-        if (data) {
+        if (data.registered_type === "GOOGLE") {
           setUser(data);
           console.log(data);
+          setEmail(data.email);
+          setIsGoogle(true);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
     getUser();
-  },[]);
+  }, []);
 
   const register = async () => {
     const userRegis = await userRegister(
@@ -107,6 +109,7 @@ export default function RegisterPage() {
           setPassword={setPassword}
           setConPass={setConPass}
           changeRegState={nextStage}
+          isGoogle={isGoogle}
         />
       ) : null}
 
