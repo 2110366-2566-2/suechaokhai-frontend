@@ -10,7 +10,6 @@ import ExpiryDateInput from "@/components/editProfile/ExpiredDateTextField";
 import Dropdown from "@/components/editProfile/DropDown";
 
 export default function editProfilePage() {
-  // test
   const firstNameInitial = "Praeploy";
   const lastNameInitial = "HewKhaow";
   const phoneNumberInitial = "0999999999";
