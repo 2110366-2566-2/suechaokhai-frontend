@@ -44,12 +44,7 @@ export default function Home() {
           View Property
         </button>
       </Link>
-      <button
-        onClick={auth}
-        className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white"
-      >
-        {isLogin ? <div>Logout</div> : <div>Login</div>}
-      </button>
+
       {user ? (
         <div>
           <button
@@ -60,6 +55,7 @@ export default function Home() {
           </button>
         </div>
       ) : null}
+
       <Link href="/suechaokhai/editProfile">
         <button className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white">
           Edit Profile
