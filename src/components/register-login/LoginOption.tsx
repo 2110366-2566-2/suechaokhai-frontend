@@ -8,7 +8,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const LoginOption = React.forwardRef<HTMLInputElement, IProps>(
   ({ className, children, label, type = "checkbox", error, ...props }, ref) => {
     return (
-      <div className="flex w-[507px] flex-row py-[30px]">
+      <div className="flex w-[507px] flex-row pb-[30px] pt-[20px]">
         <div className="flex flex-row">
           <input
             autoComplete="off"

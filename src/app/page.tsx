@@ -18,14 +18,16 @@ export default function Home() {
   }
 
   const [isLogin, setLogin] = useState(false);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     async function getUser() {
       try {
         const data = await getCurrentUser();
 
-        if (data.registered_type === "GOOGLE") {
+        if (data) {
           console.log(data);
           setLogin(true);
+          setUser(data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -44,7 +46,9 @@ export default function Home() {
         onClick={auth}
         className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white"
       >
-        {isLogin ? <div>Logout</div> : <div>Login</div>}
+        {user ? (
+          <div>{isLogin ? <div>Logout</div> : <div>Login</div>}</div>
+        ) : null}
       </button>
     </div>
   );
