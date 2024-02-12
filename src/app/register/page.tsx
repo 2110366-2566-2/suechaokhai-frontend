@@ -58,6 +58,8 @@ export default function RegisterPage() {
           console.log(data);
           setEmail(data.email);
           setIsGoogle(true);
+        } else {
+          setUser(Object);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -110,6 +112,7 @@ export default function RegisterPage() {
           setConPass={setConPass}
           changeRegState={nextStage}
           isGoogle={isGoogle}
+          user={user}
         />
       ) : null}
 
@@ -142,7 +145,7 @@ export default function RegisterPage() {
       ) : null}
 
       {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
-      <div className="absolute left-[350px] flex flex-col gap-4">
+      {/* <div className="absolute left-[350px] flex flex-col gap-4">
         <button
           className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
           onClick={() => nextStage()}
@@ -161,7 +164,7 @@ export default function RegisterPage() {
         >
           test2
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import getPropertyDetail from "@/libs/getPropertyDetail";
 
 // Mock property
-type FeaturePProperty = {
+type FeatureProps = {
   icon: string;
   feature: string;
 };
@@ -46,13 +46,20 @@ const propertyOwner = {
 const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
 
 export default function PropertyDescriptionPage() {
-  // interface property{
-  //   address: string;
-  // }
-  const [property, setProperty] = useState({
-    address: "",
-    description: "",
-  });
+  interface PropertyData {
+    owner_id: string;
+    description: string;
+    address: string;
+    alley: string;
+    images: any[];
+    postal_code: string;
+    district: string;
+    province: string;
+    project_name: string;
+    // tags
+    residental_type: string;
+  }
+  const [property, setProperty] = useState<PropertyData | null>(null);
   const fetchData = async () => {
     const result = await getPropertyDetail(
       "f38f80b3-f326-4825-9afc-ebc331626875"
@@ -62,11 +69,15 @@ export default function PropertyDescriptionPage() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log(property?.images);
   return (
     <div className="px-40">
       <div className="flex flex-row items-center ">
         <WestIcon className="mx-3"></WestIcon>
-        <div className="m-3 text-3xl font-bold">{propertyName}</div>
+        <div className="m-3 text-3xl font-bold">
+          {property?.project_name || ""}
+        </div>
       </div>
 
       <div className="flex flex-row">
@@ -75,17 +86,17 @@ export default function PropertyDescriptionPage() {
         ))}
       </div>
 
-      <ImageSlider images={propertyImages} />
+      <ImageSlider images={property?.images.map((value) => value.url) || []} />
       <div className="flex flex-row">
         <PropertyDescription
-          name={propertyName}
+          name={property?.project_name || ""}
           features={propertyFeatures}
           price={propertyPrice}
-          description={property.description}
+          description={property?.description || ""}
           address={propertyAddress}
         />
 
-        <RoomTourRes Property={propertyName}></RoomTourRes>
+        <RoomTourRes Property={property?.project_name || ""}></RoomTourRes>
       </div>
       <OwnerInfo {...propertyOwner}></OwnerInfo>
 

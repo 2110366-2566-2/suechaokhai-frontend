@@ -15,6 +15,7 @@ export default function LoginPage() {
   const password = useRef("");
   const remember = useRef<boolean>(false);
   const router = useRouter();
+  const [isError, setError] = useState(false);
 
   // const cookieStore = cookies();
 
@@ -29,10 +30,12 @@ export default function LoginPage() {
       const success = await userLogin(email.current, password.current);
 
       if (success) {
-        router.push("/propertyDescription");
+        router.push("/");
+        setError(false);
       }
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   };
 
@@ -73,6 +76,11 @@ export default function LoginPage() {
               onChange={(e) => (password.current = e.target.value)}
             />
           </div>
+          {isError ? (
+            <div className=" px-[10px] pt-[20px] text-[15px] text-[#D22F42]">
+              Your email or password is wrong please try again
+            </div>
+          ) : null}
           <LoginOption onChange={(e) => (remember.current = e.target.checked)}>
             <div className="relative left-[137px] text-[#3AAEEF]">
               Forgot Password?
