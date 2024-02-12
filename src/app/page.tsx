@@ -42,14 +42,17 @@ export default function Home() {
           View Property
         </button>
       </Link>
-      <button
-        onClick={auth}
-        className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white"
-      >
-        {user ? (
-          <div>{isLogin ? <div>Logout</div> : <div>Login</div>}</div>
-        ) : null}
-      </button>
+
+      {user ? (
+        <div>
+          <button
+            onClick={auth}
+            className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white"
+          >
+            {isLogin ? <div>Logout</div> : <div>Login</div>}
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
