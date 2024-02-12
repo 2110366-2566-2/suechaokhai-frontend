@@ -75,12 +75,12 @@ export default function LoginPage() {
               // setPassword={setPassword}
               onChange={(e) => (password.current = e.target.value)}
             />
-            {isError ? (
-              <div className=" px-[10px] text-[15px] text-[#D22F42]">
-                Your email or password is wrong please try again
-              </div>
-            ) : null}
           </div>
+          {isError ? (
+            <div className=" px-[10px] pt-[20px] text-[15px] text-[#D22F42]">
+              Your email or password is wrong please try again
+            </div>
+          ) : null}
           <LoginOption onChange={(e) => (remember.current = e.target.checked)}>
             <div className="relative left-[137px] text-[#3AAEEF]">
               Forgot Password?
