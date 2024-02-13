@@ -110,7 +110,7 @@ export default function PersonalInformation({
       </div>
       
       <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
-      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF]">
+      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF] items-center justify-center flex flex-col">
         <input
           type="file"
           accept="image/*"

@@ -96,11 +96,7 @@ export default function RegisterPage() {
     console.log(lastName);
     console.log(phoneNumber);
     console.log(financeInfo);
-  }
-
-  async function test2() {
-    const greet = await userGreeting();
-    console.log(greet);
+    console.log(img)
   }
 
   function nextStage() {
@@ -151,28 +147,7 @@ export default function RegisterPage() {
           <AccountCreated changeRegState={changeRegState} />
         </div>
       ) : null}
-
-      {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
-      {/* <div className="absolute left-[350px] flex flex-col gap-4">
-        <button
-          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={() => nextStage()}
-        >
-          Next Page
-        </button>
-        <button
-          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={test}
-        >
-          test
-        </button>
-        <button
-          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={test2}
-        >
-          test2
-        </button>
-      </div> */}
+      <button onClick={test}>test</button>
     </div>
   );
 }
