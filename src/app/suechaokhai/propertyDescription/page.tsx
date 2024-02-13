@@ -53,7 +53,7 @@ export default function PropertyDescriptionPage() {
   const [owner, setOwner] = useState<UserData | null>(null);
   const fetchData = async () => {
     const result = await getPropertyDetail(
-      "500aee79-4a97-4797-9495-76f7d290f8db"
+      "f38f80b3-f326-4825-9afc-ebc331626875"
     );
     setProperty(result);
     if (result?.owner_id) {
@@ -79,7 +79,7 @@ export default function PropertyDescriptionPage() {
     " " +
     (property?.postal_code || "");
   return (
-    <div className=" px-[15%] ">
+    <div className=" px-[1%] sm:px-[15%] ">
       <div className="flex flex-row items-center ">
         <WestIcon className="mx-3"></WestIcon>
         <div className="m-3 text-3xl font-bold">
@@ -93,8 +93,8 @@ export default function PropertyDescriptionPage() {
         ))}
       </div>
 
-      {/* <ImageSlider images={property?.images.map((value) => value.url) || []} /> */}
-      <ImageSlider images={propertyImages} />
+      <ImageSlider images={property?.images.map((value) => value.url) || []} />
+      {/* <ImageSlider images={propertyImages} /> */}
       <div className="flex flex-col">
         <div className="flex flex-col lg:flex-row">
           <PropertyDescription
