@@ -34,10 +34,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
           {images.map((image, index) => (
             <div
               key={index}
-              className="flex max-h-80 min-h-80 min-w-[50%] justify-center"
+              className="flex max-h-80 min-h-80 min-w-[100%] justify-center sm:min-w-[50%]"
             >
               <Image
-                className="w-[89%] object-cover"
+                className="w-[90%] object-cover "
                 src={image}
                 alt={`Image ${index + 1}`}
                 width={500}
