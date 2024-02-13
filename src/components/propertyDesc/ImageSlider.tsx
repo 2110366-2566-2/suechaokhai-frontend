@@ -7,15 +7,13 @@ interface ImageSliderProps {
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const imgLen = images.length % 2 == 1 ? images.length - 1 : images.length;
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imgLen);
   };
 
   const goToPrev = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
-    );
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + imgLen) % imgLen);
   };
 
   return (
