@@ -8,7 +8,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
   return (
     <div className="my-4 flex h-fit flex-row gap-1 overflow-y-hidden overflow-x-scroll">
       {images.map((img, i) => (
-        <div className="relative aspect-video h-48 sm:h-96">
+        <div className="relative aspect-video h-64 sm:h-96">
           <Image
             src={img}
             alt={`Image ${i + 1}`}
