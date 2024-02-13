@@ -11,7 +11,7 @@ export default async function userRegister(
   formData.append("first_name",personalInfo.firstName)
   formData.append("last_name",personalInfo.lastName)
   formData.append("phone_number",personalInfo.phoneNumber.replace(/[^\d]/g, ""))
-  formData.append("profile_image_url",personalInfo.img)
+  formData.append("profile_image",personalInfo.img)
   formData.append("credit_cardholder_name",financeInfo.name)
   formData.append("credit_card_number",financeInfo.card.replace(/[^\d]/g, ""))
   formData.append("credit_card_expiration_month",financeInfo.month)
@@ -20,11 +20,10 @@ export default async function userRegister(
   formData.append("bank_name",financeInfo.bank)
   formData.append("bank_account_number",financeInfo.bankNum.replace(/[^\d]/g, ""))
 
+  console.log(formData.get('email'))
+
   const response = await fetch("http://localhost:8000/api/v1/register", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     credentials: "include",
     body: formData
   });

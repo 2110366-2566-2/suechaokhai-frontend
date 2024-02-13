@@ -6,9 +6,8 @@ import PersonalInformation from "@/components/register-login/PersonalInformation
 import AccountCreated from "@/components/register-login/AccountCreated";
 import FinancialPage from "@/components/register-login/FinancialPage";
 import userRegister from "@/libs/userRegister";
-import userGreeting from "@/libs/userGreeting";
-import getCurrentUser from "@/libs/getCurrentUser";
 import { redirect } from "next/navigation";
+import getCurrentUserRegister from "@/libs/getCurrentUserRegister";
 
 export interface PersonalInfo {
   email: string;
@@ -55,7 +54,7 @@ export default function RegisterPage() {
   useEffect(() => {
     async function getUser() {
       try {
-        const data = await getCurrentUser();
+        const data = await getCurrentUserRegister();
 
         if (data.registered_type === "GOOGLE" && data.session_type === "REGISTER") {
           setUser(data);
