@@ -79,21 +79,31 @@ export default function FinancialPage({
       className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
       style={{ overflowY: "scroll" }}
     >
-      <form className="px-[50px] text-left text-[20px]" onSubmit={userReg1}>
-        <div className="flex flex-col gap-[30px]">
+      <form className="px-[50px] text-left text-[20px] py-[50px]" onSubmit={userReg1}>
+        <div className="flex flex-col gap-[10px]">
           <div
-            className="pb-[9px] pt-[19px] text-[40px] font-bold"
+            className="pb-[9px] text-[40px] font-bold"
             style={{
               display: "flex",
               flexDirection: "column",
               alignSelf: "center",
-              marginTop: "30px",
             }}
           >
             Financial Information
           </div>
+
+          <div className="text-center text-[15px] font-normal">
+            <div>This information is optional.</div>
+            <div>You can add the information later.</div>
+            <button
+              className="pt-[10px] cursor-pointer pb-[20px] text-center text-[15px] font-normal text-[#3AAEEF]"
+              onClick={skip}
+            >
+              Skip and Create an Account
+            </button>
+          </div>
           <div>
-            <div className="pb-[9px] pt-[19px] text-[30px] font-semibold">
+            <div className="pb-[9px] text-[30px] font-semibold">
               Credit Card
             </div>
             <div className="flex flex-col gap-[15px]">
@@ -152,7 +162,7 @@ export default function FinancialPage({
               />
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center pt-[30px]">
             <button
               onClick={back}
               className="h-[50px] w-[150px] rounded-[10px] bg-[#B3B3B3] font-bold text-white"
@@ -201,17 +211,6 @@ export default function FinancialPage({
                 Done
               </button>
             )}
-          </div>
-
-          <div className="text-center text-[15px] font-normal">
-            <div>This information is optional.</div>
-            <div>You can add the information later.</div>
-            <button
-              className="mt-[10px] cursor-pointer pb-[20px] text-center text-[15px] font-normal text-[#3AAEEF]"
-              onClick={skip}
-            >
-              Skip and Create an Account
-            </button>
           </div>
         </div>
       </form>
