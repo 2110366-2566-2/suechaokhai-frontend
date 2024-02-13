@@ -16,7 +16,7 @@ export default async function userRegister(
       first_name: personalInfo.firstName,
       last_name: personalInfo.lastName,
       phone_number: personalInfo.phoneNumber.replace(/[^\d]/g, ""),
-      profile_image_url: "",
+      profile_image_url: personalInfo.img,
       credit_cardholder_name: financeInfo.name,
       credit_card_number: financeInfo.card.replace(/[^\d]/g, ""),
       credit_card_expiration_month: financeInfo.month,

@@ -16,6 +16,7 @@ export interface PersonalInfo {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  img:FormData;
 }
 export interface FinancialInfo {
   name: string;
@@ -36,6 +37,8 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [img,setImg] = useState(new FormData)
 
   const [financeInfo, setFinanceInfo] = useState<FinancialInfo>({
     name: "",
@@ -79,6 +82,7 @@ export default function RegisterPage() {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
+        img: img,
       },
       financeInfo
     );
@@ -129,6 +133,7 @@ export default function RegisterPage() {
             setLastName={setLastName}
             setPhoneNumber={setPhoneNumber}
             changeRegState={changeRegState}
+            setImg={setImg}
           />
         </div>
       ) : null}
