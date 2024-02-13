@@ -59,7 +59,7 @@ export default function RegisterPage1({
       setValidColor("#D9D9D9");
       setInfoValid(0);
     } else {
-      if (!/[0-9]/.test(password) || password.length < 8) {
+      if (!/\d/.test(password) || !/[a-zA-Z]/.test(password) || password.length < 8) {
         changeColor1("#D22F42");
         changeValid(1);
         setValidColor("#D9D9D9");
