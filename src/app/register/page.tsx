@@ -6,9 +6,8 @@ import PersonalInformation from "@/components/register-login/PersonalInformation
 import AccountCreated from "@/components/register-login/AccountCreated";
 import FinancialPage from "@/components/register-login/FinancialPage";
 import userRegister from "@/libs/userRegister";
-import userGreeting from "@/libs/userGreeting";
-import getCurrentUser from "@/libs/getCurrentUser";
 import { redirect } from "next/navigation";
+import getCurrentUserRegister from "@/libs/getCurrentUserRegister";
 
 export interface PersonalInfo {
   email: string;
@@ -16,6 +15,7 @@ export interface PersonalInfo {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  img:any;
 }
 export interface FinancialInfo {
   name: string;
@@ -37,6 +37,8 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const [img,setImg] = useState()
+
   const [financeInfo, setFinanceInfo] = useState<FinancialInfo>({
     name: "",
     card: "",
@@ -52,7 +54,7 @@ export default function RegisterPage() {
   useEffect(() => {
     async function getUser() {
       try {
-        const data = await getCurrentUser();
+        const data = await getCurrentUserRegister();
 
         if (data.registered_type === "GOOGLE" && data.session_type === "REGISTER") {
           setUser(data);
@@ -79,6 +81,7 @@ export default function RegisterPage() {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
+        img: img,
       },
       financeInfo
     );
@@ -92,11 +95,7 @@ export default function RegisterPage() {
     console.log(lastName);
     console.log(phoneNumber);
     console.log(financeInfo);
-  }
-
-  async function test2() {
-    const greet = await userGreeting();
-    console.log(greet);
+    console.log(img)
   }
 
   function nextStage() {
@@ -129,6 +128,7 @@ export default function RegisterPage() {
             setLastName={setLastName}
             setPhoneNumber={setPhoneNumber}
             changeRegState={changeRegState}
+            setImg={setImg}
           />
         </div>
       ) : null}
@@ -146,28 +146,7 @@ export default function RegisterPage() {
           <AccountCreated changeRegState={changeRegState} />
         </div>
       ) : null}
-
-      {/* เป็นปุ่มไว้เทส function เฉยๆไม่มีไร */}
-      {/* <div className="absolute left-[350px] flex flex-col gap-4">
-        <button
-          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={() => nextStage()}
-        >
-          Next Page
-        </button>
-        <button
-          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={test}
-        >
-          test
-        </button>
-        <button
-          className="h-[60px] w-[60px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
-          onClick={test2}
-        >
-          test2
-        </button>
-      </div> */}
+      <button onClick={test}>test</button>
     </div>
   );
 }

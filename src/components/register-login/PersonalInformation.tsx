@@ -10,6 +10,7 @@ export default function PersonalInformation({
   setFirstName,
   setLastName,
   setPhoneNumber,
+  setImg
 }: {
   firsttmp: string;
   lasttmp: string;
@@ -18,6 +19,7 @@ export default function PersonalInformation({
   setFirstName: Function;
   setLastName: Function;
   setPhoneNumber: Function;
+  setImg:Function
 }) {
   const [nextColor, setNextColor] = useState("#D9D9D9");
   const firstName = useRef("");
@@ -27,6 +29,7 @@ export default function PersonalInformation({
   const [src, setSrc] = useState("/img/prof_pic.png");
 
   const inputRef = useRef(null);
+  
 
   useEffect(() => {
     inputRef.current?.select();
@@ -68,8 +71,9 @@ export default function PersonalInformation({
     }
   }
 
-  function handleChange(e: { target: { files: (Blob | MediaSource)[]; }; }) {
-    console.log(e.target.files);
+  const handleChange=(e)=> {
+    console.log(e.target.files[0]);
+    setImg(e.target.files[0])
     setSrc(URL.createObjectURL(e.target.files[0]));
 }
 
@@ -86,6 +90,7 @@ export default function PersonalInformation({
   function userReg1(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
+
   return (
     <div
       onLoad={() => initial(firsttmp, lasttmp, numtemp)}
@@ -103,10 +108,14 @@ export default function PersonalInformation({
         layout="responsive"
       />
       </div>
-      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF]">
+      
+      <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
+      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF] items-center justify-center flex flex-col">
         <input
           type="file"
           accept="image/*"
+          id="profile_img"
+          name="profile_img"
           ref={hiddenFileInput}
           style={{ display: "none" }}
           onChange={handleChange}
@@ -120,7 +129,6 @@ export default function PersonalInformation({
           Upload your photo
         </div>
       </div>
-      <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
         <div className="flex flex-col gap-[22px] pt-[22px]">
           <TextBox
             label="First Name"
@@ -166,6 +174,7 @@ export default function PersonalInformation({
         </div>
         <div>
           <button
+          type="submit"
             onClick={nextPageStatus}
             className={`h-[60px] w-[190px] rounded-[10px] bg-[${nextColor}] text-[24px] font-bold text-white`}
           >
