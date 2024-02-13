@@ -27,7 +27,6 @@ export default function PersonalInformation({
   const phoneNumber = useRef("");
 
   const [src, setSrc] = useState("/img/prof_pic.png");
-  const [imgFile,setImgFile] = useState(null)
 
   const inputRef = useRef(null);
   
@@ -74,17 +73,13 @@ export default function PersonalInformation({
 
   const handleChange=(e)=> {
     console.log(e.target.files[0]);
-    setImgFile(e.target.files[0])
+    setImg(e.target.files[0])
     setSrc(URL.createObjectURL(e.target.files[0]));
 }
 
   function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
       changeRegState(2);
-      const formData = new FormData()
-      formData.append('image',imgFile)
-
-      setImg(formData)
     }
   }
 
