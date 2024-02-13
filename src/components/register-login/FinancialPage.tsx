@@ -4,7 +4,7 @@ import NumberTextField from "@/components/register-login/NumberTextField";
 import UppercaseTextField from "@/components/register-login/UppercaseTextField";
 import ExpiryDateInput from "@/components/register-login/ExpiredDateTextField";
 import Dropdown from "@/components/register-login/DropDown";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { FinancialInfo } from "@/app/register/page";
 
 export default function FinancialPage({
@@ -25,6 +25,12 @@ export default function FinancialPage({
   const [banknum, setBanknum] = useState("");
 
   const options = ["KBANK", "BBL", "KTB", "BAY", "CIMB", "TTB", "SCB", "GSB"];
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.select();
+  }, []);
 
   const handleSelect = (option: any) => {
     setBank(option);
@@ -98,6 +104,7 @@ export default function FinancialPage({
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
+                ref={inputRef}
               />
 
               <NumberTextField

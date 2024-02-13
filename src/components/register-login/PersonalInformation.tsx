@@ -1,4 +1,4 @@
-import { FormEvent, SetStateAction, useRef, useState } from "react";
+import { FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import TextBox from "./TextField";
 
@@ -25,6 +25,12 @@ export default function PersonalInformation({
   const phoneNumber = useRef("");
 
   const [src, setSrc] = useState("/img/prof_pic.png");
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.select();
+  }, []);
 
   function initial(fname: string, lname: string, pnum: string) {
     firstName.current = fname;
@@ -124,6 +130,7 @@ export default function PersonalInformation({
               setFirstName(firstName.current);
             }}
             value={firsttmp}
+            ref={inputRef}
           ></TextBox>
         </div>
         <div className="flex flex-col gap-[22px] pt-[22px]">

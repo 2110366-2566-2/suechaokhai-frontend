@@ -34,6 +34,21 @@ export default function RegisterPage1({
   const [isValidColor, setValidColor] = useState("#D9D9D9");
   const [isInfoValid, setInfoValid] = useState(0);
 
+  const submit=(event: { keyCode: number; })=> {
+    if (event.keyCode === 13) {
+        console.log('enter')
+        if(isInfoValid){
+          nextStage()
+        }
+    }
+}
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.select();
+  }, []);
+
   const email = useRef("");
   const password = useRef("");
   const conPass = useRef("");
@@ -147,6 +162,8 @@ export default function RegisterPage1({
                     }}
                     value={emailtmp}
                     readOnly={isGoogle}
+                    onKeyDown={(e)=>submit(e)}
+                    ref={inputRef}
                   />
                   <div>
                     <PasswordField
@@ -161,6 +178,7 @@ export default function RegisterPage1({
                       }}
                       style={{ borderColor: color1 }}
                       value={passtmp}
+                      onKeyDown={(e)=>submit(e)}
                     />
 
                     <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
@@ -227,6 +245,7 @@ export default function RegisterPage1({
                     }}
                     style={{ borderColor: color2 }}
                     value={conpasstmp}
+                    onKeyDown={(e)=>submit(e)}
                   />
                   <div className="flex flex-row text-[16px]">
                     {passValid2 === 0 ? (
