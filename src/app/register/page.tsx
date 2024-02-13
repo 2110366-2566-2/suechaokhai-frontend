@@ -8,6 +8,7 @@ import FinancialPage from "@/components/register-login/FinancialPage";
 import userRegister from "@/libs/userRegister";
 import userGreeting from "@/libs/userGreeting";
 import getCurrentUser from "@/libs/getCurrentUser";
+import { redirect } from "next/navigation";
 
 export interface PersonalInfo {
   email: string;
@@ -53,11 +54,13 @@ export default function RegisterPage() {
       try {
         const data = await getCurrentUser();
 
-        if (data.registered_type === "GOOGLE") {
+        if (data.registered_type === "GOOGLE" && data.session_type === "REGISTER") {
           setUser(data);
           console.log(data);
           setEmail(data.email);
           setIsGoogle(true);
+        } else if (data.session_type === "LOGIN") {
+          redirect('/')
         } else {
           setUser(Object);
         }
