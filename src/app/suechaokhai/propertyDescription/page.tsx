@@ -77,7 +77,7 @@ export default function PropertyDescriptionPage() {
   const [owner, setOwner] = useState<OwnerData | null>(null);
   const fetchData = async () => {
     const result = await getPropertyDetail(
-      "f38f80b3-f326-4825-9afc-ebc331626875"
+      "500aee79-4a97-4797-9495-76f7d290f8db"
     );
     setProperty(result);
     if (result?.owner_id) {
@@ -103,7 +103,8 @@ export default function PropertyDescriptionPage() {
         ))}
       </div>
 
-      <ImageSlider images={property?.images.map((value) => value.url) || []} />
+      {/* <ImageSlider images={property?.images.map((value) => value.url) || []} /> */}
+      <ImageSlider images={propertyImages} />
       <div className="flex items-center ">
         <div className="flex-[50%]">
           <PropertyDescription
