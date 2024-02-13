@@ -10,7 +10,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [imageLength, setImageLength] = useState(0);
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
+      setIsSmallScreen(window.innerWidth < 1024);
     };
 
     window.addEventListener("resize", handleResize);
@@ -19,8 +19,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  // const imgLen = images.length % 2 == 1 ? images.length - 1 : images.length;
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
   useEffect(() => {
     setImageLength(images.length % 2 == 1 ? images.length - 1 : images.length);
     if (isSmallScreen) {
@@ -55,16 +54,15 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
           {images.map((image, index) => (
             <div
               key={index}
-              className="flex max-h-80 min-h-80 min-w-[100%] justify-center sm:min-w-[50%]"
+              className="max-h-100 flex min-w-[100%] justify-center lg:min-w-[50%]"
             >
               <Image
-                className="w-[90%] object-cover "
+                className="w-11/12 object-contain"
                 src={image}
                 alt={`Image ${index + 1}`}
                 width={500}
                 height={200}
               />
-              {/* <img src={image} alt={`Image ${index + 1}`} /> */}
             </div>
           ))}
         </div>
