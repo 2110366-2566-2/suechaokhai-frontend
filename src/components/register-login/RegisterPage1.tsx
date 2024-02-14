@@ -34,14 +34,14 @@ export default function RegisterPage1({
   const [isValidColor, setValidColor] = useState("#D9D9D9");
   const [isInfoValid, setInfoValid] = useState(0);
 
-  const submit=(event: { keyCode: number; })=> {
+  const submit = (event: { keyCode: number }) => {
     if (event.keyCode === 13) {
-        console.log('enter')
-        if(isInfoValid){
-          nextStage()
-        }
+      console.log("enter");
+      if (isInfoValid) {
+        nextStage();
+      }
     }
-}
+  };
 
   const inputRef = useRef(null);
 
@@ -74,7 +74,11 @@ export default function RegisterPage1({
       setValidColor("#D9D9D9");
       setInfoValid(0);
     } else {
-      if (!/\d/.test(password) || !/[a-zA-Z]/.test(password) || password.length < 8) {
+      if (
+        !/\d/.test(password) ||
+        !/[a-zA-Z]/.test(password) ||
+        password.length < 8
+      ) {
         changeColor1("#D22F42");
         changeValid(1);
         setValidColor("#D9D9D9");
@@ -162,7 +166,7 @@ export default function RegisterPage1({
                     }}
                     value={emailtmp}
                     readOnly={isGoogle}
-                    onKeyDown={(e)=>submit(e)}
+                    onKeyDown={(e) => submit(e)}
                     ref={inputRef}
                   />
                   <div>
@@ -178,7 +182,7 @@ export default function RegisterPage1({
                       }}
                       style={{ borderColor: color1 }}
                       value={passtmp}
-                      onKeyDown={(e)=>submit(e)}
+                      onKeyDown={(e) => submit(e)}
                     />
 
                     <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
@@ -245,7 +249,7 @@ export default function RegisterPage1({
                     }}
                     style={{ borderColor: color2 }}
                     value={conpasstmp}
-                    onKeyDown={(e)=>submit(e)}
+                    onKeyDown={(e) => submit(e)}
                   />
                   <div className="flex flex-row text-[16px]">
                     {passValid2 === 0 ? (

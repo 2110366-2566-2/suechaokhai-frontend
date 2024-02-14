@@ -6,7 +6,7 @@ import getCurrentUser from "@/libs/getCurrentUser";
 import userLogout from "@/libs/userLogout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Home() {
   async function auth() {
@@ -29,7 +29,7 @@ export default function Home() {
           console.log(data);
           setLogin(true);
           setUser(data);
-          console.log(data.profile_image)
+          console.log(data.profile_image);
         } else {
           setUser(Object);
         }
@@ -59,20 +59,26 @@ export default function Home() {
         </button>
       </div>
 
-      {isLogin? 
-      <div>
-        <Link href="/suechaokhai/editProfile">
-        <button className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white">
-          Edit Profile
-        </button>
-      </Link>
-      </div>:null}
-      
+      {isLogin ? (
+        <div>
+          <Link href="/suechaokhai/editProfile">
+            <button className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white">
+              Edit Profile
+            </button>
+          </Link>
+        </div>
+      ) : null}
 
-      {user && isLogin ? 
-      <div className="rounded-full overflow-hidden w-[167px] h-[167px] relative">
-        <Image src={user.profile_image_url} alt='profile image' fill={true} objectFit="cover"/>
-      </div>:null}
+      {user && isLogin ? (
+        <div className="relative h-[167px] w-[167px] overflow-hidden rounded-full">
+          <Image
+            src={user.profile_image_url}
+            alt="profile image"
+            fill={true}
+            objectFit="cover"
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
