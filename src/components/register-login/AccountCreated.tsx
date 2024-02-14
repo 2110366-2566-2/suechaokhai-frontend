@@ -14,7 +14,7 @@ export default function AccountCreated({
   return (
 
     <div>
-      {finReg ? 
+      {finReg.message == "User created" ? 
       <div className="flex h-[713px] w-[1214px] flex-col items-center rounded-[10px] bg-white">
         <div className="pb-[90px] pt-[50px] text-[40px] font-bold">
         Account Created
@@ -66,8 +66,8 @@ export default function AccountCreated({
           </div>
         </div>
       </div>:
-      <div  className="flex h-[713px] w-[1214px] flex-col items-center rounded-[10px] bg-white">
-      <CircularProgress className="absolute mt-[400px]" />
+      <div onLoad={()=>console.log('test')} className="flex h-[713px] w-[1214px] flex-col items-center rounded-[10px] bg-white">
+        <CircularProgress className="relative mt-[400px]" />
       </div>}
       
     </div>

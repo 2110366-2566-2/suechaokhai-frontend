@@ -73,7 +73,7 @@ export default function RegisterPage() {
     getUser();
   }, []);
 
-  const [finReg,setFinReg] = useState()
+  const [finReg,setFinReg] = useState(null)
   const register = async () => {
     const userRegis = await userRegister(
       {
@@ -86,6 +86,7 @@ export default function RegisterPage() {
       },
       financeInfo
     );
+    console.log(userRegis)
     setFinReg(userRegis)
   };
 
