@@ -50,23 +50,26 @@ export default function Home() {
         </button>
       </Link>
 
-      {user ? (
-        <div>
-          <button
-            onClick={auth}
-            className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white"
-          >
-            {isLogin ? <div>Logout</div> : <div>Login</div>}
-          </button>
-        </div>
-      ) : null}
-      <Link href="/suechaokhai/editProfile">
+      <div>
+        <button
+          onClick={auth}
+          className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white"
+        >
+          {isLogin ? <div>Logout</div> : <div>Login</div>}
+        </button>
+      </div>
+
+      {isLogin? 
+      <div>
+        <Link href="/suechaokhai/editProfile">
         <button className="h-[50px] rounded-[10px] bg-[#3AAEEF] px-2 font-bold text-white">
           Edit Profile
         </button>
       </Link>
+      </div>:null}
+      
 
-      {user? 
+      {user && isLogin ? 
       <div className="rounded-full overflow-hidden w-[167px] h-[167px] relative">
         <Image src={user.profile_image_url} alt='profile image' fill={true} objectFit="cover"/>
       </div>:null}
