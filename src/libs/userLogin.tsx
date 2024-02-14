@@ -2,7 +2,6 @@ export default async function userLogin(
   userEmail: string,
   userPassword: string
 ) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   const response = await fetch("http://localhost:8000/api/v1/login", {
     method: "POST",
     headers: {
