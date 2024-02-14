@@ -79,7 +79,10 @@ export default function FinancialPage({
       className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
       style={{ overflowY: "scroll" }}
     >
-      <form className="px-[50px] text-left text-[20px] py-[50px]" onSubmit={userReg1}>
+      <form
+        className="px-[50px] py-[50px] text-left text-[20px]"
+        onSubmit={userReg1}
+      >
         <div className="flex flex-col gap-[10px]">
           <div
             className="pb-[9px] text-[40px] font-bold"
@@ -96,7 +99,7 @@ export default function FinancialPage({
             <div>This information is optional.</div>
             <div>You can add the information later.</div>
             <button
-              className="pt-[10px] cursor-pointer pb-[20px] text-center text-[15px] font-normal text-[#3AAEEF]"
+              className="cursor-pointer pb-[20px] pt-[10px] text-center text-[15px] font-normal text-[#3AAEEF]"
               onClick={skip}
             >
               Skip and Create an Account

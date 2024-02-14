@@ -15,7 +15,7 @@ export interface PersonalInfo {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  img:any;
+  img: any;
 }
 export interface FinancialInfo {
   name: string;
@@ -37,7 +37,7 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const [img,setImg] = useState()
+  const [img, setImg] = useState();
 
   const [financeInfo, setFinanceInfo] = useState<FinancialInfo>({
     name: "",
@@ -56,13 +56,16 @@ export default function RegisterPage() {
       try {
         const data = await getCurrentUserRegister();
 
-        if (data.registered_type === "GOOGLE" && data.session_type === "REGISTER") {
+        if (
+          data.registered_type === "GOOGLE" &&
+          data.session_type === "REGISTER"
+        ) {
           setUser(data);
           console.log(data);
           setEmail(data.email);
           setIsGoogle(true);
         } else if (data.session_type === "LOGIN") {
-          redirect('/')
+          redirect("/");
         } else {
           setUser(Object);
         }
@@ -73,6 +76,7 @@ export default function RegisterPage() {
     getUser();
   }, []);
 
+  const [finReg, setFinReg] = useState(null);
   const register = async () => {
     const userRegis = await userRegister(
       {
@@ -85,6 +89,8 @@ export default function RegisterPage() {
       },
       financeInfo
     );
+    console.log(userRegis);
+    setFinReg(userRegis);
   };
 
   function test() {
@@ -95,7 +101,7 @@ export default function RegisterPage() {
     console.log(lastName);
     console.log(phoneNumber);
     console.log(financeInfo);
-    console.log(img)
+    console.log(img);
   }
 
   function nextStage() {
@@ -143,10 +149,10 @@ export default function RegisterPage() {
       ) : null}
       {registerStage === 3 ? (
         <div>
-          <AccountCreated changeRegState={changeRegState} />
+          <AccountCreated changeRegState={changeRegState} finReg={finReg} />
         </div>
       ) : null}
-      <button onClick={test}>test</button>
+      {/* <button onClick={test}>test</button> */}
     </div>
   );
 }

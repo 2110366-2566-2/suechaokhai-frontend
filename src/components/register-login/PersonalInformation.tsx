@@ -10,7 +10,7 @@ export default function PersonalInformation({
   setFirstName,
   setLastName,
   setPhoneNumber,
-  setImg
+  setImg,
 }: {
   firsttmp: string;
   lasttmp: string;
@@ -19,7 +19,7 @@ export default function PersonalInformation({
   setFirstName: Function;
   setLastName: Function;
   setPhoneNumber: Function;
-  setImg:Function
+  setImg: Function;
 }) {
   const [nextColor, setNextColor] = useState("#D9D9D9");
   const firstName = useRef("");
@@ -29,7 +29,6 @@ export default function PersonalInformation({
   const [src, setSrc] = useState("/img/prof_pic.png");
 
   const inputRef = useRef(null);
-  
 
   useEffect(() => {
     inputRef.current?.select();
@@ -71,11 +70,11 @@ export default function PersonalInformation({
     }
   }
 
-  const handleChange=(e)=> {
+  const handleChange = (e) => {
     console.log(e.target.files[0]);
-    setImg(e.target.files[0])
+    setImg(e.target.files[0]);
     setSrc(URL.createObjectURL(e.target.files[0]));
-}
+  };
 
   function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
@@ -99,36 +98,36 @@ export default function PersonalInformation({
       <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
-      <div className="rounded-full overflow-hidden w-[167px] h-[167px]">
-      <Image
-        src={src}
-        alt="Your Image"
-        width={167}
-        height={167}
-        layout="responsive"
-      />
-      </div>
-      
-      <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
-      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF] items-center justify-center flex flex-col">
-        <input
-          type="file"
-          accept="image/*"
-          id="profile_img"
-          name="profile_img"
-          ref={hiddenFileInput}
-          style={{ display: "none" }}
-          onChange={handleChange}
+      <div className="h-[167px] w-[167px] overflow-hidden rounded-full">
+        <Image
+          src={src}
+          alt="Your Image"
+          width={167}
+          height={167}
+          layout="responsive"
         />
-        <div
-          onClick={() => {
-            handleClick();
-          }}
-          style={{ cursor: "pointer" }}
-        >
-          Upload your photo
-        </div>
       </div>
+
+      <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
+        <div className="flex flex-col items-center justify-center pt-[12px] text-[20px] font-bold text-[#3AAEEF]">
+          <input
+            type="file"
+            accept="image/*"
+            id="profile_img"
+            name="profile_img"
+            ref={hiddenFileInput}
+            style={{ display: "none" }}
+            onChange={handleChange}
+          />
+          <div
+            onClick={() => {
+              handleClick();
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Upload your photo
+          </div>
+        </div>
         <div className="flex flex-col gap-[22px] pt-[22px]">
           <TextBox
             label="First Name"
@@ -174,7 +173,7 @@ export default function PersonalInformation({
         </div>
         <div>
           <button
-          type="submit"
+            type="submit"
             onClick={nextPageStatus}
             className={`h-[60px] w-[190px] rounded-[10px] bg-[${nextColor}] text-[24px] font-bold text-white`}
           >
