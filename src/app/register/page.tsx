@@ -73,6 +73,7 @@ export default function RegisterPage() {
     getUser();
   }, []);
 
+  const [finReg,setFinReg] = useState()
   const register = async () => {
     const userRegis = await userRegister(
       {
@@ -85,6 +86,7 @@ export default function RegisterPage() {
       },
       financeInfo
     );
+    setFinReg(userRegis)
   };
 
   function test() {
@@ -143,10 +145,10 @@ export default function RegisterPage() {
       ) : null}
       {registerStage === 3 ? (
         <div>
-          <AccountCreated changeRegState={changeRegState} />
+          <AccountCreated changeRegState={changeRegState} finReg={finReg} />
         </div>
       ) : null}
-      <button onClick={test}>test</button>
+      {/* <button onClick={test}>test</button> */}
     </div>
   );
 }
