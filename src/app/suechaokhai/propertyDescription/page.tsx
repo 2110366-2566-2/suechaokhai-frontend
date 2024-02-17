@@ -104,7 +104,9 @@ export default function PropertyDescriptionPage() {
             description={property?.description || ""}
             address={propertyAddress}
           />
-          <RoomTourRes Property={property?.project_name || ""}></RoomTourRes>
+          <div className="lg:ml-auto">
+            <RoomTourRes Property={property?.project_name || ""}></RoomTourRes>
+          </div>
         </div>
         <OwnerInfo
           name={(owner?.first_name || "") + " " + (owner?.last_name || "")}
