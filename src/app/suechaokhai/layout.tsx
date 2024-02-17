@@ -6,7 +6,7 @@ export default function Suechaokhai({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="">
       <PropertyNavigationBar icon="w" feature="w" />
       {children}
     </div>
