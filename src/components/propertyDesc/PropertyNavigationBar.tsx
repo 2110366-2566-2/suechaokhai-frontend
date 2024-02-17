@@ -4,7 +4,7 @@ import Image from "next/Image";
 import { useState } from "react";
 import AccountMenu from "./AccountMenu";
 import getCurrentUser from "@/libs/getCurrentUser";
-const isLogin = getCurrentUser();
+// const isLogin = getCurrentUser();
 export type PropertyNavigationBarProps = {
   icon: string;
   feature: string;
@@ -22,14 +22,14 @@ const PropertyNavigationBar = ({
   const [accountMenu, setAccountMenu] = useState(false);
   return (
     <div>
-      <div className="flex w-full items-center justify-between bg-[#FF9900] py-1 text-[12px]  sm:text-[20px]">
+      <div className="bg-ci-blue flex w-full items-center justify-between py-1 text-[12px] text-white sm:text-[16px]">
         <div className=" pl-4">
           <Image src={logo} alt={"logo"} width={72} height={72} />
         </div>
 
         <div className="flex items-center space-x-1  sm:space-x-12">
-          <div className="">Rent</div>
           <div className="">Buy</div>
+          <div className="">Rent</div>
           <div className="">Appointment</div>
           <div className="">Agreement</div>
           <div className="">My Listing</div>
