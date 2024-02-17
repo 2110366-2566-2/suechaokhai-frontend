@@ -14,8 +14,9 @@ const ImageSlider = ({ images }: { images: string[] }) => {
     <div>
       <div className="my-4 flex h-fit flex-row gap-1 overflow-y-hidden overflow-x-scroll">
         {images.map((img, i) => (
-          <div className="relative aspect-video h-44 sm:h-96">
+          <div className="relative aspect-video h-44 sm:h-96" key={i}>
             <Image
+              className="cursor-pointer"
               src={img}
               alt={`Image ${i + 1}`}
               layout="fill"

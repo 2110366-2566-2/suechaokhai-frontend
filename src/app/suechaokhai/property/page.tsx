@@ -12,7 +12,7 @@ import getPropertyDetail from "@/libs/getPropertyDetail";
 import getOwnerData from "@/libs/getOwnerData";
 import PropertyData from "@/components/models/PropertyData";
 import UserData from "@/components/models/UserData";
-
+import getCurrentUser from "@/libs/getCurrentUser";
 // Mock property
 type FeatureProps = {
   icon: string;
@@ -89,7 +89,7 @@ export default function PropertyDescriptionPage() {
 
       <div className="flex flex-row">
         {propertyTag.map((name: string) => (
-          <PropertyTag name={name} />
+          <PropertyTag name={name} key={name} />
         ))}
       </div>
 
