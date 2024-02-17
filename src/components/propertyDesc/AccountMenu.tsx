@@ -10,7 +10,7 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
   const router = useRouter();
   const logout = async () => {
     userLogout();
-    router.replace("/login");
+    router.push("/login");
   };
   return (
     <div className="absolute right-0 z-40 my-2 flex  h-80 w-80  flex-col overflow-hidden rounded-lg bg-white text-[20px]">
@@ -21,7 +21,7 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
       </div>
       <div
         className="flex h-1/5 cursor-pointer flex-row items-center space-x-1 px-2 hover:bg-ci-dark-gray"
-        onClick={() => router.replace("/suechaokhai/editProfile")}
+        onClick={() => router.push("/suechaokhai/editProfile")}
       >
         <Image src={editIcon} alt={"edit"} width={30} height={16} />
         <div>Edit profile</div>

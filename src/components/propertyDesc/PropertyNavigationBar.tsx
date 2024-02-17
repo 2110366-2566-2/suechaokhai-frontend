@@ -92,13 +92,13 @@ const PropertyNavigationBar = ({
           <div className="flex flex-row items-center space-x-1 pr-2  sm:space-x-4 sm:pr-4">
             <div
               className="cursor-pointer hover:text-ci-gray"
-              onClick={() => router.replace("/register")}
+              onClick={() => router.push("/register")}
             >
               Sign up
             </div>
             <div
               className="cursor-pointer hover:text-ci-gray"
-              onClick={() => router.replace("/login")}
+              onClick={() => router.push("/login")}
             >
               Sign in
             </div>
