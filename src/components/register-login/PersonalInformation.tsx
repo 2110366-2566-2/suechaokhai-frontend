@@ -28,7 +28,7 @@ export default function PersonalInformation({
   const lastName = useRef("");
   const phoneNumber = useRef("");
 
-  const [src, setSrc] = useState("/img/prof_pic.png");
+  const [src, setSrc] = useState("/img/login-register/prof_pic.png");
 
   const inputRef = useRef(null);
 

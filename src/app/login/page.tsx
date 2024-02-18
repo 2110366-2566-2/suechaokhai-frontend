@@ -47,7 +47,7 @@ export default function LoginPage() {
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
         <Image
-          src="/img/comp-icon.svg"
+          src="/img/login-register/comp-icon.svg"
           alt="test"
           width={80}
           height={80}
