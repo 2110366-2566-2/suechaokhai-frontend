@@ -1,14 +1,29 @@
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef, FormEvent, ChangeEvent } from "react";
 import FileUploadField from "../register-login/FileUploadField";
 import Image from "next/Image";
 import TextField from "@/components/register-login/TextField";
 const OwnerPage = () => {
   const id = useRef("");
-  const file = useRef("");
+  const file = useRef(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isIdValid, setIsIdValid] = useState(true);
   const [isIdEntered, setIsIdEntered] = useState(false);
   const [formattedId, setFormattedId] = useState("");
+  const [idCardUrl, setIdCardUrl] = useState("");
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setUploadedFile(file || null);
+    console.log(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        setIdCardUrl(dataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const validateId = () => {
     if (id.current) {
       const idRegex = /^[0-9]{13}$/;
@@ -59,18 +74,32 @@ const OwnerPage = () => {
       return `${currentId.slice(0, 1)} ${currentId.slice(1, 5)} ${currentId.slice(5, 10)} ${currentId.slice(10, 12)} ${currentId.slice(12, 13)}`;
     }
   }
-
+  const idCard = idCardUrl ? idCardUrl : "/img/edit-profile/citizen-card.svg";
+  const invalidIcon = "/img/InvalidIcon.png";
   return (
-    <div className="flex h-[695px] w-[800px] flex-col items-center rounded-[10px] bg-white p-8">
-      <div className="pb-[71px] pt-[19px] text-[40px] font-bold">
-        Owner Verification
-      </div>
-      <div className="pb-[71px]">
-        <FileUploadField
-          label="Upload Citizen Card Photo"
-          maxFileSize={512000}
-          minFileSize={1024}
+    <div className="ml-10 flex flex-col items-center space-y-2">
+      <div className=" pt-4 text-[40px] font-bold">Owner Verification</div>
+      <div className="flex flex-col justify-center space-y-8 overflow-hidden rounded-lg">
+        <Image
+          alt="idCard"
+          src={idCard}
+          height={0}
+          width={0}
+          style={{ height: "280px", width: "auto" }}
+          className=""
         />
+        <label>
+          <input
+            type="file"
+            accept="image/*"
+            ref={file}
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <div className="mt-8 flex cursor-pointer items-center justify-center rounded-lg border border-[#B3B3B3] bg-ci-blue p-2 text-[24px] font-bold text-white">
+            Upload Citizen Card Photo
+          </div>
+        </label>
         <div className="">
           <TextField
             label="Citizen ID"
@@ -82,7 +111,7 @@ const OwnerPage = () => {
             <div className="flex items-center">
               <Image
                 alt="Invalid"
-                src="/img/InvalidIcon.png"
+                src={invalidIcon}
                 height={20}
                 width={20}
                 style={{ maxHeight: "20px", maxWidth: "20px" }}
