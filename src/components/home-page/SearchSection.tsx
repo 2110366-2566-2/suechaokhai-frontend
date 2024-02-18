@@ -10,11 +10,11 @@ export default function SearchSection() {
   const [filterBedroom, setFilterBedroom] = useState(false);
 
   const [searchContent, setSearchContent] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [minSize, setMinSize] = useState("");
-  const [maxSize, setMaxSize] = useState("");
-  const [bedrooms, setBedrooms] = useState(0);
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(0);
+  const [minSize, setMinSize] = useState<number>(0);
+  const [maxSize, setMaxSize] = useState<number>(0);
+  const [bedrooms, setBedrooms] = useState<number>(0);
 
   function formatBedroom(val: number) {
     if (val < 0) {
@@ -85,9 +85,16 @@ export default function SearchSection() {
                   type="number"
                   className="h-14 w-full rounded-xl border border-ci-gray px-4"
                   onChange={(e) => {
-                    setMinPrice(e.target.value);
+                    if (
+                      parseInt(e.target.value) >= 0 ||
+                      e.target.value === ""
+                    ) {
+                      setMinPrice(Number(e.target.value));
+                    } else {
+                      setMinPrice(0);
+                    }
                   }}
-                  value={minPrice}
+                  value={minPrice.toString()}
                   placeholder="0"
                 ></input>
               </div>
@@ -97,9 +104,16 @@ export default function SearchSection() {
                   type="number"
                   className="h-14 w-full rounded-xl border border-ci-gray px-4"
                   onChange={(e) => {
-                    setMaxPrice(e.target.value);
+                    if (
+                      parseInt(e.target.value) >= 0 ||
+                      e.target.value === ""
+                    ) {
+                      setMaxPrice(Number(e.target.value));
+                    } else {
+                      setMaxPrice(0);
+                    }
                   }}
-                  value={maxPrice}
+                  value={maxPrice.toString()}
                   placeholder="1000000"
                 ></input>
               </div>
@@ -138,9 +152,16 @@ export default function SearchSection() {
                   type="number"
                   className="h-14 w-full rounded-xl border border-ci-gray px-4"
                   onChange={(e) => {
-                    setMinSize(e.target.value);
+                    if (
+                      parseInt(e.target.value) >= 0 ||
+                      e.target.value === ""
+                    ) {
+                      setMinSize(Number(e.target.value));
+                    } else {
+                      setMinSize(0);
+                    }
                   }}
-                  value={minSize}
+                  value={minSize.toString()}
                   placeholder="0"
                 ></input>
               </div>
@@ -150,9 +171,16 @@ export default function SearchSection() {
                   type="number"
                   className="h-14 w-full rounded-xl border border-ci-gray px-4"
                   onChange={(e) => {
-                    setMaxSize(e.target.value);
+                    if (
+                      parseInt(e.target.value) >= 0 ||
+                      e.target.value === ""
+                    ) {
+                      setMaxSize(Number(e.target.value));
+                    } else {
+                      setMaxSize(0);
+                    }
                   }}
-                  value={maxSize}
+                  value={maxSize.toString()}
                   placeholder="10000"
                 ></input>
               </div>
@@ -202,10 +230,10 @@ export default function SearchSection() {
                     if (e.target.value === "") {
                       setBedrooms(0);
                     } else {
-                      formatBedroom(parseInt(e.target.value));
+                      formatBedroom(Number(e.target.value));
                     }
                   }}
-                  value={bedrooms}
+                  value={bedrooms.toString()}
                 ></input>
                 <button
                   onClick={() => {
