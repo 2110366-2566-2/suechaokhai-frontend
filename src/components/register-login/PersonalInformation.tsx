@@ -23,7 +23,7 @@ export default function PersonalInformation({
   setImg: Function;
   register: Function;
 }) {
-  const [nextColor, setNextColor] = useState("#D9D9D9");
+  const [nextColor, setNextColor] = useState("ci-grey");
   const firstName = useRef("");
   const lastName = useRef("");
   const phoneNumber = useRef("");
@@ -58,9 +58,9 @@ export default function PersonalInformation({
     setPhoneNumber(phoneNumber.current);
 
     if (phoneLength >= 10) {
-      setNextColor("#3AAEEF");
+      setNextColor("ci-blue");
     } else {
-      setNextColor("#D9D9D9");
+      setNextColor("ci-gray");
     }
   }
 
@@ -79,7 +79,7 @@ export default function PersonalInformation({
   };
 
   async function nextPageStatus() {
-    if (nextColor == "#3AAEEF") {
+    if (nextColor == "ci-blue") {
       const reg = await register();
       console.log(reg);
       changeRegState(2);
@@ -113,7 +113,7 @@ export default function PersonalInformation({
       </div>
 
       <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
-        <div className="flex flex-col items-center justify-center pt-[12px] text-[20px] font-bold text-[#3AAEEF]">
+        <div className="flex flex-col items-center justify-center pt-[12px] text-[20px] font-bold text-ci-blue">
           <input
             type="file"
             accept="image/*"
@@ -170,7 +170,7 @@ export default function PersonalInformation({
         <div>
           <button
             onClick={back}
-            className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] text-[24px] font-bold text-white"
+            className="h-[60px] w-[190px] rounded-[10px] bg-ci-dark-gray text-[24px] font-bold text-white"
           >
             Back
           </button>
@@ -179,7 +179,7 @@ export default function PersonalInformation({
           <button
             type="submit"
             onClick={nextPageStatus}
-            className={`h-[60px] w-[190px] rounded-[10px] bg-[${nextColor}] text-[24px] font-bold text-white`}
+            className={`h-[60px] w-[190px] rounded-[10px] bg-${nextColor} text-[24px] font-bold text-white`}
           >
             Next
           </button>

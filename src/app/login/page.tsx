@@ -47,7 +47,7 @@ export default function LoginPage() {
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
         <Image
-          src="/img/compIcon.png"
+          src="/img/comp-icon.svg"
           alt="test"
           width={80}
           height={80}
@@ -81,14 +81,12 @@ export default function LoginPage() {
               Your email or password is wrong please try again
             </div>
           ) : null}
-          <LoginOption onChange={(e) => (remember.current = e.target.checked)}>
-            <div className="relative left-[137px] text-[#3AAEEF]">
-              Forgot Password?
-            </div>
-          </LoginOption>
+          <div className="pb-[30px] pt-[25px] text-right text-ci-blue">
+            Forgot Password?
+          </div>
 
           <button
-            className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white"
+            className="h-[60px] w-[510px] rounded-[10px] bg-ci-blue font-bold text-white"
             onClick={test}
           >
             Log in

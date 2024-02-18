@@ -31,7 +31,7 @@ export default function RegisterPage1({
   const [passValid, changeValid] = useState(0);
   const [color2, changeColor2] = useState("#B3B3B3");
   const [passValid2, changeValid2] = useState(0);
-  const [isValidColor, setValidColor] = useState("#D9D9D9");
+  const [isValidColor, setValidColor] = useState("ci-gray");
   const [isInfoValid, setInfoValid] = useState(0);
 
   const submit = (event: { keyCode: number }) => {
@@ -63,7 +63,7 @@ export default function RegisterPage1({
       isSame(conPass.current);
     } else {
       setInfoValid(1);
-      setValidColor("#3AAEEF");
+      setValidColor("ci-blue");
     }
   }
 
@@ -71,7 +71,7 @@ export default function RegisterPage1({
     if (password.length === 0) {
       changeColor1("#B3B3B3");
       changeValid(0);
-      setValidColor("#D9D9D9");
+      setValidColor("ci-gray");
       setInfoValid(0);
     } else {
       if (
@@ -81,7 +81,7 @@ export default function RegisterPage1({
       ) {
         changeColor1("#D22F42");
         changeValid(1);
-        setValidColor("#D9D9D9");
+        setValidColor("ci-gray");
         setInfoValid(0);
       } else {
         changeColor1("#30AD53");
@@ -94,20 +94,20 @@ export default function RegisterPage1({
     if (password2.length === 0) {
       changeColor2("#B3B3B3");
       changeValid2(0);
-      setValidColor("#D9D9D9");
+      setValidColor("ci-gray");
       setInfoValid(0);
     } else {
       if (password2 !== password.current) {
         changeColor2("#D22F42");
         changeValid2(1);
-        setValidColor("#D9D9D9");
+        setValidColor("ci-gray");
         setInfoValid(0);
       } else {
         changeColor2("#30AD53");
         changeValid2(2);
         if (email.current.length !== 0) {
           setInfoValid(1);
-          setValidColor("#3AAEEF");
+          setValidColor("ci-blue");
         }
       }
     }
@@ -129,7 +129,7 @@ export default function RegisterPage1({
       className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
     >
       <Image
-        src="/img/compIcon.png"
+        src="/img/comp-icon.svg"
         alt="test"
         width={80}
         height={80}
@@ -318,7 +318,7 @@ export default function RegisterPage1({
         {user ? (
           <div className="pt-[45px]">
             <button
-              className={`h-[60px] w-[510px] rounded-[10px] bg-[${isValidColor}] font-bold text-white`}
+              className={`h-[60px] w-[510px] rounded-[10px] bg-${isValidColor} font-bold text-white`}
               onClick={nextStage}
             >
               Confirm
@@ -331,7 +331,7 @@ export default function RegisterPage1({
         <div className="flex flex-row items-center justify-center pt-[30px] text-[20px]">
           <div className="">Already have an account?</div>
           <Link href="/login">
-            <div className="pl-[16px] text-[#3AAEEF] ">Login</div>
+            <div className="pl-[16px] text-ci-blue ">Login</div>
           </Link>
         </div>
       ) : null}

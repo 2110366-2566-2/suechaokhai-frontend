@@ -11,7 +11,7 @@ export default function GoogleButton() {
       <div className="flex flex-row items-center justify-center">
         <div className="">Doesn’t have an account yet?</div>
         <Link href="/register">
-          <div className="pl-[16px] text-[#3AAEEF]"> Register here</div>
+          <div className="pl-[16px] text-ci-blue"> Register here</div>
         </Link>
       </div>
 
