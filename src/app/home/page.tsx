@@ -1,9 +1,11 @@
-"use client"
+"use client";
 
-export default function HomePage(){
-    return(
-        <div>
-            
-        </div>
-    )
+import Banner from "@/components/home-page/Banner";
+
+export default function HomePage() {
+  return (
+    <main>
+      <Banner />
+    </main>
+  );
 }

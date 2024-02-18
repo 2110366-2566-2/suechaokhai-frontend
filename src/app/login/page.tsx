@@ -6,9 +6,9 @@ import GoogleButton from "@/components/register-login/GoogleButton";
 import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import PasswordField from "@/components/register-login/PasswordField";
-import userLogin from "@/libs/userLogin";
+import userLogin from "@/services/userLogin";
 import { useRouter } from "next/navigation";
-import userGreeting from "@/libs/userGreeting";
+import userGreeting from "@/services/userGreeting";
 
 export default function LoginPage() {
   const email = useRef("");
@@ -47,7 +47,7 @@ export default function LoginPage() {
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
       <div className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white">
         <Image
-          src="/img/comp-icon.svg"
+          src="/img/login-register/comp-icon.svg"
           alt="test"
           width={80}
           height={80}

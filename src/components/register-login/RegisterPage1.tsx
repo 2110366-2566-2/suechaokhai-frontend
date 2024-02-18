@@ -129,7 +129,7 @@ export default function RegisterPage1({
       className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
     >
       <Image
-        src="/img/comp-icon.svg"
+        src="/img/login-register/comp-icon.svg"
         alt="test"
         width={80}
         height={80}

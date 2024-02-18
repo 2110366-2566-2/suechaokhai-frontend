@@ -29,7 +29,7 @@ export default function AccountCreated({
               }}
             >
               <Image
-                src={"/img/blue-valid-icon.svg"}
+                src={"/img/login-register/blue-valid-icon.svg"}
                 width={150}
                 height={150}
                 alt="BlueValidIcon"
