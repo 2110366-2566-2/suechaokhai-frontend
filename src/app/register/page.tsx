@@ -17,15 +17,6 @@ export interface PersonalInfo {
   phoneNumber: string;
   img: any;
 }
-export interface FinancialInfo {
-  name: string;
-  card: string;
-  month: string;
-  year: string;
-  cvv: string;
-  bank: string;
-  bankNum: string;
-}
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
@@ -39,15 +30,6 @@ export default function RegisterPage() {
 
   const [img, setImg] = useState();
 
-  const [financeInfo, setFinanceInfo] = useState<FinancialInfo>({
-    name: "",
-    card: "",
-    month: "",
-    year: "",
-    cvv: "",
-    bank: "",
-    bankNum: "",
-  });
   const [user, setUser] = useState();
   const [isGoogle, setIsGoogle] = useState(false);
 
@@ -78,17 +60,14 @@ export default function RegisterPage() {
 
   const [finReg, setFinReg] = useState(null);
   const register = async () => {
-    const userRegis = await userRegister(
-      {
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        img: img,
-      },
-      financeInfo
-    );
+    const userRegis = await userRegister({
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      img: img,
+    });
     console.log(userRegis);
     setFinReg(userRegis);
   };
@@ -100,7 +79,6 @@ export default function RegisterPage() {
     console.log(firstName);
     console.log(lastName);
     console.log(phoneNumber);
-    console.log(financeInfo);
     console.log(img);
   }
 
@@ -135,10 +113,11 @@ export default function RegisterPage() {
             setPhoneNumber={setPhoneNumber}
             changeRegState={changeRegState}
             setImg={setImg}
+            register={register}
           />
         </div>
       ) : null}
-      {registerStage === 2 ? (
+      {/* {registerStage === 2 ? (
         <div>
           <FinancialPage
             changeRegState={changeRegState}
@@ -146,8 +125,8 @@ export default function RegisterPage() {
             register={register}
           />
         </div>
-      ) : null}
-      {registerStage === 3 ? (
+      ) : null} */}
+      {registerStage === 2 ? (
         <div>
           <AccountCreated changeRegState={changeRegState} finReg={finReg} />
         </div>
