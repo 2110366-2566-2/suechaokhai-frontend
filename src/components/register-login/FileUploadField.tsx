@@ -33,8 +33,8 @@ const FileUploadField: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="my-4">
-      <label className="flex h-[60px] w-[510px] cursor-pointer items-center justify-center rounded-[10px] border border border-[#B3B3B3] p-2">
+    <div className="">
+      <label className="flex h-[60px] w-[510px] cursor-pointer items-center justify-center rounded-[10px] border border-[#B3B3B3] bg-ci-blue p-2">
         {!selectedFile && (
           <Image
             src="/img/UploadIcon.png"
@@ -55,7 +55,7 @@ const FileUploadField: React.FC<FileUploadProps> = ({
             className="pt-1"
           />
         )}
-        <span className={`px-2 pt-1.5 text-[18px] font-bold text-[#1983E4] `}>
+        <span className={`px-2 pt-1.5 text-[18px] font-bold text-white `}>
           {selectedFile ? selectedFile.name : label}
         </span>
         <input

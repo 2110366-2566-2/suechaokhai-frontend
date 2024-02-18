@@ -40,9 +40,15 @@ const PropertyNavigationBar = ({
   // const accountIcon = "/img/PropertyNavBar/ic_round-account-circle.svg";
   return (
     <div className="select-none">
-      <div className="flex w-full items-center justify-between bg-ci-blue py-1 text-[12px] text-white sm:text-[20px] ">
+      <div className="fixed z-50 flex w-full items-center justify-between bg-ci-blue py-1 text-[12px] text-white sm:text-[20px]">
         <div className=" pl-4">
-          <Image src={logo} alt={"logo"} width={72} height={72} />
+          <Image
+            src={logo}
+            alt={"logo"}
+            width={72}
+            height={72}
+            draggable={false}
+          />
         </div>
 
         <div className="flex items-center space-x-1  sm:space-x-12">
@@ -61,6 +67,7 @@ const PropertyNavigationBar = ({
                 alt={"accountMenu"}
                 width={56}
                 height={56}
+                draggable={false}
               />
             </div>
             {!accountMenu && (
@@ -70,6 +77,7 @@ const PropertyNavigationBar = ({
                 alt={"arrow-down"}
                 width={30}
                 height={16}
+                draggable={false}
                 onClick={() => {
                   setAccountMenu(true);
                 }}
@@ -82,6 +90,7 @@ const PropertyNavigationBar = ({
                 alt={"arrow-up"}
                 width={30}
                 height={16}
+                draggable={false}
                 onClick={() => {
                   setAccountMenu(false);
                 }}

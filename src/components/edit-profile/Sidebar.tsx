@@ -13,7 +13,9 @@ const Sidebar = ({
 }) => {
   return (
     <div className=" flex h-full w-72 flex-col items-center bg-ci-light-gray text-[20px] lg:w-80">
-      <div className="flex w-full justify-center text-[40px]">Edit Profile</div>
+      <div className="flex w-full justify-center text-[40px] font-bold">
+        Edit Profile
+      </div>
       <div
         className="flex h-14 w-full cursor-pointer flex-row space-x-2 hover:bg-ci-gray"
         onClick={personal}
