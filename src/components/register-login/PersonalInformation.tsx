@@ -11,6 +11,7 @@ export default function PersonalInformation({
   setLastName,
   setPhoneNumber,
   setImg,
+  register,
 }: {
   firsttmp: string;
   lasttmp: string;
@@ -20,6 +21,7 @@ export default function PersonalInformation({
   setLastName: Function;
   setPhoneNumber: Function;
   setImg: Function;
+  register: Function;
 }) {
   const [nextColor, setNextColor] = useState("#D9D9D9");
   const firstName = useRef("");
@@ -76,8 +78,10 @@ export default function PersonalInformation({
     setSrc(URL.createObjectURL(e.target.files[0]));
   };
 
-  function nextPageStatus() {
+  async function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
+      const reg = await register();
+      console.log(reg);
       changeRegState(2);
     }
   }

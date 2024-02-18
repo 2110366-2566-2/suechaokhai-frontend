@@ -17,15 +17,6 @@ export interface PersonalInfo {
   phoneNumber: string;
   img: any;
 }
-export interface FinancialInfo {
-  name: string;
-  card: string;
-  month: string;
-  year: string;
-  cvv: string;
-  bank: string;
-  bankNum: string;
-}
 
 export default function RegisterPage() {
   const [registerStage, changeRegState] = useState(0);
@@ -122,6 +113,7 @@ export default function RegisterPage() {
             setPhoneNumber={setPhoneNumber}
             changeRegState={changeRegState}
             setImg={setImg}
+            register={register}
           />
         </div>
       ) : null}

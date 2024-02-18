@@ -5,7 +5,6 @@ import UppercaseTextField from "@/components/register-login/UppercaseTextField";
 import ExpiryDateInput from "@/components/register-login/ExpiredDateTextField";
 import Dropdown from "@/components/register-login/DropDown";
 import React, { FormEvent, useEffect, useRef, useState } from "react";
-import { FinancialInfo } from "@/app/register/page";
 
 export default function FinancialPage({
   changeRegState,
