@@ -1,4 +1,4 @@
-import userGoogleLogin from "@/libs/userGoogleLogin";
+import userGoogleLogin from "@/services/userGoogleLogin";
 import Image from "next/image";
 import Link from "next/link";
 

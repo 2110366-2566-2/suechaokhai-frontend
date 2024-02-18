@@ -1,9 +1,5 @@
-"use client"
+"use client";
 
-export default function HomePage(){
-    return(
-        <div>
-            
-        </div>
-    )
+export default function HomePage() {
+  return <div>test</div>;
 }

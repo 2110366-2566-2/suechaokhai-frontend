@@ -6,9 +6,9 @@ import GoogleButton from "@/components/register-login/GoogleButton";
 import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import PasswordField from "@/components/register-login/PasswordField";
-import userLogin from "@/libs/userLogin";
+import userLogin from "@/services/userLogin";
 import { useRouter } from "next/navigation";
-import userGreeting from "@/libs/userGreeting";
+import userGreeting from "@/services/userGreeting";
 
 export default function LoginPage() {
   const email = useRef("");

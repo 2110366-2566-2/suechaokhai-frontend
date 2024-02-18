@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
 import AccountCreated from "@/components/register-login/AccountCreated";
-import FinancialPage from "@/components/register-login/FinancialPage";
-import userRegister from "@/libs/userRegister";
+import userRegister from "@/services/userRegister";
 import { redirect } from "next/navigation";
-import getCurrentUserRegister from "@/libs/getCurrentUserRegister";
+import getCurrentUserRegister from "@/services/getCurrentUserRegister";
 
 export interface PersonalInfo {
   email: string;
