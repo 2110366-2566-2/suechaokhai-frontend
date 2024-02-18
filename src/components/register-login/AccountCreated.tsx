@@ -29,7 +29,7 @@ export default function AccountCreated({
               }}
             >
               <Image
-                src={"/img/blue-valid-icon.png"}
+                src={"/img/blue-valid-icon.svg"}
                 width={150}
                 height={150}
                 alt="BlueValidIcon"
@@ -58,7 +58,7 @@ export default function AccountCreated({
               }}
             >
               <Link href="/login">
-                <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
+                <button className="h-[60px] w-[510px] rounded-[10px] bg-ci-blue font-bold text-white">
                   Let's Log in with your account
                 </button>
               </Link>

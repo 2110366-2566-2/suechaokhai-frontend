@@ -117,21 +117,12 @@ export default function RegisterPage() {
           />
         </div>
       ) : null}
-      {/* {registerStage === 2 ? (
-        <div>
-          <FinancialPage
-            changeRegState={changeRegState}
-            setFinanceInfo={setFinanceInfo}
-            register={register}
-          />
-        </div>
-      ) : null} */}
+
       {registerStage === 2 ? (
         <div>
           <AccountCreated changeRegState={changeRegState} finReg={finReg} />
         </div>
       ) : null}
-      {/* <button onClick={test}>test</button> */}
     </div>
   );
 }
