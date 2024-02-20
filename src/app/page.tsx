@@ -1,9 +1,9 @@
 "use client";
 
-import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
-import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
-import getCurrentUser from "@/libs/getCurrentUser";
-import userLogout from "@/libs/userLogout";
+import OwnerInfo from "@/components/property-description/OwnerInfo";
+import RoomTourRes from "@/components/property-description/RoomTourRes";
+import getCurrentUser from "@/services/getCurrentUser";
+import userLogout from "@/services/userLogout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";

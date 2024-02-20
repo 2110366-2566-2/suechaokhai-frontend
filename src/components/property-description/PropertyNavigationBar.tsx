@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/Image";
 import { useState, useEffect } from "react";
 import AccountMenu from "./AccountMenu";
-import getCurrentUser from "@/libs/getCurrentUser";
+import getCurrentUser from "@/services/getCurrentUser";
 import UserData from "../models/UserData";
 import { useRouter } from "next/navigation";
 

@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
 import AccountCreated from "@/components/register-login/AccountCreated";
-import FinancialPage from "@/components/register-login/FinancialPage";
-import userRegister from "@/libs/userRegister";
+import userRegister from "@/services/userRegister";
 import { redirect } from "next/navigation";
-import getCurrentUserRegister from "@/libs/getCurrentUserRegister";
+import getCurrentUserRegister from "@/services/getCurrentUserRegister";
 
 export interface PersonalInfo {
   email: string;
@@ -16,15 +15,6 @@ export interface PersonalInfo {
   lastName: string;
   phoneNumber: string;
   img: any;
-}
-export interface FinancialInfo {
-  name: string;
-  card: string;
-  month: string;
-  year: string;
-  cvv: string;
-  bank: string;
-  bankNum: string;
 }
 
 export default function RegisterPage() {
@@ -39,15 +29,6 @@ export default function RegisterPage() {
 
   const [img, setImg] = useState();
 
-  const [financeInfo, setFinanceInfo] = useState<FinancialInfo>({
-    name: "",
-    card: "",
-    month: "",
-    year: "",
-    cvv: "",
-    bank: "",
-    bankNum: "",
-  });
   const [user, setUser] = useState();
   const [isGoogle, setIsGoogle] = useState(false);
 
@@ -78,17 +59,14 @@ export default function RegisterPage() {
 
   const [finReg, setFinReg] = useState(null);
   const register = async () => {
-    const userRegis = await userRegister(
-      {
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        img: img,
-      },
-      financeInfo
-    );
+    const userRegis = await userRegister({
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      img: img,
+    });
     console.log(userRegis);
     setFinReg(userRegis);
   };
@@ -100,7 +78,6 @@ export default function RegisterPage() {
     console.log(firstName);
     console.log(lastName);
     console.log(phoneNumber);
-    console.log(financeInfo);
     console.log(img);
   }
 
@@ -135,24 +112,16 @@ export default function RegisterPage() {
             setPhoneNumber={setPhoneNumber}
             changeRegState={changeRegState}
             setImg={setImg}
-          />
-        </div>
-      ) : null}
-      {registerStage === 2 ? (
-        <div>
-          <FinancialPage
-            changeRegState={changeRegState}
-            setFinanceInfo={setFinanceInfo}
             register={register}
           />
         </div>
       ) : null}
-      {registerStage === 3 ? (
+
+      {registerStage === 2 ? (
         <div>
           <AccountCreated changeRegState={changeRegState} finReg={finReg} />
         </div>
       ) : null}
-      {/* <button onClick={test}>test</button> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
+import PropertyNavigationBar from "@/components/property-description/PropertyNavigationBar";
 
 export default function Suechaokhai({
   children,

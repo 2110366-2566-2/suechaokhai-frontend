@@ -1,4 +1,4 @@
-import userGoogleLogin from "@/libs/userGoogleLogin";
+import userGoogleLogin from "@/services/userGoogleLogin";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ export default function GoogleButton() {
       <div className="flex flex-row items-center justify-center">
         <div className="">Doesn’t have an account yet?</div>
         <Link href="/register">
-          <div className="pl-[16px] text-[#3AAEEF]"> Register here</div>
+          <div className="pl-[16px] text-ci-blue"> Register here</div>
         </Link>
       </div>
 
@@ -28,7 +28,7 @@ export default function GoogleButton() {
           <div className="flex w-full flex-row items-center justify-center">
             <div className="flex w-full items-center justify-center gap-[24px]">
               <Image
-                src={"/img/google-icon.png"}
+                src={"/img/login-register/google-icon.png"}
                 width={48}
                 height={48}
                 alt="Google Icon"

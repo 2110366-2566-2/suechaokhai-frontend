@@ -1,19 +1,19 @@
 "use client";
-import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
-import PropertyDescription from "../../../components/propertyDesc/PropertyDescription";
-import ImageSlider from "@/components/propertyDesc/ImageSlider";
-import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
+import PropertyNavigationBar from "@/components/property-description/PropertyNavigationBar";
+import PropertyDescription from "../../../components/property-description/PropertyDescription";
+import ImageSlider from "@/components/property-description/ImageSlider";
+import RoomTourRes from "@/components/property-description/RoomTourRes";
 import { Toaster } from "sonner";
-import OwnerInfo from "@/components/propertyDesc/OwnerInfo";
+import OwnerInfo from "@/components/property-description/OwnerInfo";
 import WestIcon from "@mui/icons-material/West";
-import PropertyTag from "@/components/propertyDesc/PropertyTag";
+import PropertyTag from "@/components/property-description/PropertyTag";
 import { useEffect, useState } from "react";
-import getPropertyDetail from "@/libs/getPropertyDetail";
-import getOwnerData from "@/libs/getOwnerData";
+import getPropertyDetail from "@/services/getPropertyDetail";
+import getOwnerData from "@/services/getOwnerData";
 import PropertyData from "@/components/models/PropertyData";
 import UserData from "@/components/models/UserData";
-import getCurrentUser from "@/libs/getCurrentUser";
-import AddCard from "@/components/edit-profile/AddCard";
+import getCurrentUser from "@/services/getCurrentUser";
+
 // Mock property
 type FeatureProps = {
   icon: string;

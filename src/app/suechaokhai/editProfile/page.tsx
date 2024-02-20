@@ -1,13 +1,13 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
-import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
+import PropertyNavigationBar from "@/components/property-description/PropertyNavigationBar";
 import TextBox from "@/components/register-login/TextField";
 import Image from "next/image";
-import NumberTextField from "@/components/editProfile/NumberTextField";
+import NumberTextField from "@/components/edit-profile/NumberTextField";
 import UppercaseTextField from "@/components/register-login/UppercaseTextField";
-import ExpiryDateInput from "@/components/editProfile/ExpiredDateTextField";
-import Dropdown from "@/components/editProfile/DropDown";
+import ExpiryDateInput from "@/components/edit-profile/ExpiredDateTextField";
+import Dropdown from "@/components/edit-profile/DropDown";
 
 export default function editProfilePage() {
   const firstNameInitial = "Praeploy";

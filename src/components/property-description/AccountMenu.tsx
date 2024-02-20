@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import userLogout from "@/libs/userLogout";
+import userLogout from "@/services/userLogout";
 import { useRouter } from "next/navigation";
 const editIcon = "/img/PropertyNavBar/tabler_pencil.svg";
 const logoutIcon = "/img/PropertyNavBar/logout-icon.svg";
