@@ -1,5 +1,5 @@
 "use client";
-import getCurrentUser from "@/libs/getCurrentUser";
+import getCurrentUser from "@/services/getCurrentUser";
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/edit-profile/Sidebar";
 import PersonalPage from "@/components/edit-profile/PersonalPage";

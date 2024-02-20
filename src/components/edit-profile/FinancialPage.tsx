@@ -1,5 +1,5 @@
 import Dropdown from "../register-login/DropDown";
-import NumberTextField from "@/components/editProfile/NumberTextField";
+import NumberTextBox from "../register-login/NumberTextField";
 import { useState } from "react";
 import EmptyCard from "@/components/edit-profile/EmptyCard";
 const FinancialPage = () => {
@@ -23,7 +23,7 @@ const FinancialPage = () => {
           options={options}
           onSelect={handleBankName}
         />
-        <NumberTextField
+        <NumberTextBox
           label="Bank Account Number"
           placeholder="Enter your bank account number"
           maxLength={13}

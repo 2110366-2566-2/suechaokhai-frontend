@@ -12,7 +12,7 @@ const Sidebar = ({
   owner: () => void;
 }) => {
   return (
-    <div className=" flex h-full w-72 flex-col items-center bg-ci-light-gray text-[20px] lg:w-80">
+    <div className=" flex h-[100vh] w-72 flex-col items-center bg-ci-light-gray text-[20px] lg:w-80">
       <div className="flex w-full justify-center text-[40px] font-bold">
         Edit Profile
       </div>

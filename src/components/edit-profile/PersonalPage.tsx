@@ -1,5 +1,5 @@
 import Image from "next/Image";
-import getCurrentUser from "@/libs/getCurrentUser";
+import getCurrentUser from "@/services/getCurrentUser";
 import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";
 import { useRef, useState, ChangeEvent, useEffect } from "react";
