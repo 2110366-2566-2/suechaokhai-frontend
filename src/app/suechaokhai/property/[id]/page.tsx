@@ -1,6 +1,6 @@
 "use client";
 import PropertyNavigationBar from "@/components/propertyDesc/PropertyNavigationBar";
-import PropertyDescription from "../../../components/propertyDesc/PropertyDescription";
+import PropertyDescription from "@/components/propertyDesc/PropertyDescription";
 import ImageSlider from "@/components/propertyDesc/ImageSlider";
 import RoomTourRes from "@/components/propertyDesc/RoomTourRes";
 import { Toaster } from "sonner";
@@ -13,7 +13,7 @@ import getOwnerData from "@/libs/getOwnerData";
 import PropertyData from "@/components/models/PropertyData";
 import UserData from "@/components/models/UserData";
 import getCurrentUser from "@/libs/getCurrentUser";
-import AddCard from "@/components/edit-profile/AddCard";
+import { useParams } from "next/navigation";
 // Mock property
 type FeatureProps = {
   icon: string;
@@ -48,14 +48,13 @@ const propertyImages = [
 //   imgSrc: "/img/Boss.png",
 // };
 const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
-
 export default function PropertyDescriptionPage() {
+  const params = useParams<{ tag: string; item: string; id: string }>();
+  console.log(params.id);
   const [property, setProperty] = useState<PropertyData | null>(null);
   const [owner, setOwner] = useState<UserData | null>(null);
   const fetchData = async () => {
-    const result = await getPropertyDetail(
-      "f38f80b3-f326-4825-9afc-ebc331626875"
-    );
+    const result = await getPropertyDetail(params.id);
     setProperty(result);
     if (result?.owner_id) {
       const ownerResult = await getOwnerData(result.owner_id);
@@ -65,6 +64,9 @@ export default function PropertyDescriptionPage() {
   useEffect(() => {
     fetchData();
   }, []);
+  if (property == null) {
+    window.location.href = "/404";
+  }
   const propertyAddress =
     (property?.address || "") +
     ", " +
@@ -81,7 +83,6 @@ export default function PropertyDescriptionPage() {
     (property?.postal_code || "");
   return (
     <div className=" px-[1%] sm:px-[15%] ">
-      <AddCard />
       <div className="flex flex-row items-center ">
         <WestIcon className="mx-3"></WestIcon>
         <div className="m-3 text-3xl font-bold">

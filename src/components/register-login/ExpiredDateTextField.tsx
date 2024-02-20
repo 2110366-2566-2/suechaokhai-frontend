@@ -50,7 +50,7 @@ const ExpiryDateInput = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <div>
         {label && (
-          <label className="inline-block pb-[8px] font-medium" htmlFor="txt">
+          <label className="inline-block pb-[8px] font-bold" htmlFor="txt">
             {label} :
           </label>
         )}

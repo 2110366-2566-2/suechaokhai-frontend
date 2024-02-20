@@ -37,6 +37,7 @@ const PropertyNavigationBar = ({
   const accountIcon = user?.profile_image_url
     ? user.profile_image_url
     : "/img/PropertyNavBar/ic_round-account-circle.svg";
+  console.log(accountIcon);
   // const accountIcon = "/img/PropertyNavBar/ic_round-account-circle.svg";
   return (
     <div className="select-none">

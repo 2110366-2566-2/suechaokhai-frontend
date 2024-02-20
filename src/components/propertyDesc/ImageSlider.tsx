@@ -28,7 +28,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
         ))}
       </div>
       {displayImage && (
-        <div className="fixed left-0 top-0 z-30 flex h-[100vh] w-full flex-row items-center justify-center bg-black bg-opacity-40">
+        <div className="fixed left-0 top-0 z-30 flex h-full w-full flex-row items-center justify-center bg-black bg-opacity-40">
           <button
             className="absolute right-4 top-24 cursor-pointer border-none bg-transparent text-black hover:opacity-50"
             onClick={() => setDisplayImage(false)}

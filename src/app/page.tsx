@@ -44,7 +44,10 @@ export default function Home() {
       {user && user.email ? (
         <div className="text-white">Hello {user.email}</div>
       ) : null}
-      <Link href="/suechaokhai/property">
+      <Link
+        href="/suechaokhai/property/f38f80b3-f326-4825-9afc-ebc331626875
+"
+      >
         <button className="h-[60px] w-[510px] rounded-[10px] bg-[#3AAEEF] font-bold text-white">
           View Property
         </button>
