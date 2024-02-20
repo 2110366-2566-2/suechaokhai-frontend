@@ -1,6 +1,6 @@
 "use client";
 import PropertyNavigationBar from "@/components/property-description/PropertyNavigationBar";
-import PropertyDescription from "../../../components/property-description/PropertyDescription";
+import PropertyDescription from "@/components/property-description/PropertyDescription";
 import ImageSlider from "@/components/property-description/ImageSlider";
 import RoomTourRes from "@/components/property-description/RoomTourRes";
 import { Toaster } from "sonner";
@@ -13,6 +13,7 @@ import getOwnerData from "@/services/getOwnerData";
 import PropertyData from "@/components/models/PropertyData";
 import UserData from "@/components/models/UserData";
 import getCurrentUser from "@/services/getCurrentUser";
+import { useParams } from "next/navigation";
 // Mock property
 type FeatureProps = {
   icon: string;
@@ -47,14 +48,13 @@ const propertyImages = [
 //   imgSrc: "/img/Boss.png",
 // };
 const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
-
 export default function PropertyDescriptionPage() {
+  const params = useParams<{ tag: string; item: string; id: string }>();
+  console.log(params.id);
   const [property, setProperty] = useState<PropertyData | null>(null);
   const [owner, setOwner] = useState<UserData | null>(null);
   const fetchData = async () => {
-    const result = await getPropertyDetail(
-      "f38f80b3-f326-4825-9afc-ebc331626875"
-    );
+    const result = await getPropertyDetail(params.id);
     setProperty(result);
     if (result?.owner_id) {
       const ownerResult = await getOwnerData(result.owner_id);
@@ -64,6 +64,9 @@ export default function PropertyDescriptionPage() {
   useEffect(() => {
     fetchData();
   }, []);
+  if (property == null) {
+    window.location.href = "/404";
+  }
   const propertyAddress =
     (property?.address || "") +
     ", " +

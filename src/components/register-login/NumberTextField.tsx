@@ -54,7 +54,7 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <div className="gap-[8px]">
         {label && (
-          <label className="inline-block pb-[8px] font-medium" htmlFor="txt">
+          <label className="inline-block pb-[8px] font-bold" htmlFor="txt">
             {label} :
           </label>
         )}

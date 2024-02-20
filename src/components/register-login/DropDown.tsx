@@ -19,7 +19,7 @@ const Dropdown = ({
   return (
     <div>
       {label && (
-        <label className="block pb-[8px] font-medium" htmlFor="txt">
+        <label className="block pb-2 text-[20px] font-medium" htmlFor="txt">
           {label} :
         </label>
       )}
