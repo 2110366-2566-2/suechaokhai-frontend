@@ -28,7 +28,7 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
       </div>
       <div
         className="flex h-1/5 cursor-pointer flex-row items-center space-x-1 px-2 hover:bg-ci-dark-gray"
-        onClick={() => router.push("/suechaokhai/editProfile")}
+        onClick={() => router.push("/suechaokhai//edit-profile")}
       >
         <Image
           src={editIcon}
@@ -41,7 +41,7 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
       </div>
       <div
         className="flex h-1/5 cursor-pointer flex-row items-center space-x-1 px-2 hover:bg-ci-dark-gray"
-        onClick={() => router.push("/suechaokhai/editProfile")} // add path to payment history
+        onClick={() => router.push("/suechaokhai/edit-profile")} // add path to payment history
       >
         <Image
           src={paymentIcon}

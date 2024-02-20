@@ -2,26 +2,20 @@ import Image from "next/Image";
 import getCurrentUser from "@/services/getCurrentUser";
 import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";
+import updateCurrentUser from "@/services/updateCurrentUser";
 import { useRef, useState, ChangeEvent, useEffect } from "react";
 const PersonalPage = () => {
   const file = useRef(null);
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [profileUrl, setProfileUrl] = useState("");
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    setUploadedFile(file || null);
-    console.log(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataUrl = reader.result as string;
-        setProfileUrl(dataUrl);
-      };
-      reader.readAsDataURL(file);
-    }
+  const [img, setImg] = useState<any>();
+  const [userId, setUserId] = useState("");
+  const handleFileChange = (e) => {
+    console.log(e.target.files[0]);
+    setImg(e.target.files[0]);
+    setProfileUrl(URL.createObjectURL(e.target.files[0]));
   };
   const fetchUser = async () => {
     try {
@@ -29,8 +23,9 @@ const PersonalPage = () => {
       setFirstName(data.first_name);
       setLastName(data.last_name);
       setPhoneNumber(data.phone_number);
-      setProfileUrl(data.profile_image_url);
-      console.log(profileUrl);
+      setProfileUrl(URL.createObjectURL(data.profile_image_url));
+      setUserId(data.UserId);
+      console.log(data.profile_image_url);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -52,8 +47,17 @@ const PersonalPage = () => {
   }, []);
   const profileIcon =
     profileUrl == "" ? "/img/ProfilePhoto_square.png" : profileUrl;
-  // const profileIcon = "/img/ProfilePhoto_square.png";
-  const handleSave = () => {};
+  const handleSave = () => {
+    const updatedUserData = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber.replace(/[^\d]/g, ""),
+      profile_image: profileUrl,
+    };
+    updateCurrentUser(updatedUserData, userId).then(() =>
+      window.location.reload()
+    );
+  };
   return (
     <div className="">
       <div className="ml-10 text-[40px] font-bold">Personal Information</div>
@@ -111,6 +115,14 @@ const PersonalPage = () => {
             }}
           />
         </form>
+      </div>
+      <div className="mt-40 flex flex-row justify-end">
+        <button
+          className="rounded-xl bg-ci-blue px-4 py-2 text-[20px] font-bold text-white"
+          onClick={handleSave}
+        >
+          Save
+        </button>
       </div>
     </div>
   );

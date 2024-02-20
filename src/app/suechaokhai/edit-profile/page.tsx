@@ -13,13 +13,13 @@ const editProfile = () => {
   const switchToOwner = () => setTab("owner");
 
   return (
-    <div className="flex h-full flex-row ">
+    <div className=" flex min-h-dvh  flex-row">
       <Sidebar
         personal={switchToPersonal}
         financial={switchToFinancial}
         owner={switchToOwner}
       />
-      <div className="m-5">
+      <div className="m-5 ">
         {tab === "personal" && <PersonalPage />}
         {tab === "financial" && <FinancialPage />}
         {tab === "owner" && <OwnerPage />}
