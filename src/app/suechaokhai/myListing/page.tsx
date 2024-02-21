@@ -2,8 +2,7 @@
 import PropertyData from '@/components/models/PropertyData';
 import PropertyCard from '@/components/mylisting/PropertyCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-
+import Image from 'next/image';
 
 import { useState } from "react";
 
@@ -27,7 +26,7 @@ const myListingPage = () => {
             postal_code: `Postal Code ${i}`,
             residental_type: `Residential Type ${i}`,
             renting: {
-              price_per_month: Math.floor(Math.random() * 10000) // Example random price
+              price_per_month: Math.floor(Math.random() * 100000) // Example random price
             }
           };
       
@@ -85,8 +84,12 @@ const myListingPage = () => {
                     <div className="flex h-1/2 flex-col mx-64 mt-8 justify-around items-center">
                         <div className="text-4xl font-bold text-center">Empty property listing</div>
 
-                        <HomeOutlinedIcon className='text-9xl m-5'></HomeOutlinedIcon>
-
+                        <Image
+                            src="/img/mylisting/home.svg"
+                            alt="home"
+                            width={100}
+                            height={100}
+                        />
                         <div className="">
                             <div className="text-2xl text-center m-1">Your listing is empty.</div>
                             <div className="text-2xl text-center m-1">Let's create a property on your listing.</div>
