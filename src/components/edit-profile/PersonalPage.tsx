@@ -3,29 +3,56 @@ import getCurrentUser from "@/services/getCurrentUser";
 import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";
 import updateCurrentUser from "@/services/updateCurrentUser";
-import { useRef, useState, ChangeEvent, useEffect } from "react";
+import { useRef, useState, useEffect, FormEvent } from "react";
 const PersonalPage = () => {
   const file = useRef(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [profileUrl, setProfileUrl] = useState("");
+  const [profileUrl, setProfileUrl] = useState(
+    "/img/login-register/ProfilePhoto_square.png"
+  );
+
   const [img, setImg] = useState<any>();
-  const [userId, setUserId] = useState("");
+  const [changed, setChanged] = useState(0);
+  const handleChange = () => {
+    console.log(firstName, lastName, phoneNumber);
+    if (
+      firstName != userData?.first_name ||
+      lastName != userData.last_name ||
+      phoneNumber != userData.phone_number ||
+      profileUrl != userData.profile_image_url
+    ) {
+      setChanged(1);
+
+      console.log("ayoyo");
+    } else {
+      setChanged(0);
+    }
+  };
   const handleFileChange = (e) => {
-    console.log(e.target.files[0]);
-    setImg(e.target.files[0]);
-    setProfileUrl(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    setChanged(1);
+    setImg(file);
+    if (file != undefined) {
+      setProfileUrl(URL.createObjectURL(file));
+    }
+  };
+  const handleCancel = () => {
+    setFirstName(userData.first_name);
+    setLastName(userData.last_name);
+    setPhoneNumber(userData.phone_number);
+    setProfileUrl(userData.profile_image_url);
   };
   const fetchUser = async () => {
     try {
       const data = await getCurrentUser();
+      setUserData(data);
       setFirstName(data.first_name);
       setLastName(data.last_name);
       setPhoneNumber(data.phone_number);
-      setProfileUrl(URL.createObjectURL(data.profile_image_url));
-      setUserId(data.UserId);
-      console.log(data.profile_image_url);
+      setProfileUrl(data.profile_image_url);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -45,27 +72,28 @@ const PersonalPage = () => {
   useEffect(() => {
     fetchUser();
   }, []);
-  const profileIcon =
-    profileUrl == "" ? "/img/ProfilePhoto_square.png" : profileUrl;
+  useEffect(() => {
+    handleChange();
+  }, [firstName, lastName, phoneNumber, img]);
   const handleSave = () => {
-    const updatedUserData = {
-      first_name: firstName,
-      last_name: lastName,
-      phone_number: phoneNumber.replace(/[^\d]/g, ""),
-      profile_image: profileUrl,
-    };
-    updateCurrentUser(updatedUserData, userId).then(() =>
-      window.location.reload()
-    );
+    const updatedUserData = new FormData();
+    updatedUserData.append("first_name", firstName);
+    updatedUserData.append("last_name", lastName);
+    updatedUserData.append("phone_number", phoneNumber.replace(/[^\d]/g, ""));
+    updatedUserData.append("profile_image", img);
+    updateCurrentUser(updatedUserData).then(() => window.location.reload());
   };
+  function personalInfo(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
   return (
-    <div className="">
+    <div className="w-full">
       <div className="ml-10 text-[40px] font-bold">Personal Information</div>
       <div className="ml-40 mt-10 flex flex-row">
         <div className="flex flex-col items-center">
           <div className="aspect-square w-40 overflow-hidden rounded-full ">
             <Image
-              src={profileIcon}
+              src={profileUrl}
               alt="profilePic"
               width={160}
               height={160}
@@ -86,14 +114,13 @@ const PersonalPage = () => {
             </div>
           </label>
         </div>
-        <form onSubmit={handleSave} className="ml-48 space-y-5">
+        <form onSubmit={personalInfo} className="ml-48 space-y-5">
           <TextBox
             label="First Name"
             placeholder="Enter Your First Name"
             value={firstName}
             onChange={(e) => {
               setFirstName(e.target.value);
-              console.log(firstName);
             }}
           />
           <TextBox
@@ -116,10 +143,19 @@ const PersonalPage = () => {
           />
         </form>
       </div>
-      <div className="mt-40 flex flex-row justify-end">
+      <div className="mt-40 flex select-none flex-row justify-end space-x-5">
         <button
-          className="rounded-xl bg-ci-blue px-4 py-2 text-[20px] font-bold text-white"
+          className={`rounded-xl bg-${changed ? "ci-gray" : "ci-dark-gray "} px-4 py-2 text-[20px] font-bold text-white`}
+          onClick={handleCancel}
+          disabled={!changed}
+        >
+          Cancel
+        </button>
+        <button
+          className={`rounded-xl bg-${changed ? "ci-blue" : "ci-dark-gray "} px-4 py-2 text-[20px] font-bold text-white`}
           onClick={handleSave}
+          disabled={!changed}
+          type="submit"
         >
           Save
         </button>

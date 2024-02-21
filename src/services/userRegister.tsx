@@ -12,7 +12,7 @@ export default async function userRegister(personalInfo: PersonalInfo) {
   );
   formData.append("profile_image", personalInfo.img);
 
-  console.log(formData.get("email"));
+  console.log(personalInfo.img);
 
   const response = await fetch("http://localhost:8000/api/v1/register", {
     method: "POST",

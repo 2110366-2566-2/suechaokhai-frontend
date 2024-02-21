@@ -41,7 +41,7 @@ const PropertyNavigationBar = ({
   // const accountIcon = "/img/PropertyNavBar/ic_round-account-circle.svg";
   return (
     <div className="select-none">
-      <div className="fixed z-50 flex w-full items-center justify-between bg-ci-blue py-1 text-[12px] text-white sm:text-[20px]">
+      <div className="fixed  top-0 z-50 flex w-full items-center justify-between bg-ci-blue py-1 text-[12px] text-white sm:text-[20px]">
         <div className=" pl-4">
           <Image
             src={logo}

@@ -14,7 +14,7 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
     router.push("/login");
   };
   return (
-    <div className="fixed right-0 z-40 mt-24 flex  h-80 w-80  flex-col overflow-hidden rounded-lg bg-white text-[20px]">
+    <div className="fixed right-0 top-0 z-40 mt-24 flex  h-80 w-80  flex-col overflow-hidden rounded-lg bg-white text-[20px]">
       <div className="relative flex h-3/5 items-center justify-center bg-ci-gray">
         <div className="aspect-square overflow-hidden rounded-full">
           <Image
