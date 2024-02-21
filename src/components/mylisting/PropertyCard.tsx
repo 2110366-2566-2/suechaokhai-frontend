@@ -30,7 +30,7 @@ const PropertyCard = ({project_name,renting,images,province,district}:PropertyDa
 
                 <div className="flex flex-col my-4 mx-1 h-1/2 ">
                     <div className="w-full text-xl my-2 ">{district}, {province}</div>
-                    <div className="w-full text-xl my-2 font-semibold">฿{renting.price_per_month}/month</div>
+                    <div className="w-full text-xl my-2 font-semibold">฿{Math.floor(renting.price_per_month/1000)},{renting.price_per_month%1000}/month</div>
                 </div>
 
                 <hr className="border-black "></hr>

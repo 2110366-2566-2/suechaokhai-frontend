@@ -2,6 +2,7 @@
 import PropertyData from '@/components/models/PropertyData';
 import PropertyCard from '@/components/mylisting/PropertyCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Pagination from '@mui/material/Pagination';
 import Image from 'next/image';
 
 import { useEffect, useState } from "react";
@@ -38,7 +39,7 @@ const myListingPage = () => {
 
     useEffect(()=>{
         
-        setData(generatePropertyDataArray(10))
+        setData(generatePropertyDataArray(30))
     },[])
 
 
@@ -57,7 +58,7 @@ const myListingPage = () => {
                     <div className="flex h-full flex-col mx-72 mt-8 ">
                         <div className="text-4xl font-bold">My Listing</div>
 
-                        <div className="flex my-5 font-semibold text-sm">
+                        <div className="flex my-5 font-semibold text-xl">
                             {/* sort stuff here */}
                             <div className="">Sort By</div>
                         </div>
@@ -68,19 +69,23 @@ const myListingPage = () => {
                             ))}
                         </div>
 
-                        <div className="flex">
-                            {/* page slider */}
+                        <div className="flex w-full items-center justify-center">
+                            <Pagination></Pagination>
                         </div>
+
                         <div className="flex">
                             {/* num prop text here */}
                         </div>
-                        <button className="flex flex-row fixed bottom-32 right-24 bg-ci-blue p-4 rounded-md w-1/5 justify-around " onClick={handleCreate}>
-                            <AddCircleOutlineIcon className='text-white text-4xl'></AddCircleOutlineIcon>
+
+                        <button className="flex flex-row fixed bottom-32 right-24 bg-ci-blue p-4 rounded-md w-1/6 justify-around " onClick={handleCreate}>
+                            <Image
+                                src="/img/mylisting/plusCircle.svg"
+                                alt="add"
+                                width={30}
+                                height={30}
+                            />
                             <div className="font-bold text-2xl text-white ">Create Property</div>
                         </button>
-                   
-                         
-                        
                     </div>
                     
 
@@ -99,11 +104,14 @@ const myListingPage = () => {
                             <div className="text-2xl text-center m-1">Your listing is empty.</div>
                             <div className="text-2xl text-center m-1">Let's create a property on your listing.</div>
                         </div>
-                        
-
-                
+                    
                         <button className="flex flex-row bg-ci-blue p-4 rounded-md w-1/5 justify-around" onClick={handleCreate}>
-                            <AddCircleOutlineIcon className='text-white text-4xl'></AddCircleOutlineIcon>
+                            <Image
+                                src="/img/mylisting/plusCircle.svg"
+                                alt="add"
+                                width={30}
+                                height={30}
+                            />
                             <div className="font-bold text-2xl text-white ">Create Property</div>
                         </button> 
                      
