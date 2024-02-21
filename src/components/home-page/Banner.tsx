@@ -3,7 +3,7 @@ import SearchSection from "./SearchSection";
 
 export default function Banner() {
   return (
-    <div className="relative h-[696px] w-screen text-white">
+    <div className="relative h-[696px] w-full text-white">
       <Image
         src="/img/home-page/banner-bg-1.png"
         alt="banner"
