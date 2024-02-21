@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function InformationBar() {
   return (
-    <div className=" relative flex flex-col px-32 py-24">
+    <div className=" relative flex flex-col gap-y-5 px-32 py-24">
       <div className="flex flex-col gap-y-5">
         <div className="text-4xl font-semibold">Why Sue Chao Khai?</div>
         <div className="text-2xl">
@@ -10,7 +10,7 @@ export default function InformationBar() {
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center gap-x-40">
+      <div className="flex flex-col items-center justify-around gap-x-40 sm:flex-col md:flex-row">
         <div className="flex flex-col gap-y-5">
           <Image
             src="/img/home-page/building.svg"
