@@ -4,13 +4,13 @@ import PropertyCard from '@/components/mylisting/PropertyCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Image from 'next/image';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const myListingPage = () => {
+    const [propData,setData] = useState<PropertyData[]>([]);
 
     function generatePropertyDataArray(n: number): PropertyData[] {
-        const propertyDataArray: PropertyData[] = [];
-      
+        const propertyDataArray:PropertyData[]=[]
         for (let i = 0; i < n; i++) {
           const propertyData: PropertyData = {
             owner_id: `owner_${i}`,
@@ -34,10 +34,14 @@ const myListingPage = () => {
         }
       
         return propertyDataArray;
-      }
-      
-      // Example usage:
-    const mockFetchedData = generatePropertyDataArray(10);
+    }
+
+    useEffect(()=>{
+        
+        setData(generatePropertyDataArray(10))
+    },[])
+
+
 
 
     const [haveProp,setHave] = useState<boolean>(true);
@@ -50,7 +54,7 @@ const myListingPage = () => {
        <>
         {
                 haveProp ? (
-                    <div className="flex h-full flex-col mx-64 mt-8 ">
+                    <div className="flex h-full flex-col mx-72 mt-8 ">
                         <div className="text-4xl font-bold">My Listing</div>
 
                         <div className="flex my-5 font-semibold text-sm">
@@ -58,11 +62,12 @@ const myListingPage = () => {
                             <div className="">Sort By</div>
                         </div>
 
-                        <div className="flex flex-col">
-                            {mockFetchedData.map((prop:PropertyData)=>(
+                        <div className="grid grid-cols-2 gap-24 ">
+                            {propData.map((prop:PropertyData)=>(
                                 <PropertyCard {...prop}></PropertyCard>
                             ))}
                         </div>
+
                         <div className="flex">
                             {/* page slider */}
                         </div>
@@ -81,7 +86,7 @@ const myListingPage = () => {
 
                 ):
                 (
-                    <div className="flex h-1/2 flex-col mx-64 mt-8 justify-around items-center">
+                    <div className="flex h-1/2 flex-col mx-72 mt-8 justify-around items-center">
                         <div className="text-4xl font-bold text-center">Empty property listing</div>
 
                         <Image

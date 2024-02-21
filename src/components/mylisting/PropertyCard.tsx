@@ -10,7 +10,7 @@ const PropertyCard = ({project_name,renting,images,province,district}:PropertyDa
     const [fav,setFav]  = useState<boolean>(false);
 
     return ( 
-       <div className="w-2/5 h-[800px] rounded-lg m-8  bg-[#ECECEC]">
+       <div className="w-full h-[800px] rounded-lg bg-[#ECECEC]">
             <div className="w-full h-[300px] relative rounded-t-lg  ">
                 <Image src={images[0]} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
 
