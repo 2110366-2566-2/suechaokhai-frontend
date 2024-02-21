@@ -68,13 +68,19 @@ const myListingPage = () => {
                                 <PropertyCard {...prop}></PropertyCard>
                             ))}
                         </div>
+                        
+                        {
+                            propData.length>10 ?
+                            <div className="flex w-full items-center justify-center m-10">
+                                <Pagination count={Math.round(propData.length/10)+1}></Pagination>
+                            </div>
+                            : null
+                        }
+                        
 
-                        <div className="flex w-full items-center justify-center">
-                            <Pagination></Pagination>
-                        </div>
-
-                        <div className="flex">
+                        <div className="flex m-10 text-center items-center justify-center text-2xl">
                             {/* num prop text here */}
+                            1 - 10 of 28 properties for rent or sales in my listing
                         </div>
 
                         <button className="flex flex-row fixed bottom-32 right-24 bg-ci-blue p-4 rounded-md w-1/6 justify-around " onClick={handleCreate}>
