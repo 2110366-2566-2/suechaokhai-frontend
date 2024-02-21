@@ -9,32 +9,36 @@ import { useState } from "react";
 
 const myListingPage = () => {
 
-    let mockData:PropertyData = {
-        owner_id: "",
-        description: "",
-        images: ["/img/Property.png"],
-        project_name: "Wishdom Sathorn 90",
-        // address
-        address: "",
-        alley: "",
-        street: "",
-        district: "",
-        sub_district: "",
-        province: "",
-        postal_code: "",
-        // tags
-        residental_type: "",
-        renting: {
-            price_per_month: 100000
+    function generatePropertyDataArray(n: number): PropertyData[] {
+        const propertyDataArray: PropertyData[] = [];
+      
+        for (let i = 0; i < n; i++) {
+          const propertyData: PropertyData = {
+            owner_id: `owner_${i}`,
+            description: `Description ${i}`,
+            images: ["/img/Property.png"],
+            project_name: `Project ${i}`,
+            address: `Address ${i}`,
+            alley: `Alley ${i}`,
+            street: `Street ${i}`,
+            district: `District ${i}`,
+            sub_district: `Sub District ${i}`,
+            province: `Province ${i}`,
+            postal_code: `Postal Code ${i}`,
+            residental_type: `Residential Type ${i}`,
+            renting: {
+              price_per_month: Math.floor(Math.random() * 10000) // Example random price
+            }
+          };
+      
+          propertyDataArray.push(propertyData);
         }
-    };
-
-    const mockFetchedData:Array<PropertyData> = []
-
-    for(let i:number = 0;i<10;i++){
-        mockData.renting.price_per_month += 100*i
-        mockFetchedData.push(mockData)
-    }
+      
+        return propertyDataArray;
+      }
+      
+      // Example usage:
+    const mockFetchedData = generatePropertyDataArray(10);
 
 
     const [haveProp,setHave] = useState<boolean>(true);
