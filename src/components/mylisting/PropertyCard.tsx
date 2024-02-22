@@ -20,10 +20,11 @@ const PropertyCard = ({project_name,renting,images,province,district}:PropertyDa
                     <div className="w-full  font-semibold text-2xl ">{project_name}</div>
                     {
                         fav ? 
-                        <FavoriteIcon className="text-ci-red text-4xl"></FavoriteIcon> 
+                        <FavoriteIcon className="text-ci-red" sx={{ fontSize: 50 }} ></FavoriteIcon> 
                         : 
-                        <FavoriteBorderIcon className="text-ci-red text-4xl"></FavoriteBorderIcon>
+                        <FavoriteBorderIcon className="text-ci-red" sx={{ fontSize: 50 }} ></FavoriteBorderIcon>
                     }
+
 
                 </div>
                 <hr className="border-black "></hr>

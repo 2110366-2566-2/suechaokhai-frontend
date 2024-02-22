@@ -1,8 +1,6 @@
 'use client'
 import PropertyData from '@/components/models/PropertyData';
-import PropertyCard from '@/components/mylisting/PropertyCard';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Pagination from '@mui/material/Pagination';
+import PropertyCards from '@/components/mylisting/PropertyCards';
 import Image from 'next/image';
 
 import { useEffect, useState } from "react";
@@ -38,12 +36,8 @@ const myListingPage = () => {
     }
 
     useEffect(()=>{
-        
         setData(generatePropertyDataArray(30))
     },[])
-
-
-
 
     const [haveProp,setHave] = useState<boolean>(true);
     
@@ -55,33 +49,10 @@ const myListingPage = () => {
        <>
         {
                 haveProp ? (
-                    <div className="flex h-full flex-col mx-72 mt-8 ">
+                    <div className="flex h-full flex-col mx-80 mt-8 ">
                         <div className="text-4xl font-bold">My Listing</div>
 
-                        <div className="flex my-5 font-semibold text-xl">
-                            {/* sort stuff here */}
-                            <div className="">Sort By</div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-24 ">
-                            {propData.map((prop:PropertyData)=>(
-                                <PropertyCard {...prop}></PropertyCard>
-                            ))}
-                        </div>
-                        
-                        {
-                            propData.length>10 ?
-                            <div className="flex w-full items-center justify-center m-10">
-                                <Pagination count={Math.round(propData.length/10)+1}></Pagination>
-                            </div>
-                            : null
-                        }
-                        
-
-                        <div className="flex m-10 text-center items-center justify-center text-2xl">
-                            {/* num prop text here */}
-                            1 - 10 of 28 properties for rent or sales in my listing
-                        </div>
+                        <PropertyCards propData={propData}></PropertyCards>
 
                         <button className="flex flex-row fixed bottom-32 right-24 bg-ci-blue p-4 rounded-md w-1/6 justify-around " onClick={handleCreate}>
                             <Image
