@@ -36,7 +36,7 @@ const myListingPage = () => {
     }
 
     useEffect(()=>{
-        setData(generatePropertyDataArray(30))
+        setData(generatePropertyDataArray(50))
     },[])
 
     const [haveProp,setHave] = useState<boolean>(true);
@@ -54,7 +54,7 @@ const myListingPage = () => {
 
                         <PropertyCards propData={propData}></PropertyCards>
 
-                        <button className="flex flex-row fixed bottom-32 right-24 bg-ci-blue p-4 rounded-md w-1/6 justify-around " onClick={handleCreate}>
+                        <button className="flex flex-row fixed bottom-24 right-24 bg-ci-blue p-4 rounded-md w-1/6 justify-around " onClick={handleCreate}>
                             <Image
                                 src="/img/mylisting/plusCircle.svg"
                                 alt="add"
