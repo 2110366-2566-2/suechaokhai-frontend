@@ -5,7 +5,12 @@ import TextBox from "../register-login/TextField";
 import updateCurrentUser from "@/services/updateCurrentUser";
 import { useRef, useState, useEffect, FormEvent } from "react";
 import { CheckModal } from "./CheckModal";
-const PersonalPage = () => {
+import { NotSavedPopUp } from "./NotSavedPopUp";
+const PersonalPage = ({
+  setIsChangesExist,
+}: {
+  setIsChangesExist: Function;
+}) => {
   const file = useRef(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [firstName, setFirstName] = useState<string>("");
@@ -26,10 +31,10 @@ const PersonalPage = () => {
       profileUrl != userData.profile_image_url
     ) {
       setChanged(1);
-
-      console.log("ayoyo");
+      setIsChangesExist(true);
     } else {
       setChanged(0);
+      setIsChangesExist(false);
     }
   };
   const handleClose = () => {
