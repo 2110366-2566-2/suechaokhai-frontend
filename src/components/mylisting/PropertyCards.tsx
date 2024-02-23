@@ -2,10 +2,23 @@
 import PropertyData from "../models/PropertyData";
 import PropertyCard from "./PropertyCard";
 import Pagination from '@mui/material/Pagination';
-import { useState,useEffect,useReducer } from "react";
+import { useState,useEffect} from "react";
+
+
 
 const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
+
+    const sortType= {
+        'date': "Newest Listing First" ,
+        'asc' : "Price from lowest to highest",
+        'desc': "Price from highest to lowest"
+    }
+
+
     const [page,setPage] = useState<number>(1);
+    const [text,setText] = useState<string>("Newest Listing First");
+    const [changingSort,setChangingSort] =useState<boolean>(false);
+
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
@@ -17,9 +30,30 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
 
     return ( 
         <>
-            <div className="flex my-5 font-semibold text-xl">
+            <div className="flex flex-row my-5">
                 {/* sort stuff here */}
-                <div className="">Sort By</div>
+                <div className="font-semibold text-xl">Sort By</div>
+                <div className="text-xl">
+                    <div className="mx-3 text-ci-blue font-semibold"
+                        onClick={()=>setChangingSort(!changingSort)}
+                    >{text}</div>
+                    {
+                        changingSort ? 
+                        <div className="absolute z-40 flex flex-col items-center mt-2">
+                            <div className="flex flex-col rounded-2xl bg-white justify-around p-1">
+                                <div className="p-2 text-black font-normal w-full h-full hover:bg-[#ECECEC]"
+                                    onClick={()=>setText("Newest Listing First")}>Newest Listing First</div>
+                                <div className="p-2 text-black font-normal w-full h-full hover:bg-[#ECECEC]"
+                                    onClick={()=>setText("Price from lowest to highest")}>Price from lowest to highest</div>
+                                <div className="p-2 text-black font-normal w-full h-full hover:bg-[#ECECEC]"
+                                    onClick={()=>setText("Price from highest to lowest")}>Price from highest to lowest</div>
+                            </div>
+                        </div>
+                        :null
+                    }
+                    
+                
+                </div>  
             </div>
 
             <div className="grid grid-cols-2 gap-24 ">
