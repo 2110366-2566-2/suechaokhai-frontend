@@ -10,6 +10,7 @@ import { useState } from "react";
 const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolean}) => {
 
     const [fav,setFav]  = useState<boolean>(false);
+    const [isDeleting,setDel] = useState<boolean>(false);
 
     return ( 
        <div className="w-full h-[800px] rounded-lg bg-[#ECECEC]">
@@ -58,9 +59,6 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                         />
                         <div className="text-xl">60 m²</div>
                     </div>
-                    
-                    
-
                 </div>
                 {
                     editable ? 
@@ -73,6 +71,8 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                         </button>
                         <button
                         className="mx-0.5 bg-ci-red my-2 w-full h-[60px] rounded-md text-xl px-4 font-semibold text-[#DFDFDF] shadow "
+                        onClick={()=>setDel(!isDeleting)}
+                        
                         >
                         Delete property
                         </button>
@@ -90,6 +90,34 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                 }
                 
             </div>  
+
+            {isDeleting ? (
+                <div className="fixed left-[0] top-[0] z-40 flex h-[100vh] w-[100%] flex-col items-center justify-center bg-black bg-opacity-20">
+                    <div className="relative flex flex-col rounded-2xl bg-white p-[32px] items-center w-1/3 h-2/5 justify-around">
+                        <div className="text-4xl font-bold ">
+                            Delete a Property
+                        </div>
+                            <div className="text-xl mt-10 mb-1">Are you sure you want to delete this property ?</div>
+                            <div className="font-semibold text-2xl mt-1 mb-10 ">{propData.project_name}</div>
+
+                        
+                        <div className="flex flex-roe items-center justify-center mx-1 w-full">
+                            <button
+                            className="mx-2 bg-[#B3B3B3] my-2 w-1/3 h-[60px] rounded-md text-2xl px-4 font-bold text-[#DFDFDF] shadow "
+                            onClick={()=>setDel(!isDeleting)}
+                            >
+                            Cancel
+                            </button>
+                            <button
+                            className="mx-2 bg-ci-red my-2 w-1/3 h-[60px] rounded-md text-2xl px-4 font-bold text-[#DFDFDF] shadow "
+                            onClick={()=>{setDel(!isDeleting);alert("del")}}   
+                            >
+                            Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
        </div>
         
      );

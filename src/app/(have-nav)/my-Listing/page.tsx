@@ -90,12 +90,8 @@ const myListingPage = () => {
                                 height={30}
                             />
                             <div className="font-bold text-2xl text-white ">Create Property</div>
-                        </button> 
-                     
-                        
+                        </button>      
                     </div>
-                    
-
                 )
             }
        </>
