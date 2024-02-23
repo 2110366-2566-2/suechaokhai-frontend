@@ -72,10 +72,12 @@ export default function PersonalInformation({
     }
   }
 
-  const handleChange = (e: { target: { files: (Blob | MediaSource)[] } }) => {
-    console.log(e.target.files[0]);
-    setImg(e.target.files[0]);
-    setSrc(URL.createObjectURL(e.target.files[0]));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setImg(e.target.files[0]);
+      setSrc(URL.createObjectURL(e.target.files[0]));
+    }
   };
 
   async function nextPageStatus() {
@@ -121,9 +123,7 @@ export default function PersonalInformation({
             name="profile_img"
             ref={hiddenFileInput}
             style={{ display: "none" }}
-            onChange={(e) => {
-              handleChange;
-            }}
+            onChange={handleChange}
           />
           <div
             onClick={() => {
