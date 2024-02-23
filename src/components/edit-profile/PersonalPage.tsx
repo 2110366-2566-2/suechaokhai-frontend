@@ -1,4 +1,4 @@
-import Image from "next/Image";
+import Image from "next/image";
 import getCurrentUser from "@/services/getCurrentUser";
 import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";

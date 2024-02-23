@@ -30,7 +30,7 @@ export default function InformationBar() {
         <div className="flex flex-col gap-y-5">
           <Image
             src="/img/home-page/handshake.svg"
-            alt="building"
+            alt="shake"
             width={320}
             height={320}
           />
@@ -46,7 +46,7 @@ export default function InformationBar() {
         <div className="flex flex-col gap-y-5">
           <Image
             src="/img/home-page/like.svg"
-            alt="building"
+            alt="like"
             width={320}
             height={320}
           />

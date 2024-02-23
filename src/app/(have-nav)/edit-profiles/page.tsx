@@ -5,7 +5,7 @@ import PersonalPage from "@/components/edit-profile/PersonalPage";
 import OwnerPage from "@/components/edit-profile/OwnerPage";
 import FinancialPage from "@/components/edit-profile/FinancialPage";
 type Tab = "personal" | "financial" | "owner";
-const editProfile = () => {
+const EditProfile = () => {
   const [tab, setTab] = useState<Tab>("personal");
   const switchToPersonal = () => setTab("personal");
   const switchToFinancial = () => setTab("financial");
@@ -26,4 +26,4 @@ const editProfile = () => {
     </div>
   );
 };
-export default editProfile;
+export default EditProfile;

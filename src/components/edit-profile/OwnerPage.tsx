@@ -1,6 +1,6 @@
 import { useState, useRef, FormEvent, ChangeEvent, useEffect } from "react";
 import FileUploadField from "../register-login/FileUploadField";
-import Image from "next/Image";
+import Image from "next/image";
 import TextField from "@/components/register-login/TextField";
 import getCurrentUser from "@/services/getCurrentUser";
 import updateCurrentUser from "@/services/updateCurrentUser";

@@ -48,7 +48,7 @@ export default function RegisterPage1({
     }
   };
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.select();

@@ -85,8 +85,11 @@ const RoomTourRes = ({ Property }: { Property: string }) => {
             <div className="m-1">Your selected date</div>
 
             <div className="flex-col ">
-              {selectedDays.map((date: Date) => (
-                <div className=" rounded-md border-2 border-black p-2 text-center">
+              {selectedDays.map((date: Date, index) => (
+                <div
+                  className=" rounded-md border-2 border-black p-2 text-center"
+                  key={index}
+                >
                   {date.toDateString()}
                 </div>
               ))}
