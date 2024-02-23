@@ -8,6 +8,13 @@ import { useEffect, useState } from "react";
 const myListingPage = () => {
     const [propData,setData] = useState<PropertyData[]>([]);
 
+    function getRandomDate(): Date {
+        const startMillis = (new Date(1900, 0, 1)).getTime();
+        const endMillis = (new Date()).getTime();
+        const randomMillis = startMillis + Math.random() * (endMillis - startMillis);
+        return new Date(randomMillis);
+    }
+
     function generatePropertyDataArray(n: number): PropertyData[] {
         const propertyDataArray:PropertyData[]=[]
         for (let i = 0; i < n; i++) {
@@ -26,7 +33,8 @@ const myListingPage = () => {
             residental_type: `Residential Type ${i}`,
             renting: {
               price_per_month: Math.floor(Math.random() * 100000) // Example random price
-            }
+            },
+            created_at:getRandomDate()
           };
       
           propertyDataArray.push(propertyData);

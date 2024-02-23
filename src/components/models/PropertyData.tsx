@@ -16,4 +16,5 @@ export default interface PropertyData {
   renting: {
     price_per_month: number;
   };
+  created_at:Date;
 }
