@@ -7,9 +7,9 @@ export default function Suechaokhai({
 }) {
   return (
     <div className="">
-      <PropertyNavigationBar icon="w" feature="w" />
+      <PropertyNavigationBar />
       <div>
-        <div className="mt-20">{children}</div>
+        <div className="">{children}</div>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const editProfile = () => {
         financial={switchToFinancial}
         owner={switchToOwner}
       />
-      <div className="m-5 ">
+      <div className="m-5 min-w-[40%] ">
         {tab === "personal" && <PersonalPage />}
         {tab === "financial" && <FinancialPage />}
         {tab === "owner" && <OwnerPage />}

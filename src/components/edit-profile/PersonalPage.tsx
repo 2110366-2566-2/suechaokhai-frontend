@@ -4,16 +4,17 @@ import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";
 import updateCurrentUser from "@/services/updateCurrentUser";
 import { useRef, useState, useEffect, FormEvent } from "react";
+import { CheckModal } from "./CheckModal";
 const PersonalPage = () => {
   const file = useRef(null);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [profileUrl, setProfileUrl] = useState(
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [profileUrl, setProfileUrl] = useState<string>(
     "/img/login-register/ProfilePhoto_square.png"
   );
-
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   const [img, setImg] = useState<any>();
   const [changed, setChanged] = useState(0);
   const handleChange = () => {
@@ -31,6 +32,10 @@ const PersonalPage = () => {
       setChanged(0);
     }
   };
+  const handleClose = () => {
+    setIsSaved(false);
+    console.log("close");
+  };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setChanged(1);
@@ -40,10 +45,10 @@ const PersonalPage = () => {
     }
   };
   const handleCancel = () => {
-    setFirstName(userData.first_name);
-    setLastName(userData.last_name);
-    setPhoneNumber(userData.phone_number);
-    setProfileUrl(userData.profile_image_url);
+    setFirstName(userData!.first_name);
+    setLastName(userData!.last_name);
+    setPhoneNumber(userData!.phone_number);
+    setProfileUrl(userData!.profile_image_url);
   };
   const fetchUser = async () => {
     try {
@@ -75,21 +80,32 @@ const PersonalPage = () => {
   useEffect(() => {
     handleChange();
   }, [firstName, lastName, phoneNumber, img]);
+  useEffect(() => {
+    if (isSaved) {
+      const timer = setTimeout(() => {
+        setIsSaved(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSaved]);
   const handleSave = () => {
+    setIsSaved(true);
     const updatedUserData = new FormData();
     updatedUserData.append("first_name", firstName);
     updatedUserData.append("last_name", lastName);
     updatedUserData.append("phone_number", phoneNumber.replace(/[^\d]/g, ""));
     updatedUserData.append("profile_image", img);
-    updateCurrentUser(updatedUserData).then(() => window.location.reload());
+    // updateCurrentUser(updatedUserData).then(() => window.location.reload());
+    updateCurrentUser(updatedUserData);
   };
   function personalInfo(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
   return (
-    <div className="w-full">
-      <div className="ml-10 text-[40px] font-bold">Personal Information</div>
-      <div className="ml-40 mt-10 flex flex-row">
+    <div className="">
+      <div className="ml-12 text-[36px] font-bold">Personal Information</div>
+      <div className="mt-10 flex flex-col items-center 2xl:ml-40 2xl:flex-row">
         <div className="flex flex-col items-center">
           <div className="aspect-square w-40 overflow-hidden rounded-full ">
             <Image
@@ -109,12 +125,12 @@ const PersonalPage = () => {
               className="hidden"
               onChange={handleFileChange}
             />
-            <div className="mt-4 cursor-pointer text-[20px] font-bold text-ci-blue">
+            <div className="mt-4 cursor-pointer text-[20px] font-bold text-ci-blue hover:opacity-75">
               Upload Your Photo
             </div>
           </label>
         </div>
-        <form onSubmit={personalInfo} className="ml-48 space-y-5">
+        <form onSubmit={personalInfo} className="ml-0 space-y-5 2xl:ml-48">
           <TextBox
             label="First Name"
             placeholder="Enter Your First Name"
@@ -122,6 +138,7 @@ const PersonalPage = () => {
             onChange={(e) => {
               setFirstName(e.target.value);
             }}
+            className="w-[300px] md:w-[400px]"
           />
           <TextBox
             label="Last Name"
@@ -131,6 +148,7 @@ const PersonalPage = () => {
               setLastName(e.target.value);
               console.log(lastName);
             }}
+            className="w-[300px] md:w-[400px]"
           />
           <TextBox
             label="Phone Number"
@@ -140,6 +158,7 @@ const PersonalPage = () => {
               setPhoneNumber(formatPhoneNumber(e.target.value));
               console.log(phoneNumber);
             }}
+            className="w-[300px] md:w-[400px]"
           />
         </form>
       </div>
@@ -157,9 +176,15 @@ const PersonalPage = () => {
           disabled={!changed}
           type="submit"
         >
-          Save
+          Saves
         </button>
       </div>
+      <CheckModal
+        className={`${isSaved ? "translate-x-0" : "translate-x-[150%]"}`}
+        handleClose={handleClose}
+        header={"Saved"}
+        description={"Your changes have been successfully saved."}
+      />
     </div>
   );
 };

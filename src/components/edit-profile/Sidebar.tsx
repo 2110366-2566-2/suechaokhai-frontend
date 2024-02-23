@@ -12,7 +12,7 @@ const Sidebar = ({
   owner: () => void;
 }) => {
   return (
-    <div className="w-72 bg-ci-light-gray text-[20px] lg:w-80">
+    <div className=" invisible max-w-0 bg-ci-light-gray pt-4 text-[20px] md:visible md:min-w-72">
       <div className="flex w-full justify-center text-[40px] font-bold">
         Edit Profile
       </div>

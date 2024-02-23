@@ -1,5 +1,4 @@
 "use client";
-import getCurrentUser from "@/services/getCurrentUser";
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/edit-profile/Sidebar";
 import PersonalPage from "@/components/edit-profile/PersonalPage";
@@ -19,7 +18,7 @@ const editProfile = () => {
         financial={switchToFinancial}
         owner={switchToOwner}
       />
-      <div className="m-5 ">
+      <div className="m-5 min-w-[40%] max-w-full">
         {tab === "personal" && <PersonalPage />}
         {tab === "financial" && <FinancialPage />}
         {tab === "owner" && <OwnerPage />}

@@ -1,7 +1,10 @@
-import { useState, useRef, FormEvent, ChangeEvent } from "react";
+import { useState, useRef, FormEvent, ChangeEvent, useEffect } from "react";
 import FileUploadField from "../register-login/FileUploadField";
 import Image from "next/Image";
 import TextField from "@/components/register-login/TextField";
+import getCurrentUser from "@/services/getCurrentUser";
+import updateCurrentUser from "@/services/updateCurrentUser";
+import { BlueValidIcon, InvalidIcon } from "../ui/icon";
 const OwnerPage = () => {
   const id = useRef("");
   const file = useRef(null);
@@ -10,7 +13,22 @@ const OwnerPage = () => {
   const [isIdEntered, setIsIdEntered] = useState(false);
   const [formattedId, setFormattedId] = useState("");
   const [idCardUrl, setIdCardUrl] = useState("");
-
+  const [citizenId, setCitizenId] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+  const fetchUser = async () => {
+    try {
+      const data = await getCurrentUser();
+      // setIsVerified(data.is_verified);
+      console.log("current ID:", data.citizen_id);
+      console.log("verify?:", data.is_verified);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUser();
+  }),
+    [];
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setUploadedFile(file || null);
@@ -40,9 +58,14 @@ const OwnerPage = () => {
     setIsIdEntered(true);
     e.preventDefault();
     const isIdValid = validateId();
-
     if (isIdValid) {
       console.log("ID is valid:", id.current);
+      const formData = new FormData();
+      setIsVerified(true);
+      // formData.append("is_verified", "true" );
+      formData.append("is_verified", "false");
+      formData.append("citizen_id", citizenId);
+      updateCurrentUser(formData);
     } else {
       console.log("Invalid ID number.", id.current);
     }
@@ -51,11 +74,12 @@ const OwnerPage = () => {
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     const formattedId = formatId(inputValue);
-    console.log(inputValue.length);
+    console.log(citizenId);
     if (inputValue.length <= 17) {
       id.current = inputValue.replace(/\s/g, "");
     }
     setFormattedId(formattedId);
+    setCitizenId(formattedId.replace(/[^\d]/g, ""));
   };
 
   function formatId(e: String): string {
@@ -75,61 +99,67 @@ const OwnerPage = () => {
     }
   }
   const idCard = idCardUrl ? idCardUrl : "/img/edit-profile/citizen-card.svg";
-  const invalidIcon = "/img/InvalidIcon.png";
+
   return (
-    <div className="ml-10 flex flex-col items-center space-y-2">
-      <div className=" pt-4 text-[40px] font-bold">Owner Verification</div>
-      <div className="flex flex-col justify-center space-y-8 overflow-hidden rounded-lg">
-        <Image
-          alt="idCard"
-          src={idCard}
-          height={0}
-          width={0}
-          style={{ height: "280px", width: "auto" }}
-          className=""
-        />
-        <label>
-          <input
-            type="file"
-            accept="image/*"
-            ref={file}
-            className="hidden"
-            onChange={handleFileChange}
-          />
-          <div className="mt-8 flex cursor-pointer items-center justify-center rounded-lg border border-[#B3B3B3] bg-ci-blue p-2 text-[24px] font-bold text-white">
-            Upload Citizen Card Photo
+    <div className="">
+      {isVerified ? (
+        <div className="ml-[50%] flex  w-full flex-col items-center justify-center space-y-12">
+          <div className=" pt-4 text-[40px] font-bold">Owner Verification</div>
+          <BlueValidIcon size={150} />
+          <div className="flex flex-col items-center justify-center text-[24]">
+            <div>You account has been verified.</div>
+            <div>You are an owner now.</div>
           </div>
-        </label>
-        <div className="">
-          <TextField
-            label="Citizen ID"
-            placeholder="Enter citizen ID"
-            value={formattedId}
-            onChange={handleIdChange}
-          />
-          {!isIdValid && isIdEntered && (
-            <div className="flex items-center">
-              <Image
-                alt="Invalid"
-                src={invalidIcon}
-                height={20}
-                width={20}
-                style={{ maxHeight: "20px", maxWidth: "20px" }}
-                className=""
-              />
-              <div className="px-1 text-red-500">
-                Please enter a valid ID number.
-              </div>
-            </div>
-          )}
         </div>
-      </div>
-      <button
-        onClick={handleVerify}
-        className="h-[50px] w-[510px] rounded-[10px] bg-[#3AAEEF] text-[20px] font-semibold text-white"
-      >
-        Verify
-      </button>
+      ) : (
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <div className=" pt-4 text-[40px] font-bold">Owner Verification</div>
+          <div className="flex flex-col justify-start space-y-8 overflow-hidden rounded-lg">
+            <Image
+              alt="idCard"
+              src={idCard}
+              height={0}
+              width={0}
+              style={{ height: "280px", width: "auto  " }}
+              className=""
+            />
+            <label>
+              <input
+                type="file"
+                accept="image/*"
+                ref={file}
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              <div className="mt-8 flex h-[50px] w-[510px] cursor-pointer items-center justify-center rounded-lg border border-[#B3B3B3] bg-ci-blue p-2 text-[24px] font-bold text-white">
+                Upload Citizen Card Photo
+              </div>
+            </label>
+            <div className="">
+              <TextField
+                label="Citizen ID"
+                placeholder="Enter citizen ID"
+                value={formattedId}
+                onChange={handleIdChange}
+              />
+              {!isIdValid && isIdEntered && (
+                <div className="flex items-center">
+                  <InvalidIcon size={20} />
+                  <div className="px-1 text-red-500">
+                    Please enter a valid ID number.
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <button
+            onClick={handleVerify}
+            className="h-[50px] w-[510px] rounded-[10px] bg-[#3AAEEF] text-[20px] font-semibold text-white"
+          >
+            Verify
+          </button>
+        </div>
+      )}
     </div>
   );
 };
