@@ -30,7 +30,7 @@ export default function PersonalInformation({
 
   const [src, setSrc] = useState("/img/login-register/prof_pic.png");
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.select();
@@ -64,7 +64,7 @@ export default function PersonalInformation({
     }
   }
 
-  const hiddenFileInput = useRef(null);
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   function handleClick() {
     if (hiddenFileInput.current != null) {
@@ -72,7 +72,7 @@ export default function PersonalInformation({
     }
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { files: (Blob | MediaSource)[] } }) => {
     console.log(e.target.files[0]);
     setImg(e.target.files[0]);
     setSrc(URL.createObjectURL(e.target.files[0]));
@@ -121,7 +121,9 @@ export default function PersonalInformation({
             name="profile_img"
             ref={hiddenFileInput}
             style={{ display: "none" }}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange;
+            }}
           />
           <div
             onClick={() => {

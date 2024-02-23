@@ -37,7 +37,7 @@ export default function editProfilePage() {
     }
   }
 
-  const hiddenFileInput = useRef(null);
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   function handleClick() {
     if (hiddenFileInput.current != null) {
