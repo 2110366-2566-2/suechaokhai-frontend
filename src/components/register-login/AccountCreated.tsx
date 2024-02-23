@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function AccountCreated({
-  changeRegState,
   finReg,
 }: {
   changeRegState: Function;
@@ -59,7 +58,7 @@ export default function AccountCreated({
             >
               <Link href="/login">
                 <button className="h-[60px] w-[510px] rounded-[10px] bg-ci-blue font-bold text-white">
-                  Let's Log in with your account
+                  Let&apos;s Log in with your account
                 </button>
               </Link>
             </div>
