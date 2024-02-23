@@ -1,6 +1,6 @@
 import { useState, useRef, FormEvent, ChangeEvent } from "react";
 import FileUploadField from "../register-login/FileUploadField";
-import Image from "next/Image";
+import Image from "next/image";
 import TextField from "@/components/register-login/TextField";
 const OwnerPage = () => {
   const id = useRef("");
