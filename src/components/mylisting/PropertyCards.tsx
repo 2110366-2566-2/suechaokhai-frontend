@@ -25,8 +25,12 @@ const PropertyCards = ({ propData }: { propData: PropertyData[] }) => {
       <div className="grid grid-cols-2 gap-24 ">
         {propData
           .slice(20 * (page - 1), 20 * page)
-          .map((prop: PropertyData) => (
-            <PropertyCard propData={prop} editable={true} ></PropertyCard>
+          .map((prop: PropertyData, index) => (
+            <PropertyCard
+              propData={prop}
+              editable={true}
+              key={index}
+            ></PropertyCard>
           ))}
       </div>
 
