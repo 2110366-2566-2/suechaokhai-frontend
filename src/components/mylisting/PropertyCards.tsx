@@ -2,7 +2,7 @@
 import PropertyData from "../models/PropertyData";
 import PropertyCard from "./PropertyCard";
 import Pagination from '@mui/material/Pagination';
-import { useState,useEffect } from "react";
+import { useState,useEffect,useReducer } from "react";
 
 const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
     const [page,setPage] = useState<number>(1);
@@ -30,7 +30,7 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
             
             {
                 propData.length>20 ?
-                <div className="flex w-full items-center justify-center m-10">
+                <div className="flex w-full items-center justify-center p-10">
                     <Pagination count={Math.ceil(propData.length/20)} 
                                 size="large"
                                 onChange={handleChange}
@@ -40,11 +40,10 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
             }
             
 
-            <div className="flex h-[100px]  pb-44 items-center justify-center text-2xl">
+            <div className="flex h-[100px] pt-16 pb-24 items-center justify-center text-2xl">
                 {/* num prop text here */}
                 <div>
                     {20*(page-1)} - {propData.length<20*page ? propData.length : 20*page } of {propData.length} properties for rent or sales in my listing
-
                 </div>
             </div>
         </>

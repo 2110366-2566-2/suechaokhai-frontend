@@ -44,7 +44,7 @@ const myListingPage = () => {
     }
 
     useEffect(()=>{
-        setData(generatePropertyDataArray(50))
+        setData(generatePropertyDataArray(30))
     },[])
 
     const [haveProp,setHave] = useState<boolean>(true);
