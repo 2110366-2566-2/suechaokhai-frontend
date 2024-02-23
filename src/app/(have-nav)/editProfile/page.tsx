@@ -9,7 +9,7 @@ import UppercaseTextField from "@/components/register-login/UppercaseTextField";
 import ExpiryDateInput from "@/components/edit-profile/ExpiredDateTextField";
 import Dropdown from "@/components/edit-profile/DropDown";
 
-export default function editProfilePage() {
+export default function EditProfilePage() {
   const firstNameInitial = "Praeploy";
   const lastNameInitial = "HewKhaow";
   const phoneNumberInitial = "0999999999";
