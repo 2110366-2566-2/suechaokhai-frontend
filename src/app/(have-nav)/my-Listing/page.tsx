@@ -85,7 +85,7 @@ const MyListingPage = () => {
               Your listing is empty.
             </div>
             <div className="m-1 text-center text-2xl">
-              Let's create a property on your listing.
+              Let&apos;s create a property on your listing.
             </div>
           </div>
 
