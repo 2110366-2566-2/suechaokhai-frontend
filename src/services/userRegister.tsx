@@ -1,4 +1,4 @@
-import { PersonalInfo } from "@/app/register/page";
+import { PersonalInfo } from "@/app/(auth)/register/page";
 
 export default async function userRegister(personalInfo: PersonalInfo) {
   const formData = new FormData();
