@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/Image";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import AccountMenu from "./AccountMenu";
 import getCurrentUser from "@/services/getCurrentUser";
