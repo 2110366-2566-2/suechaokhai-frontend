@@ -53,7 +53,7 @@ const PropertyNavigationBar = () => {
           />
         </div>
 
-        <div className="invisible flex max-w-0 items-center space-x-1 sm:space-x-12 lg:visible lg:max-w-[80%]">
+        <div className="invisible flex min-w-0 max-w-0 items-center justify-center space-x-1 sm:space-x-12 lg:visible lg:min-w-[70%] lg:max-w-[70%]">
           <div className="cursor-pointer hover:opacity-60">Buy</div>
           <div className="cursor-pointer hover:opacity-60">Rent</div>
           <div className="cursor-pointer hover:opacity-60">Appointment</div>

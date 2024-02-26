@@ -29,7 +29,7 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
       </div>
       <div
         className="flex h-1/5 cursor-pointer flex-row items-center px-2 hover:bg-ci-light-gray"
-        onClick={() => router.push("/suechaokhai/edit-profile")}
+        onClick={() => router.push("/edit-profiles")}
       >
         <div className="flex h-full w-8 items-center">
           <Image

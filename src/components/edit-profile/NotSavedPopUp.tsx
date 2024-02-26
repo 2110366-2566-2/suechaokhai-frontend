@@ -17,6 +17,7 @@ export const NotSavedPopUp = ({
             className="rounded-md bg-ci-dark-gray px-6 py-2 text-white"
             onClick={() => {
               setIsSwitchingTab(false);
+              setIsChangesExist(true);
             }}
           >
             Cancel
@@ -25,7 +26,7 @@ export const NotSavedPopUp = ({
             className="rounded-md bg-ci-red px-6 py-2 text-white"
             onClick={() => {
               setIsChangesExist(false);
-              setIsSwitchingTab(true);
+              setIsSwitchingTab(false);
             }}
           >
             OK

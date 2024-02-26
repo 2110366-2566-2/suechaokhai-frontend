@@ -15,6 +15,7 @@ const OwnerPage = () => {
   const [idCardUrl, setIdCardUrl] = useState("");
   const [citizenId, setCitizenId] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+  const [changed, setChanged] = useState(0);
   const fetchUser = async () => {
     try {
       const data = await getCurrentUser();
@@ -29,17 +30,12 @@ const OwnerPage = () => {
     fetchUser();
   }),
     [];
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    setUploadedFile(file || null);
-    console.log(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataUrl = reader.result as string;
-        setIdCardUrl(dataUrl);
-      };
-      reader.readAsDataURL(file);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setChanged(1);
+    setImg(file);
+    if (file != undefined) {
+      setProfileUrl(URL.createObjectURL(file));
     }
   };
   const validateId = () => {

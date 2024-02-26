@@ -10,8 +10,9 @@ export const BlueValidIcon = ({ size, className }: Icon) => {
       alt="blue-valid-icon"
       width={size}
       height={size}
-      style={{ height: `${size}px`, width: "auto  " }}
+      style={{ height: `${size}px`, width: "auto" }}
       className={className}
+      draggable={false}
     />
   );
 };
@@ -22,8 +23,9 @@ export const InvalidIcon = ({ size, className }: Icon) => {
       alt={"invalid-icon"}
       width={size}
       height={size}
-      style={{ height: `${size}px`, width: "auto  " }}
+      style={{ height: `${size}px`, width: "auto" }}
       className={className}
+      draggable={false}
     />
   );
 };
@@ -34,8 +36,9 @@ export const HamburgerIcon = ({ size, className }: Icon) => {
       alt={"hamburger-icon"}
       width={size}
       height={size}
-      style={{ height: `${size}px`, width: "auto  " }}
+      style={{ height: `${size}px`, width: "auto" }}
       className={className}
+      draggable={false}
     />
   );
 };
@@ -46,8 +49,9 @@ export const CheckCircleIcon = ({ size, className }: Icon) => {
       alt={"check-circle-icon"}
       width={size}
       height={size}
-      style={{ height: `${size}px`, width: "auto  " }}
+      style={{ height: `${size}px`, width: "auto" }}
       className={className}
+      draggable={false}
     />
   );
 };
@@ -58,8 +62,9 @@ export const CloseIcon = ({ size, className }: Icon) => {
       alt={"close-icon"}
       width={size}
       height={size}
-      style={{ height: `${size}px`, width: "auto  " }}
+      style={{ height: `${size}px`, width: "auto" }}
       className={className}
+      draggable={false}
     />
   );
 };
@@ -70,8 +75,9 @@ export const DropDownIcon = ({ size, className }: Icon) => {
       alt={"drop-down-icon"}
       width={size}
       height={size}
-      style={{ height: `${size}px`, width: "auto  " }}
+      style={{ height: `${size}px`, width: "auto" }}
       className={className}
+      draggable={false}
     />
   );
 };

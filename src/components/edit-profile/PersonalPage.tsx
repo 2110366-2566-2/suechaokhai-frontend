@@ -95,13 +95,13 @@ const PersonalPage = ({
     }
   }, [isSaved]);
   const handleSave = () => {
+    setIsChangesExist(false);
     setIsSaved(true);
     const updatedUserData = new FormData();
     updatedUserData.append("first_name", firstName);
     updatedUserData.append("last_name", lastName);
     updatedUserData.append("phone_number", phoneNumber.replace(/[^\d]/g, ""));
     updatedUserData.append("profile_image", img);
-    // updateCurrentUser(updatedUserData).then(() => window.location.reload());
     updateCurrentUser(updatedUserData);
   };
   function personalInfo(event: FormEvent<HTMLFormElement>) {
@@ -181,7 +181,7 @@ const PersonalPage = ({
           disabled={!changed}
           type="submit"
         >
-          Saves
+          Save
         </button>
       </div>
       <CheckModal

@@ -5,7 +5,17 @@ import EmptyCard from "@/components/edit-profile/EmptyCard";
 const FinancialPage = () => {
   const [bankNumber, setBankNumber] = useState("");
   const [changed, setChanged] = useState(0);
-  const options = ["1", "2", "3"];
+  const options = [
+    "KASIKORN BANK",
+    "BANGKOK BANK",
+    "KRUNG THAI BANK",
+    "BANK OF AYUDHYA",
+    "CIMB THAI BANK",
+    "TMBTHANACHART BANK",
+    "SIAM COMMERCIAL BANK",
+    "GOVERNMENT SAVINGS BANK",
+    "BANK NOT SELECTED",
+  ];
   const handleBankName = () => {};
   return (
     <div className="flex max-w-[100%] flex-col justify-center space-y-4">

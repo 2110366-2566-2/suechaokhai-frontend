@@ -41,12 +41,6 @@ const propertyImages = [
   "/img/arthur.JPG",
   "/img/babywinsmoking.JPG",
 ];
-// const propertyOwner = {
-//   name: "Thanapat",
-//   tel: "789456123",
-//   mail: "something@mymail.coom",
-//   imgSrc: "/img/Boss.png",
-// };
 const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
 export default function PropertyDescriptionPage() {
   const params = useParams<{ tag: string; item: string; id: string }>();
@@ -81,7 +75,7 @@ export default function PropertyDescriptionPage() {
     " " +
     (property?.postal_code || "");
   return (
-    <div className=" px-[1%] sm:px-[15%] ">
+    <div className=" px-[5%] sm:px-[15%] ">
       <div className="flex flex-row items-center ">
         <WestIcon className="mx-3"></WestIcon>
         <div className="m-3 text-3xl font-bold">
