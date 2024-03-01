@@ -1,11 +1,24 @@
+"use client";
 import { useEffect, useState } from "react";
 import SmallPropertyCard from "./SmallPropertyCard";
 import Image from "next/image";
+import getTopProperty from "@/services/getTopProperty";
 
 export default function FeaturesPropCatalog() {
   const [start, setStart] = useState<number>(0);
   const [stop, setStop] = useState<number>(3);
-  const property = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  const [resJsonReady, setRes] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getTopProperty();
+      if (res) {
+        setRes(res);
+      }
+      console.log(resJsonReady)
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setStop(calculateStopValue());
@@ -70,9 +83,9 @@ export default function FeaturesPropCatalog() {
           <div className="w-15 h-15 pr-[60px]"></div>
         )}
 
-        {property.slice(start, stop).map((item) => (
-          <SmallPropertyCard id={item} key={item} />
-        ))}
+        {/* {property.slice(start, stop).map((item) => (
+          <SmallPropertyCard id={item.property_name} key={item.property_name} />
+        ))} */}
 
         {stop < 10 ? (
           <Image
