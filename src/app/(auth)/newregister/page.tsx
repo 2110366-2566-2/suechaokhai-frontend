@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import GoogleButton from "@/components/register-login/GoogleButton";
 import { Link } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -24,6 +26,8 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const {toast} = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,10 +38,37 @@ export default function RegisterForm() {
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    setIsLoading(true);
     if (values.password !== values.confirmPassword) {
-      console.log("Password and confirm password do not match");
+      toast({
+        title: "Password not match",
+        description: "Please re-enter your password",
+      });
+      form.reset(
+        {
+          email: values.email,
+          password: "",
+          confirmPassword: "",
+        },
+        { keepValues: false, keepErrors: false
+        }
+      );
       return;
     }
+    toast({
+      title: "Register successfully",
+      description: "You can now login to your account",
+    });
+    form.reset(
+      {
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+      { keepValues: false, keepErrors: false }
+    );
+    setIsLoading(false);
+
   }
   return (
     <>
@@ -121,11 +152,12 @@ export default function RegisterForm() {
                 <Button
                   type="submit"
                   className=" w-full bg-ci-blue font-bold text-white"
+                  disabled={isLoading}
                 >
-                  Confirm
+                  {isLoading ? "Loading" : "Confirm"}
                 </Button>
                 <p className="text-center text-sm leading-6 text-gray-500">
-                  Already have and account ?{" "}
+                  Already have an account?{" "}
                   <a
                     href="/login"
                     className="font-semibol pl-3 text-yellow-400 transition duration-150 ease-in-out hover:text-yellow-500 sm:pl-4 lg:pl-5"
