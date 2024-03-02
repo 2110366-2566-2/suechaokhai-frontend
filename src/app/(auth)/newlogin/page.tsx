@@ -95,16 +95,18 @@ export default function ProfileForm() {
                     </FormItem>
                   )}
                 />
+                <p className="text-right text-yellow-400 mt-0">
+                  Forgot Password?
+                </p>
+                <Button
+                  type="submit"
+                  className=" w-full bg-ci-blue font-bold text-white"
+                >
+                  Login
+                </Button>
               </form>
             </Form>
-            <div className="text-right text-yellow-400 my-5">Forgot Password?</div>
 
-            <Button
-              type="submit"
-              className=" w-full bg-ci-blue font-bold text-white"
-            >
-              Login
-            </Button>
             <p className="mt-4 text-center text-sm text-gray-500">
               Doesn’t have an account yet?{" "}
               <Link
