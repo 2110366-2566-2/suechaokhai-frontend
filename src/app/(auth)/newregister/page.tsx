@@ -23,6 +23,12 @@ const formSchema = z.object({
   confirmPassword: z.string().min(8),
 });
 
+function sleep(ms: number | undefined) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -34,7 +40,7 @@ export default function RegisterForm() {
       confirmPassword: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     setIsLoading(true);
     if (values.password !== values.confirmPassword) {
@@ -53,6 +59,7 @@ export default function RegisterForm() {
       setIsLoading(false);
       return;
     }
+    await sleep(5000);
     toast({
       title: "Register successfully",
       description: "You can now login to your account",
@@ -110,6 +117,7 @@ export default function RegisterForm() {
                           <Input
                             placeholder="Enter your email here"
                             {...field}
+                            disabled={isLoading}
                           />
                         </FormControl>
                         <FormMessage />
@@ -127,6 +135,7 @@ export default function RegisterForm() {
                             placeholder="Enter your password here"
                             type="password"
                             {...field}
+                            disabled={isLoading}
                           />
                         </FormControl>
                         <FormMessage />
@@ -144,6 +153,7 @@ export default function RegisterForm() {
                             placeholder="Re-enter your password here"
                             type="password"
                             {...field}
+                            disabled={isLoading}
                           />
                         </FormControl>
                         <FormMessage />
@@ -152,10 +162,17 @@ export default function RegisterForm() {
                   />
                   <Button
                     type="submit"
-                    className=" w-full bg-ci-blue font-bold text-white"
+                    className=" w-full bg-ci-blue font-bold text-white hover:bg-blue-500"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading" : "Confirm"}
+                    {!isLoading ? "Register" : 
+                    <Image
+                      src=" /img/loading.svg"
+                      alt="test"
+                      width={20}
+                      height={20}
+                      className=" animate-spin"
+                    />}
                   </Button>
                   <p className="text-center text-sm leading-6 text-gray-500">
                     Already have an account?{" "}

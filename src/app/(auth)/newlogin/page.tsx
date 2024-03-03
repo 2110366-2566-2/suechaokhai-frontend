@@ -104,7 +104,7 @@ export default function ProfileForm() {
                   </p>
                   <Button
                     type="submit"
-                    className=" w-full bg-ci-blue font-bold text-white"
+                    className=" w-full bg-ci-blue font-bold text-white hover:bg-blue-500"
                   >
                     Login
                   </Button>
@@ -170,8 +170,6 @@ export default function ProfileForm() {
                   </Link>
                 </div>
               </div>
-
-              {/* fuck */}
             </div>
           </div>
         </div>
