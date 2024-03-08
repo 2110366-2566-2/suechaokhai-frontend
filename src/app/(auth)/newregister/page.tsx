@@ -19,15 +19,25 @@ import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
-  confirmPassword: z.string().min(8),
+  password: z
+    .string()
+    .min(8, "password should have at least 8 characters")
+    .refine(
+      (value) => /^[a-zA-Z0-9]+$/.test(value) && /\d/.test(value),
+      "password should contain at least 1 number"
+    ),
+  confirmPassword: z
+    .string()
+    .min(8, "password should have at least 8 characters")
+    .refine(
+      (value) => /^[a-zA-Z0-9]+$/.test(value) && /\d/.test(value),
+      "password should contain at least 1 number"
+    ),
 });
 
 function sleep(ms: number | undefined) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-
 
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -165,14 +175,17 @@ export default function RegisterForm() {
                     className=" w-full bg-ci-blue font-bold text-white hover:bg-blue-500"
                     disabled={isLoading}
                   >
-                    {!isLoading ? "Register" : 
-                    <Image
-                      src=" /img/loading.svg"
-                      alt="test"
-                      width={20}
-                      height={20}
-                      className=" animate-spin"
-                    />}
+                    {!isLoading ? (
+                      "Register"
+                    ) : (
+                      <Image
+                        src=" /img/loading.svg"
+                        alt="test"
+                        width={20}
+                        height={20}
+                        className=" animate-spin"
+                      />
+                    )}
                   </Button>
                   <p className="text-center text-sm leading-6 text-gray-500">
                     Already have an account?{" "}
