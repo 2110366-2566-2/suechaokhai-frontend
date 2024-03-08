@@ -5,7 +5,9 @@ import FileUploadField from "@/components/register-login/FileUploadField";
 import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import { log } from "console";
-
+const passwordValidation = new RegExp(
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+);
 export default function LoginPage() {
   const id = useRef("");
   const file = useRef("");
