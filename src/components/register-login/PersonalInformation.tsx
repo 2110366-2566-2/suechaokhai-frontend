@@ -116,6 +116,8 @@ export default function PersonalInformation({
 
       <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
         <div className="flex flex-col items-center justify-center pt-[12px] text-[20px] font-bold text-ci-blue">
+
+
           <input
             type="file"
             accept="image/*"
@@ -125,6 +127,9 @@ export default function PersonalInformation({
             style={{ display: "none" }}
             onChange={handleChange}
           />
+
+
+          
           <div
             onClick={() => {
               handleClick();

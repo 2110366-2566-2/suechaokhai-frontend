@@ -22,16 +22,18 @@ const formSchema = z.object({
   password: z
     .string()
     .min(8, "password should have at least 8 characters")
+    .max(20, "password should be no longer than 20 characters")
     .refine(
-      (value) => /^[a-zA-Z0-9]+$/.test(value) && /\d/.test(value),
-      "password should contain at least 1 number"
+      (value) => /^(?=.*[a-zA-Z])(?=.*\d).+$/.test(value),
+      "password should contain at least 1 alphabet and 1 number"
     ),
   confirmPassword: z
     .string()
     .min(8, "password should have at least 8 characters")
+    .max(20, "password should be no longer than 20 characters")
     .refine(
-      (value) => /^[a-zA-Z0-9]+$/.test(value) && /\d/.test(value),
-      "password should contain at least 1 number"
+      (value) => /^(?=.*[a-zA-Z])(?=.*\d).+$/.test(value),
+      "password should contain at least 1 alphabet and 1 number"
     ),
 });
 

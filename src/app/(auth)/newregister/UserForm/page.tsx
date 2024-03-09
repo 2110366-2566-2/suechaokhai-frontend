@@ -24,7 +24,6 @@ const formSchema = z.object({
   lastname: z.string().min(2).max(50),
   pin: z.string().length(10, {
     message: "Please enter a valid phone number",
-  
   }),
 });
 
@@ -42,7 +41,7 @@ export default function UserForm() {
   }
   return (
     <>
-      <div className="container m-auto mt-6 space-y-10 divide-y divide-gray-900/10 mb-5">
+      <div className="container m-auto mb-5 mt-6 space-y-10 divide-y divide-gray-900/10">
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -109,12 +108,12 @@ export default function UserForm() {
 
                   <div className="col-span-full">
                     <label
-                      htmlFor="cover-photo"
+                      htmlFor="file-upload"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Cover photo
                     </label>
-                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                    <div className="mt-2 flex justify-center rounded-full border border-dashed border-gray-900/25 px-6 py-10">
                       <div className="text-center">
                         {/* <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" /> */}
                         <Image
@@ -168,7 +167,6 @@ export default function UserForm() {
                           </FormControl>
                           <FormDescription>
                             Please enter your phone number.
-
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
@@ -188,8 +186,6 @@ export default function UserForm() {
               </div>
             </form>
           </Form>
-
-          
         </div>
       </div>
     </>
