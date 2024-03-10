@@ -23,7 +23,7 @@ import { PhoneInput } from "@/components/ui/phone-input";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   lastname: z.string().min(2).max(50),
-  phone: z.string().length(10, {
+  phone: z.string().length(12, {
     message: "Please enter a valid phone number",
   }),
 });
@@ -119,11 +119,8 @@ export default function UserForm() {
                           <FormControl className="w-full">
                             <PhoneInput
                               placeholder="Enter a phone number"
-                              international = {false}
+                              international={false}
                               defaultCountry="TH"
-                              defaultValue= "0"
-
-
                               {...field}
                             />
                           </FormControl>
