@@ -19,7 +19,7 @@ import { z } from "zod";
 const FormSchema = z.object({
   phone: z
     .string()
-    .refine(isValidPhoneNumber, { message: "Invalid phone number" }),
+    
 });
 
 export default function Hero() {

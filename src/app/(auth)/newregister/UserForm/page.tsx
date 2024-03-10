@@ -14,15 +14,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
 import { PhoneInput } from "@/components/ui/phone-input";
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  lastname: z.string().min(2).max(50),
+  username: z
+    .string()
+    .min(2, {
+      message: "Username must be at least 2 characters long",
+    })
+    .max(50, {
+      message: "Username must be at most 50 characters long",
+    }),
+  lastname: z
+    .string()
+    .min(2, {
+      message: "Lastname must be at least 2 characters long",
+    })
+    .max(50, {
+      message: "Lastname must be at most 50 characters long",
+    }),
   phone: z.string().length(12, {
     message: "Please enter a valid phone number",
   }),
@@ -40,16 +49,23 @@ export default function UserForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+  function resetform() {
+    form.reset({
+      username: "",
+      lastname: "",
+      phone: "",
+    });
+  }
   return (
     <>
       <div className="container m-auto mb-5 mt-6 space-y-10 divide-y divide-gray-900/10">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 lg:grid-cols-3">
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Personal Information
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Use a permanent address where you can receive mail.
+               Use a correctly formatted phone number to receive SMS notifications.
             </p>
           </div>
           <Form {...form}>
@@ -58,7 +74,7 @@ export default function UserForm() {
               className="space-y-8 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
             >
               <div className="px-4 py-6 sm:p-8">
-                <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-6">
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="first-name"
@@ -71,12 +87,10 @@ export default function UserForm() {
                           <FormItem>
                             <FormLabel>Username</FormLabel>
                             <FormControl>
-                              <Input placeholder="shadcn" {...field} />
+                              <Input placeholder="Enter Username" {...field} />
                             </FormControl>
-                            <FormDescription>
-                              This is your public display name.
-                            </FormDescription>
                             <FormMessage />
+                            <FormDescription>Enter a username</FormDescription>
                           </FormItem>
                         )}
                       />
@@ -95,12 +109,10 @@ export default function UserForm() {
                           <FormItem>
                             <FormLabel>Lastname</FormLabel>
                             <FormControl>
-                              <Input placeholder="shadcn" {...field} />
+                              <Input placeholder="Enter lastname" {...field} />
                             </FormControl>
-                            <FormDescription>
-                              This is your public display name.
-                            </FormDescription>
                             <FormMessage />
+                            <FormDescription>Enter a Lastname</FormDescription>
                           </FormItem>
                         )}
                       />
@@ -138,6 +150,7 @@ export default function UserForm() {
                 <button
                   type="button"
                   className="text-sm font-semibold leading-6 text-gray-900"
+                  onClick={resetform}
                 >
                   Cancel
                 </button>
