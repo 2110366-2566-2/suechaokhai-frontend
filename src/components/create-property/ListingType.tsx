@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const ListingType: React.FC = () => {
+interface ListingTypeProps {
+  selectedType: string; // The selected option
+  onOptionChange: (type: string) => void; // Function to handle option changes
+}
+
+const ListingType: React.FC<ListingTypeProps> = ({
+  selectedType,
+  onOptionChange,
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [hoveredOption, setHoveredOption] = useState("");
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
+  useEffect(() => {
+    // Update the local state when the selectedType prop changes
+    setSelectedOption(selectedType);
+  }, [selectedType]);
+
+  const handleOptionChange = (option: string) => {
+    setSelectedOption(option);
+    onOptionChange(option); // Notify the parent component about the change
   };
 
   const handleMouseEnter = (option: string) => {
@@ -24,7 +38,7 @@ const ListingType: React.FC = () => {
     border: "1px solid #B3B3B3",
     borderRadius: "10px",
     cursor: "pointer",
-    width: "120px",
+    width: "25%",
     height: "60px",
     fontSize: "24px",
     textAlign: "center",
@@ -32,7 +46,7 @@ const ListingType: React.FC = () => {
   };
   const labelStyle3: React.CSSProperties = {
     ...labelStyle,
-    width: "200px",
+    width: "35%",
   };
 
   const selectedStyle: React.CSSProperties = {
@@ -65,7 +79,7 @@ const ListingType: React.FC = () => {
         name="type"
         value="rent"
         checked={selectedOption === "rent"}
-        onChange={handleOptionChange}
+        onChange={() => handleOptionChange("rent")}
         style={{ display: "none" }}
       />
       <label
@@ -87,7 +101,7 @@ const ListingType: React.FC = () => {
         name="type"
         value="sell"
         checked={selectedOption === "sell"}
-        onChange={handleOptionChange}
+        onChange={() => handleOptionChange("sell")}
         style={{ display: "none" }}
       />
       <label
@@ -109,7 +123,7 @@ const ListingType: React.FC = () => {
         name="type"
         value="rent/sell"
         checked={selectedOption === "rent/sell"}
-        onChange={handleOptionChange}
+        onChange={() => handleOptionChange("rent/sell")}
         style={{ display: "none" }}
       />
       <label
