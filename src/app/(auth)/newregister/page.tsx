@@ -193,7 +193,7 @@ export default function RegisterForm() {
                     Already have an account?{" "}
                     <a
                       href="/login"
-                      className="font-semibol pl-3 text-yellow-400 transition duration-150 ease-in-out hover:text-yellow-500 sm:pl-4 lg:pl-5"
+                      className=" font-bold pl-3 text-bg-blue-600 transition duration-150 ease-in-out hover:text-blue-400 sm:pl-4 lg:pl-5"
                     >
                       Login
                     </a>

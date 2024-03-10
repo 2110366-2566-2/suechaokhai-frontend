@@ -99,7 +99,7 @@ export default function ProfileForm() {
                       </FormItem>
                     )}
                   />
-                  <p className="mt-0 text-right text-yellow-400">
+                  <p className="mt-0 text-right text-blue-500 hover:text-blue-400">
                     Forgot Password?
                   </p>
                   <Button
