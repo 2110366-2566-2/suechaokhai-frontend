@@ -19,10 +19,11 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { PhoneInput } from "@/components/ui/phone-input";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   lastname: z.string().min(2).max(50),
-  pin: z.string().length(10, {
+  phone: z.string().length(10, {
     message: "Please enter a valid phone number",
   }),
 });
@@ -33,7 +34,7 @@ export default function UserForm() {
     defaultValues: {
       username: "",
       lastname: "",
-      pin: "",
+      phone: "",
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -106,67 +107,28 @@ export default function UserForm() {
                     </label>
                   </div>
 
-                  <div className="col-span-full">
-                    <label
-                      htmlFor="file-upload"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Cover photo
-                    </label>
-                    <div className="mt-2 flex justify-center rounded-full border border-dashed border-gray-900/25 px-6 py-10">
-                      <div className="text-center">
-                        {/* <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" /> */}
-                        <Image
-                          src="/img/login-register/picture.svg"
-                          alt="arrow"
-                          width={12}
-                          height={10}
-                          className="mx-auto h-12 w-12 text-gray-300"
-                        />
-                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                          <label
-                            htmlFor="file-upload"
-                            className="relative cursor-pointer rounded-md bg-white font-semibold text-black focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                          >
-                            <span>Upload a file</span>
-                            <Input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              className="sr-only"
-                            />
-                          </label>
-                          <p className="pl-1">or drag and drop</p>
-                        </div>
-                        <p className="text-xs leading-5 text-gray-600">
-                          PNG, JPG, GIF up to 10MB
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="sm:col-span-2">
+                  <div className="sm:col-span-4">
                     <FormField
                       control={form.control}
-                      name="pin"
+                      name="phone"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Phone-Number</FormLabel>
-                          <FormControl>
-                            <InputOTP
-                              maxLength={10}
-                              render={({ slots }) => (
-                                <InputOTPGroup>
-                                  {slots.map((slot, index) => (
-                                    <InputOTPSlot key={index} {...slot} />
-                                  ))}{" "}
-                                </InputOTPGroup>
-                              )}
+                        <FormItem className="flex flex-col items-start">
+                          <FormLabel className="text-left">
+                            Phone Number
+                          </FormLabel>
+                          <FormControl className="w-full">
+                            <PhoneInput
+                              placeholder="Enter a phone number"
+                              international = {false}
+                              defaultCountry="TH"
+                              defaultValue= "0"
+
+
                               {...field}
                             />
                           </FormControl>
-                          <FormDescription>
-                            Please enter your phone number.
+                          <FormDescription className="text-left">
+                            Enter a phone number
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
