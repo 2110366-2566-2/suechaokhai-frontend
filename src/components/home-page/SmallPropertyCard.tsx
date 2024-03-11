@@ -19,7 +19,7 @@ export default function SmallPropertyCard({ id }: { id: string }) {
   return (
     <div>
       {resJsonReady ? (
-        <div className=" w-full max-w-[420px] rounded-3xl bg-white">
+        <div className="w-[360px] rounded-3xl bg-white xl:w-[400px]">
           <div className="relative h-60 w-full">
             <Image
               src="/img/home-page/lumpini.png"
@@ -30,7 +30,7 @@ export default function SmallPropertyCard({ id }: { id: string }) {
           </div>
           <div className="flex flex-col gap-y-5 px-8 py-7">
             <div className="flex flex-row justify-between">
-              <div className="text-2xl font-semibold">
+              <div className="text-lg font-semibold xl:text-2xl">
                 {resJsonReady.property_name}
               </div>
               <div
@@ -59,7 +59,7 @@ export default function SmallPropertyCard({ id }: { id: string }) {
 
             <span className="w-full border-t border-black"></span>
 
-            <div className="flex flex-col gap-y-2 text-xl">
+            <div className="flex flex-col gap-y-2 text-lg xl:text-xl">
               <div>
                 {resJsonReady.street}, {resJsonReady.province}
               </div>
@@ -70,8 +70,8 @@ export default function SmallPropertyCard({ id }: { id: string }) {
 
             <span className="w-full border-t border-black"></span>
 
-            <div className="flex flex-col justify-around gap-x-6 px-2 md:flex-row">
-              <div className="flex flex-row items-center gap-x-2 text-lg sm:text-xl">
+            <div className="justify:center flex flex-col  gap-x-6 px-2 xl:flex-row xl:justify-around">
+              <div className="flex flex-row items-center gap-x-2 text-lg">
                 <Image
                   src="/img/home-page/bed.svg"
                   alt="heart"
@@ -80,7 +80,7 @@ export default function SmallPropertyCard({ id }: { id: string }) {
                 />
                 <div>{resJsonReady.bedrooms} Bedrooms</div>
               </div>
-              <div className="flex flex-row items-center gap-x-2 text-lg sm:text-xl">
+              <div className="flex flex-row items-center gap-x-2 text-lg">
                 <Image
                   src="/img/home-page/area.svg"
                   alt="heart"

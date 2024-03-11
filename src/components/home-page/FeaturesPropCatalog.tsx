@@ -8,6 +8,7 @@ import Top10PropertyData from "../models/Top10PropertyData";
 export default function FeaturesPropCatalog() {
   const [start, setStart] = useState<number>(0);
   const [stop, setStop] = useState<number>(3);
+  const [windowSize, setWindowSize] = useState<number>(3);
   const [propertiesId, setPropsId] = useState<string[]>([]);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function FeaturesPropCatalog() {
     setStop(calculateStopValue());
     function handleResize() {
       const newStop = calculateStopValue();
-      setStop(newStop);
+      setWindowSize(newStop);
     }
 
     window.addEventListener("resize", handleResize);
@@ -49,7 +50,7 @@ export default function FeaturesPropCatalog() {
   }
 
   function goNext() {
-    if (stop < 10) {
+    if (stop < 9) {
       setStart(start + 1);
       setStop(stop + 1);
     }
@@ -89,11 +90,11 @@ export default function FeaturesPropCatalog() {
             <div className="w-15 h-15 pr-[60px]"></div>
           )}
 
-          {propertiesId.slice(start, stop).map((item: string) => (
+          {propertiesId.slice(start, start + windowSize).map((item: string) => (
             <SmallPropertyCard id={item} key={item} />
           ))}
 
-          {stop < 10 ? (
+          {stop < 9 ? (
             <Image
               src="/img/home-page/next.svg"
               alt="next"
