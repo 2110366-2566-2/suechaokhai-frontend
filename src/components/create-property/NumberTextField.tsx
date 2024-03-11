@@ -64,8 +64,6 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
           type="text"
           maxLength={maxLength}
         />
-
-        <div className="flex">{children}</div>
       </div>
     );
   }

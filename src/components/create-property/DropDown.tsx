@@ -26,7 +26,9 @@ const Dropdown = ({
         </label>
       )}
       <select
-        className="dropdown-select font-regular block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2 text-[20px] text-ci-dark-gray"
+        className={`dropdown-select font-regular block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2 text-[20px] ${
+          selectedOption === "" ? "text-ci-dark-gray" : "text-ci-black"
+        }`}
         value={selectedOption}
         onChange={(e) => handleSelect({ option: e.target.value })}
       >

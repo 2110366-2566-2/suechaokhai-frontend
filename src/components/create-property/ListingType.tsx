@@ -13,13 +13,12 @@ const ListingType: React.FC<ListingTypeProps> = ({
   const [hoveredOption, setHoveredOption] = useState("");
 
   useEffect(() => {
-    // Update the local state when the selectedType prop changes
     setSelectedOption(selectedType);
   }, [selectedType]);
 
   const handleOptionChange = (option: string) => {
     setSelectedOption(option);
-    onOptionChange(option); // Notify the parent component about the change
+    onOptionChange(option);
   };
 
   const handleMouseEnter = (option: string) => {
