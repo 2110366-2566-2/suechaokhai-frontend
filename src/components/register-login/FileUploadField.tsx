@@ -1,7 +1,7 @@
 // FileUploadField.tsx
 
-import React, { useState, ChangeEvent } from 'react';
-import Image from 'next/image';
+import React, { useState, ChangeEvent } from "react";
+import Image from "next/image";
 
 type FileUploadProps = {
   label: string;
@@ -20,7 +20,9 @@ const FileUploadField: React.FC<FileUploadProps> = ({
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    const isSizeValid = file ? file.size >= minFileSize && file.size <= maxFileSize : true;
+    const isSizeValid = file
+      ? file.size >= minFileSize && file.size <= maxFileSize
+      : true;
 
     if (isSizeValid) {
       setSelectedFile(file || null);
@@ -31,15 +33,15 @@ const FileUploadField: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="my-4">
-      <label className="border p-2 cursor-pointer rounded-[10px] flex items-center justify-center w-[510px] h-[60px] border border-[#B3B3B3]">
+    <div className="">
+      <label className="flex h-[60px] w-[510px] cursor-pointer items-center justify-center rounded-[10px] border border-[#B3B3B3] bg-ci-blue p-2">
         {!selectedFile && (
           <Image
             src="/img/UploadIcon.png"
             alt="Upload"
             width={32}
             height={30}
-            style={{ maxHeight: '32px', maxWidth: '32px' }}
+            style={{ maxHeight: "32px", maxWidth: "32px" }}
             className="pt-1.5"
           />
         )}
@@ -49,11 +51,11 @@ const FileUploadField: React.FC<FileUploadProps> = ({
             alt="File"
             width={32}
             height={35}
-            style={{ maxHeight: '35px', maxWidth: '32px'}}
+            style={{ maxHeight: "35px", maxWidth: "32px" }}
             className="pt-1"
           />
         )}
-        <span className={`text-[#1983E4] text-[18px] font-bold px-2 pt-1.5 `}>
+        <span className={`px-2 pt-1.5 text-[18px] font-bold text-white `}>
           {selectedFile ? selectedFile.name : label}
         </span>
         <input
@@ -64,8 +66,9 @@ const FileUploadField: React.FC<FileUploadProps> = ({
         />
       </label>
       {!isSizeValid && (
-        <div className="text-red-500 mt-2">
-          File size should be between {minFileSize / 1024} KB and {maxFileSize / 1024} KB.
+        <div className="mt-2 text-red-500">
+          File size should be between {minFileSize / 1024} KB and{" "}
+          {maxFileSize / 1024} KB.
         </div>
       )}
     </div>

@@ -33,6 +33,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, IProps>(
             <button
               className="absolute ml-[440px] py-[10px] font-bold"
               onClick={(e) => setShow(!isShow)}
+              tabIndex={-1}
             >
               Hide
             </button>
@@ -50,6 +51,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, IProps>(
             <button
               className="absolute ml-[440px] py-[10px] font-bold"
               onClick={(e) => setShow(!isShow)}
+              tabIndex={-1}
             >
               Show
             </button>

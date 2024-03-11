@@ -10,6 +10,8 @@ export default function PersonalInformation({
   setFirstName,
   setLastName,
   setPhoneNumber,
+  setImg,
+  register,
 }: {
   firsttmp: string;
   lasttmp: string;
@@ -18,8 +20,10 @@ export default function PersonalInformation({
   setFirstName: Function;
   setLastName: Function;
   setPhoneNumber: Function;
+  setImg: Function;
+  register: Function;
 }) {
-  const [nextColor, setNextColor] = useState("#D9D9D9");
+  const [nextColor, setNextColor] = useState("ci-grey");
   const firstName = useRef("");
   const lastName = useRef("");
   const phoneNumber = useRef("");
@@ -48,13 +52,13 @@ export default function PersonalInformation({
     setPhoneNumber(phoneNumber.current);
 
     if (phoneLength >= 10) {
-      setNextColor("#3AAEEF");
+      setNextColor("ci-blue");
     } else {
-      setNextColor("#D9D9D9");
+      setNextColor("ci-gray");
     }
   }
 
-  const hiddenFileInput = useRef(null);
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
   function handleClick() {
     if (hiddenFileInput.current != null) {
@@ -80,6 +84,7 @@ export default function PersonalInformation({
   function userReg1(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
+
   return (
     <div
       onLoad={() => initial(firsttmp, lasttmp, numtemp)}
@@ -105,16 +110,28 @@ export default function PersonalInformation({
           style={{ display: "none" }}
           onChange={handleChange}
         />
-        <div
-          onClick={() => {
-            handleClick();
-          }}
-          style={{ cursor: "pointer" }}
-        >
-          Upload your photo
-        </div>
       </div>
+
       <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
+        <div className="flex flex-col items-center justify-center pt-[12px] text-[20px] font-bold text-ci-blue">
+          <input
+            type="file"
+            accept="image/*"
+            id="profile_img"
+            name="profile_img"
+            ref={hiddenFileInput}
+            style={{ display: "none" }}
+            onChange={handleChange}
+          />
+          <div
+            onClick={() => {
+              handleClick();
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Upload your photo
+          </div>
+        </div>
         <div className="flex flex-col gap-[22px] pt-[22px]">
           <TextBox
             label="First Name"
@@ -124,6 +141,7 @@ export default function PersonalInformation({
               setFirstName(firstName.current);
             }}
             value={firsttmp}
+            ref={inputRef}
           ></TextBox>
         </div>
         <div className="flex flex-col gap-[22px] pt-[22px]">
@@ -152,15 +170,16 @@ export default function PersonalInformation({
         <div>
           <button
             onClick={back}
-            className="h-[60px] w-[190px] rounded-[10px] bg-[#B3B3B3] text-[24px] font-bold text-white"
+            className="h-[60px] w-[190px] rounded-[10px] bg-ci-dark-gray text-[24px] font-bold text-white"
           >
             Back
           </button>
         </div>
         <div>
           <button
+            type="submit"
             onClick={nextPageStatus}
-            className={`h-[60px] w-[190px] rounded-[10px] bg-[${nextColor}] text-[24px] font-bold text-white`}
+            className={`h-[60px] w-[190px] rounded-[10px] bg-${nextColor} text-[24px] font-bold text-white`}
           >
             Next
           </button>
