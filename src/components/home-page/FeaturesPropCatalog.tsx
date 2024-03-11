@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SmallPropertyCard from "./SmallPropertyCard";
 import Image from "next/image";
 import getTopProperty from "@/services/getTopProperty";
-import PropertyData from "../models/PropertyData";
+import Top10PropertyData from "../models/Top10PropertyData";
 
 export default function FeaturesPropCatalog() {
   const [start, setStart] = useState<number>(0);
@@ -15,7 +15,7 @@ export default function FeaturesPropCatalog() {
       const res = await getTopProperty();
       const property2: string[] = [];
       if (res) {
-        res.forEach((item: PropertyData) => {
+        res.forEach((item: Top10PropertyData) => {
           property2.push(item.PropertyId);
         });
         setPropsId(property2);
