@@ -3,7 +3,7 @@ import FileUploadField from "../register-login/FileUploadField";
 import Image from "next/image";
 import TextField from "@/components/register-login/TextField";
 import getCurrentUser from "@/services/getCurrentUser";
-import updateCurrentUser from "@/services/updateCurrentUser";
+import verifyCurrentUser from "@/services/verifyCurrentUser";
 import { BlueValidIcon, InvalidIcon } from "../ui/icon";
 const OwnerPage = () => {
   const id = useRef("");
@@ -15,6 +15,8 @@ const OwnerPage = () => {
   const [idCardUrl, setIdCardUrl] = useState("");
   const [citizenId, setCitizenId] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+  const [img, setImg] = useState<any>();
+  const [card, setCard] = useState<any>();
   const [changed, setChanged] = useState(0);
   const fetchUser = async () => {
     try {
@@ -22,6 +24,7 @@ const OwnerPage = () => {
       // setIsVerified(data.is_verified);
       console.log("current ID:", data.citizen_id);
       console.log("verify?:", data.is_verified);
+      setIsVerified(data.is_verified);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -35,7 +38,7 @@ const OwnerPage = () => {
     setChanged(1);
     setImg(file);
     if (file != undefined) {
-      setProfileUrl(URL.createObjectURL(file));
+      setCard(URL.createObjectURL(file));
     }
   };
   const validateId = () => {
@@ -58,10 +61,10 @@ const OwnerPage = () => {
       console.log("ID is valid:", id.current);
       const formData = new FormData();
       setIsVerified(true);
-      // formData.append("is_verified", "true" );
-      formData.append("is_verified", "false");
+      formData.append("is_verified", "true");
       formData.append("citizen_id", citizenId);
-      updateCurrentUser(formData);
+      formData.append("citizen_card_image", img);
+      verifyCurrentUser(formData);
     } else {
       console.log("Invalid ID number.", id.current);
     }
@@ -111,14 +114,26 @@ const OwnerPage = () => {
         <div className="flex flex-col items-center justify-center space-y-2">
           <div className=" pt-4 text-[40px] font-bold">Owner Verification</div>
           <div className="flex flex-col justify-start space-y-8 overflow-hidden rounded-lg">
-            <Image
-              alt="idCard"
-              src={idCard}
-              height={0}
-              width={0}
-              style={{ height: "280px", width: "auto  " }}
-              className=""
-            />
+            {card ? (
+              <Image
+                alt="idCard"
+                src={card}
+                height={0}
+                width={0}
+                style={{ height: "280px", width: "auto  " }}
+                className="rounded-lg"
+              />
+            ) : (
+              <Image
+                alt="idCard"
+                src={idCard}
+                height={0}
+                width={0}
+                style={{ height: "280px", width: "auto  " }}
+                className="rounded-lg"
+              />
+            )}
+
             <label>
               <input
                 type="file"
