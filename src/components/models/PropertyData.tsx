@@ -1,4 +1,5 @@
 export default interface PropertyData {
+  PropertyId: string;
   owner_id: string;
   description: string;
   images: any[];

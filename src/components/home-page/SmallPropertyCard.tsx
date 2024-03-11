@@ -1,7 +1,9 @@
+import getTopProperty from "@/services/getTopProperty";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function SmallPropertyCard({ id }: { id: string }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [resJsonReady, setRes] = useState();
 
   return (
     <div className=" w-full max-w-[420px] rounded-3xl bg-white">
@@ -49,8 +51,8 @@ export default function SmallPropertyCard({ id }: { id: string }) {
 
         <span className="w-full border-t border-black"></span>
 
-        <div className="flex flex-col justify-around gap-x-6 px-2 sm:flex-row">
-          <div className="flex flex-row items-center gap-x-4 text-xl">
+        <div className="flex flex-col justify-around gap-x-6 px-2 md:flex-row">
+          <div className="flex flex-row items-center gap-x-4 text-lg sm:text-xl">
             <Image
               src="/img/home-page/bed.svg"
               alt="heart"
@@ -59,7 +61,7 @@ export default function SmallPropertyCard({ id }: { id: string }) {
             />
             <div>2 Bedrooms</div>
           </div>
-          <div className="flex flex-row items-center gap-x-4 text-xl">
+          <div className="flex flex-row items-center gap-x-4 text-lg sm:text-xl">
             <Image
               src="/img/home-page/area.svg"
               alt="heart"
