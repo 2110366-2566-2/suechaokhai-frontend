@@ -32,6 +32,7 @@ export default function FeaturesPropCatalog() {
       setWindowSize(newStop);
     }
 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
