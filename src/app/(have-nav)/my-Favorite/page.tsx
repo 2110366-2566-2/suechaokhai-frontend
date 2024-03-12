@@ -58,9 +58,8 @@ const myFavPage = () => {
         {
           haveProp ? (
               <div className="flex h-full flex-col mx-80 mt-8 ">
-                  <div className="text-4xl font-bold">My Listing</div>
 
-                  <PropertyCards propData={propData} isEditable={false}></PropertyCards>
+                  <PropertyCards propData={propData} isEditable={false} additionaltext="for rent or sales in my favorites"></PropertyCards>
 
                   <button
                     className="fixed bottom-24 right-24 flex w-1/6 flex-row justify-around rounded-md bg-ci-blue p-4 "

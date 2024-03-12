@@ -1,12 +1,13 @@
 "use client";
 import PropertyData from "../models/PropertyData";
+import NumPageText from "./NumPageText";
 import PropertyCard from "./PropertyCard";
 import Pagination from '@mui/material/Pagination';
 import { useState,useEffect,useReducer} from "react";
 
 
 
-const PropertyCards = ({propData,isEditable}:{propData:PropertyData[],isEditable:boolean}) => {
+const PropertyCards = ({propData,isEditable,additionaltext}:{propData:PropertyData[],isEditable:boolean,additionaltext:string}) => {
 
     const sortType= {
         'date': "Newest Listing First" ,
@@ -48,6 +49,14 @@ const PropertyCards = ({propData,isEditable}:{propData:PropertyData[],isEditable
 
     return ( 
         <>
+            {isEditable ? 
+            <div className="text-4xl font-bold">My Listing</div>
+            :
+            <div className="text-4xl font-bold">
+                {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
+            </div>
+            }
+
             <div className="flex flex-row my-5">
                 {/* sort stuff here */}
                 <div className="font-semibold text-xl">Sort By</div>
@@ -90,12 +99,10 @@ const PropertyCards = ({propData,isEditable}:{propData:PropertyData[],isEditable
                 </div>
                 : null
             }
-            
-
             <div className="flex h-[100px] pt-16 pb-24 items-center justify-center text-2xl">
-                {/* num prop text here */}
+            {/* num prop text here */}
                 <div>
-                    {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties for rent or sales in my listing
+                    {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
                 </div>
             </div>
         </>
