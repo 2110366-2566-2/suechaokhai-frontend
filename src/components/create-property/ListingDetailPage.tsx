@@ -139,7 +139,7 @@ export default function ListingDetailPage({
               <div className="text-[36px] font-bold text-ci-black">
                 Listing Details
               </div>
-              <div className="grid grid-cols-2 gap-x-8">
+              <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
                 <div className="grid gap-6">
                   <div className="text-[28px] font-medium text-ci-black">
                     Name
@@ -166,7 +166,7 @@ export default function ListingDetailPage({
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-x-8">
+              <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
                 <div className="grid gap-6">
                   <Dropdown
                     label="Property Type"

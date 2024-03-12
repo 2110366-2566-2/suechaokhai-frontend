@@ -32,12 +32,11 @@ const ListingType: React.FC<ListingTypeProps> = ({
   const labelStyle: React.CSSProperties = {
     display: "inline-block",
     padding: "10px 20px",
-    marginRight: "20px",
     backgroundColor: "#FFFFFF",
     border: "1px solid #B3B3B3",
     borderRadius: "10px",
     cursor: "pointer",
-    width: "25%",
+    width: "100%",
     height: "60px",
     fontSize: "24px",
     textAlign: "center",
@@ -46,7 +45,6 @@ const ListingType: React.FC<ListingTypeProps> = ({
   };
   const labelStyle3: React.CSSProperties = {
     ...labelStyle,
-    width: "35%",
   };
 
   const selectedStyle: React.CSSProperties = {
@@ -72,7 +70,7 @@ const ListingType: React.FC<ListingTypeProps> = ({
   };
 
   return (
-    <div>
+    <div className="grid gap-6 sm:grid-cols-3">
       <input
         type="radio"
         id="rent"
