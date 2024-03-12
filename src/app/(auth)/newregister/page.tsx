@@ -100,7 +100,7 @@ export default function RegisterForm() {
           height: 100%;
         }
       `}</style>
-      <div className="h-screen w-screen bg-[#b8b8b8]">
+      <div className="h-screen w-screen ">
         <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
             <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
@@ -178,7 +178,7 @@ export default function RegisterForm() {
                     disabled={isLoading}
                   >
                     {!isLoading ? (
-                      "Register"
+                      "Submit"
                     ) : (
                       <Image
                         src=" /img/loading.svg"

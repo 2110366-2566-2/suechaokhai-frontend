@@ -18,6 +18,7 @@ import { PhoneInput } from "@/components/ui/phone-input";
 import { useRef, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { set } from "date-fns";
+import userRegister from "@/services/userRegister";
 function sleep(ms: number | undefined) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -70,9 +71,9 @@ export default function UserForm() {
       phone: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    sleep(3000);
+    
     console.log(img);
     if (img === null) {
       toast({
@@ -82,6 +83,7 @@ export default function UserForm() {
       return;
     }
     console.log(values, img);
+    resetform();
     setIsLoading(false);
   }
   function resetform() {
@@ -90,6 +92,8 @@ export default function UserForm() {
       lastname: "",
       phone: "",
     });
+    setSrc("/img/login-register/prof_pic.png");
+    setImg(null);
   }
   return (
     <>
