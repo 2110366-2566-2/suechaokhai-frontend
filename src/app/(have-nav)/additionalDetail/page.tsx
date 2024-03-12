@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import { Input } from "@/components/ui/input";
 import FurnishingButton from "@/components/additional-detail/FurnishingButton";
 
 export default function AdditionalDetails() {
@@ -22,52 +24,48 @@ export default function AdditionalDetails() {
   };
 
   return (
-    <div className="rounded-md bg-white p-4 shadow-md">
-      <h2 className="mb-4 text-lg font-bold">Additional Details</h2>
+    <div className="h-auto max-w-5xl rounded-md bg-white p-4 px-20 shadow-md">
+      <h2 className="mb-4 text-2xl font-bold">Additional Details</h2>
       <div className="mb-4">
-        {/* <h3 className="mb-2 text-sm font-semibold">Furnishing</h3> */}
         <div className="flex space-x-4">
-          {/* <button
-            className={`rounded-md px-4 py-2 ${
-              furnishing === "fully-furnished"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-            onClick={() => setFurnishing("fully-furnished")}
-          >
-            Fully-Furnished
-          </button> */}
-          {/* Add other furnishing options */}
-          <div className="">
-            <h3 className="text-md ">Furnishing</h3>
+          <div className="w-full">
+            <h3 className="text-md">Furnishing</h3>
             <div className="flex flex-col space-y-4">
               <div className="flex flex-row space-x-4">
-                <FurnishingButton
-                  furnishing={furnishing}
-                  label="Ready to Move"
-                  tag={"ready-to-move"}
-                  onClick={() => setFurnishing("ready-to-move")}
-                />
-                <FurnishingButton
-                  furnishing={furnishing}
-                  label="Fully-Furnished"
-                  tag={"fully-furnished"}
-                  onClick={() => setFurnishing("fully-furnished")}
-                />
+                <div className="w-full">
+                  <FurnishingButton
+                    furnishing={furnishing}
+                    label="Ready to Move"
+                    tag={"ready-to-move"}
+                    onClick={() => setFurnishing("ready-to-move")}
+                  />
+                </div>
+                <div className="w-full">
+                  <FurnishingButton
+                    furnishing={furnishing}
+                    label="Fully-Furnished"
+                    tag={"fully-furnished"}
+                    onClick={() => setFurnishing("fully-furnished")}
+                  />
+                </div>
               </div>
               <div className="flex flex-row space-x-4">
-                <FurnishingButton
-                  furnishing={furnishing}
-                  label="Partially-Furnished"
-                  tag={"partially-furnished"}
-                  onClick={() => setFurnishing("partially-furnished")}
-                />
-                <FurnishingButton
-                  furnishing={furnishing}
-                  label="Unfurnished"
-                  tag={"unfurnished"}
-                  onClick={() => setFurnishing("unfurnished")}
-                />
+                <div className="w-full">
+                  <FurnishingButton
+                    furnishing={furnishing}
+                    label="Partially-Furnished"
+                    tag={"partially-furnished"}
+                    onClick={() => setFurnishing("partially-furnished")}
+                  />
+                </div>
+                <div className="w-full">
+                  <FurnishingButton
+                    furnishing={furnishing}
+                    label="Unfurnished"
+                    tag={"unfurnished"}
+                    onClick={() => setFurnishing("unfurnished")}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -83,9 +81,10 @@ export default function AdditionalDetails() {
             >
               Bedrooms
             </label>
-            <input
+            <Input
               type="number"
               id="bedrooms"
+              placeholder="Bedrooms"
               value={bedrooms}
               onChange={(e) => setBedrooms(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
@@ -98,9 +97,10 @@ export default function AdditionalDetails() {
             >
               Bathrooms
             </label>
-            <input
+            <Input
               type="number"
               id="bathrooms"
+              placeholder="Bathrooms"
               value={bathrooms}
               onChange={(e) => setBathrooms(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
@@ -113,9 +113,10 @@ export default function AdditionalDetails() {
             >
               Floor
             </label>
-            <input
+            <Input
               type="number"
               id="floor"
+              placeholder="Floor"
               value={floor}
               onChange={(e) => setFloor(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
@@ -128,21 +129,22 @@ export default function AdditionalDetails() {
             >
               Floor Size
             </label>
-            <div className="relative mt-1 rounded-md shadow-sm">
-              <input
+            <div className="mt-1 flex w-full flex-row shadow-sm">
+              <Input
                 type="number"
                 id="floorSize"
+                placeholder="Floor Size"
                 value={floorSize}
                 onChange={(e) => setFloorSize(e.target.value)}
-                className="block w-full rounded-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
               />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <div className="flex items-center rounded-md bg-ci-light-blue hover:bg-ci-dark-blue">
                 <label htmlFor="floorSizeUnit" className="sr-only">
                   Floor Size Unit
                 </label>
                 <select
                   id="floorSizeUnit"
-                  className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="h-full border-transparent bg-transparent py-0 pl-2 pr-7 text-ci-white  focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 >
                   <option value="sqm">sqm</option>
                   <option value="sqft">sqft</option>
@@ -158,9 +160,10 @@ export default function AdditionalDetails() {
             >
               Unit Number
             </label>
-            <input
+            <Input
               type="number"
               id="unitNumber"
+              placeholder="Unit Number"
               value={unitNumber}
               onChange={(e) => setUnitNumber(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
@@ -199,17 +202,23 @@ export default function AdditionalDetails() {
             />
           </label>
         </div>
-        <div className="mt-4 flex w-full overflow-x-auto">
+        <div className="mt-4 flex w-full space-x-4 overflow-x-auto">
           {photos.map((photo, index) => (
-            // w-44
-            <div key={index} className="relative mb-2 mr-2 h-28 w-64">
-              <img
+            <div
+              key={index}
+              className="relative inline-block h-28 w-44 flex-shrink-0"
+            >
+              {" "}
+              {/* Adjust width as needed */}
+              <Image
                 src={photo}
                 alt={`Property Photo ${index + 1}`}
-                className="h-full w-full rounded-md object-cover"
+                layout="fill" // This makes the image fill the container
+                objectFit="cover" // Adjusts the image's fit within its box
+                className="rounded-md"
               />
               <button
-                className="absolute right-0 top-0 m-1 rounded-full bg-red-500 p-1 text-white"
+                className="absolute bottom-0 right-0 m-1 rounded-full bg-red-500 p-1 text-white"
                 onClick={() => {
                   const newPhotos = [...photos];
                   newPhotos.splice(index, 1);
@@ -236,11 +245,11 @@ export default function AdditionalDetails() {
         </div>
       </div>
       <div className="flex justify-between">
-        <button className="rounded-md bg-white px-10 py-2 text-gray-700 outline outline-gray-300 hover:bg-ci-light-blue hover:text-white hover:outline-none">
+        <button className="rounded-md bg-white px-10 py-2 text-gray-700 outline outline-gray-300 hover:bg-ci-dark-blue hover:text-white hover:outline-none">
           Back
         </button>
-        <button className="rounded-md bg-ci-light-blue px-10 py-2 text-white">
-          Next
+        <button className="rounded-md bg-ci-light-blue px-10 py-2 text-white hover:bg-ci-dark-blue">
+          Submit
         </button>
       </div>
     </div>
