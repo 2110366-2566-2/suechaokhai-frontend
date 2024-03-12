@@ -24,7 +24,7 @@ export default function AdditionalDetails() {
   };
 
   return (
-    <div className="h-auto max-w-5xl rounded-md bg-white p-4 px-20 shadow-md">
+    <div className="mx-auto h-auto max-w-4xl items-center justify-center rounded-md bg-white p-4 px-20 shadow-md">
       <h2 className="mb-4 text-2xl font-bold">Additional Details</h2>
       <div className="mb-4">
         <div className="flex space-x-4">
@@ -144,7 +144,7 @@ export default function AdditionalDetails() {
                 </label>
                 <select
                   id="floorSizeUnit"
-                  className="h-full border-transparent bg-transparent py-0 pl-2 pr-7 text-ci-white  focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="h-full border-transparent bg-transparent py-0 pl-2 pr-7 text-white  focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 >
                   <option value="sqm">sqm</option>
                   <option value="sqft">sqft</option>
