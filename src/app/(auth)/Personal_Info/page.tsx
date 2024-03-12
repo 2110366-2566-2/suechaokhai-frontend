@@ -65,7 +65,8 @@ export default function UserForm() {
               Personal Information
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-               Use a correctly formatted phone number to receive SMS notifications.
+              Use a correctly formatted phone number to receive SMS
+              notifications.
             </p>
           </div>
           <Form {...form}>
