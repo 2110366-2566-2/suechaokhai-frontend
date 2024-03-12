@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 interface ListingTypeProps {
-  selectedType: string; // The selected option
-  onOptionChange: (type: string) => void; // Function to handle option changes
+  selectedType: string;
+  onOptionChange: (type: string) => void;
 }
 
 const ListingType: React.FC<ListingTypeProps> = ({
@@ -42,6 +42,7 @@ const ListingType: React.FC<ListingTypeProps> = ({
     fontSize: "24px",
     textAlign: "center",
     color: "#0F142E",
+    overflow: "hidden",
   };
   const labelStyle3: React.CSSProperties = {
     ...labelStyle,

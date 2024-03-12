@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import Dropdown from "./DropDown";
 import ListingType from "./ListingType";
 import TrackingCircle from "./TrackingCircle";
@@ -29,8 +29,8 @@ export default function ListingDetailPage({
   name: string;
   listingType: string;
   propertyType: string;
-  rentPrice: number;
-  salePrice: number;
+  rentPrice: number | undefined;
+  salePrice: number | undefined;
   description: string;
   address: string;
   setName: Function;
@@ -45,8 +45,8 @@ export default function ListingDetailPage({
   const [nametmp, setNametmp] = useState<string>("");
   const [selectedListingType, setSelectedListingType] = useState<string>("");
   const [selectedPropertyType, setSelectedPropertyType] = useState<string>("");
-  const [rentPricetmp, setRentPricetmp] = useState<number>();
-  const [salePricetmp, setSalePricetmp] = useState<number>();
+  const [rentPricetmp, setRentPricetmp] = useState<number | undefined>();
+  const [salePricetmp, setSalePricetmp] = useState<number | undefined>();
   const [descriptiontmp, setDescriptiontmp] = useState<string>("");
   const [addresstmp, setAddresstmp] = useState("");
 
@@ -58,6 +58,24 @@ export default function ListingDetailPage({
     "Serviced Apartment",
     "Townhouse",
   ];
+
+  function initial(
+    name: string,
+    listingType: string,
+    propertyType: string,
+    rentPrice: number | undefined,
+    salePrice: number | undefined,
+    description: string,
+    address: string
+  ) {
+    setNametmp(name);
+    setSelectedListingType(listingType);
+    setSelectedPropertyType(propertyType);
+    setRentPricetmp(rentPrice);
+    setSalePricetmp(salePrice);
+    setDescriptiontmp(description);
+    setAddresstmp(address);
+  }
 
   const handleSelectedListingTypeChange = (type: string) => {
     setSelectedListingType(type);
@@ -78,8 +96,7 @@ export default function ListingDetailPage({
   };
 
   async function nextPageStatus() {
-    const reg = await create();
-    console.log(reg);
+    const creat = await create();
     changeCreateState(1);
   }
 
@@ -88,7 +105,19 @@ export default function ListingDetailPage({
   }
 
   return (
-    <div>
+    <div
+      onLoad={() =>
+        initial(
+          name,
+          listingType,
+          propertyType,
+          rentPrice,
+          salePrice,
+          description,
+          address
+        )
+      }
+    >
       <button
         onClick={() => {
           console.log(nametmp);
@@ -104,7 +133,7 @@ export default function ListingDetailPage({
       </button>
       <TrackingCircle page="Listing" />
       <div className="flex">
-        <div className="m-20 flex-grow rounded-[20px] border border-2 border-gray-300 p-10">
+        <div className="m-20 flex-grow rounded-[20px] border-2 border-gray-300 p-10">
           <form onSubmit={listingCreate1}>
             <div className="flex w-full flex-col gap-10">
               <div className="text-[36px] font-bold text-ci-black">
@@ -118,7 +147,7 @@ export default function ListingDetailPage({
                   <input
                     id="txt"
                     autoComplete="off"
-                    className="block h-[60px] rounded-[10px] border border-ci-dark-gray p-2"
+                    className="block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2"
                     type="text"
                     placeholder="Property Name"
                     style={{ fontSize: "20px" }}
@@ -153,9 +182,7 @@ export default function ListingDetailPage({
                     style={{ fontSize: "20px" }}
                     setNum={(value: string) => {
                       const parsedValue = parseInt(value.replace(/,/g, ""), 10);
-                      setRentPricetmp(
-                        isNaN(parsedValue) ? undefined : parsedValue
-                      );
+                      setRentPricetmp(isNaN(parsedValue) ? 0 : parsedValue);
                     }}
                   />
                 </div>
@@ -166,9 +193,7 @@ export default function ListingDetailPage({
                     style={{ fontSize: "20px" }}
                     setNum={(value: string) => {
                       const parsedValue = parseInt(value.replace(/,/g, ""), 10);
-                      setSalePricetmp(
-                        isNaN(parsedValue) ? undefined : parsedValue
-                      );
+                      setSalePricetmp(isNaN(parsedValue) ? 0 : parsedValue);
                     }}
                   />
                 </div>
@@ -207,7 +232,7 @@ export default function ListingDetailPage({
                     placeholder="Address"
                     style={{ fontSize: "20px" }}
                   ></input>
-                  <Map />
+                  <Map name="" />
                 </div>
               </div>
               <div className="flex justify-end">
