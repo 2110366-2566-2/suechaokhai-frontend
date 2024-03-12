@@ -3,24 +3,25 @@ import { useEffect, useState } from "react";
 import SmallPropertyCard from "./SmallPropertyCard";
 import Image from "next/image";
 import getTopProperty from "@/services/getTopProperty";
-import Top10PropertyData from "../models/Top10PropertyData";
+import PropertyData from "../models/PropertyData";
 
 export default function FeaturesPropCatalog() {
   const [start, setStart] = useState<number>(0);
   const [stop, setStop] = useState<number>(3);
   const [windowSize, setWindowSize] = useState<number>(3);
-  const [propertiesId, setPropsId] = useState<string[]>([]);
+  const [propertiesId, setPropsId] = useState<PropertyData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getTopProperty();
-      const property2: string[] = [];
+      const property2: PropertyData[] = [];
       if (res) {
-        res.forEach((item: Top10PropertyData) => {
-          property2.push(item.PropertyId);
+        res.forEach((item: PropertyData) => {
+          property2.push(item);
         });
         setPropsId(property2);
       }
+      console.log(property2.length);
     };
     fetchData();
   }, []);
@@ -51,7 +52,7 @@ export default function FeaturesPropCatalog() {
   }
 
   function goNext() {
-    if (stop < 9) {
+    if (stop < 10) {
       setStart(start + 1);
       setStop(stop + 1);
     }
@@ -91,11 +92,13 @@ export default function FeaturesPropCatalog() {
             <div className="w-15 h-15 pr-[60px]"></div>
           )}
 
-          {propertiesId.slice(start, start + windowSize).map((item: string) => (
-            <SmallPropertyCard id={item} key={item} />
-          ))}
+          {propertiesId
+            .slice(start, start + windowSize)
+            .map((item: PropertyData) => (
+              <SmallPropertyCard property={item} key={item.propertyId} />
+            ))}
 
-          {stop < 9 ? (
+          {start + windowSize < 10 ? (
             <Image
               src="/img/home-page/next.svg"
               alt="next"
