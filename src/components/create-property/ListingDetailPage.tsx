@@ -23,7 +23,6 @@ export default function ListingDetailPage({
   setSalePrice,
   setDescription,
   setAddress,
-  create,
 }: {
   changeCreateState: Function;
   name: string;
@@ -40,7 +39,6 @@ export default function ListingDetailPage({
   setSalePrice: Function;
   setDescription: Function;
   setAddress: Function;
-  create: Function;
 }) {
   const [nametmp, setNametmp] = useState<string>("");
   const [selectedListingType, setSelectedListingType] = useState<string>("");
@@ -77,10 +75,6 @@ export default function ListingDetailPage({
     setAddresstmp(address);
   }
 
-  const handleSelectedListingTypeChange = (type: string) => {
-    setSelectedListingType(type);
-  };
-
   const handleSelectPropertyType = (option: string) => {
     setSelectedPropertyType(option);
   };
@@ -95,8 +89,14 @@ export default function ListingDetailPage({
     setAddresstmp(event.target.value);
   };
 
-  async function nextPageStatus() {
-    const creat = await create();
+  async function nextPage() {
+    setName(nametmp);
+    setListingType(selectedListingType);
+    setPropertyType(selectedPropertyType);
+    setRentPrice(rentPricetmp);
+    setSalePrice(salePricetmp);
+    setDescription(descriptiontmp);
+    setAddress(addresstmp);
     changeCreateState(1);
   }
 
@@ -151,6 +151,7 @@ export default function ListingDetailPage({
                     type="text"
                     placeholder="Property Name"
                     style={{ fontSize: "20px" }}
+                    value={name}
                     onChange={(e) => {
                       setNametmp(e.target.value);
                     }}
@@ -161,8 +162,10 @@ export default function ListingDetailPage({
                     Listing Type
                   </div>
                   <ListingType
-                    selectedType={selectedListingType}
-                    onOptionChange={handleSelectedListingTypeChange}
+                    selectedType={listingType}
+                    onOptionChange={(e) => {
+                      setSelectedListingType(e);
+                    }}
                   />
                 </div>
               </div>
@@ -180,6 +183,7 @@ export default function ListingDetailPage({
                     label="Rent Price/m (THB)"
                     placeholder="฿"
                     style={{ fontSize: "20px" }}
+                    value={rentPrice}
                     setNum={(value: string) => {
                       const parsedValue = parseInt(value.replace(/,/g, ""), 10);
                       setRentPricetmp(isNaN(parsedValue) ? 0 : parsedValue);
@@ -191,6 +195,7 @@ export default function ListingDetailPage({
                     label="Sale Price (THB)"
                     placeholder="฿"
                     style={{ fontSize: "20px" }}
+                    value={salePrice}
                     setNum={(value: string) => {
                       const parsedValue = parseInt(value.replace(/,/g, ""), 10);
                       setSalePricetmp(isNaN(parsedValue) ? 0 : parsedValue);
@@ -206,7 +211,7 @@ export default function ListingDetailPage({
                   <textarea
                     className="flex w-full rounded-[10px] border border-ci-dark-gray p-2"
                     id="description"
-                    value={descriptiontmp}
+                    value={description}
                     onChange={handleDescriptionChange}
                     rows={3}
                     cols={40}
@@ -226,7 +231,7 @@ export default function ListingDetailPage({
                   </div>
                   <input
                     type="text"
-                    value={addresstmp}
+                    value={address}
                     className="block h-[60px] rounded-[10px] border border-ci-dark-gray p-2"
                     onChange={handleInputChange}
                     placeholder="Address"
@@ -238,7 +243,7 @@ export default function ListingDetailPage({
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  onClick={nextPageStatus}
+                  onClick={nextPage}
                   className="font- h-[60px] w-[190px] rounded-[10px] bg-ci-light-blue px-10 py-2 text-[24px] font-medium text-white"
                 >
                   Next
