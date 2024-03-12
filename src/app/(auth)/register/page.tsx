@@ -5,8 +5,9 @@ import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
 import AccountCreated from "@/components/register-login/AccountCreated";
 import userRegister from "@/services/userRegister";
-import { redirect } from "next/navigation";
-import getCurrentUserRegister from "@/services/getCurrentUserRegister";
+import { useSearchParams } from "next/navigation";
+import authCallback from "@/services/authCallback";
+import { useRouter } from "next/navigation";
 
 export interface PersonalInfo {
   email: string;
@@ -15,6 +16,7 @@ export interface PersonalInfo {
   lastName: string;
   phoneNumber: string;
   img: any;
+  registered_type: string;
 }
 
 export default function RegisterPage() {
@@ -26,16 +28,27 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [registeredType, setRegisteredType] = useState("EMAIL");
 
   const [img, setImg] = useState();
 
   const [user, setUser] = useState();
   const [isGoogle, setIsGoogle] = useState(false);
 
+  const router = useRouter();
+
+  const queryParams = useSearchParams();
+  const queryString = Array.from(queryParams.entries())
+    .map(([key, val]) => `${key}=${val}`)
+    .join("&");
+
   useEffect(() => {
     async function getUser() {
       try {
-        const data = await getCurrentUserRegister();
+        // const data = await getCurrentUserRegister();
+        const data = await authCallback(queryString);
+
+        setRegisteredType(data.registered_type);
 
         if (
           data.registered_type === "GOOGLE" &&
@@ -46,7 +59,7 @@ export default function RegisterPage() {
           setEmail(data.email);
           setIsGoogle(true);
         } else if (data.session_type === "LOGIN") {
-          redirect("/");
+          router.push("/");
         } else {
           setUser(Object);
         }
@@ -66,6 +79,7 @@ export default function RegisterPage() {
       lastName: lastName,
       phoneNumber: phoneNumber,
       img: img,
+      registered_type: registeredType,
     });
     console.log(userRegis);
     setFinReg(userRegis);

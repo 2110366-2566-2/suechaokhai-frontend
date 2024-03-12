@@ -2,6 +2,7 @@ import { PersonalInfo } from "@/app/(auth)/register/page";
 
 export default async function userRegister(personalInfo: PersonalInfo) {
   const formData = new FormData();
+  formData.append("registered_type", personalInfo.registered_type);
   formData.append("email", personalInfo.email);
   formData.append("password", personalInfo.password);
   formData.append("first_name", personalInfo.firstName);
