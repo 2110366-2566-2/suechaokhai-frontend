@@ -44,7 +44,7 @@ const myFavPage = () => {
     }
 
     useEffect(()=>{
-        setData(generatePropertyDataArray(30))
+        setData(generatePropertyDataArray(3))
     },[])
 
     const [haveProp,setHave] = useState<boolean>(true);
@@ -58,9 +58,9 @@ const myFavPage = () => {
         {
           haveProp ? (
               <div className="flex h-full flex-col mx-80 mt-8 ">
+                  <div className="text-4xl font-bold">My Favorites</div>
+                  <PropertyCards propData={propData} isEditable={false} additionaltext="for rent or sales in my favorites" showAmount={false}></PropertyCards>
 
-                  <PropertyCards propData={propData} isEditable={false} additionaltext="for rent or sales in my favorites"></PropertyCards>
-                  
                 </div>
               ) : (
                 //!fix this toooooooooooooooooooo

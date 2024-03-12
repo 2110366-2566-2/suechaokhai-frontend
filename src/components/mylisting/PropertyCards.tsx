@@ -7,7 +7,7 @@ import { useState,useEffect,useReducer} from "react";
 
 
 
-const PropertyCards = ({propData,isEditable,additionaltext}:{propData:PropertyData[],isEditable:boolean,additionaltext:string}) => {
+const PropertyCards = ({propData,isEditable,additionaltext,showAmount}:{propData:PropertyData[],isEditable:boolean,additionaltext:string,showAmount:boolean}) => {
 
     const sortType= {
         'date': "Newest Listing First" ,
@@ -49,13 +49,13 @@ const PropertyCards = ({propData,isEditable,additionaltext}:{propData:PropertyDa
 
     return ( 
         <>
-            {isEditable ? 
-            <div className="text-4xl font-bold">My Listing</div>
+            {showAmount ? 
+            <div className="text-xl ">
+            {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
+        </div>
             :
             
-            <div className="text-4xl font-bold">
-                {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
-            </div>
+            null
             }
 
             <div className="flex flex-row my-5">

@@ -64,7 +64,7 @@ const myFavPage = () => {
                     <div className="flex justify-center">
                         <SearchSection />
                     </div>
-                    <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result"></PropertyCards>
+                    <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result" showAmount={true}></PropertyCards>
 
                 </div>
               ) : (
