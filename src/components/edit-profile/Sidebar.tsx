@@ -1,4 +1,4 @@
-import Image from "next/Image";
+import Image from "next/image";
 const personalIcon = "/img/edit-profile/personal-icon.svg";
 const financialIcon = "/img/edit-profile/financial-icon.svg";
 const ownerIcon = "/img/edit-profile/owner-icon.svg";

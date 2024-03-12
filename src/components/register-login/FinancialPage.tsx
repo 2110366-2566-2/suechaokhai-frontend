@@ -25,7 +25,7 @@ export default function FinancialPage({
 
   const options = ["KBANK", "BBL", "KTB", "BAY", "CIMB", "TTB", "SCB", "GSB"];
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.select();

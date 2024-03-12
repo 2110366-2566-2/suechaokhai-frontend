@@ -1,7 +1,7 @@
-'use client'
-import PropertyData from '@/components/models/PropertyData';
-import PropertyCards from '@/components/mylisting/PropertyCards';
-import Image from 'next/image';
+"use client";
+import PropertyData from "@/components/models/PropertyData";
+import PropertyCards from "@/components/mylisting/PropertyCards";
+import Image from "next/image";
 
 import { useEffect, useState } from "react";
 
@@ -60,52 +60,62 @@ const myListingPage = () => {
                     <div className="flex h-full flex-col mx-80 mt-8 ">
                         <div className="text-4xl font-bold">My Listing</div>
 
-                        <PropertyCards propData={propData}></PropertyCards>
+          <PropertyCards propData={propData}></PropertyCards>
 
-                        <button className="flex flex-row fixed bottom-24 right-24 bg-ci-blue p-4 rounded-md w-1/6 justify-around " onClick={handleCreate}>
-                            <Image
-                                src="/img/mylisting/plusCircle.svg"
-                                alt="add"
-                                width={30}
-                                height={30}
-                            />
-                            <div className="font-bold text-2xl text-white ">Create Property</div>
-                        </button>
-                    </div>
-                    
+          <button
+            className="fixed bottom-24 right-24 flex w-1/6 flex-row justify-around rounded-md bg-ci-blue p-4 "
+            onClick={handleCreate}
+          >
+            <Image
+              src="/img/mylisting/plusCircle.svg"
+              alt="add"
+              width={30}
+              height={30}
+            />
+            <div className="text-2xl font-bold text-white ">
+              Create Property
+            </div>
+          </button>
+        </div>
+      ) : (
+        <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
+          <div className="text-center text-4xl font-bold">
+            Empty property listing
+          </div>
 
-                ):
-                (
-                    <div className="flex h-1/2 flex-col mx-72 mt-8 justify-around items-center">
-                        <div className="text-4xl font-bold text-center">Empty property listing</div>
+          <Image
+            src="/img/mylisting/home.svg"
+            alt="home"
+            width={100}
+            height={100}
+          />
+          <div className="">
+            <div className="m-1 text-center text-2xl">
+              Your listing is empty.
+            </div>
+            <div className="m-1 text-center text-2xl">
+              Let&apos;s create a property on your listing.
+            </div>
+          </div>
 
-                        <Image
-                            src="/img/mylisting/home.svg"
-                            alt="home"
-                            width={100}
-                            height={100}
-                        />
-                        <div className="">
-                            <div className="text-2xl text-center m-1">Your listing is empty.</div>
-                            <div className="text-2xl text-center m-1">Let's create a property on your listing.</div>
-                        </div>
-                    
-                        <button className="flex flex-row bg-ci-blue p-4 rounded-md w-1/5 justify-around" onClick={handleCreate}>
-                            <Image
-                                src="/img/mylisting/plusCircle.svg"
-                                alt="add"
-                                width={30}
-                                height={30}
-                            />
-                            <div className="font-bold text-2xl text-white ">Create Property</div>
-                        </button>      
-                    </div>
-                )
-            }
-       </>
-           
-            
-    );
-}
- 
+          <button
+            className="flex w-1/5 flex-row justify-around rounded-md bg-ci-blue p-4"
+            onClick={handleCreate}
+          >
+            <Image
+              src="/img/mylisting/plusCircle.svg"
+              alt="add"
+              width={30}
+              height={30}
+            />
+            <div className="text-2xl font-bold text-white ">
+              Create Property
+            </div>
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
 export default myListingPage;

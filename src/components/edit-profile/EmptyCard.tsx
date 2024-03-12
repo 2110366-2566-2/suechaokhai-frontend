@@ -1,4 +1,4 @@
-import Image from "next/Image";
+import Image from "next/image";
 const emptyCardIcon = "/img/edit-profile/empty-card.svg";
 const EmptyCard = () => {
   return (

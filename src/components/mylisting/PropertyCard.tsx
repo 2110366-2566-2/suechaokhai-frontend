@@ -12,6 +12,10 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
     const [fav,setFav]  = useState<boolean>(false);
     const [isDeleting,setDel] = useState<boolean>(false);
 
+    function formatPrice(num: number): string {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     return ( 
        <div className="w-full h-[800px] rounded-lg bg-[#ECECEC]">
             <div className="w-full h-[300px] relative rounded-t-lg  ">
@@ -34,7 +38,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
 
                 <div className="flex flex-col my-4 mx-1 h-1/2 ">
                     <div className="w-full text-xl my-2 ">{propData.district}, {propData.province}</div>
-                    <div className="w-full text-xl my-2 font-semibold">฿{Math.floor(propData.renting.price_per_month/1000)},{propData.renting.price_per_month%1000}/month</div>
+                    <div className="w-full text-xl my-2 font-semibold">฿{formatPrice(propData.renting.price_per_month)}/month</div>
                 </div>
 
                 <hr className="border-black "></hr>

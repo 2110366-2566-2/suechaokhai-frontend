@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import PropertyData from "../models/PropertyData";
 import PropertyCard from "./PropertyCard";
 import Pagination from '@mui/material/Pagination';
@@ -23,10 +23,10 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
         setPage(value);
     };
 
-    useEffect(()=>{
-        // Scroll to the top of the page
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    },[page])
+  useEffect(() => {
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
 
     return ( 
         <>
@@ -57,15 +57,15 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
             </div>
 
             <div className="grid grid-cols-2 gap-24 ">
-                {propData.slice(20*(page-1),20*page).map((prop:PropertyData)=>(                 
+                {propData.slice(10*(page-1),10*page).map((prop:PropertyData)=>(                 
                     <PropertyCard propData={prop} editable={true} ></PropertyCard>
                 ))}
             </div>
             
             {
-                propData.length>20 ?
+                propData.length>10 ?
                 <div className="flex w-full items-center justify-center p-10">
-                    <Pagination count={Math.ceil(propData.length/20)} 
+                    <Pagination count={Math.ceil(propData.length/10)} 
                                 size="large"
                                 onChange={handleChange}
                                color="primary" ></Pagination>
@@ -77,7 +77,7 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
             <div className="flex h-[100px] pt-16 pb-24 items-center justify-center text-2xl">
                 {/* num prop text here */}
                 <div>
-                    {20*(page-1)} - {propData.length<20*page ? propData.length : 20*page } of {propData.length} properties for rent or sales in my listing
+                    {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties for rent or sales in my listing
                 </div>
             </div>
         </>
