@@ -2,7 +2,7 @@
 import PropertyData from "../models/PropertyData";
 import PropertyCard from "./PropertyCard";
 import Pagination from '@mui/material/Pagination';
-import { useState,useEffect} from "react";
+import { useState,useEffect,useReducer} from "react";
 
 
 
@@ -14,19 +14,37 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
         'desc': "Price from highest to lowest"
     }
 
-
     const [page,setPage] = useState<number>(1);
     const [text,setText] = useState<string>("Newest Listing First");
     const [changingSort,setChangingSort] =useState<boolean>(false);
+
+    // const reducer = (state:PropertyData[],action:string)=>{
+    //     switch (action) {
+    //         case 'SORT_BY_NAME':
+    //           return {
+    //             ...state,
+    //             products: state.products.slice().sort((a, b) => a.name.localeCompare(b.name)),
+    //           };
+    //         case 'SORT_BY_PRICE':
+    //           return {
+    //             ...state,
+    //             products: state.products.slice().sort((a, b) => a.price - b.price),
+    //           };
+    //         default:
+    //           return state;
+    //     }
+    // }
+
+    // const [sortedProp,dispatch] = useReducer(reducer,propData)
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
 
-  useEffect(() => {
-    // Scroll to the top of the page
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
+    useEffect(() => {
+        // Scroll to the top of the page
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [page]);
 
     return ( 
         <>
