@@ -60,23 +60,10 @@ const myFavPage = () => {
               <div className="flex h-full flex-col mx-80 mt-8 ">
 
                   <PropertyCards propData={propData} isEditable={false} additionaltext="for rent or sales in my favorites"></PropertyCards>
-
-                  <button
-                    className="fixed bottom-24 right-24 flex w-1/6 flex-row justify-around rounded-md bg-ci-blue p-4 "
-                    onClick={handleCreate}
-                  >
-                    <Image
-                      src="/img/mylisting/plusCircle.svg"
-                      alt="add"
-                      width={30}
-                      height={30}
-                    />
-                    <div className="text-2xl font-bold text-white ">
-                      Create Property
-                    </div>
-                  </button>
+                  
                 </div>
               ) : (
+                //!fix this toooooooooooooooooooo
                 <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
                   <div className="text-center text-4xl font-bold">
                     Empty property listing

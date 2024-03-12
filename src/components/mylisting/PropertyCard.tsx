@@ -75,6 +75,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                     <div className="flex flex-col items-center mx-1 ">
                         <button
                         className="mx-0.5 bg-ci-blue my-2 w-full h-[60px] rounded-md text-xl px-4 font-semibold text-[#DFDFDF] shadow "
+                        //! link to edit prop page
                         >
                         Edit details
                         </button>
@@ -90,6 +91,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                     <div className="flex flex-col items-center mx-1 ">
                         <button
                         className="mx-0.5 bg-ci-blue my-2 w-full h-[60px] rounded-md text-xl px-4 font-semibold text-[#DFDFDF] shadow "
+                        //! link to propDesc page
                         >
                         Views more details
                         </button>
