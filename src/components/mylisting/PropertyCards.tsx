@@ -52,6 +52,7 @@ const PropertyCards = ({propData,isEditable,additionaltext}:{propData:PropertyDa
             {isEditable ? 
             <div className="text-4xl font-bold">My Listing</div>
             :
+            
             <div className="text-4xl font-bold">
                 {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
             </div>

@@ -2,6 +2,7 @@
 import PropertyData from "@/components/models/PropertyData";
 import PropertyCards from "@/components/mylisting/PropertyCards";
 import Image from "next/image";
+import SearchSection from "@/components/home-page/SearchSection";
 
 import { useEffect, useState } from "react";
 
@@ -57,9 +58,13 @@ const myFavPage = () => {
        <>
         {
           haveProp ? (
+                
               <div className="flex h-full flex-col mx-80 mt-8 ">
 
-                  <PropertyCards propData={propData} isEditable={false} additionaltext="properties from searching result"></PropertyCards>
+                    <div className="flex justify-center">
+                        <SearchSection />
+                    </div>
+                    <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result"></PropertyCards>
 
                 </div>
               ) : (
