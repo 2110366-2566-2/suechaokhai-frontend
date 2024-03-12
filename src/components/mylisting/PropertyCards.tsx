@@ -6,7 +6,7 @@ import { useState,useEffect,useReducer} from "react";
 
 
 
-const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
+const PropertyCards = ({propData,isEditable}:{propData:PropertyData[],isEditable:boolean}) => {
 
     const sortType= {
         'date': "Newest Listing First" ,
@@ -76,7 +76,7 @@ const PropertyCards = ({propData}:{propData:PropertyData[]}) => {
 
             <div className="grid grid-cols-2 gap-24 ">
                 {propData.slice(10*(page-1),10*page).map((prop:PropertyData)=>(                 
-                    <PropertyCard propData={prop} editable={true} ></PropertyCard>
+                    <PropertyCard propData={prop} editable={isEditable} ></PropertyCard>
                 ))}
             </div>
             
