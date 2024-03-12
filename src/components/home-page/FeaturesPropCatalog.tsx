@@ -7,7 +7,6 @@ import PropertyData from "../models/PropertyData";
 
 export default function FeaturesPropCatalog() {
   const [start, setStart] = useState<number>(0);
-  const [stop, setStop] = useState<number>(3);
   const [windowSize, setWindowSize] = useState<number>(3);
   const [propertiesId, setPropsId] = useState<PropertyData[]>([]);
 
@@ -27,7 +26,6 @@ export default function FeaturesPropCatalog() {
   }, []);
 
   useEffect(() => {
-    setStop(calculateStopValue());
     function handleResize() {
       const newStop = calculateStopValue();
       setWindowSize(newStop);
@@ -52,26 +50,24 @@ export default function FeaturesPropCatalog() {
   }
 
   function goNext() {
-    if (stop < 10) {
+    if (start + windowSize < 10) {
       setStart(start + 1);
-      setStop(stop + 1);
     }
   }
 
   function goBack() {
     if (start > 0) {
       setStart(start - 1);
-      setStop(stop - 1);
     }
   }
 
   return (
-    <div className="flex w-full flex-col gap-y-10 bg-ci-gray px-32 py-24">
+    <div className="flex w-full flex-col gap-y-10 bg-ci-gray px-16 py-24 sm:px-32">
       <div className="flex flex-col gap-y-5">
-        <div className="text-4xl font-semibold text-ci-blue">
+        <div className="text-3xl font-semibold text-ci-blue sm:text-4xl">
           Featured Listings
         </div>
-        <div className="text-2xl">
+        <div className="text-xl sm:text-2xl">
           Here are some featured listings deals sourced by our experienced real
           estate experts
         </div>

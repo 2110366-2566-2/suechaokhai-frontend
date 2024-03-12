@@ -1,29 +1,17 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import PropertyData from "../models/PropertyData";
-import getPropertyDetail from "@/services/getPropertyDetail";
 export default function SmallPropertyCard({
   property,
 }: {
   property: PropertyData;
 }) {
   const [isFavorite, setIsFavorite] = useState(false);
-  // const [resJsonReady, setRes] = useState<PropertyData>();
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await getPropertyDetail(id);
-  //     if (res) {
-  //       setRes(res);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   return (
     <div>
       {property ? (
-        <div className="w-[360px] rounded-3xl bg-white xl:w-[400px]">
+        <div className="w-[320px] rounded-3xl bg-white xl:w-[400px]">
           <div className="relative h-60 w-full">
             <Image
               src="/img/home-page/lumpini.png"
