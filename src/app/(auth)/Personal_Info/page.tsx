@@ -15,6 +15,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { useRef, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { set } from "date-fns";
+function sleep(ms: number | undefined) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 const formSchema = z.object({
   username: z
     .string()
@@ -23,6 +29,9 @@ const formSchema = z.object({
     })
     .max(50, {
       message: "Username must be at most 50 characters long",
+    })
+    .regex(/^[A-Za-z]+$/, {
+      message: "Lastname must contain only alphabetic characters",
     }),
   lastname: z
     .string()
@@ -31,6 +40,9 @@ const formSchema = z.object({
     })
     .max(50, {
       message: "Lastname must be at most 50 characters long",
+    })
+    .regex(/^[A-Za-z]+$/, {
+      message: "Lastname must contain only alphabetic characters",
     }),
   phone: z.string().length(12, {
     message: "Please enter a valid phone number",
@@ -38,6 +50,18 @@ const formSchema = z.object({
 });
 
 export default function UserForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
+  const [img, setImg] = useState<File | null>(null);
+  const [src, setSrc] = useState("/img/login-register/prof_pic.png");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setImg(e.target.files[0]);
+      setSrc(URL.createObjectURL(e.target.files[0]));
+    }
+  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +71,18 @@ export default function UserForm() {
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setIsLoading(true);
+    sleep(3000);
+    console.log(img);
+    if (img === null) {
+      toast({
+        title: "Please upload a profile picture",
+      });
+      setIsLoading(false);
+      return;
+    }
+    console.log(values, img);
+    setIsLoading(false);
   }
   function resetform() {
     form.reset({
@@ -74,7 +109,29 @@ export default function UserForm() {
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-8 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
             >
-              <div className="px-4 py-6 sm:p-8">
+              <div className="container mx-auto flex items-center justify-center px-4 pt-4 sm:pt-8">
+                <div className="md:h-26 md: w-26 lg:h-30 lg:w-30 relative h-20 w-20 overflow-hidden rounded-full">
+                  <Image
+                    src={src}
+                    alt="Your Image"
+                    width={167}
+                    height={167}
+                    layout="responsive"
+                    className="rounded-full object-cover"
+                  />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    id="profile_img"
+                    name="profile_img"
+                    ref={hiddenFileInput}
+                    onChange={handleChange}
+                    className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                  />
+                </div>
+              </div>
+
+              <div className="px-4">
                 <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-6">
                   <div className="sm:col-span-3">
                     <label
@@ -148,14 +205,19 @@ export default function UserForm() {
                 </div>
               </div>
               <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
-                <button
-                  type="button"
-                  className="text-sm font-semibold leading-6 text-gray-900"
-                  onClick={resetform}
-                >
-                  Cancel
-                </button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>
+                  {!isLoading ? (
+                    "Submit"
+                  ) : (
+                    <Image
+                      src=" /img/loading.svg"
+                      alt="test"
+                      width={20}
+                      height={20}
+                      className=" animate-spin"
+                    />
+                  )}
+                </Button>
               </div>
             </form>
           </Form>
