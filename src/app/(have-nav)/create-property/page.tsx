@@ -9,8 +9,8 @@ export default function CreateProperty() {
   const [name, setName] = useState<string>("");
   const [listingType, setListingType] = useState<string>("");
   const [propertyType, setPropertyType] = useState<string>("");
-  const [rentPrice, setRentPrice] = useState<number | undefined>();
-  const [salePrice, setSalePrice] = useState<number | undefined>();
+  const [rentPrice, setRentPrice] = useState<string>("");
+  const [salePrice, setSalePrice] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [address, setAddress] = useState("");
 
@@ -50,6 +50,20 @@ export default function CreateProperty() {
       {createStage === 1 ? (
         <div>
           <button onClick={nextStage}>Back</button>
+          <div></div>
+          <button
+            onClick={() => {
+              console.log(name);
+              console.log(listingType);
+              console.log(propertyType);
+              console.log(rentPrice);
+              console.log(salePrice);
+              console.log(description);
+              console.log(address);
+            }}
+          >
+            test
+          </button>
         </div>
       ) : null}
     </div>
