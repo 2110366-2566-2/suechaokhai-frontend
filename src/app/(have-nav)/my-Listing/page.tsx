@@ -22,11 +22,10 @@ const myListingPage = () => {
         fetchProp()
     },[])
 
-    const [haveProp,setHave] = useState<boolean>(true);
     
     const handleCreate=()=>{
-        console.log(haveProp)
-        setHave(!haveProp)
+
+        window.location.href = "http://localhost:3000/create-property"
     }
     return ( 
        <>
