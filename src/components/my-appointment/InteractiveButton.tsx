@@ -1,7 +1,18 @@
+import { useRouter } from "next/navigation";
+
 export function DetailButton() {
+
+    const router = useRouter();
+
     return (
         <div className="h-[30%]">
-            <button className="w-full bg-ci-blue text-white rounded-lg font-medium text-2xl text-center py-3">
+            <button 
+                className="w-full bg-ci-blue text-white rounded-lg font-medium text-2xl text-center py-3"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    router.push('/my-appointment/[id]/detail')
+                }}
+            >
                 Detail
             </button>
         </div>
