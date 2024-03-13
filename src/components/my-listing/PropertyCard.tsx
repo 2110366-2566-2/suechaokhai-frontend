@@ -7,19 +7,19 @@ import { useState } from "react";
 
 
 
-const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolean}) => {
+const PropertyCard = ({propData,editable,imgSrc}:{propData:PropertyData,editable:boolean,imgSrc:string}) => {
 
-    const [fav,setFav]  = useState<boolean>(false);
+    const [fav,setFav]  = useState<boolean>(propData.is_favorite);
     const [isDeleting,setDel] = useState<boolean>(false);
 
     function formatPrice(num: number): string {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     return ( 
        <div className="w-full h-[800px] rounded-lg bg-[#ECECEC]">
             <div className="w-full h-[300px] relative rounded-t-lg  ">
-                <Image src={propData.images.url} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
+                <Image src={imgSrc} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
 
             </div>
             <div className="flex flex-col mx-16 ">

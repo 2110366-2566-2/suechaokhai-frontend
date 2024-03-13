@@ -91,7 +91,7 @@ export default function FeaturesPropCatalog() {
           {propertiesId
             .slice(start, start + windowSize)
             .map((item: PropertyData) => (
-              <SmallPropertyCard property={item} key={item.propertyId} />
+              <SmallPropertyCard property={item} key={item.property_id} />
             ))}
 
           {start + windowSize < 10 ? (
