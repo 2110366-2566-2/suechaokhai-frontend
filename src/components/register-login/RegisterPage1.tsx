@@ -10,7 +10,7 @@ const normalIcon = "/img/login-register/NormalIcon.png";
 const invalidIcon = "/img/login-register/InvalidIcon.png";
 const validIcon = "/img/login-register/ValidIcon.png";
 const compIcon = "/img/login-register/comp-icon.svg";
-const googleIcon2 = "/img/google2.png";
+const googleIcon2 = "/img/login-register/google2.png";
 export default function RegisterPage1({
   emailtmp,
   passtmp,
