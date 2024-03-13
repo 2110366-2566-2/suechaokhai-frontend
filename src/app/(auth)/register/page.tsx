@@ -48,7 +48,10 @@ export default function RegisterPage() {
         // const data = await getCurrentUserRegister();
         const data = await authCallback(queryString);
 
-        setRegisteredType(data.registered_type);
+        if (data.registered_type === "GOOGLE")
+          setRegisteredType(data.registered_type);
+
+        console.log(data);
 
         if (
           data.registered_type === "GOOGLE" &&
