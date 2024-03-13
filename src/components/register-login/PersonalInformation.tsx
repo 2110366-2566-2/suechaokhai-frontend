@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import { FormEvent, SetStateAction, useRef, useState } from "react";
+||||||| b074513
+import { FormEvent, useRef, useState } from "react";
+=======
+import { FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
 import Image from "next/image";
 import TextBox from "./TextField";
 
@@ -28,8 +34,20 @@ export default function PersonalInformation({
   const lastName = useRef("");
   const phoneNumber = useRef("");
 
+<<<<<<< HEAD
   const [src, setSrc] = useState("/img/prof_pic.png");
 
+||||||| b074513
+=======
+  const [src, setSrc] = useState("/img/login-register/prof_pic.png");
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.select();
+  }, []);
+
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
   function initial(fname: string, lname: string, pnum: string) {
     firstName.current = fname;
     lastName.current = lname;
@@ -66,6 +84,7 @@ export default function PersonalInformation({
     }
   }
 
+<<<<<<< HEAD
   function handleChange(e: { target: { files: (Blob | MediaSource)[]; }; }) {
     console.log(e.target.files);
     setSrc(URL.createObjectURL(e.target.files[0]));
@@ -73,6 +92,23 @@ export default function PersonalInformation({
 
   function nextPageStatus() {
     if (nextColor == "#3AAEEF") {
+||||||| b074513
+  function nextPageStatus() {
+    if (nextColor == "#3AAEEF") {
+=======
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setImg(e.target.files[0]);
+      setSrc(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  async function nextPageStatus() {
+    if (nextColor == "ci-blue") {
+      const reg = await register();
+      console.log(reg);
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
       changeRegState(2);
     }
   }
@@ -93,6 +129,7 @@ export default function PersonalInformation({
       <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
+<<<<<<< HEAD
       <div className="rounded-full overflow-hidden w-[167px] h-[167px]">
       <Image
         src={src}
@@ -109,6 +146,28 @@ export default function PersonalInformation({
           ref={hiddenFileInput}
           style={{ display: "none" }}
           onChange={handleChange}
+||||||| b074513
+      <Image
+        src="/img/ProfilePhoto_square.png"
+        alt="profilePic"
+        width={220}
+        height={220}
+      ></Image>
+      <div className="text-[20px] font-bold text-[#3AAEEF]">
+        <input
+          type="file"
+          accept="image/*"
+          ref={hiddenFileInput}
+          style={{ display: "none" }}
+=======
+      <div className="h-[167px] w-[167px] overflow-hidden rounded-full">
+        <Image
+          src={src}
+          alt="Your Image"
+          width={167}
+          height={167}
+          layout="responsive"
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
         />
       </div>
 

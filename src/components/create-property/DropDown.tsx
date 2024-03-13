@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+
 const Dropdown = ({
   label,
   options,
   onSelect,
-  className,
+  placeholder,
 }: {
   label: string;
   options: Array<string>;
   onSelect: any;
-  className?: string;
+  placeholder: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
 
@@ -18,20 +19,28 @@ const Dropdown = ({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-[24px]">
       {label && (
-        <label className="block pb-2 text-[20px] font-medium" htmlFor="txt">
-          {label} :
+        <label className="text-[28px] font-medium text-ci-black" htmlFor="txt">
+          {label}
         </label>
       )}
       <select
-        className={`${className} dropdown-select block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700`}
+        className={`dropdown-select font-regular block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2 text-[20px] ${
+          selectedOption === "" ? "text-ci-dark-gray" : "text-ci-black"
+        }`}
         value={selectedOption}
         onChange={(e) => handleSelect({ option: e.target.value })}
       >
-        <option value=""></option>
+        <option value="" style={{ fontSize: "20px", color: "#B3B3B3" }}>
+          {placeholder}
+        </option>
         {options.map((option, index) => (
-          <option key={index} value={option}>
+          <option
+            key={index}
+            value={option}
+            style={{ fontSize: "20px", color: "#0F142E" }}
+          >
             {option}
           </option>
         ))}

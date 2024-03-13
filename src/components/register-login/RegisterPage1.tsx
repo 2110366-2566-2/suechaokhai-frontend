@@ -6,6 +6,11 @@ import PasswordField from "./PasswordField";
 import Link from "next/link";
 import { CircularProgress } from "@mui/material";
 
+const normalIcon = "/img/login-register/NormalIcon.png";
+const invalidIcon = "/img/login-register/InvalidIcon.png";
+const validIcon = "/img/login-register/ValidIcon.png";
+const compIcon = "/img/login-register/comp-icon.svg";
+const googleIcon2 = "/img/login-register/google2.png";
 export default function RegisterPage1({
   emailtmp,
   passtmp,
@@ -129,7 +134,13 @@ export default function RegisterPage1({
       className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
     >
       <Image
+<<<<<<< HEAD
         src="/img/login-register/comp-icon.svg"
+||||||| b074513
+        src="/img/compIcon.png"
+=======
+        src={compIcon}
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
         alt="test"
         width={80}
         height={80}
@@ -137,6 +148,7 @@ export default function RegisterPage1({
       ></Image>
       <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Register</div>
       <form className="px-[70px] text-left text-[20px]" onSubmit={userReg1}>
+<<<<<<< HEAD
         <div>
           {user ? (
             <div>
@@ -184,7 +196,70 @@ export default function RegisterPage1({
                       value={passtmp}
                       onKeyDown={(e) => submit(e)}
                     />
+||||||| b074513
+        <div className="flex flex-col gap-[18px]">
+          <TextField
+            label="Email"
+            placeholder="Enter your email here"
+            type="email"
+            required
+            onChange={(e) => {
+              email.current = e.target.value;
+              setEmail(email.current);
+            }}
+            value={emailtmp}
+          />
+=======
+        <div>
+          {user ? (
+            <div>
+              {isGoogle ? (
+                <div className="flex flex-col items-center justify-center py-[40px]">
+                  <Image
+                    src={googleIcon2}
+                    alt={"google"}
+                    width={220}
+                    height={220}
+                  />
+                  <p className="py-[20px]">
+                    You have register with Google account
+                  </p>
+                  <p className="text-[#3AAEEF]">{emailtmp}</p>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-[18px]">
+                  <TextField
+                    label="Email"
+                    placeholder="Enter your email here"
+                    type="email"
+                    required
+                    onChange={(e) => {
+                      email.current = e.target.value;
+                      setEmail(email.current);
+                    }}
+                    value={emailtmp}
+                    readOnly={isGoogle}
+                    onKeyDown={(e) => submit(e)}
+                    ref={inputRef}
+                  />
+                  <div>
+                    <PasswordField
+                      label="Password"
+                      placeholder="Enter your password"
+                      type="password"
+                      onChange={(e) => {
+                        password.current = e.target.value;
+                        setPassword(password.current);
+                        isPassValid(password.current);
+                        isSame(conPass.current);
+                      }}
+                      style={{ borderColor: color1 }}
+                      value={passtmp}
+                      onKeyDown={(e) => submit(e)}
+                    />
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
 
+<<<<<<< HEAD
                     <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
                       {passValid === 0 ? (
                         <Image
@@ -200,7 +275,40 @@ export default function RegisterPage1({
                           }}
                         />
                       ) : null}
+||||||| b074513
+          <div>
+            <PasswordField
+              label="Password"
+              placeholder="Enter your password"
+              type="password"
+              onChange={(e) => {
+                password.current = e.target.value;
+                setPassword(password.current);
+                isPassValid(password.current);
+                isSame(conPass.current);
+              }}
+              style={{ borderColor: color1 }}
+              value={passtmp}
+            />
+=======
+                    <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
+                      {passValid === 0 ? (
+                        <Image
+                          src={normalIcon}
+                          width={16}
+                          height={0}
+                          alt={"state"}
+                          style={{
+                            objectFit: "contain",
+                            alignContent: "flex-start",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        />
+                      ) : null}
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
 
+<<<<<<< HEAD
                       {passValid === 1 ? (
                         <Image
                           src="/img/InvalidIcon.png"
@@ -215,7 +323,40 @@ export default function RegisterPage1({
                           }}
                         />
                       ) : null}
+||||||| b074513
+            <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
+              {passValid === 0 ? (
+                <Image
+                  src="/img/NormalIcon.png"
+                  width={16}
+                  height={0}
+                  alt={"state"}
+                  style={{
+                    objectFit: "contain",
+                    alignContent: "flex-start",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                />
+              ) : null}
+=======
+                      {passValid === 1 ? (
+                        <Image
+                          src={invalidIcon}
+                          width={16}
+                          height={0}
+                          alt={"state"}
+                          style={{
+                            objectFit: "contain",
+                            alignContent: "flex-start",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        />
+                      ) : null}
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
 
+<<<<<<< HEAD
                       {passValid === 2 ? (
                         <Image
                           src="/img/ValidIcon.png"
@@ -230,7 +371,39 @@ export default function RegisterPage1({
                           }}
                         />
                       ) : null}
+||||||| b074513
+              {passValid === 1 ? (
+                <Image
+                  src="/img/InvalidIcon.png"
+                  width={16}
+                  height={0}
+                  alt={"state"}
+                  style={{
+                    objectFit: "contain",
+                    alignContent: "flex-start",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                />
+              ) : null}
+=======
+                      {passValid === 2 ? (
+                        <Image
+                          src={validIcon}
+                          width={16}
+                          height={0}
+                          alt={"state"}
+                          style={{
+                            objectFit: "contain",
+                            alignContent: "flex-start",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        />
+                      ) : null}
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
 
+<<<<<<< HEAD
                       <div style={{ color: color1 }}>
                         Password must be 8 or more characters and contain{" "}
                         <br></br>
@@ -290,7 +463,84 @@ export default function RegisterPage1({
                         </div>
                       </div>
                     ) : null}
+||||||| b074513
+              {passValid === 2 ? (
+                <Image
+                  src="/img/ValidIcon.png"
+                  width={16}
+                  height={0}
+                  alt={"state"}
+                  style={{
+                    objectFit: "contain",
+                    alignContent: "flex-start",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                />
+              ) : null}
+=======
+                      <div style={{ color: color1 }}>
+                        Password must be 8 or more characters and contain{" "}
+                        <br></br>
+                        at least 1 number
+                      </div>
+                    </div>
+                  </div>
+                  <PasswordField
+                    label="Confirm Password"
+                    placeholder="Re-enter your password"
+                    type="password"
+                    onChange={(e) => {
+                      conPass.current = e.target.value;
+                      setConPass(conPass.current);
+                      isSame(conPass.current);
+                    }}
+                    style={{ borderColor: color2 }}
+                    value={conpasstmp}
+                    onKeyDown={(e) => submit(e)}
+                  />
+                  <div className="flex flex-row text-[16px]">
+                    {passValid2 === 0 ? (
+                      <div className="flex flex-row gap-[7px]">
+                        <Image
+                          src={normalIcon}
+                          width={16}
+                          height={0}
+                          alt={"state"}
+                          style={{
+                            objectFit: "contain",
+                            alignContent: "flex-start",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        />
+                        <div style={{ color: color2 }}>
+                          Please confirm password
+                        </div>
+                      </div>
+                    ) : null}
+                    {passValid2 === 1 ? (
+                      <div className="flex flex-row gap-[7px]">
+                        <Image
+                          src={invalidIcon}
+                          width={16}
+                          height={0}
+                          alt={"state"}
+                          style={{
+                            objectFit: "contain",
+                            alignContent: "flex-start",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        />
+                        <div style={{ color: color2 }}>
+                          Password do not match
+                        </div>
+                      </div>
+                    ) : null}
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
 
+<<<<<<< HEAD
                     {passValid2 === 2 ? (
                       <div className="flex flex-row gap-[7px]">
                         <Image
@@ -311,6 +561,33 @@ export default function RegisterPage1({
                   </div>
                 </div>
               )}
+||||||| b074513
+              <div style={{ color: color1 }}>
+                Password must be 8 or more characters and contain <br></br>
+                at least 1 number
+              </div>
+=======
+                    {passValid2 === 2 ? (
+                      <div className="flex flex-row gap-[7px]">
+                        <Image
+                          src={validIcon}
+                          width={16}
+                          height={0}
+                          alt={"state"}
+                          style={{
+                            objectFit: "contain",
+                            alignContent: "flex-start",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        />
+                        <div style={{ color: color2 }}>Password match</div>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              )}
+>>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
             </div>
           ) : null}
         </div>
