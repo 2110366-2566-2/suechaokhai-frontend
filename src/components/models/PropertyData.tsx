@@ -1,20 +1,37 @@
 export default interface PropertyData {
-  owner_id: string;
-  description: string;
-  images: any[];
-  project_name: string;
-  // address
   address: string;
   alley: string;
-  street: string;
+  bathrooms: number;
+  bedrooms: number;
+  country: string;
+  created_at: string;
   district: string;
-  sub_district: string;
-  province: string;
+  floor: number;
+  floor_size: number;
+  floor_size_unit: string;
+  furnishing: string;
+  images: {
+    created_at: string;
+    url: string;
+  };
+  owner_id: string;
   postal_code: string;
-  // tags
-  residental_type: string;
+  propertyId: string;
+  property_description: string;
+  property_name: string;
+  property_type: string;
+  province: string;
   renting: {
+    created_at: string;
+    is_occupied: boolean;
     price_per_month: number;
   };
-  created_at:Date;
+  selling: {
+    created_at: string;
+    is_sold: boolean;
+    price: number;
+  };
+  street: string;
+  sub_district: string;
+  unit_number: number;
 }

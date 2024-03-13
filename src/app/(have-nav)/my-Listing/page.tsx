@@ -19,30 +19,49 @@ const myListingPage = () => {
     function generatePropertyDataArray(n: number): PropertyData[] {
         const propertyDataArray:PropertyData[]=[]
         for (let i = 0; i < n; i++) {
-          const propertyData: PropertyData = {
-            owner_id: `owner_${i}`,
-            description: `Description ${i}`,
-            images: ["/img/Property.png"],
-            project_name: `Project ${i}`,
-            address: `Address ${i}`,
-            alley: `Alley ${i}`,
-            street: `Street ${i}`,
-            district: `District ${i}`,
-            sub_district: `Sub District ${i}`,
-            province: `Province ${i}`,
-            postal_code: `Postal Code ${i}`,
-            residental_type: `Residential Type ${i}`,
-            renting: {
-              price_per_month: Math.floor(Math.random() * 100000) // Example random price
-            },
-            created_at:getRandomDate()
+            const propertyData: PropertyData = {
+              address: "123 Main St",
+              alley: "Back Alley",
+              bathrooms: 2,
+              bedrooms: 3,
+              country: "SomeCountry",
+              created_at: getRandomDate().toDateString(),
+              district: "SomeDistrict",
+              floor: 2,
+              floor_size: 1500,
+              floor_size_unit: "sqft",
+              furnishing: "Furnished",
+              images: {
+                created_at: getRandomDate().toDateString(),
+                url: "/img/Property.png"
+              },
+              owner_id: "owner123",
+              postal_code: "12345",
+              propertyId: "prop123",
+              property_description: "Lorem ipsum dolor sit amet...",
+              property_name: "Sample Property",
+              property_type: "House",
+              province: "SomeProvince",
+              renting: {
+                created_at: getRandomDate().toDateString(),
+                is_occupied: false,
+                price_per_month: Math.floor(Math.random() * 100000)
+              },
+              selling: {
+                created_at: getRandomDate().toDateString(),
+                is_sold: false,
+                price: 250000
+              },
+              street: "Main St",
+              sub_district: "SomeSubDistrict",
+              unit_number: 1
+            };
+            propertyDataArray.push(propertyData);
           };
-      
-          propertyDataArray.push(propertyData);
-        }
-      
         return propertyDataArray;
     }
+      
+    
 
 
     const fetchProp =  async ()=>{
@@ -53,8 +72,8 @@ const myListingPage = () => {
     }
 
     useEffect( ()=>{
-        // setData(generatePropertyDataArray(30))
-        fetchProp()
+        setData(generatePropertyDataArray(30))
+        // fetchProp()
     },[])
 
     const [haveProp,setHave] = useState<boolean>(true);

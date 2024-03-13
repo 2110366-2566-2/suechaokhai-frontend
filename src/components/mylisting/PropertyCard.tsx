@@ -19,12 +19,12 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
     return ( 
        <div className="w-full h-[800px] rounded-lg bg-[#ECECEC]">
             <div className="w-full h-[300px] relative rounded-t-lg  ">
-                <Image src={propData.images[0]} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
+                <Image src={propData.images.url} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
 
             </div>
             <div className="flex flex-col mx-16 ">
                 <div className="flex flex-row h-1/6 justify-between items-center my-8 mx-1 ">
-                    <div className="w-full  font-semibold text-2xl ">{propData.project_name}</div>
+                    <div className="w-full  font-semibold text-2xl ">{propData.property_name}</div>
                     {
                         fav ? 
                         <FavoriteIcon className="text-ci-red" sx={{ fontSize: 50 }} 
@@ -108,7 +108,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                             Delete a Property
                         </div>
                             <div className="text-xl mt-10 mb-1">Are you sure you want to delete this property ?</div>
-                            <div className="font-semibold text-2xl mt-1 mb-10 ">{propData.project_name}</div>
+                            <div className="font-semibold text-2xl mt-1 mb-10 ">{propData.property_name}</div>
 
                         
                         <div className="flex flex-roe items-center justify-center mx-1 w-full">

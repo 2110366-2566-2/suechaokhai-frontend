@@ -143,7 +143,7 @@ export default function RegisterPage1({
               {isGoogle ? (
                 <div className="flex flex-col items-center justify-center py-[40px]">
                   <Image
-                    src="/img/google2.png"
+                    src="/img/login-register/google2.png"
                     alt={"google"}
                     width={220}
                     height={220}
@@ -188,7 +188,7 @@ export default function RegisterPage1({
                     <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
                       {passValid === 0 ? (
                         <Image
-                          src="/img/NormalIcon.png"
+                          src="/img/login-register/NormalIcon.png"
                           width={16}
                           height={0}
                           alt={"state"}
@@ -203,7 +203,7 @@ export default function RegisterPage1({
 
                       {passValid === 1 ? (
                         <Image
-                          src="/img/InvalidIcon.png"
+                          src="/img/login-register/InvalidIcon.png"
                           width={16}
                           height={0}
                           alt={"state"}
@@ -218,7 +218,7 @@ export default function RegisterPage1({
 
                       {passValid === 2 ? (
                         <Image
-                          src="/img/ValidIcon.png"
+                          src="/img/login-register/ValidIcon.png"
                           width={16}
                           height={0}
                           alt={"state"}
@@ -255,7 +255,7 @@ export default function RegisterPage1({
                     {passValid2 === 0 ? (
                       <div className="flex flex-row gap-[7px]">
                         <Image
-                          src="/img/NormalIcon.png"
+                          src="/img/login-register/NormalIcon.png"
                           width={16}
                           height={0}
                           alt={"state"}
@@ -274,7 +274,7 @@ export default function RegisterPage1({
                     {passValid2 === 1 ? (
                       <div className="flex flex-row gap-[7px]">
                         <Image
-                          src="/img/InvalidIcon.png"
+                          src="/img/login-register/InvalidIcon.png"
                           width={16}
                           height={0}
                           alt={"state"}
@@ -294,7 +294,7 @@ export default function RegisterPage1({
                     {passValid2 === 2 ? (
                       <div className="flex flex-row gap-[7px]">
                         <Image
-                          src="/img/ValidIcon.png"
+                          src="/img/login-register/ValidIcon.png"
                           width={16}
                           height={0}
                           alt={"state"}

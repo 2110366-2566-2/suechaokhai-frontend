@@ -1,4 +1,5 @@
 "use client";
+"use client";
 import PropertyData from "../models/PropertyData";
 import NumPageText from "./NumPageText";
 import PropertyCard from "./PropertyCard";
