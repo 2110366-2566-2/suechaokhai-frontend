@@ -1,11 +1,11 @@
 "use client";
 import PropertyData from "@/components/models/PropertyData";
-import PropertyCards from "@/components/mylisting/PropertyCards";
+import PropertyCards from "@/components/my-listing/PropertyCards";
 import Image from "next/image";
 import SearchSection from "@/components/home-page/SearchSection";
 
 import { useEffect, useState } from "react";
-import SearchProperty from "@/components/mylisting/SearchProperty";
+import SearchProperty from "@/components/my-listing/SearchProperty";
 
 const myFavPage = () => {
     const [propData,setData] = useState<PropertyData[]>([]);

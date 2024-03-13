@@ -231,7 +231,7 @@ const SearchProperty = () => {
                 </div>
           ) : null}
           {filterBedroom ? (
-            <div className="h-18 flex w-full items-center justify-center rounded-xl  p-2 sm:flex-col md:flex-col 2xl:flex-row">
+            <div className="h-18 flex w-full items-center justify-center rounded-xl bg-ci-light-gray p-2 sm:flex-col md:flex-col 2xl:flex-row">
               <div>Bedroom(s)</div>
               <div className="flex flex-row items-center gap-x-1 py-2">
                 <button

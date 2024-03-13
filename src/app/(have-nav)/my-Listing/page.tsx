@@ -1,6 +1,6 @@
 "use client";
 import PropertyData from "@/components/models/PropertyData";
-import PropertyCards from "@/components/mylisting/PropertyCards";
+import PropertyCards from "@/components/my-listing/PropertyCards";
 import getUserProperty from "@/services/getUserProperty";
 import Image from "next/image";
 
