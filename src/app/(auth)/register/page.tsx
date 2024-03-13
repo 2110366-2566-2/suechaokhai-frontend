@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
