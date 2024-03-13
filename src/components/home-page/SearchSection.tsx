@@ -32,7 +32,7 @@ export default function SearchSection() {
     console.log(minSize);
     console.log(maxSize);
     console.log(bedrooms);
-    window.location.href = `http://localhost:3000/?search=${searchContent}&min-price=${minPrice}&max-price=${maxPrice}&min-size=${minSize}&max-size=${maxSize}&bedrooms=${bedrooms}`;
+    window.location.href = `http://localhost:3000/search?search=${searchContent}&min-price=${minPrice}&max-price=${maxPrice}&min-size=${minSize}&max-size=${maxSize}&bedrooms=${bedrooms}`;
   }
 
   return (
