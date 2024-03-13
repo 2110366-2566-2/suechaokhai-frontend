@@ -11,7 +11,6 @@ const myListingPage = () => {
     const [total,setTotal] = useState<number>(0);
 
     useEffect( ()=>{
-        // setData(generatePropertyDataArray(30))
         const fetchProp =  async ()=>{
           const data = await getUserProperty(20,1);
           if(data){
