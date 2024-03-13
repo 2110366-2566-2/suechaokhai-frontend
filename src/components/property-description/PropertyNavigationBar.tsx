@@ -40,16 +40,16 @@ const PropertyNavigationBar = () => {
     <div className="select-none pt-20 ">
       <div className="fixed top-0 z-50 flex min-h-20 w-full select-none items-center justify-between bg-ci-blue py-1  text-[20px] text-white">
         <div
-          className="min-h-20 min-w-20 pl-4 "
+          className="min-h-10 min-w-10 pl-4 "
           onClick={() => router.push("/home")}
         >
           <Image
             src={logo}
             alt={"logo"}
-            width={20}
-            height={20}
+            width={10}
+            height={10}
             draggable={false}
-            className="min-h-20 min-w-20"
+            className="min-h-10 min-w-10"
           />
         </div>
 

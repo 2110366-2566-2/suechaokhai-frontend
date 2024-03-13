@@ -63,6 +63,7 @@ const PersonalPage = ({
       setLastName(data.last_name);
       setPhoneNumber(data.phone_number);
       setProfileUrl(data.profile_image_url);
+      console.log(data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }

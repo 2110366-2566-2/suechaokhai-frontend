@@ -16,6 +16,7 @@ const EditProfile = () => {
   const switchToFinancial = () => {
     if (!isChangesExist) {
       setTab("financial");
+      setIsSwitchingTab(false);
     } else {
       setIsSwitchingTab(true);
     }
@@ -23,6 +24,7 @@ const EditProfile = () => {
   const switchToOwner = () => {
     if (!isChangesExist) {
       setTab("owner");
+      setIsSwitchingTab(false);
     } else {
       setIsSwitchingTab(true);
     }
@@ -38,7 +40,7 @@ const EditProfile = () => {
         {tab === "personal" && (
           <PersonalPage setIsChangesExist={setIsChangesExist} />
         )}
-        {tab === "financial" && <FinancialPage />}
+        {tab === "financial" && <FinancialPage setIsChangesExist={setIsChangesExist} />}
         {tab === "owner" && <OwnerPage />}
       </div>
       {isSwitchingTab && isChangesExist && (
