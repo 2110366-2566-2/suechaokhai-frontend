@@ -8,7 +8,7 @@ import { useState,useEffect,useReducer} from "react";
 
 
 
-const PropertyCards = ({propData,isEditable,additionaltext,showAmount}:{propData:PropertyData[],isEditable:boolean,additionaltext:string,showAmount:boolean}) => {
+const PropertyCards = ({propData,totalProp,isEditable,additionaltext,showAmount}:{propData:PropertyData[],totalProp:number,isEditable:boolean,additionaltext:string,showAmount:boolean}) => {
 
     const sortType= {
         'date': "Newest Listing First" ,
@@ -52,7 +52,7 @@ const PropertyCards = ({propData,isEditable,additionaltext,showAmount}:{propData
         <>
             {showAmount ? 
             <div className="text-xl ">
-            {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
+            {10*(page-1)} - {totalProp<10*page ? totalProp : 10*page } of {totalProp} properties {additionaltext}
         </div>
             :
             
@@ -87,14 +87,14 @@ const PropertyCards = ({propData,isEditable,additionaltext,showAmount}:{propData
 
             <div className="grid grid-cols-2 gap-24 ">
                 {propData.slice(10*(page-1),10*page).map((prop:PropertyData)=>(                 
-                    <PropertyCard propData={prop} editable={isEditable} ></PropertyCard>
+                    <PropertyCard propData={prop} editable={isEditable} imgSrc="/img/Property.png" ></PropertyCard>
                 ))}
             </div>
             
             {
-                propData.length>10 ?
+                totalProp>10 ?
                 <div className="flex w-full items-center justify-center p-10">
-                    <Pagination count={Math.ceil(propData.length/10)} 
+                    <Pagination count={Math.ceil(totalProp/10)} 
                                 size="large"
                                 onChange={handleChange}
                                color="primary" ></Pagination>
@@ -104,7 +104,7 @@ const PropertyCards = ({propData,isEditable,additionaltext,showAmount}:{propData
             <div className="flex h-[100px] pt-16 pb-24 items-center justify-center text-2xl">
             {/* num prop text here */}
                 <div>
-                    {10*(page-1)} - {propData.length<10*page ? propData.length : 10*page } of {propData.length} properties {additionaltext}
+                    {10*(page-1)} - {totalProp<10*page ? totalProp : 10*page } of {totalProp} properties {additionaltext}
                 </div>
             </div>
         </>
