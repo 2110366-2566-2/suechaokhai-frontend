@@ -33,101 +33,118 @@ const SearchProperty = () => {
 
     return ( 
         <div className="flex flex-col justify-center w-full">
+            <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
+              <input
+                type="text"
+                className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5 "
+                placeholder="Location, building"
+                onChange={(e) => {
+                  setSearchContent(e.target.value);
+                }}
+              ></input>
+              <button
+                onClick={test}
+                className="h-1/2 w-56 rounded-xl bg-ci-blue font-semibold text-white"
+              >
+                Search Now!
+              </button>
+            </div>
+            {/* filter section */}
             <div className="flex flex-row justify-center">
-             <div className="flex w-80 m-3">
+                  <div className="flex w-80 m-3 gap-3">
+                      <div
+                          onClick={() => {
+                              setFilterPrice(!filterPrice);
+                              setFilterSize(false);
+                              setFilterBedroom(false);
+                          }}
+                          className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
+                      >
+                          <p className="text-xl font-medium">Price Range</p>
+                          {filterPrice ? (
+                          <Image
+                              src="/img/home-page/arrow-up.svg"
+                              alt="arrow-down"
+                              width={30}
+                              height={30}
+                              className="sm:w-5 md:w-7 2xl:w-10"
+                          />
+                          ) : (
+                          <Image
+                              src="/img/home-page/arrow-down.svg"
+                              alt="arrow-down"
+                              width={30}
+                              height={30}
+                              className="sm:w-5 md:w-7 2xl:w-10"
+                          />
+                          )}
+                      </div>
+                      
+                    </div>
+                <div className="flex w-80 flex-col m-3 gap-3">
                 <div
-                    onClick={() => {
-                        setFilterPrice(!filterPrice);
-                        setFilterSize(false);
-                        setFilterBedroom(false);
-                    }}
-                    className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-ci-light-gray px-6 text-left"
+                  onClick={() => {
+
+                      setFilterPrice(false);
+                      setFilterSize(!filterSize)
+                      setFilterBedroom(false);
+                  }}
+                  className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
                 >
-                    <p>Price Range</p>
-                    {filterPrice ? (
+                  <p className="text-xl font-medium">Size</p>
+                  {filterSize ? (
                     <Image
-                        src="/img/home-page/arrow-up.svg"
-                        alt="arrow-down"
-                        width={40}
-                        height={40}
-                        className="sm:w-5 md:w-7 2xl:w-10"
+                      src="/img/home-page/arrow-up.svg"
+                      alt="arrow-down"
+                      width={30}
+                      height={30}
+                      className="sm:w-5 md:w-7 2xl:w-10"
                     />
-                    ) : (
+                  ) : (
                     <Image
-                        src="/img/home-page/arrow-down.svg"
-                        alt="arrow-down"
-                        width={40}
-                        height={40}
-                        className="sm:w-5 md:w-7 2xl:w-10"
+                      src="/img/home-page/arrow-down.svg"
+                      alt="arrow-down"
+                      width={30}
+                      height={30}
+                      className="sm:w-5 md:w-7 2xl:w-10"
                     />
-                    )}
+                  )}
                 </div>
                 
+              </div>
+              <div className="flex w-80 flex-col m-3 gap-3">
+                <div
+                  onClick={() =>{
+                      setFilterPrice(false);
+                      setFilterSize(false);
+                      setFilterBedroom(!filterBedroom)
+                  } }
+                  className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
+                >
+                  <p className="text-xl font-medium">Bedrooms</p>
+                  {filterBedroom ? (
+                    <Image
+                      src="/img/home-page/arrow-up.svg"
+                      alt="arrow-down"
+                      width={30}
+                      height={30}
+                      className="sm:w-5 md:w-7 2xl:w-10"
+                    />
+                  ) : (
+                    <Image
+                      src="/img/home-page/arrow-down.svg"
+                      alt="arrow-down"
+                      width={30}
+                      height={30}
+                      className="sm:w-5 md:w-7 2xl:w-10"
+                    />
+                  )}
                 </div>
-                <div className="flex w-80 flex-col gap-3">
-          <div
-            onClick={() => {
-
-                setFilterPrice(false);
-                setFilterSize(!filterSize)
-                setFilterBedroom(false);
-            }}
-            className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-ci-light-gray px-6 text-left"
-          >
-            <p>Size</p>
-            {filterSize ? (
-              <Image
-                src="/img/home-page/arrow-up.svg"
-                alt="arrow-down"
-                width={40}
-                height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
-              />
-            ) : (
-              <Image
-                src="/img/home-page/arrow-down.svg"
-                alt="arrow-down"
-                width={40}
-                height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
-              />
-            )}
-          </div>
-          
-        </div>
-        <div className="flex w-80 flex-col gap-3">
-          <div
-            onClick={() =>{
-                setFilterPrice(false);
-                setFilterSize(false);
-                setFilterBedroom(!filterBedroom)
-            } }
-            className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-ci-light-gray px-6 text-left"
-          >
-            <p>Bedrooms</p>
-            {filterBedroom ? (
-              <Image
-                src="/img/home-page/arrow-up.svg"
-                alt="arrow-down"
-                width={40}
-                height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
-              />
-            ) : (
-              <Image
-                src="/img/home-page/arrow-down.svg"
-                alt="arrow-down"
-                width={40}
-                height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
-              />
-            )}
-          </div>
-          
-        </div>
+                
+              </div>
 
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row ">
             {filterPrice ? (
                     <div className="flex h-36 w-full flex-row items-center justify-center gap-y-2 rounded-xl ">
                     <div className="flex items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
