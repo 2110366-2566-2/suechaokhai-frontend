@@ -77,9 +77,10 @@ const myFavPage = () => {
         {
           haveProp ? (
                 
-              <div className="flex h-full flex-col mx-80 mt-8 ">
-
-                    <SearchProperty></SearchProperty>
+              <div className="flex h-full flex-col mx-80  ">
+                    <div className="px-48 ">
+                      <SearchProperty></SearchProperty>
+                    </div>
                     <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result" showAmount={true}></PropertyCards>
 
                 </div>

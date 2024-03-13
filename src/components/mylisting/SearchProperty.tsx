@@ -32,26 +32,25 @@ const SearchProperty = () => {
       }
 
     return ( 
-        <div className="flex flex-col justify-center w-full">
-            <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
+        <div className="flex flex-col justify-self-center m-8  w-full ">
+            <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
               <input
                 type="text"
-                className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5 "
-                placeholder="Location, building"
+                className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5  bg-ci-light-gray"
                 onChange={(e) => {
                   setSearchContent(e.target.value);
                 }}
               ></input>
               <button
                 onClick={test}
-                className="h-1/2 w-56 rounded-xl bg-ci-blue font-semibold text-white"
+                className="h-1/2 w-56 rounded-xl bg-ci-blue font-medium text-xl text-white"
               >
-                Search Now!
+                Search
               </button>
             </div>
             {/* filter section */}
             <div className="flex flex-row justify-center">
-                  <div className="flex w-80 m-3 gap-3">
+                  <div className="flex w-1/3 px-3 gap-3">
                       <div
                           onClick={() => {
                               setFilterPrice(!filterPrice);
@@ -60,7 +59,7 @@ const SearchProperty = () => {
                           }}
                           className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
                       >
-                          <p className="text-xl font-medium">Price Range</p>
+                          <p className="text-xl font-medium px-2">Price Range</p>
                           {filterPrice ? (
                           <Image
                               src="/img/home-page/arrow-up.svg"
@@ -81,7 +80,7 @@ const SearchProperty = () => {
                       </div>
                       
                     </div>
-                <div className="flex w-80 flex-col m-3 gap-3">
+                <div className="flex w-1/3 flex-col px-3 gap-3">
                 <div
                   onClick={() => {
 
@@ -91,7 +90,7 @@ const SearchProperty = () => {
                   }}
                   className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
                 >
-                  <p className="text-xl font-medium">Size</p>
+                  <p className="text-xl font-medium px-2">Size</p>
                   {filterSize ? (
                     <Image
                       src="/img/home-page/arrow-up.svg"
@@ -112,7 +111,7 @@ const SearchProperty = () => {
                 </div>
                 
               </div>
-              <div className="flex w-80 flex-col m-3 gap-3">
+              <div className="flex w-1/3 flex-col px-3 gap-3">
                 <div
                   onClick={() =>{
                       setFilterPrice(false);
@@ -121,7 +120,7 @@ const SearchProperty = () => {
                   } }
                   className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
                 >
-                  <p className="text-xl font-medium">Bedrooms</p>
+                  <p className="text-xl font-medium px-2">Bedrooms</p>
                   {filterBedroom ? (
                     <Image
                       src="/img/home-page/arrow-up.svg"
