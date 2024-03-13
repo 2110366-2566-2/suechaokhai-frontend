@@ -6,20 +6,20 @@ import PersonalPage from "@/components/edit-profile/PersonalPage";
 import OwnerPage from "@/components/edit-profile/OwnerPage";
 import FinancialPage from "@/components/edit-profile/FinancialPage";
 type Tab = "personal" | "financial" | "owner";
-const EditProfile = () => {
+const editProfile = () => {
   const [tab, setTab] = useState<Tab>("personal");
   const switchToPersonal = () => setTab("personal");
   const switchToFinancial = () => setTab("financial");
   const switchToOwner = () => setTab("owner");
 
   return (
-    <div className="flex h-full flex-row ">
+    <div className=" flex min-h-dvh  flex-row">
       <Sidebar
         personal={switchToPersonal}
         financial={switchToFinancial}
         owner={switchToOwner}
       />
-      <div className="m-5">
+      <div className="m-5 min-w-[40%] ">
         {tab === "personal" && <PersonalPage />}
         {tab === "financial" && <FinancialPage />}
         {tab === "owner" && <OwnerPage />}
@@ -27,4 +27,4 @@ const EditProfile = () => {
     </div>
   );
 };
-export default EditProfile;
+export default editProfile;
