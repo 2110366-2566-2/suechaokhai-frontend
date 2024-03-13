@@ -40,8 +40,8 @@ const PropertyNavigationBar = () => {
     <div className="select-none pt-20 ">
       <div className="fixed top-0 z-50 flex min-h-20 w-full select-none items-center justify-between bg-ci-blue py-1  text-[20px] text-white">
         <div
-          className="min-h-10 min-w-10 pl-4 "
-          onClick={() => router.push("/home")}
+          className="min-h-10 min-w-10 cursor-pointer pl-4"
+          onClick={() => router.push("/")}
         >
           <Image
             src={logo}
@@ -58,7 +58,12 @@ const PropertyNavigationBar = () => {
           <div className="cursor-pointer hover:opacity-60">Rent</div>
           <div className="cursor-pointer hover:opacity-60">Appointment</div>
           <div className="cursor-pointer hover:opacity-60">Agreement</div>
-          <div className="cursor-pointer hover:opacity-60">My Listing</div>
+          <div
+            className="cursor-pointer hover:opacity-60"
+            onClick={() => router.push("/my-Listing")}
+          >
+            My Listing
+          </div>
         </div>
 
         {user ? (
@@ -69,7 +74,14 @@ const PropertyNavigationBar = () => {
                 className="visible cursor-pointer hover:opacity-20 lg:invisible"
               />
             </div>
-            <Image src={favoriteIcon} alt={"favorite"} width={36} height={36} />
+            <Image
+              src={favoriteIcon}
+              onClick={() => router.push("/my-Favorite")}
+              alt={"favorite"}
+              width={36}
+              height={36}
+              className="cursor-pointer"
+            />
             <div className="aspect-square min-h-16 min-w-16 overflow-hidden rounded-full">
               <Image
                 src={accountIcon}
