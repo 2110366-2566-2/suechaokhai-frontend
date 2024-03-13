@@ -6,9 +6,11 @@ export default function Suechaokhai({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col">
-      <PropertyNavigationBar icon="w" feature="w" />
-      <div className="mt-20 h-dvh">{children}</div>
+    <div className="">
+      <PropertyNavigationBar />
+      <div>
+        <div className="">{children}</div>
+      </div>
     </div>
   );
 }

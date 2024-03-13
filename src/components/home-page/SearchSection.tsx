@@ -2,6 +2,7 @@
 
 import { min } from "date-fns/fp/min";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 export default function SearchSection() {
@@ -31,6 +32,7 @@ export default function SearchSection() {
     console.log(minSize);
     console.log(maxSize);
     console.log(bedrooms);
+    window.location.href = `http://localhost:3000/search?search=${searchContent}&min-price=${minPrice}&max-price=${maxPrice}&min-size=${minSize}&max-size=${maxSize}&bedrooms=${bedrooms}`;
   }
 
   return (
@@ -38,7 +40,7 @@ export default function SearchSection() {
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
         <input
           type="text"
-          className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5 "
+          className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5"
           placeholder="Location, building"
           onChange={(e) => {
             setSearchContent(e.target.value);
