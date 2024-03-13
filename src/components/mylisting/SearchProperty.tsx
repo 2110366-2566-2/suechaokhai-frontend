@@ -38,7 +38,7 @@ const SearchProperty = () => {
             <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
               <input
                 type="text"
-                className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5  bg-ci-light-gray"
+                className="h-1/2 w-full rounded-xl border  px-5  bg-ci-light-gray"
                 onChange={(e) => {
                   setSearchContent(e.target.value);
                 }}
@@ -145,90 +145,90 @@ const SearchProperty = () => {
               </div>
 
             </div>
-            <div className="flex flex-row ">
+            <div className="flex flex-row w-full">
             {filterPrice ? (
                     <div className="flex h-36 w-full flex-row items-center justify-center gap-y-2 rounded-xl ">
-                    <div className="flex items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
-                        <div className="text-center">Min (฿)</div>
-                        <input
-                        type="number"
-                        className="h-14 w-full rounded-xl border border-ci-gray px-4"
-                        onChange={(e) => {
-                            if (
-                            parseInt(e.target.value) >= 0 ||
-                            e.target.value === ""
-                            ) {
-                            setMinPrice(Number(e.target.value));
-                            } else {
-                            setMinPrice(0);
-                            }
-                        }}
-                        value={minPrice.toString()}
-                        placeholder="0"
-                        ></input>
-                    </div>
-                    <div className="flex flex-row items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
-                        <div className="text-center">Max (฿)</div>
-                        <input
-                        type="number"
-                        className="h-14 w-full rounded-xl border border-ci-gray px-4"
-                        onChange={(e) => {
-                            if (
-                            parseInt(e.target.value) >= 0 ||
-                            e.target.value === ""
-                            ) {
-                            setMaxPrice(Number(e.target.value));
-                            } else {
-                            setMaxPrice(0);
-                            }
-                        }}
-                        value={maxPrice.toString()}
-                        placeholder="1000000"
-                        ></input>
-                    </div>
+                      <div className="flex flex-col w-1/2  gap-x-2 gap-y-4 mx-3">
+                          <div className="text-xl">Min. price</div>
+                          <input
+                          type="number"
+                          className="h-14 w-full rounded-xl border  px-4 bg-ci-light-gray"
+                          onChange={(e) => {
+                              if (
+                              parseInt(e.target.value) >= 0 ||
+                              e.target.value === ""
+                              ) {
+                              setMinPrice(Number(e.target.value));
+                              } else {
+                              setMinPrice(0);
+                              }
+                          }}
+                          value={minPrice.toString()}
+                          placeholder="0"
+                          ></input>
+                      </div>
+                      <div className="flex flex-col w-1/2  gap-x-2 gap-y-4 mx-3">
+                          <div className="text-xl">Max. price</div>
+                          <input
+                          type="number"
+                          className="h-14 w-full rounded-xl border  px-4 bg-ci-light-gray"
+                          onChange={(e) => {
+                              if (
+                              parseInt(e.target.value) >= 0 ||
+                              e.target.value === ""
+                              ) {
+                              setMaxPrice(Number(e.target.value));
+                              } else {
+                              setMaxPrice(0);
+                              }
+                          }}
+                          value={maxPrice.toString()}
+                          placeholder="1000000"
+                          ></input>
+                      </div>
                     </div>
                 ) : null}
-                {filterSize ? (
-            <div className="flex h-36 w-full flex-row items-center justify-center gap-y-2 rounded-xl ">
-              <div className="flex flex-row items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
-                <p className="text-center">Min (m²)</p>
-                <input
-                  type="number"
-                  className="h-14 w-full rounded-xl border border-ci-gray px-4"
-                  onChange={(e) => {
-                    if (
-                      parseInt(e.target.value) >= 0 ||
-                      e.target.value === ""
-                    ) {
-                      setMinSize(Number(e.target.value));
-                    } else {
-                      setMinSize(0);
-                    }
-                  }}
-                  value={minSize.toString()}
-                  placeholder="0"
-                ></input>
-              </div>
-              <div className="flex flex-row items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
-                <p className="text-center">Max (m²)</p>
-                <input
-                  type="number"
-                  className="h-14 w-full rounded-xl border border-ci-gray px-4"
-                  onChange={(e) => {
-                    if (
-                      parseInt(e.target.value) >= 0 ||
-                      e.target.value === ""
-                    ) {
-                      setMaxSize(Number(e.target.value));
-                    } else {
-                      setMaxSize(0);
-                    }
-                  }}
-                  value={maxSize.toString()}
-                  placeholder="10000"
-                ></input>
-              </div>
-            </div>
+            {filterSize ? (
+                <div className="flex h-36 w-full flex-row items-center justify-center gap-y-2 rounded-xl ">
+                  <div className="flex flex-col w-1/2  gap-x-2 gap-y-4 mx-3">
+                    <p className="text-xl">Min (m²)</p>
+                    <input
+                      type="number"
+                      className="h-14 w-full rounded-xl border  px-4"
+                      onChange={(e) => {
+                        if (
+                          parseInt(e.target.value) >= 0 ||
+                          e.target.value === ""
+                        ) {
+                          setMinSize(Number(e.target.value));
+                        } else {
+                          setMinSize(0);
+                        }
+                      }}
+                      value={minSize.toString()}
+                      placeholder="0"
+                    ></input>
+                  </div>
+                  <div className="flex flex-col w-1/2  gap-x-2 gap-y-4 mx-3">
+                    <p className="text-xl">Max (m²)</p>
+                    <input
+                      type="number"
+                      className="h-14 w-full rounded-xl border  px-4"
+                      onChange={(e) => {
+                        if (
+                          parseInt(e.target.value) >= 0 ||
+                          e.target.value === ""
+                        ) {
+                          setMaxSize(Number(e.target.value));
+                        } else {
+                          setMaxSize(0);
+                        }
+                      }}
+                      value={maxSize.toString()}
+                      placeholder="10000"
+                    ></input>
+                  </div>
+                </div>
           ) : null}
           {filterBedroom ? (
             <div className="h-18 flex w-full items-center justify-center rounded-xl  p-2 sm:flex-col md:flex-col 2xl:flex-row">
@@ -244,7 +244,7 @@ const SearchProperty = () => {
                 </button>
                 <input
                   type="number"
-                  className="h-14 w-14 rounded-xl border border-ci-gray px-2 text-center"
+                  className="h-14 w-14 rounded-xl border  px-2 text-center"
                   onChange={(e) => {
                     if (e.target.value === "") {
                       setBedrooms(0);
