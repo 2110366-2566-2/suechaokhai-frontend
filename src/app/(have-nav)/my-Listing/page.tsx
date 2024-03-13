@@ -1,6 +1,7 @@
 "use client";
 import PropertyData from "@/components/models/PropertyData";
 import PropertyCards from "@/components/mylisting/PropertyCards";
+import getUserProperty from "@/services/getUserProperty";
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
@@ -43,8 +44,17 @@ const myListingPage = () => {
         return propertyDataArray;
     }
 
-    useEffect(()=>{
-        setData(generatePropertyDataArray(30))
+
+    const fetchProp =  async ()=>{
+        const data = await getUserProperty();
+        if(data){
+          setData(data)
+        }
+    }
+
+    useEffect( ()=>{
+        // setData(generatePropertyDataArray(30))
+        fetchProp()
     },[])
 
     const [haveProp,setHave] = useState<boolean>(true);

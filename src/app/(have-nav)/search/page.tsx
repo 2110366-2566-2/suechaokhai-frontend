@@ -5,6 +5,7 @@ import Image from "next/image";
 import SearchSection from "@/components/home-page/SearchSection";
 
 import { useEffect, useState } from "react";
+import SearchProperty from "@/components/mylisting/SearchProperty";
 
 const myFavPage = () => {
     const [propData,setData] = useState<PropertyData[]>([]);
@@ -61,9 +62,7 @@ const myFavPage = () => {
                 
               <div className="flex h-full flex-col mx-80 mt-8 ">
 
-                    <div className="flex justify-center">
-                        <SearchSection />
-                    </div>
+                    <SearchProperty></SearchProperty>
                     <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result" showAmount={true}></PropertyCards>
 
                 </div>
