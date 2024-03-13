@@ -29,7 +29,7 @@ export default function AdditionalDetails() {
       <div className="mb-4">
         <div className="flex space-x-4">
           <div className="w-full">
-            <h3 className="text-md">Furnishing</h3>
+            <h3 className="text-md mb-2">Furnishing</h3>
             <div className="flex flex-col space-y-4">
               <div className="flex flex-row space-x-4">
                 <div className="w-full">
