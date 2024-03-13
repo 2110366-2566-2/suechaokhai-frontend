@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
@@ -8,6 +9,7 @@ import userRegister from "@/services/userRegister";
 import { useSearchParams } from "next/navigation";
 import authCallback from "@/services/authCallback";
 import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 export interface PersonalInfo {
   email: string;
@@ -20,7 +22,7 @@ export interface PersonalInfo {
 }
 
 export default function RegisterPage() {
-  const [registerStage, changeRegState] = useState(0);
+  const [registerStage, changeRegState] = useState(-1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPass, setConPass] = useState("");
@@ -51,8 +53,6 @@ export default function RegisterPage() {
         if (data.registered_type === "GOOGLE")
           setRegisteredType(data.registered_type);
 
-        console.log(data);
-
         if (
           data.registered_type === "GOOGLE" &&
           data.session_type === "REGISTER"
@@ -61,6 +61,7 @@ export default function RegisterPage() {
           console.log(data);
           setEmail(data.email);
           setIsGoogle(true);
+          changeRegState(0);
         } else if (data.session_type === "LOGIN") {
           router.push("/");
         } else {
@@ -104,6 +105,12 @@ export default function RegisterPage() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
+      {registerStage === -1 && (
+        <div className="flex h-[830px] w-[650px] flex-col items-center justify-center rounded-[10px] bg-white">
+          <CircularProgress />
+        </div>
+      )}
+
       {registerStage === 0 ? (
         <RegisterPage1
           emailtmp={email}
