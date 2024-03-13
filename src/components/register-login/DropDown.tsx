@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-
 const Dropdown = ({
   label,
   options,
   onSelect,
+  className,
 }: {
   label: string;
   options: Array<string>;
   onSelect: any;
+  className?: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
 
@@ -24,7 +25,7 @@ const Dropdown = ({
         </label>
       )}
       <select
-        className="dropdown-select block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
+        className={`${className} dropdown-select block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700`}
         value={selectedOption}
         onChange={(e) => handleSelect({ option: e.target.value })}
       >
