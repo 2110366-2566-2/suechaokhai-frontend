@@ -15,6 +15,8 @@ const SearchProperty = () => {
     const [minSize, setMinSize] = useState<number>(0);
     const [maxSize, setMaxSize] = useState<number>(0);
     const [bedrooms, setBedrooms] = useState<number>(0);
+
+
     function formatBedroom(val: number) {
         if (val < 0) {
           setBedrooms(0);
@@ -57,7 +59,7 @@ const SearchProperty = () => {
                               setFilterSize(false);
                               setFilterBedroom(false);
                           }}
-                          className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
+                          className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterPrice? 'bg-ci-light-blue': 'bg-ci-light-gray'} px-6 text-left`}
                       >
                           <p className="text-xl font-medium px-2">Price Range</p>
                           {filterPrice ? (
@@ -88,7 +90,7 @@ const SearchProperty = () => {
                       setFilterSize(!filterSize)
                       setFilterBedroom(false);
                   }}
-                  className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
+                  className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterSize? 'bg-ci-light-blue': 'bg-ci-light-gray'} px-6 text-left`}
                 >
                   <p className="text-xl font-medium px-2">Size</p>
                   {filterSize ? (
@@ -118,7 +120,7 @@ const SearchProperty = () => {
                       setFilterSize(false);
                       setFilterBedroom(!filterBedroom)
                   } }
-                  className="flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl bg-ci-light-gray px-6 text-left"
+                  className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterBedroom? 'bg-ci-light-blue': 'bg-ci-light-gray'} px-6 text-left`}
                 >
                   <p className="text-xl font-medium px-2">Bedrooms</p>
                   {filterBedroom ? (

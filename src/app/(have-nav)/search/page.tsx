@@ -75,7 +75,7 @@ const myFavPage = () => {
     return ( 
        <>
         {
-          haveProp ? (
+          propData.length !==0 ? (
                 
               <div className="flex h-full flex-col mx-80  ">
                     <div className="px-48 ">
@@ -83,7 +83,7 @@ const myFavPage = () => {
                     </div>
                     <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result" showAmount={true}></PropertyCards>
 
-                </div>
+              </div>
               ) : (
                 <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
                   <div className="text-center text-4xl font-bold">
