@@ -32,13 +32,13 @@ const myFavPage = () => {
             floor_size: 1500,
             floor_size_unit: "sqft",
             furnishing: "Furnished",
-            images: {
+            images: [{
               created_at: getRandomDate().toDateString(),
               url: "/img/Property.png"
-            },
+            }],
             owner_id: "owner123",
             postal_code: "12345",
-            propertyId: "prop123",
+            property_id: "prop123",
             property_description: "Lorem ipsum dolor sit amet...",
             property_name: "Sample Property",
             property_type: "House",
