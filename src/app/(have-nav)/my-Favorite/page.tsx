@@ -42,7 +42,7 @@ const myFavPage = () => {
                 //!fix this toooooooooooooooooooo
                 <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
                   <div className="text-center text-4xl font-bold">
-                    Empty property listing
+                    Empty favorite property
                   </div>
 
                   <Image
@@ -51,29 +51,10 @@ const myFavPage = () => {
                     width={100}
                     height={100}
                   />
-                  <div className="">
-                    <div className="m-1 text-center text-2xl">
-                      Your listing is empty.
+                  <div className="m-1 text-center text-2xl">
+                      Your favorite property is empty.
                     </div>
-                    <div className="m-1 text-center text-2xl">
-                      Let&apos;s create a property on your listing.
-                    </div>
-                  </div>
-
-                  <button
-                    className="flex w-1/5 flex-row justify-around rounded-md bg-ci-blue p-4"
-                    onClick={handleCreate}
-                  >
-                    <Image
-                      src="/img/mylisting/plusCircle.svg"
-                      alt="add"
-                      width={30}
-                      height={30}
-                    />
-                    <div className="text-2xl font-bold text-white ">
-                      Create Property
-                    </div>
-                  </button>
+                 
                 </div>
       )}
     </>
