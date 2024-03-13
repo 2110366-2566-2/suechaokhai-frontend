@@ -81,7 +81,7 @@ const myFavPage = () => {
                     <div className="px-48 ">
                       <SearchProperty></SearchProperty>
                     </div>
-                    <PropertyCards propData={propData} isEditable={false} additionaltext="from searching result" showAmount={true}></PropertyCards>
+                    <PropertyCards propData={propData} totalProp={1000} isEditable={false} additionaltext="from searching result" showAmount={true}></PropertyCards>
 
               </div>
               ) : (
