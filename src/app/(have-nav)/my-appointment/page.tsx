@@ -9,7 +9,12 @@ export default function MyAppointment() {
                 <div className="text-5xl font-bold mr-3">
                     My Appointment
                 </div>
-                <ToggleSwitch/>
+                <ToggleSwitch 
+                    toggled='toggled'
+                    onToggle={() => {
+                        alert('TOGGLED!')
+                    }}
+                />
             </div>
             <div className="flex flex-row">
                 <div className="text-xl font-bold my-5">
