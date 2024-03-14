@@ -14,20 +14,31 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
     router.push("/login");
   };
   return (
+<<<<<<< HEAD
     <div className="fixed right-0 top-0 z-40 mt-24 flex  h-80 w-80  flex-col overflow-hidden rounded-lg bg-white text-[20px] drop-shadow-[0_2px_1px_rgba(0,0,0,0.25)]">
+=======
+    <div className="fixed right-0 z-40 mt-24 flex  h-80 w-80  flex-col overflow-hidden rounded-lg bg-white text-[20px]">
+>>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
       <div className="relative flex h-3/5 items-center justify-center bg-ci-gray">
         <div className="aspect-square overflow-hidden rounded-full">
           <Image
             src={accountIcon}
             alt={"account"}
+<<<<<<< HEAD
             width={120}
             height={120}
             draggable={false}
             className="min-h-120 min-w-120"
+=======
+            width={160}
+            height={160}
+            draggable={false}
+>>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
           />
         </div>
       </div>
       <div
+<<<<<<< HEAD
         className="flex h-1/5 cursor-pointer flex-row items-center px-2 hover:bg-ci-light-gray"
         onClick={() => router.push("/edit-profile")}
       >
@@ -73,6 +84,44 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
             style={{ height: `19px`, width: "auto" }}
           />
         </div>
+=======
+        className="flex h-1/5 cursor-pointer flex-row items-center space-x-1 px-2 hover:bg-ci-dark-gray"
+        onClick={() => router.push("/suechaokhai/editProfile")}
+      >
+        <Image
+          src={editIcon}
+          alt={"edit"}
+          width={30}
+          height={16}
+          draggable={false}
+        />
+        <div>Edit profile</div>
+      </div>
+      <div
+        className="flex h-1/5 cursor-pointer flex-row items-center space-x-1 px-2 hover:bg-ci-dark-gray"
+        onClick={() => router.push("/suechaokhai/editProfile")} // add path to payment history
+      >
+        <Image
+          src={paymentIcon}
+          alt={"payment history"}
+          width={30}
+          height={16}
+          draggable={false}
+        />
+        <div>Payment history</div>
+      </div>
+      <div
+        className="flex h-1/5 cursor-pointer flex-row items-center space-x-2 px-2 hover:bg-ci-dark-gray"
+        onClick={logout}
+      >
+        <Image
+          src={logoutIcon}
+          alt={"logout"}
+          width={30}
+          height={16}
+          draggable={false}
+        />
+>>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
         <div>Log out</div>
       </div>
     </div>

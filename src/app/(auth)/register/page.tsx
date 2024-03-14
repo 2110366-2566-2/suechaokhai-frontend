@@ -60,10 +60,24 @@ export default function RegisterPage() {
           console.log(data);
           setEmail(data.email);
           setIsGoogle(true);
+<<<<<<< HEAD
         } else if (data.session_type === "LOGIN") {
           redirect("/");
         } else {
           setUser(Object);
+=======
+          changeRegState(0);
+        } else if (data.session_type === "LOGIN") {
+          router.push("/");
+        } else if (
+          data.registered_type === "EMAIL" &&
+          registeredType === "GOOGLE"
+        ) {
+          setUser(Object);
+        } else {
+          setUser(Object);
+          changeRegState(0);
+>>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -81,6 +95,10 @@ export default function RegisterPage() {
       lastName: lastName,
       phoneNumber: phoneNumber,
       img: img,
+<<<<<<< HEAD
+=======
+      registered_type: registeredType,
+>>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
     });
     console.log(userRegis);
     setFinReg(userRegis);
