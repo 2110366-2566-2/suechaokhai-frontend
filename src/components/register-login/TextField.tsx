@@ -3,10 +3,11 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
 const TextBox = React.forwardRef<HTMLInputElement, IProps>(
-  ({ children, label, type = "text", error, ...props }, ref) => {
+  ({ children, label, type = "text", error, className, ...props }, ref) => {
     return (
       <div className="gap-[8px]">
         {label && (
@@ -18,7 +19,7 @@ const TextBox = React.forwardRef<HTMLInputElement, IProps>(
         <input
           id="txt"
           autoComplete="off"
-          className="block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
+          className={`${className} block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700`}
           {...props}
           ref={ref}
           type={type}

@@ -1,4 +1,4 @@
-import { FormEvent, SetStateAction, useRef, useState } from "react";
+import { FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import TextBox from "./TextField";
 
@@ -28,7 +28,13 @@ export default function PersonalInformation({
   const lastName = useRef("");
   const phoneNumber = useRef("");
 
-  const [src, setSrc] = useState("/img/prof_pic.png");
+  const [src, setSrc] = useState("/img/login-register/prof_pic.png");
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.select();
+  }, []);
 
   function initial(fname: string, lname: string, pnum: string) {
     firstName.current = fname;
@@ -66,13 +72,18 @@ export default function PersonalInformation({
     }
   }
 
-  function handleChange(e: { target: { files: (Blob | MediaSource)[]; }; }) {
-    console.log(e.target.files);
-    setSrc(URL.createObjectURL(e.target.files[0]));
-}
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setImg(e.target.files[0]);
+      setSrc(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
-  function nextPageStatus() {
-    if (nextColor == "#3AAEEF") {
+  async function nextPageStatus() {
+    if (nextColor == "ci-blue") {
+      const reg = await register();
+      console.log(reg);
       changeRegState(2);
     }
   }
@@ -93,22 +104,13 @@ export default function PersonalInformation({
       <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
         Personal Information
       </div>
-      <div className="rounded-full overflow-hidden w-[167px] h-[167px]">
-      <Image
-        src={src}
-        alt="Your Image"
-        width={167}
-        height={167}
-        layout="responsive"
-      />
-      </div>
-      <div className="pt-[12px] text-[20px] font-bold text-[#3AAEEF]">
-        <input
-          type="file"
-          accept="image/*"
-          ref={hiddenFileInput}
-          style={{ display: "none" }}
-          onChange={handleChange}
+      <div className="h-[167px] w-[167px] overflow-hidden rounded-full">
+        <Image
+          src={src}
+          alt="Your Image"
+          width={167}
+          height={167}
+          layout="responsive"
         />
       </div>
 

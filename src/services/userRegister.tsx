@@ -2,6 +2,7 @@ import { PersonalInfo } from "@/app/(auth)/register/page";
 
 export default async function userRegister(personalInfo: PersonalInfo) {
   const formData = new FormData();
+  formData.append("registered_type", personalInfo.registered_type);
   formData.append("email", personalInfo.email);
   formData.append("password", personalInfo.password);
   formData.append("first_name", personalInfo.firstName);
@@ -12,7 +13,7 @@ export default async function userRegister(personalInfo: PersonalInfo) {
   );
   formData.append("profile_image", personalInfo.img);
 
-  console.log(formData.get("email"));
+  console.log(personalInfo.img);
 
   const response = await fetch("http://localhost:8000/api/v1/register", {
     method: "POST",

@@ -10,7 +10,7 @@ const TrackingCircle = React.forwardRef<HTMLInputElement, IProps>(
       <div className="mt-[100px] inline-flex w-full items-center justify-center ">
         <div className="flex flex-col items-center">
           <div
-            className={`flex h-20 w-20 items-center justify-center rounded-full ${page === "Listing" ? "bg-ci-light-blue" : "border border-2 border-gray-300 bg-white"}`}
+            className={`flex size-20 items-center justify-center rounded-full ${page === "Listing" ? "bg-ci-light-blue" : "border border-2 border-gray-300 bg-white"}`}
           >
             <span
               className={`text-[40px] font-semibold ${page === "Listing" ? "text-ci-white" : "text-ci-dark-gray"}`}
@@ -32,7 +32,7 @@ const TrackingCircle = React.forwardRef<HTMLInputElement, IProps>(
 
         <div className="flex flex-col items-center">
           <div
-            className={`flex h-20 w-20 items-center justify-center rounded-full ${page === "Listing" ? "border border-2 border-gray-300 bg-white" : "bg-ci-light-blue"}`}
+            className={`flex size-20 items-center justify-center rounded-full ${page === "Listing" ? "border border-2 border-gray-300 bg-white" : "bg-ci-light-blue"}`}
           >
             <span
               className={`text-[40px] font-semibold ${page === "Listing" ? "text-ci-dark-gray" : "text-ci-white"}`}

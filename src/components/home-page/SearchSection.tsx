@@ -2,6 +2,7 @@
 
 import { min } from "date-fns/fp/min";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 export default function SearchSection() {
@@ -31,14 +32,15 @@ export default function SearchSection() {
     console.log(minSize);
     console.log(maxSize);
     console.log(bedrooms);
+    window.location.href = `http://localhost:3000/search?search=${searchContent}&min-price=${minPrice}&max-price=${maxPrice}&min-size=${minSize}&max-size=${maxSize}&bedrooms=${bedrooms}`;
   }
 
   return (
-    <div className="mt-6 flex h-96 w-1/2 flex-col gap-y-6 sm:text-sm md:text-base 2xl:text-xl">
+    <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
         <input
           type="text"
-          className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5 "
+          className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5"
           placeholder="Location, building"
           onChange={(e) => {
             setSearchContent(e.target.value);
@@ -53,19 +55,19 @@ export default function SearchSection() {
       </div>
 
       <div className="flex w-full flex-row gap-x-7 text-ci-black">
-        <div className="flex w-80 flex-col gap-3">
+        <div className="flex w-1/3 min-w-24 flex-col gap-3">
           <div
             onClick={() => setFilterPrice(!filterPrice)}
-            className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-white px-6 text-left"
+            className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-white px-6 text-left "
           >
-            <p>Price Range</p>
+            <p className="truncate">Price Range</p>
             {filterPrice ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
                 alt="arrow-down"
                 width={40}
                 height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
+                className="w-5 sm:w-5 md:w-7 2xl:w-10"
               />
             ) : (
               <Image
@@ -73,17 +75,17 @@ export default function SearchSection() {
                 alt="arrow-down"
                 width={40}
                 height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
+                className="w-5 sm:w-5 md:w-7 2xl:w-10"
               />
             )}
           </div>
           {filterPrice ? (
-            <div className="flex h-36 w-full flex-col items-center justify-center gap-y-2 rounded-xl bg-white">
-              <div className="flex items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
+            <div className="flex w-full flex-col items-center justify-center gap-y-2 rounded-xl bg-white py-4 sm:h-36 sm:py-0">
+              <div className="flex flex-col items-center justify-center gap-x-2 gap-y-2 px-3 text-left sm:flex-row sm:gap-y-4 sm:px-6">
                 <div className="text-center">Min (฿)</div>
                 <input
                   type="number"
-                  className="h-14 w-full rounded-xl border border-ci-gray px-4"
+                  className="h-10 w-full rounded-xl border border-ci-gray px-4 sm:h-14"
                   onChange={(e) => {
                     if (
                       parseInt(e.target.value) >= 0 ||
@@ -98,11 +100,11 @@ export default function SearchSection() {
                   placeholder="0"
                 ></input>
               </div>
-              <div className="flex flex-row items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
+              <div className="flex flex-row flex-col items-center justify-center gap-x-2 gap-y-2 px-3 text-left sm:flex-row sm:gap-y-4 sm:px-6">
                 <div className="text-center">Max (฿)</div>
                 <input
                   type="number"
-                  className="h-14 w-full rounded-xl border border-ci-gray px-4"
+                  className="h-10 w-full rounded-xl border border-ci-gray px-4 sm:h-14"
                   onChange={(e) => {
                     if (
                       parseInt(e.target.value) >= 0 ||
@@ -120,19 +122,19 @@ export default function SearchSection() {
             </div>
           ) : null}
         </div>
-        <div className="flex w-80 flex-col gap-3">
+        <div className="flex w-1/3 min-w-24 flex-col gap-3">
           <div
             onClick={() => setFilterSize(!filterSize)}
             className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-white px-6 text-left"
           >
-            <p>Size</p>
+            <p className="truncate">Size</p>
             {filterSize ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
                 alt="arrow-down"
                 width={40}
                 height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
+                className="w-5 sm:w-5 md:w-7 2xl:w-10"
               />
             ) : (
               <Image
@@ -140,17 +142,17 @@ export default function SearchSection() {
                 alt="arrow-down"
                 width={40}
                 height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
+                className="w-5 sm:w-5 md:w-7 2xl:w-10"
               />
             )}
           </div>
           {filterSize ? (
-            <div className="flex h-36 w-full flex-col items-center justify-center gap-y-2 rounded-xl bg-white">
-              <div className="flex flex-row items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
+            <div className="flex w-full flex-col items-center justify-center gap-y-2 rounded-xl bg-white py-4 sm:h-36 sm:py-0">
+              <div className="flex flex-col items-center justify-center gap-x-2 gap-y-2 px-3 text-left sm:flex-row sm:gap-y-4 sm:px-6">
                 <p className="text-center">Min (m²)</p>
                 <input
                   type="number"
-                  className="h-14 w-full rounded-xl border border-ci-gray px-4"
+                  className="h-10 w-full rounded-xl border border-ci-gray px-4 sm:h-14"
                   onChange={(e) => {
                     if (
                       parseInt(e.target.value) >= 0 ||
@@ -165,11 +167,11 @@ export default function SearchSection() {
                   placeholder="0"
                 ></input>
               </div>
-              <div className="flex flex-row items-center justify-center gap-x-2 gap-y-4 px-6 text-left">
+              <div className="flex flex-col items-center justify-center gap-x-2 gap-y-2 px-3 text-left sm:flex-row sm:gap-y-4 sm:px-6">
                 <p className="text-center">Max (m²)</p>
                 <input
                   type="number"
-                  className="h-14 w-full rounded-xl border border-ci-gray px-4"
+                  className="h-10 w-full rounded-xl border border-ci-gray px-4 sm:h-14"
                   onChange={(e) => {
                     if (
                       parseInt(e.target.value) >= 0 ||
@@ -187,19 +189,19 @@ export default function SearchSection() {
             </div>
           ) : null}
         </div>
-        <div className="flex w-80 flex-col gap-3">
+        <div className="flex w-1/3 min-w-24 flex-col gap-3">
           <div
             onClick={() => setFilterBedroom(!filterBedroom)}
             className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-white px-6 text-left"
           >
-            <p>Bedrooms</p>
+            <p className="truncate">Bedrooms</p>
             {filterBedroom ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
                 alt="arrow-down"
                 width={40}
                 height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
+                className="w-5 sm:w-5 md:w-7 2xl:w-10"
               />
             ) : (
               <Image
@@ -207,13 +209,13 @@ export default function SearchSection() {
                 alt="arrow-down"
                 width={40}
                 height={40}
-                className="sm:w-5 md:w-7 2xl:w-10"
+                className="w-5 sm:w-5 md:w-7 2xl:w-10"
               />
             )}
           </div>
           {filterBedroom ? (
-            <div className="h-18 flex w-full items-center justify-center rounded-xl bg-white p-2 sm:flex-col md:flex-col 2xl:flex-row">
-              <div>Bedroom(s)</div>
+            <div className="h-18 flex flex-col items-center justify-center rounded-xl bg-white p-2 md:flex-col 2xl:flex-row">
+              <div>Bedroom</div>
               <div className="flex flex-row items-center gap-x-1 py-2">
                 <button
                   onClick={() => {
@@ -225,7 +227,7 @@ export default function SearchSection() {
                 </button>
                 <input
                   type="number"
-                  className="h-14 w-14 rounded-xl border border-ci-gray px-2 text-center"
+                  className="size-10 rounded-xl border border-ci-gray px-2 text-center sm:size-14"
                   onChange={(e) => {
                     if (e.target.value === "") {
                       setBedrooms(0);
