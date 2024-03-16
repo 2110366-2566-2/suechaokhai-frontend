@@ -1,6 +1,7 @@
 import Image from "next/image";
 import StatusBox from "@/components/my-appointment/StatusBox";
 import { DetailButton, CancelButton } from "@/components/my-appointment/InteractiveButton";
+import { useState } from "react";
 
 export default function AppointmentList({
     propertyImgSrc,
@@ -21,6 +22,8 @@ export default function AppointmentList({
     time: string,
     status: string
 }) {
+    const [reason, setReason] = useState("");
+
     return (
         <div className="border-ci-dark-gray border-y-2 border-x-4 bg-ci-light-gray w-full h-[240px]">
             <div className="flex flex-row w-[90%] h-[67%] mx-auto my-10 justify-between">
@@ -71,7 +74,7 @@ export default function AppointmentList({
                 </div>
                 <div className="flex flex-col w-[12.5%] h-full ml-28 my-auto justify-between">
                     <DetailButton />
-                    <CancelButton status={status}/>            
+                    <CancelButton status={status} reasontmp={reason} setReason={setReason}/>            
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 export default interface AppointmentData {
-    propertImgSrc: string;
+    propertyImgSrc: string;
     propertyName: string;
     propertySubName: string;
     ownerImgSrc: string;

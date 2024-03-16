@@ -1,16 +1,11 @@
 "use client";
 import PropertyData from "@/components/models/PropertyData";
-<<<<<<< HEAD
 import PropertyCards from "@/components/my-listing/PropertyCards";
 import getUserProperty from "@/services/getUserProperty";
-=======
-import PropertyCards from "@/components/mylisting/PropertyCards";
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
 
-<<<<<<< HEAD
 const myListingPage = () => {
     const [propData,setData] = useState<PropertyData[]>([]);
     const [total,setTotal] = useState<number>(0);
@@ -91,114 +86,9 @@ const myListingPage = () => {
                     </div>
                   </button>
                 </div>
-=======
-const MyListingPage = () => {
-  const [propData, setData] = useState<PropertyData[]>([]);
-
-  function generatePropertyDataArray(n: number): PropertyData[] {
-    const propertyDataArray: PropertyData[] = [];
-    for (let i = 0; i < n; i++) {
-      const propertyData: PropertyData = {
-        owner_id: `owner_${i}`,
-        description: `Description ${i}`,
-        images: ["/img/Property.png"],
-        project_name: `Project ${i}`,
-        address: `Address ${i}`,
-        alley: `Alley ${i}`,
-        street: `Street ${i}`,
-        district: `District ${i}`,
-        sub_district: `Sub District ${i}`,
-        province: `Province ${i}`,
-        postal_code: `Postal Code ${i}`,
-        residental_type: `Residential Type ${i}`,
-        renting: {
-          price_per_month: Math.floor(Math.random() * 100000), // Example random price
-        },
-      };
-
-      propertyDataArray.push(propertyData);
-    }
-
-    return propertyDataArray;
-  }
-
-  useEffect(() => {
-    setData(generatePropertyDataArray(50));
-  }, []);
-
-  const [haveProp, setHave] = useState<boolean>(true);
-
-  const handleCreate = () => {
-    console.log(haveProp);
-    setHave(!haveProp);
-  };
-  return (
-    <>
-      {haveProp ? (
-        <div className="mx-80 mt-8 flex h-full flex-col ">
-          <div className="text-4xl font-bold">My Listing</div>
-
-          <PropertyCards propData={propData}></PropertyCards>
-
-          <button
-            className="fixed bottom-24 right-24 flex w-1/6 flex-row justify-around rounded-md bg-ci-blue p-4 "
-            onClick={handleCreate}
-          >
-            <Image
-              src="/img/mylisting/plusCircle.svg"
-              alt="add"
-              width={30}
-              height={30}
-            />
-            <div className="text-2xl font-bold text-white ">
-              Create Property
-            </div>
-          </button>
-        </div>
-      ) : (
-        <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
-          <div className="text-center text-4xl font-bold">
-            Empty property listing
-          </div>
-
-          <Image
-            src="/img/mylisting/home.svg"
-            alt="home"
-            width={100}
-            height={100}
-          />
-          <div className="">
-            <div className="m-1 text-center text-2xl">
-              Your listing is empty.
-            </div>
-            <div className="m-1 text-center text-2xl">
-              Let&apos;s create a property on your listing.
-            </div>
-          </div>
-
-          <button
-            className="flex w-1/5 flex-row justify-around rounded-md bg-ci-blue p-4"
-            onClick={handleCreate}
-          >
-            <Image
-              src="/img/mylisting/plusCircle.svg"
-              alt="add"
-              width={30}
-              height={30}
-            />
-            <div className="text-2xl font-bold text-white ">
-              Create Property
-            </div>
-          </button>
-        </div>
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
       )}
     </>
   );
 };
 
-<<<<<<< HEAD
 export default myListingPage;
-=======
-export default MyListingPage;
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4

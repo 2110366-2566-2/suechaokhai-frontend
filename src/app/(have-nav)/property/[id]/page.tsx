@@ -41,22 +41,9 @@ const propertyImages = [
   "/img/arthur.JPG",
   "/img/babywinsmoking.JPG",
 ];
-<<<<<<< HEAD
 const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
 export default function PropertyDescriptionPage() {
   const params = useParams<{ tag: string; item: string; id: string }>();
-=======
-// const propertyOwner = {
-//   name: "Thanapat",
-//   tel: "789456123",
-//   mail: "something@mymail.coom",
-//   imgSrc: "/img/Boss.png",
-// };
-const propertyTag = ["Condomenium", "Sathon", "BTS", "MRT"];
-export default function PropertyDescriptionPage() {
-  const params = useParams<{ tag: string; item: string; id: string }>();
-  console.log(params.id);
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
   const [property, setProperty] = useState<PropertyData | null>(null);
   const [owner, setOwner] = useState<UserData | null>(null);
   const fetchData = async () => {
@@ -66,22 +53,13 @@ export default function PropertyDescriptionPage() {
       const ownerResult = await getOwnerData(result.owner_id);
       setOwner(ownerResult);
     }
-<<<<<<< HEAD
     if (result.code == 400) {
       window.location.href = "/404";
     }
-=======
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
   };
   useEffect(() => {
     fetchData();
   }, []);
-<<<<<<< HEAD
-=======
-  if (property == null) {
-    window.location.href = "/404";
-  }
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
   const propertyAddress =
     (property?.address || "") +
     ", " +
@@ -96,49 +74,45 @@ export default function PropertyDescriptionPage() {
     (property?.province || "") +
     " " +
     (property?.postal_code || "");
-  return (
-<<<<<<< HEAD
-    <div className=" px-[5%] sm:px-[15%] ">
-=======
-    <div className=" px-[1%] sm:px-[15%] ">
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
-      <div className="flex flex-row items-center ">
-        <WestIcon className="mx-3"></WestIcon>
-        <div className="m-3 text-3xl font-bold">
-          {property?.project_name || ""}
-        </div>
-      </div>
-
-      <div className="flex flex-row">
-        {propertyTag.map((name: string) => (
-          <PropertyTag name={name} key={name} />
-        ))}
-      </div>
-
-      <ImageSlider images={property?.images.map((value) => value.url) || []} />
-      {/* <ImageSlider images={propertyImages} /> */}
-      <div className="flex flex-col">
-        <div className="flex flex-col lg:flex-row">
-          <PropertyDescription
-            name={property?.project_name || ""}
-            features={propertyFeatures}
-            price={property?.renting.price_per_month || 0}
-            description={property?.description || ""}
-            address={propertyAddress}
-          />
-          <div className="lg:ml-auto">
-            <RoomTourRes Property={property?.project_name || ""}></RoomTourRes>
+    return (
+      <div className=" px-[5%] sm:px-[15%] ">
+        <div className="flex flex-row items-center ">
+          <WestIcon className="mx-3"></WestIcon>
+          <div className="m-3 text-3xl font-bold">
+            {property?.project_name || ""}
           </div>
         </div>
-        <OwnerInfo
-          name={(owner?.first_name || "") + " " + (owner?.last_name || "")}
-          tel={owner?.phone_number || ""}
-          mail={owner?.email || ""}
-          imgSrc={owner?.profile_image_url || ""}
-        ></OwnerInfo>
+  
+        <div className="flex flex-row">
+          {propertyTag.map((name: string) => (
+            <PropertyTag name={name} key={name} />
+          ))}
+        </div>
+  
+        <ImageSlider images={property?.images.map((value) => value.url) || []} />
+        {/* <ImageSlider images={propertyImages} /> */}
+        <div className="flex flex-col">
+          <div className="flex flex-col lg:flex-row">
+            <PropertyDescription
+              name={property?.project_name || ""}
+              features={propertyFeatures}
+              price={property?.renting.price_per_month || 0}
+              description={property?.description || ""}
+              address={propertyAddress}
+            />
+            <div className="lg:ml-auto">
+              <RoomTourRes Property={property?.project_name || ""}></RoomTourRes>
+            </div>
+          </div>
+          <OwnerInfo
+            name={(owner?.first_name || "") + " " + (owner?.last_name || "")}
+            tel={owner?.phone_number || ""}
+            mail={owner?.email || ""}
+            imgSrc={owner?.profile_image_url || ""}
+          ></OwnerInfo>
+        </div>
+  
+        <Toaster richColors></Toaster>
       </div>
-
-      <Toaster richColors></Toaster>
-    </div>
-  );
-}
+    );
+  }

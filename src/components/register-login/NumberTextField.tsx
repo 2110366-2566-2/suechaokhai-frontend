@@ -56,22 +56,10 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
     return (
       <div className="gap-[8px]">
         {label && (
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-          <label className="inline-block pb-[8px] font-bold" htmlFor="txt">
-||||||| b074513
-          <label className="inline-block pb-[8px] font-medium" htmlFor="txt">
-=======
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
           <label
             className="inline-block pb-[8px] text-[20px] font-bold"
             htmlFor="txt"
           >
-<<<<<<< HEAD
-=======
->>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
->>>>>>> 9b9102f7735205ca6346bc5a8ecf19f315514ff4
             {label} :
           </label>
         )}

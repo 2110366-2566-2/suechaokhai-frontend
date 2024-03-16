@@ -25,13 +25,33 @@ export default function AppointmentDetail() {
 
     return (
         <div className="w-[80%] h-full mx-auto my-[50px]">
-            <div className="font-bold text-4xl">
-                {propertyName}
+            <div className="flex flex-row">
+                <button 
+                    className="flex flex-row w-[7%] h-min bg-ci-blue rounded-full px-2 py-2"
+                    onClick={() => router.back()}
+                >
+                    <div className="w-[40%] my-auto mx-auto pl-2">
+                        <Image
+                            src='/img/my-appointment/return.svg'
+                            alt='return'
+                            width={20}
+                            height={20}
+                            objectFit="cover"
+                            layout="responsive"
+                        />
+                    </div>
+                    <div className="w-[60%] my-auto text-white text-lg">
+                        Back
+                    </div>
+                </button>
+                <div className="font-bold text-4xl my-auto mx-5">
+                    {propertyName}
+                </div>
             </div>
             <div className="flex flex-col my-10 bg-ci-light-gray w-full h-full rounded-3xl">
                 <div className="flex flex-col items-center justify-center w-[90%] mx-auto my-7">
                     <div className="flex flex-row w-full justify-between mb-5">
-                        <div className="font-bold text-4xl" onClick={() => router.back()}>
+                        <div className="font-bold text-4xl">
                             {propertyName}
                         </div>
                         <div>
