@@ -18,11 +18,9 @@ export default function FeaturesPropCatalog() {
       if (res) {
         res.forEach((item: PropertyData) => {
           property2.push(item);
-          console.log(item.is_favorite);
         });
         setPropsId(property2);
       }
-      console.log(property2.length);
     };
     fetchData();
   }, []);
