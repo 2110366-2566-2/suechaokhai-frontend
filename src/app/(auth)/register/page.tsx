@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import authCallback from "@/services/authCallback";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import EmailVerificationPage from "@/components/register-login/EmailVerificationPage";
 
 export interface PersonalInfo {
   email: string;
@@ -148,7 +149,10 @@ export default function RegisterPage() {
 
       {registerStage === 2 ? (
         <div>
-          <AccountCreated changeRegState={changeRegState} finReg={finReg} />
+          <EmailVerificationPage
+            changeRegState={changeRegState}
+            finReg={finReg}
+          />
         </div>
       ) : null}
     </div>
