@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
-import AccountCreated from "@/components/register-login/AccountCreated";
 import userRegister from "@/services/userRegister";
 import { useSearchParams } from "next/navigation";
 import authCallback from "@/services/authCallback";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import EmailVerificationPage from "@/components/register-login/EmailVerificationPage";
+import sendVerification from "@/services/sendVerificationEmail";
 
 export interface PersonalInfo {
   email: string;
@@ -91,6 +91,9 @@ export default function RegisterPage() {
       img: img,
       registered_type: registeredType,
     });
+    const tmp = [email];
+    const emailSend = await sendVerification(tmp);
+    console.log(emailSend);
     console.log(userRegis);
     setFinReg(userRegis);
   };
