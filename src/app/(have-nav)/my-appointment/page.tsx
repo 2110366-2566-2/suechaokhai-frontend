@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image";
 import AppointmentList from "@/components/my-appointment/AppointmentList";
 import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
+import getUserAppointment from "@/services/getUserAppointment";
 
 export default function MyAppointment() {
 
@@ -25,6 +26,14 @@ export default function MyAppointment() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [ref]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getUserAppointment();
+            console.log(data);
+        }
+        fetchData()
+    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(event.target.value);
