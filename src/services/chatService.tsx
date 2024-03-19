@@ -49,14 +49,18 @@ export class ChatService {
 
   private sendingLists: { [key: string]: (msg: ChatMessage) => void } = {};
 
+  private registeredCallback: {
+    [key: string]: (payload: ChatMessage) => void;
+  } = {};
+
   public connect(onCallback?: () => void) {
     if (!this.conn) {
       this.conn = new WebSocket(
         `${process.env.NEXT_PUBLIC_WS_BACKEND_HOST!}/ws/chats`
       );
 
-      this.conn.onmessage = this.onMessage;
-      this.conn.onopen = function (e: Event) {
+      this.conn.onmessage = (e: MessageEvent<string>) => this.onMessage(e);
+      this.conn.onopen = (e: Event) => {
         console.log("Connected");
         if (!!onCallback) onCallback();
       };
@@ -86,13 +90,13 @@ export class ChatService {
     return this.chats[this.currentChatUserId].messages;
   }
 
-  public sendMessage(msg: ChatMessage, onCallback: (msg: ChatMessage) => void) {
+  public sendMessage(msg: string, onCallback?: (msg: ChatMessage) => void) {
     if (!this.isConnected()) return;
 
     let sentAt = new Date(Date.now());
-    let tag = this.sendWSEvent("MSG", msg.content, sentAt);
+    let tag = this.sendWSEvent("MSG", msg, sentAt);
 
-    this.sendingLists[tag] = onCallback;
+    if (onCallback) this.sendingLists[tag] = onCallback;
   }
 
   public async getAllChats(): Promise<Chat[]> {
@@ -152,11 +156,27 @@ export class ChatService {
     return tag;
   }
 
-  private onMessage(e: MessageEvent) {
+  public on(event: WSInEventType, callback: (payload: ChatMessage) => void) {
+    this.registeredCallback[event] = callback;
+  }
+
+  private onMessage(e: MessageEvent<string>) {
     let msg = JSON.parse(e.data) as WSInEvent;
+
+    console.log(msg);
 
     switch (msg.event) {
       case "MSG":
+        let payload = msg.payload as ChatMessage;
+        let sendingCallback = this.sendingLists[msg.tag];
+        if (sendingCallback !== undefined) {
+          sendingCallback(payload);
+          delete this.sendingLists[msg.tag];
+        }
+
+        if (this.registeredCallback[msg.event] !== undefined)
+          this.registeredCallback[msg.event](msg.payload);
+
         break;
 
       case "READ":
