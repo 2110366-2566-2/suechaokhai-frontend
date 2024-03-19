@@ -1,8 +1,10 @@
 import Image from "next/image";
 import ChatList from "./ChatList";
 import SearchBar from "./SearchBar";
+import { useState } from "react";
 
 export default function ChatBox({setOpen}:{setOpen:Function}){
+    const [isChat,setChat] = useState<boolean>(false);
     const peopleNames = [
         "John",
         "Emma",
