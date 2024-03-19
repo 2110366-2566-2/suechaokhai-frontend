@@ -23,11 +23,9 @@ export default function ChatModule(){
         {user&&
         <div className="flex flex-row justify-end items-end gap-x-6">
             {isOpen&&
-                <div>
-                    <ChatBox/>
-                </div>
+                <ChatBox setOpen={setOpen}/>
             }
-            <div onClick={()=>{setOpen(!isOpen)}}>
+            <div className="p-4" onClick={()=>{setOpen(!isOpen)}}>
                 <ChatIcon/>
             </div>
         </div>}
