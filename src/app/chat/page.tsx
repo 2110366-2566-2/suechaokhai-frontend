@@ -27,7 +27,7 @@ export default function Chat() {
   }
 
   async function getMore() {
-    let messages = await ChatService.getInstance().getMessages();
+    let messages = await ChatService.getInstance().getNextMessages();
     console.log(messages);
     setMessages((prevMessages: ChatMessage[]) => {
       return messages.concat(prevMessages);

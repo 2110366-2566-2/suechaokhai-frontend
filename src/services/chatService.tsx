@@ -99,11 +99,11 @@ export class ChatService {
     if (onCallback) this.sendingLists[tag] = onCallback;
   }
 
-  public async getAllChats(): Promise<Chat[]> {
+  public async getAllChats(query?: string): Promise<Chat[]> {
     if (!this.isConnected()) return [];
 
     try {
-      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats`;
+      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats${query || ""}`;
       let response = await fetch(url, {
         method: "GET",
         credentials: "include",
