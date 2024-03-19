@@ -42,7 +42,7 @@ export class ChatService {
   private messageLimit: number = 10;
   private chats: {
     [key: string]: {
-      page: number;
+      offset: number;
       messages: ChatMessage[];
     };
   } = {};
@@ -80,11 +80,11 @@ export class ChatService {
     this.currentChatUserId = userId;
     if (this.chats[this.currentChatUserId] === undefined) {
       this.chats[this.currentChatUserId] = {
-        page: 0,
+        offset: 0,
         messages: [],
       };
 
-      this.chats[this.currentChatUserId].messages = await this.getMessages();
+      this.chats[this.currentChatUserId].messages = await this.getMessages(0);
     }
 
     return this.chats[this.currentChatUserId].messages;
@@ -99,11 +99,11 @@ export class ChatService {
     if (onCallback) this.sendingLists[tag] = onCallback;
   }
 
-  public async getAllChats(): Promise<Chat[]> {
+  public async getAllChats(query?: string): Promise<Chat[]> {
     if (!this.isConnected()) return [];
 
     try {
-      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats`;
+      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats${query || ""}`;
       let response = await fetch(url, {
         method: "GET",
         credentials: "include",
@@ -117,12 +117,16 @@ export class ChatService {
     }
   }
 
-  public async getMessages(): Promise<ChatMessage[]> {
+  public async getNextMessages(): Promise<ChatMessage[]> {
+    this.chats[this.currentChatUserId].offset += this.messageLimit;
+    return await this.getMessages(this.chats[this.currentChatUserId].offset);
+  }
+
+  public async getMessages(offset: number): Promise<ChatMessage[]> {
     if (!this.isConnected()) return [];
 
     try {
-      let page = ++this.chats[this.currentChatUserId].page;
-      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats/${this.currentChatUserId}?page=${page}&limit=${this.messageLimit}`;
+      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats/${this.currentChatUserId}?offset=${offset}&limit=${this.messageLimit}`;
       let response = await fetch(url, {
         method: "GET",
         credentials: "include",
