@@ -3,9 +3,11 @@ import getCurrentUser from "@/services/getCurrentUser";
 import { useEffect, useState } from "react";
 import UserData from "../models/UserData";
 import ChatIcon from "./ChatIcon";
+import ChatBox from "./ChatBox";
 
 export default function ChatModule(){
     const [user,setUser] = useState<UserData>();
+    const [isOpen,setOpen] = useState<boolean>(false);
     useEffect(()=>{
         async function getUser(){
                 const user = await getCurrentUser();
@@ -17,10 +19,17 @@ export default function ChatModule(){
         getUser()
     })
     return (
-    <div className="flex right-5 bottom-5 fixed">
+    <div className="flex right-0 bottom-0 fixed">
         {user&&
-        <div>
-            <ChatIcon/>
+        <div className="flex flex-row justify-end items-end gap-x-6">
+            {isOpen&&
+                <div>
+                    <ChatBox/>
+                </div>
+            }
+            <div onClick={()=>{setOpen(!isOpen)}}>
+                <ChatIcon/>
+            </div>
         </div>}
     </div>)
 }
