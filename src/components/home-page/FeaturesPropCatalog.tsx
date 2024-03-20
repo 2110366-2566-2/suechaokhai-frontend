@@ -4,6 +4,7 @@ import SmallPropertyCard from "./SmallPropertyCard";
 import Image from "next/image";
 import getTopProperty from "@/services/getTopProperty";
 import PropertyData from "../models/PropertyData";
+import Link from "next/link";
 
 export default function FeaturesPropCatalog() {
   const [start, setStart] = useState<number>(0);
@@ -20,7 +21,6 @@ export default function FeaturesPropCatalog() {
         });
         setPropsId(property2);
       }
-      console.log(property2.length);
     };
     fetchData();
   }, []);
@@ -91,7 +91,9 @@ export default function FeaturesPropCatalog() {
           {propertiesId
             .slice(start, start + windowSize)
             .map((item: PropertyData) => (
-              <SmallPropertyCard property={item} key={item.property_id} />
+              <Link href={"/property/" + item.property_id}>
+                <SmallPropertyCard property={item} key={item.property_id} />
+              </Link>
             ))}
 
           {start + windowSize < 10 ? (

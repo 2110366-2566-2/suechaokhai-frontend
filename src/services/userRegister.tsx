@@ -51,15 +51,23 @@ export default async function userRegister(personalInfo: PersonalInfo) {
   formData.append("profile_image", personalInfo.img);
 
   console.log(personalInfo.img);
-
-  const response = await fetch("http://localhost:8000/api/v1/register", {
-    method: "POST",
-    credentials: "include",
-    body: formData,
-  });
-  if (!response.ok) {
-    throw new Error("Failed to fetch register");
+  try {
+    const response = await fetch("http://localhost:8000/api/v1/register", {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch register");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
   }
+<<<<<<< HEAD
   return await response.json();
 }
 >>>>>>> df15c90262049e0e4c2b76616c35e28d9f934767
+=======
+}
+>>>>>>> dev

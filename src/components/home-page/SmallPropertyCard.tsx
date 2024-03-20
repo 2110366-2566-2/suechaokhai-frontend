@@ -8,7 +8,7 @@ export default function SmallPropertyCard({
 }: {
   property: PropertyData;
 }) {
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(property.is_favorite);
 
   async function favoriting() {
     if (isFavorite) {
@@ -36,7 +36,8 @@ export default function SmallPropertyCard({
                 {property.property_name}
               </div>
               <div
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setIsFavorite(!isFavorite);
                   favoriting();
                 }}

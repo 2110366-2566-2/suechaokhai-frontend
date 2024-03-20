@@ -10,10 +10,13 @@ import PropertyTag from "@/components/property-description/PropertyTag";
 import { useEffect, useState } from "react";
 import getPropertyDetail from "@/services/getPropertyDetail";
 import getOwnerData from "@/services/getOwnerData";
+import postAppointment from "@/services/postAppointment";
 import PropertyData from "@/components/models/PropertyData";
 import UserData from "@/components/models/UserData";
 import getCurrentUser from "@/services/getCurrentUser";
 import { useParams } from "next/navigation";
+import AppointmentData from "@/components/models/AppointmentData";
+
 // Mock property
 type FeatureProps = {
   icon: string;
@@ -46,6 +49,19 @@ export default function PropertyDescriptionPage() {
   const params = useParams<{ tag: string; item: string; id: string }>();
   const [property, setProperty] = useState<PropertyData | null>(null);
   const [owner, setOwner] = useState<UserData | null>(null);
+  const [apptData, setApptData] = useState<AppointmentData | null>(null);
+
+
+  const handlePost = async (selectedDays: Date[]) => {
+      const data = {
+        propertyId: property?.property_id,
+        ownerId: property?.owner_id,
+        dwellerId: "f38f80b3-f326-4825-9afc-ebc331626555",
+        apptDate: selectedDays
+      }
+      await postAppointment(data);
+  }
+
   const fetchData = async () => {
     const result = await getPropertyDetail(params.id);
     setProperty(result);
@@ -88,8 +104,15 @@ export default function PropertyDescriptionPage() {
             <PropertyTag name={name} key={name} />
           ))}
         </div>
+<<<<<<< HEAD
   
         <ImageSlider images={property?.images.map((value) => value.url) || []} />
+=======
+{/*   
+        {property?.images !== null? (
+          <ImageSlider images={property?.images.map((value) => value.url) || []} />
+        ) : null} */}
+>>>>>>> dev
         {/* <ImageSlider images={propertyImages} /> */}
         <div className="flex flex-col">
           <div className="flex flex-col lg:flex-row">
@@ -101,15 +124,26 @@ export default function PropertyDescriptionPage() {
               address={propertyAddress}
             />
             <div className="lg:ml-auto">
+<<<<<<< HEAD
               <RoomTourRes Property={property?.project_name || ""}></RoomTourRes>
             </div>
           </div>
           <OwnerInfo
+=======
+              <RoomTourRes Property={property?.project_name || ""} handlePost={handlePost}></RoomTourRes>
+            </div>
+          </div>
+          {/* <OwnerInfo
+>>>>>>> dev
             name={(owner?.first_name || "") + " " + (owner?.last_name || "")}
             tel={owner?.phone_number || ""}
             mail={owner?.email || ""}
             imgSrc={owner?.profile_image_url || ""}
+<<<<<<< HEAD
           ></OwnerInfo>
+=======
+          ></OwnerInfo> */}
+>>>>>>> dev
         </div>
   
         <Toaster richColors></Toaster>

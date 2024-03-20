@@ -4,9 +4,19 @@ import Image from "next/image";
 import AppointmentList from "@/components/my-appointment/AppointmentList";
 import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
 import getUserAppointment from "@/services/getUserAppointment";
+<<<<<<< HEAD
 
 export default function MyAppointment() {
 
+=======
+import AppointmentData from "@/components/models/AppointmentData";
+
+export default function MyAppointment() {
+
+    const [appointmentData, setAppointmentData] = useState<AppointmentData[]>([]);
+    const [total, setTotal] = useState<number>(0);
+
+>>>>>>> dev
     const [selectOn, setSelectOn] = useState(0);
     const [selectedOption, setSelectedOption] = useState('');
     const [showFilter, setShowFilter] = useState(false);
@@ -30,6 +40,13 @@ export default function MyAppointment() {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getUserAppointment();
+<<<<<<< HEAD
+=======
+            if (data) {
+                setAppointmentData(data);
+                setTotal(data.total);
+            }
+>>>>>>> dev
             console.log(data);
         }
         fetchData()
