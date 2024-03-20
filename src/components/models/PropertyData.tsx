@@ -42,4 +42,3 @@ export default interface PropertyData {
   sub_district: string;
   unit_number: number;
 }
-
