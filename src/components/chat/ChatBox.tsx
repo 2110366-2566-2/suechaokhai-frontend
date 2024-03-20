@@ -16,12 +16,13 @@ export default function ChatBox({
   setChatWith: Function;
 }) {
   const [chats, setChats] = useState<Chat[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     ChatService.getInstance()
-      .getAllChats()
+      .getAllChats(searchValue)
       .then((res) => setChats(res));
-  }, []);
+  }, [searchValue]);
 
   return (
     <div className="flex h-[528px] w-96 flex-col gap-y-4 rounded-t-xl bg-white px-6 py-5 shadow-xl shadow-slate-500">
@@ -51,7 +52,7 @@ export default function ChatBox({
           </button>
         </div>
       </div>
-      <SearchBar />
+      <SearchBar setSearchValue={setSearchValue} searchAfterMS={400} />
       <ChatList chats={chats} setChat={setChat} setChatWith={setChatWith} />
     </div>
   );

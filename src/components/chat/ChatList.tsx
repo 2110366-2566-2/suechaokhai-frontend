@@ -12,14 +12,15 @@ export default function ChatList({
 }) {
   return (
     <div className="flex flex-col overflow-auto">
-      {chats.map((item: Chat, index: number) => (
-        <UserCard
-          key={index}
-          chat={item}
-          setChat={setChat}
-          setChatWith={setChatWith}
-        />
-      ))}
+      {chats &&
+        chats.map((item: Chat, index: number) => (
+          <UserCard
+            key={index}
+            chat={item}
+            setChat={setChat}
+            setChatWith={setChatWith}
+          />
+        ))}
     </div>
   );
 }

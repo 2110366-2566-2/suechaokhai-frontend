@@ -115,7 +115,7 @@ export class ChatService {
     if (!this.isConnected()) return [];
 
     try {
-      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats${query || ""}`;
+      const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats?query=${query || ""}`;
       let response = await fetch(url, {
         method: "GET",
         credentials: "include",
