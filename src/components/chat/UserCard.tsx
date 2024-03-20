@@ -1,35 +1,40 @@
 import Image from "next/image";
 import { useState } from "react";
 import MessageBox from "./MessageBox";
+import { Chat } from "@/services/chatService";
 
 export default function UserCard({
-  userId,
+  chat,
   setChat,
   setChatWith,
 }: {
-  userId: string;
+  chat: Chat;
   setChat: Function;
   setChatWith: Function;
 }) {
   return (
     <div
-      className="flex h-20 w-full cursor-pointer flex-row items-center justify-start rounded-xl p-2 hover:bg-ci-light-gray"
+      className="flex h-20 w-full cursor-pointer flex-row items-center justify-start gap-2 rounded-xl p-2 hover:bg-ci-light-gray"
       onClick={() => {
         setChat(true);
-        setChatWith(userId);
+        setChatWith(chat.user_id);
       }}
     >
-      <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full">
+      <div className="relative flex aspect-square w-16 items-center justify-center overflow-hidden rounded-full">
         <Image
-          src="/img/babywinsmoking.jpg"
-          alt="รูปปก"
-          width={16}
-          height={16}
+          src={
+            chat.profile_image_url.length > 0
+              ? chat.profile_image_url
+              : "/img/PropertyNavBar/ic_round-account-circle.svg"
+          }
+          className="bg-ci-gray"
+          alt="profile image"
           draggable={false}
-          layout="responsive"
+          fill
+          style={{ objectFit: "cover" }}
         />
       </div>
-      <div className="px-8 text-xl font-bold">{userId}</div>
+      <div className="truncate text-xl font-bold">{`${chat.first_name} ${chat.last_name}`}</div>
     </div>
   );
 }

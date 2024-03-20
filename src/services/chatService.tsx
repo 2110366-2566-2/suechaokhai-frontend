@@ -23,8 +23,11 @@ export interface ChatMessage {
 }
 
 export interface Chat {
-  unread_messages: number;
   user_id: string;
+  first_name: string;
+  last_name: string;
+  profile_image_url: string;
+  unread_messages: number;
   content: string;
 }
 

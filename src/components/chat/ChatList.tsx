@@ -1,18 +1,24 @@
+import { Chat } from "@/services/chatService";
 import UserCard from "./UserCard";
 
 export default function ChatList({
-  userList,
+  chats,
   setChat,
   setChatWith,
 }: {
-  userList: string[];
+  chats: Chat[];
   setChat: Function;
   setChatWith: Function;
 }) {
   return (
     <div className="flex flex-col overflow-auto">
-      {userList.map((item: string) => (
-        <UserCard userId={item} setChat={setChat} setChatWith={setChatWith} />
+      {chats.map((item: Chat, index: number) => (
+        <UserCard
+          key={index}
+          chat={item}
+          setChat={setChat}
+          setChatWith={setChatWith}
+        />
       ))}
     </div>
   );
