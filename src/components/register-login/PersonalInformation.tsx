@@ -89,7 +89,7 @@ export default function PersonalInformation({
   }
 
   function back() {
-    changeRegState(0);
+    changeRegState(1);
   }
 
   function userReg1(event: FormEvent<HTMLFormElement>) {

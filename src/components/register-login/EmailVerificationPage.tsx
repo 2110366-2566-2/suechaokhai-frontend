@@ -6,41 +6,61 @@ import Link from "next/link";
 
 export default function EmailVerificationPage({
   finReg,
+  changeRegState,
 }: {
   changeRegState: Function;
   finReg: any;
 }) {
+  function checkVerification() {
+    changeRegState(2);
+  }
   return (
     <div>
-      {finReg.message == "User created" ? (
-        <div className="flex h-[713px] w-[1214px] flex-col items-center rounded-[10px] bg-white">
-          <div className="pb-[90px] pt-[50px] text-[40px] font-bold">
-            Please Verify Your Email
-          </div>
+      {true ? (
+        <div className="flex h-full flex-col items-center justify-center gap-y-10 rounded-[10px] bg-white px-14 py-16">
+          <div className="text-3xl font-bold">Please Verify Your Email</div>
 
-          <div className="flex flex-col gap-[60px]">
-            <div className="font-regular flex items-center justify-center text-[24px]">
+          <div className="flex flex-col items-center gap-y-10">
+            <div className="font-regular flex flex-col items-center justify-center text-center text-lg">
               <Image
                 src={"/img/login-register/email-sent.svg"}
                 width={150}
                 height={150}
                 alt="BlueValidIcon"
               />
+              <div className="flex flex-col">
+                <div className="font-bold">
+                  We have sent the verification code to your email.
+                </div>
+                <div>Please verify your email in 5 minutes.</div>
+              </div>
             </div>
-            <div className="font-regular flex flex-col items-center justify-center text-center text-[24px]">
-              <div>We have sent the verification link to your email.</div>
-              <div>Please verify your email in 5 minutes.</div>
-            </div>
-            <div className="font-regular flex flex-col items-center justify-center gap-4 text-[24px]">
-              <Link href="/login">
-                <button className="h-[60px] w-[510px] rounded-[10px] bg-ci-blue font-bold text-white">
-                  Back to Login page
-                </button>
-              </Link>
+          </div>
 
-              <Link href="/login">
-                <div className="text-ci-blue">Resend verification link</div>
-              </Link>
+          <div className="font-regular flex w-full w-full flex-col justify-between gap-y-4 text-xl">
+            <input
+              type="text"
+              className="block h-[50px] w-full rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
+              placeholder="Enter your verification code"
+            ></input>
+            <button
+              onClick={() => {
+                checkVerification();
+              }}
+              className="h-[60px] w-full rounded-[10px] bg-ci-blue font-bold text-white"
+            >
+              Verify
+            </button>
+          </div>
+          <div className="flex flex-col gap-y-6 text-center text-lg text-ci-blue">
+            <div className="cursor-pointer">Resend verification link</div>
+            <div
+              onClick={() => {
+                changeRegState(0);
+              }}
+              className="cursor-pointer"
+            >
+              Back
             </div>
           </div>
         </div>

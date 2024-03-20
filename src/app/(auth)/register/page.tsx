@@ -134,7 +134,7 @@ export default function RegisterPage() {
         />
       ) : null}
 
-      {registerStage === 1 ? (
+      {registerStage === 2 ? (
         <div>
           <PersonalInformation
             firsttmp={firstName}
@@ -150,7 +150,7 @@ export default function RegisterPage() {
         </div>
       ) : null}
 
-      {registerStage === 2 ? (
+      {registerStage === 1 ? (
         <div>
           <EmailVerificationPage
             changeRegState={changeRegState}
@@ -158,6 +158,9 @@ export default function RegisterPage() {
           />
         </div>
       ) : null}
+      <button onClick={nextStage} className="absolute left-0 mx-10">
+        test
+      </button>
     </div>
   );
 }
