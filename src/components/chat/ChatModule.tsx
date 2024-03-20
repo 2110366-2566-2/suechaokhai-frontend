@@ -24,9 +24,13 @@ export default function ChatModule() {
   }, []);
 
   const onOpenChat = () => {
-    ChatService.getInstance().connect(() => {
+    if (!ChatService.getInstance().isConnected()) {
+      ChatService.getInstance().connect(() => {
+        setOpen(true);
+      });
+    } else {
       setOpen(!isOpen);
-    });
+    }
   };
 
   return (
