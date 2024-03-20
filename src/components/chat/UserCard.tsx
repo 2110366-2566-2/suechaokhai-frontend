@@ -20,10 +20,13 @@ export default function UserCard({
         ChatService.getInstance().openChat(chat.user_id);
       }}
     >
-      <div className="relative flex aspect-square w-16 items-center justify-center overflow-hidden rounded-full">
+      <div className="aspect-square min-w-16 overflow-hidden rounded-full">
         <ProfileImage src={chat.profile_image_url} />
       </div>
-      <div className="truncate text-xl font-bold">{`${chat.first_name} ${chat.last_name}`}</div>
+      <div className="overflow-hidden">
+        <div className="truncate text-xl font-bold">{`${chat.first_name} ${chat.last_name}`}</div>
+        <div className="truncate">{chat.content}</div>
+      </div>
     </div>
   );
 }
