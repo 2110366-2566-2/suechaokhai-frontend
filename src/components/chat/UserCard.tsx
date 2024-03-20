@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Chat, ChatService } from "@/services/chatService";
+import ProfileImage from "./ProfileImage";
 
 export default function UserCard({
   chat,
@@ -20,18 +21,7 @@ export default function UserCard({
       }}
     >
       <div className="relative flex aspect-square w-16 items-center justify-center overflow-hidden rounded-full">
-        <Image
-          src={
-            chat.profile_image_url.length > 0
-              ? chat.profile_image_url
-              : "/img/PropertyNavBar/ic_round-account-circle.svg"
-          }
-          className="bg-ci-gray"
-          alt="profile image"
-          draggable={false}
-          fill
-          style={{ objectFit: "cover" }}
-        />
+        <ProfileImage src={chat.profile_image_url} />
       </div>
       <div className="truncate text-xl font-bold">{`${chat.first_name} ${chat.last_name}`}</div>
     </div>
