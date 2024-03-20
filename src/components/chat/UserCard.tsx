@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
-import MessageBox from "./MessageBox";
-import { Chat } from "@/services/chatService";
+import { Chat, ChatService } from "@/services/chatService";
 
 export default function UserCard({
   chat,
@@ -18,6 +16,7 @@ export default function UserCard({
       onClick={() => {
         setChat(true);
         setChatWith(chat.user_id);
+        ChatService.getInstance().openChat(chat.user_id);
       }}
     >
       <div className="relative flex aspect-square w-16 items-center justify-center overflow-hidden rounded-full">

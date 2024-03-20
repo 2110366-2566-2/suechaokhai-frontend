@@ -45,6 +45,7 @@ export class ChatService {
   private messageLimit: number = 10;
   private chats: {
     [key: string]: {
+      chat: Chat;
       offset: number;
       messages: ChatMessage[];
     };
@@ -83,23 +84,11 @@ export class ChatService {
     return this.conn !== undefined;
   }
 
-  public async openChat(userId: string): Promise<ChatMessage[]> {
+  public async openChat(userId: string) {
     if (!this.isConnected()) return [];
 
     let sent_at = new Date(Date.now());
     this.sendWSEvent("JOIN", userId, sent_at);
-
-    this.currentChatUserId = userId;
-    if (this.chats[this.currentChatUserId] === undefined) {
-      this.chats[this.currentChatUserId] = {
-        offset: 0,
-        messages: [],
-      };
-
-      this.chats[this.currentChatUserId].messages = await this.getMessages(0);
-    }
-
-    return this.chats[this.currentChatUserId].messages;
   }
 
   public sendMessage(msg: string, onCallback?: (msg: ChatMessage) => void) {
@@ -123,6 +112,14 @@ export class ChatService {
 
       let chats = await response.json();
 
+      chats.forEach((chat: Chat) => {
+        this.chats[chat.user_id] = {
+          chat,
+          messages: [],
+          offset: 0,
+        };
+      });
+
       return Promise.resolve(chats);
     } catch (err) {
       return Promise.reject(err);
@@ -130,8 +127,13 @@ export class ChatService {
   }
 
   public async getNextMessages(): Promise<ChatMessage[]> {
+    let msg = await this.getMessages(this.chats[this.currentChatUserId].offset);
     this.chats[this.currentChatUserId].offset += this.messageLimit;
-    return await this.getMessages(this.chats[this.currentChatUserId].offset);
+    return msg;
+  }
+
+  public getCurrentChat(): Chat {
+    return this.chats[this.currentChatUserId].chat;
   }
 
   public async getMessages(offset: number): Promise<ChatMessage[]> {
