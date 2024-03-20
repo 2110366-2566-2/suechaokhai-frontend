@@ -49,7 +49,7 @@ export default function MessageBox({
           </button>
         </div>
       </div>
-      <MessageSection />
+      <MessageSection userId={chat.user_id} />
       <TextFieldSection />
     </div>
   );

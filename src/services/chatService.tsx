@@ -20,6 +20,7 @@ export interface ChatMessage {
   content: string;
   read_at: string;
   sent_at: string;
+  author: boolean;
 }
 
 export interface Chat {
@@ -138,6 +139,15 @@ export class ChatService {
     return this.chats[this.currentChatUserId].chat;
   }
 
+  public async getAllMessages(): Promise<ChatMessage[]> {
+    if (this.chats[this.currentChatUserId].offset === 0) {
+      this.chats[this.currentChatUserId].messages =
+        await this.getNextMessages();
+    }
+
+    return this.chats[this.currentChatUserId].messages;
+  }
+
   public async getMessages(offset: number): Promise<ChatMessage[]> {
     if (!this.isConnected()) return [];
 
@@ -148,7 +158,13 @@ export class ChatService {
         credentials: "include",
       });
 
-      let messages = await response.json();
+      let messages = (await response.json()) as ChatMessage[];
+      messages = messages.map((val: ChatMessage) => {
+        return {
+          ...val,
+          author: val.receiver_id === this.currentChatUserId,
+        };
+      });
 
       return Promise.resolve(messages);
     } catch (err) {
