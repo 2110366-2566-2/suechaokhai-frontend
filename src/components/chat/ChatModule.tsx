@@ -5,12 +5,14 @@ import UserData from "../models/UserData";
 import ChatIcon from "./ChatIcon";
 import ChatBox from "./ChatBox";
 import MessageBox from "./MessageBox";
+import { ChatService } from "@/services/chatService";
 
 export default function ChatModule() {
   const [user, setUser] = useState<UserData>();
   const [isOpen, setOpen] = useState<boolean>(false);
   const [isChat, setChat] = useState<boolean>(false);
   const [chatWith, setChatWith] = useState<string>("test");
+
   useEffect(() => {
     async function getUser() {
       const user = await getCurrentUser();
@@ -20,6 +22,13 @@ export default function ChatModule() {
     }
     getUser();
   }, []);
+
+  const onOpenChat = () => {
+    ChatService.getInstance().connect(() => {
+      setOpen(!isOpen);
+    });
+  };
+
   return (
     <div className="fixed bottom-0 right-0 flex">
       {user && (
@@ -32,12 +41,7 @@ export default function ChatModule() {
               setChatWith={setChatWith}
             />
           )}
-          <div
-            className="p-4"
-            onClick={() => {
-              setOpen(!isOpen);
-            }}
-          >
+          <div className="p-4" onClick={onOpenChat}>
             <ChatIcon />
           </div>
         </div>

@@ -6,7 +6,7 @@ export interface WSOutEvent {
   tag: string;
 }
 
-export type WSInEventType = "MSG" | "READ" | "CHATS";
+export type WSInEventType = "MSG" | "READ" | "CHATS" | "CONN";
 export interface WSInEvent {
   event: WSInEventType;
   tag: string;
@@ -47,7 +47,11 @@ export class ChatService {
     };
   } = {};
 
-  private sendingLists: { [key: string]: (msg: ChatMessage) => void } = {};
+  private onConnection?: () => void;
+
+  private sendingLists: {
+    [key: string]: (msg: ChatMessage) => void;
+  } = {};
 
   private registeredCallback: {
     [key: string]: (payload: ChatMessage) => void;
@@ -62,7 +66,12 @@ export class ChatService {
       this.conn.onmessage = (e: MessageEvent<string>) => this.onMessage(e);
       this.conn.onopen = (e: Event) => {
         console.log("Connected");
-        if (!!onCallback) onCallback();
+        this.onConnection = onCallback;
+      };
+
+      this.conn.onclose = (e: CloseEvent) => {
+        console.log("Disconnected", e.reason);
+        this.conn?.close();
       };
     }
   }
@@ -170,6 +179,10 @@ export class ChatService {
     console.log(msg);
 
     switch (msg.event) {
+      case "CONN":
+        if (!!this.onConnection) this.onConnection();
+        break;
+
       case "MSG":
         let payload = msg.payload as ChatMessage;
         let sendingCallback = this.sendingLists[msg.tag];
