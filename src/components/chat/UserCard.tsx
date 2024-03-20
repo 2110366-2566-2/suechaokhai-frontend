@@ -13,7 +13,7 @@ export default function UserCard({
 }) {
   return (
     <div
-      className="flex h-20 w-full cursor-pointer flex-row items-center justify-start rounded-xl p-2 hover:bg-ci-gray"
+      className="flex h-20 w-full cursor-pointer flex-row items-center justify-start rounded-xl p-2 hover:bg-ci-light-gray"
       onClick={() => {
         setChat(true);
         setChatWith(userId);
