@@ -89,6 +89,8 @@ export class ChatService {
 
     let sent_at = new Date(Date.now());
     this.sendWSEvent("JOIN", userId, sent_at);
+
+    this.currentChatUserId = userId;
   }
 
   public sendMessage(msg: string, onCallback?: (msg: ChatMessage) => void) {
