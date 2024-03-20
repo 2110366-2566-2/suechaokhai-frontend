@@ -19,8 +19,8 @@ export default function MessageSection() {
   return (
     <div className="flex h-full flex-col gap-y-2 overflow-auto px-6">
       <div className="flex flex-col gap-y-4">
-        {messageList.map((item: string[]) => (
-          <Message message={item} />
+        {messageList.map((item: string[], index: number) => (
+          <Message key={index} message={item} />
         ))}
       </div>
       <div className="flex items-center justify-end px-2 text-sm">Read</div>

@@ -4,7 +4,7 @@ export default function TextFieldSection() {
     <div className="flex flex-row gap-x-4 px-6 py-2 ">
       <input
         type="text"
-        className="h-12 w-full rounded-xl bg-ci-light-gray px-4 placeholder:text-black"
+        className="h-12 w-full rounded-xl bg-ci-light-gray px-4 placeholder:text-ci-dark-gray"
         placeholder="Aa"
       ></input>
       <Image
