@@ -1,12 +1,22 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import PropertyData from "../models/PropertyData";
+import addUserFavorite from "@/services/addUserFavorite";
+import deleteUserFavorite from "@/services/removeUserFavorite";
 export default function SmallPropertyCard({
   property,
 }: {
   property: PropertyData;
 }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(property.is_favorite);
+
+  async function favoriting() {
+    if (isFavorite) {
+      const res = await deleteUserFavorite(property.property_id);
+    } else {
+      const res = await addUserFavorite(property.property_id);
+    }
+  }
 
   return (
     <div>
@@ -26,8 +36,10 @@ export default function SmallPropertyCard({
                 {property.property_name}
               </div>
               <div
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setIsFavorite(!isFavorite);
+                  favoriting();
                 }}
                 className="cursor-pointer"
               >

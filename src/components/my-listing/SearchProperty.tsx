@@ -122,7 +122,7 @@ const SearchProperty = () => {
                   } }
                   className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterBedroom? 'bg-ci-light-blue': 'bg-ci-light-gray'} px-6 text-left`}
                 >
-                  <p className="text-xl font-medium px-2">Bedrooms</p>
+                  <p className="text-xl font-medium px-2">Fliters</p>
                   {filterBedroom ? (
                     <Image
                       src="/img/home-page/arrow-up.svg"
@@ -231,39 +231,75 @@ const SearchProperty = () => {
                 </div>
           ) : null}
           {filterBedroom ? (
-            <div className="h-18 flex w-full items-center justify-center rounded-xl bg-ci-light-gray p-2 sm:flex-col md:flex-col 2xl:flex-row">
-              <div>Bedroom(s)</div>
-              <div className="flex flex-row items-center gap-x-1 py-2">
-                <button
-                  onClick={() => {
-                    formatBedroom(bedrooms - 1);
-                  }}
-                  className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  className="h-14 w-14 rounded-xl border  px-2 text-center"
-                  onChange={(e) => {
-                    if (e.target.value === "") {
-                      setBedrooms(0);
-                    } else {
-                      formatBedroom(Number(e.target.value));
-                    }
-                  }}
-                  value={bedrooms.toString()}
-                ></input>
-                <button
-                  onClick={() => {
-                    formatBedroom(bedrooms + 1);
-                  }}
-                  className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
-                >
-                  +
-                </button>
-              </div>
+            <div className="flex w-full h-1/2 m-3  gap-y-2 justify-between bg-ci-light-gray rounded-xl p-2 sm:flex-col md:flex-col 2xl:flex-row">
+                <div className="h-18 flex w-2/5 items-center m-3 bg-white  justify-center rounded-xl sm:flex-col md:flex-col 2xl:flex-row">
+                  <div className="font-medium">Bedroom(s)</div>
+                  <div className="flex flex-row items-center gap-x-1 py-2">
+                    <button
+                      onClick={() => {
+                        formatBedroom(bedrooms - 1);
+                      }}
+                      className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className="h-14 w-14 rounded-xl border  px-2 text-center"
+                      onChange={(e) => {
+                        if (e.target.value === "") {
+                          setBedrooms(0);
+                        } else {
+                          formatBedroom(Number(e.target.value));
+                        }
+                      }}
+                      value={bedrooms.toString()}
+                    ></input>
+                    <button
+                      onClick={() => {
+                        formatBedroom(bedrooms + 1);
+                      }}
+                      className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className="h-18 flex w-2/5 items-center m-3 bg-white gap-y-2 justify-center rounded-xl sm:flex-col md:flex-col 2xl:flex-row">
+                  <div className="font-medium">Bathroom(s)</div>
+                  <div className="flex flex-row items-center gap-x-1 py-2">
+                    <button
+                      onClick={() => {
+                        formatBedroom(bedrooms - 1);
+                      }}
+                      className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className="h-14 w-14 rounded-xl border  px-2 text-center"
+                      onChange={(e) => {
+                        if (e.target.value === "") {
+                          setBedrooms(0);
+                        } else {
+                          formatBedroom(Number(e.target.value));
+                        }
+                      }}
+                      value={bedrooms.toString()}
+                    ></input>
+                    <button
+                      onClick={() => {
+                        formatBedroom(bedrooms + 1);
+                      }}
+                      className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
             </div>
+            
           ) : null}
             </div>
         </div>
