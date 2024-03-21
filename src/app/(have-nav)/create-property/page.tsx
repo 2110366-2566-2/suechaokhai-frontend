@@ -2,6 +2,17 @@
 
 import { useState } from "react";
 import ListingDetailPage from "@/components/create-property/ListingDetailPage";
+import AdditionalDetailPane from "@/components/create-property/AdditionalDetailPane";
+import propertyCreate from "@/services/getCurrentUserRegister";
+
+export interface PropertyInfo {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  img: any;
+}
 
 export default function CreateProperty() {
   const [createStage, changeState] = useState(0);
@@ -13,6 +24,19 @@ export default function CreateProperty() {
   const [salePrice, setSalePrice] = useState<number | undefined>();
   const [description, setDescription] = useState<string>("");
   const [address, setAddress] = useState("");
+
+  const [furnishing, setFurnishing] = useState("fully-furnished");
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
+  const [floor, setFloor] = useState("");
+  const [floorSize, setFloorSize] = useState("");
+  const [unitNumber, setUnitNumber] = useState("");
+  const [photos, setPhotos] = useState([]);
+
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [email, setEmail] = useState("");
 
   const create = async () => {
     // const propertyCreate = await {};
@@ -51,6 +75,7 @@ export default function CreateProperty() {
       ) : null}
       {createStage === 1 ? (
         <div>
+          <AdditionalDetailPane />
           <button onClick={nextStage}>Back</button>
         </div>
       ) : null}

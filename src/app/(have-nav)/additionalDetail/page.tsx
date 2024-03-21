@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import FurnishingButton from "@/components/additional-detail/FurnishingButton";
+import FurnishingButton from "@/components/create-property/FurnishingButton";
 
 export default function AdditionalDetails() {
   const [furnishing, setFurnishing] = useState("fully-furnished");

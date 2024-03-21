@@ -17,6 +17,9 @@ const config = {
         "2xl": "1400px",
       },
     },
+    fontSize: {
+      "2xl": ["36px", "44px"],
+    },
     extend: {
       colors: {
         "ci-black": "#0F142E",
