@@ -6,7 +6,7 @@ import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
 import getUserAppointment from "@/services/getUserAppointment";
 import AppointmentData from "@/components/models/AppointmentData";
 
-export default function MyAppointment() {
+export default function MyAgreement() {
 
     const [appointmentData, setAppointmentData] = useState<AppointmentData[]>([]);
     const [total, setTotal] = useState<number>(0);
