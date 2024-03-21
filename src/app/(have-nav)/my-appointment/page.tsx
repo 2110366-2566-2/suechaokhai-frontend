@@ -4,19 +4,16 @@ import Image from "next/image";
 import AppointmentList from "@/components/my-appointment/AppointmentList";
 import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
 import getUserAppointment from "@/services/getUserAppointment";
-<<<<<<< HEAD
-
-export default function MyAppointment() {
-
-=======
 import AppointmentData from "@/components/models/AppointmentData";
+import PropertyData from "@/components/models/PropertyData";
+import getPropertyDetail from "@/services/getPropertyDetail";
 
 export default function MyAppointment() {
 
     const [appointmentData, setAppointmentData] = useState<AppointmentData[]>([]);
     const [total, setTotal] = useState<number>(0);
+    const [appointmentDetail, setAppointmentDetail] = useState<PropertyData[]>([]);
 
->>>>>>> dev
     const [selectOn, setSelectOn] = useState(0);
     const [selectedOption, setSelectedOption] = useState('');
     const [showFilter, setShowFilter] = useState(false);
@@ -40,14 +37,16 @@ export default function MyAppointment() {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getUserAppointment();
-<<<<<<< HEAD
-=======
             if (data) {
+                console.log(data);
+                console.log(data.length)
                 setAppointmentData(data);
                 setTotal(data.total);
             }
->>>>>>> dev
-            console.log(data);
+            const dataDetail = [];
+            for (let i = 0; i < data.length; i++) {dataDetail.push(await getPropertyDetail(data[i].property_id))}
+            console.log(dataDetail);
+            setAppointmentDetail(dataDetail);
         }
         fetchData()
     }, [])
@@ -138,6 +137,11 @@ export default function MyAppointment() {
                     </div>
                 </div>
             </div>
+            {appointmentDetail.map(appt => {
+                return (
+                    <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName={appt.property_name} propertySubName="Subname Here" ownerImgSrc="/img/babywinsmoking.JPG" ownerName={appt.owner_id} date="Date here" time="time here" status='Pending'/>
+                )
+            })}
             <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
             <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
             <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/>
