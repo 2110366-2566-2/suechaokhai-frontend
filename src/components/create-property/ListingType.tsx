@@ -43,18 +43,9 @@ const ListingType: React.FC<ListingTypeProps> = ({
     color: "#0F142E",
     overflow: "hidden",
   };
-  const labelStyle3: React.CSSProperties = {
-    ...labelStyle,
-  };
 
   const selectedStyle: React.CSSProperties = {
     ...labelStyle,
-    backgroundColor: "#0F142E",
-    color: "#FFFFFF",
-  };
-
-  const selectedStyle3: React.CSSProperties = {
-    ...labelStyle3,
     backgroundColor: "#0F142E",
     color: "#FFFFFF",
   };
@@ -64,9 +55,9 @@ const ListingType: React.FC<ListingTypeProps> = ({
     backgroundColor: "#B3B3B3",
   };
 
-  const hoverStyle3: React.CSSProperties = {
-    ...labelStyle3,
-    backgroundColor: "#B3B3B3",
+  const noOptionSelectedStyle: React.CSSProperties = {
+    ...labelStyle,
+    border: "1px solid red",
   };
 
   return (
@@ -83,9 +74,13 @@ const ListingType: React.FC<ListingTypeProps> = ({
       <label
         htmlFor="rent"
         style={{
-          ...labelStyle,
-          ...(hoveredOption === "rent" ? hoverStyle : {}),
-          ...(selectedOption === "rent" ? selectedStyle : {}),
+          ...(selectedOption === "rent"
+            ? selectedStyle
+            : hoveredOption === "rent"
+              ? hoverStyle
+              : selectedType === ""
+                ? noOptionSelectedStyle
+                : labelStyle),
         }}
         onMouseEnter={() => handleMouseEnter("rent")}
         onMouseLeave={handleMouseLeave}
@@ -105,9 +100,13 @@ const ListingType: React.FC<ListingTypeProps> = ({
       <label
         htmlFor="sell"
         style={{
-          ...labelStyle,
-          ...(hoveredOption === "sell" ? hoverStyle : {}),
-          ...(selectedOption === "sell" ? selectedStyle : {}),
+          ...(selectedOption === "sell"
+            ? selectedStyle
+            : hoveredOption === "sell"
+              ? hoverStyle
+              : selectedType === ""
+                ? noOptionSelectedStyle
+                : labelStyle),
         }}
         onMouseEnter={() => handleMouseEnter("sell")}
         onMouseLeave={handleMouseLeave}
@@ -127,9 +126,13 @@ const ListingType: React.FC<ListingTypeProps> = ({
       <label
         htmlFor="rent/sell"
         style={{
-          ...labelStyle3,
-          ...(hoveredOption === "rent/sell" ? hoverStyle3 : {}),
-          ...(selectedOption === "rent/sell" ? selectedStyle3 : {}),
+          ...(selectedOption === "rent/sell"
+            ? selectedStyle
+            : hoveredOption === "rent/sell"
+              ? hoverStyle
+              : selectedType === ""
+                ? noOptionSelectedStyle
+                : labelStyle),
         }}
         onMouseEnter={() => handleMouseEnter("rent/sell")}
         onMouseLeave={handleMouseLeave}
