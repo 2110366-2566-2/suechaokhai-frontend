@@ -2,7 +2,11 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import TextBox from "../my-appointment/TextField";
 
-export function DetailButton() {
+export function DetailButton({
+    appointmentId
+} : {
+    appointmentId: string
+}) {
 
     const router = useRouter();
 
@@ -12,7 +16,7 @@ export function DetailButton() {
                 className="w-full bg-ci-blue text-white rounded-lg font-medium text-2xl text-center py-3 hover:shadow-blue-950 hover:shadow-inner"
                 onClick={(e) => {
                     e.stopPropagation();
-                    router.push('/my-appointment/[id]/detail')
+                    router.push(`/my-appointment/${appointmentId}/detail`)
                 }}
             >
                 Detail

@@ -4,6 +4,7 @@ import { DetailButton, CancelButton } from "@/components/my-appointment/Interact
 import { useState } from "react";
 
 export default function AppointmentList({
+    apptId,
     propertyImgSrc,
     propertyName,
     propertySubName,
@@ -13,6 +14,7 @@ export default function AppointmentList({
     time,
     status
 } : {
+    apptId: string,
     propertyImgSrc: string,
     propertyName: string,
     propertySubName: string,
@@ -51,7 +53,7 @@ export default function AppointmentList({
                                     src={ownerImgSrc}
                                     alt="Owner Image"
                                     width={60}
-                                    height={60}
+                                    height={60} 
                                     layout="responsive"
                                 />
                             </div>
@@ -73,7 +75,7 @@ export default function AppointmentList({
                     <StatusBox status={status}/>
                 </div>
                 <div className="flex flex-col w-[12.5%] h-full ml-28 my-auto justify-between">
-                    <DetailButton />
+                    <DetailButton appointmentId={apptId}/>
                     <CancelButton status={status} reasontmp={reason} setReason={setReason}/>            
                 </div>
             </div>
