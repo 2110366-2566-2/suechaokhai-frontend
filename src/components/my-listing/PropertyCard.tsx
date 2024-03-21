@@ -44,7 +44,7 @@ const PropertyCard = ({propData,editable,imgSrc}:{propData:PropertyData,editable
 
                 <div className="flex flex-col my-4 mx-1 h-1/2 ">
                     <div className="w-full text-xl my-2 ">{propData.district}, {propData.province}</div>
-                    <div className="w-full text-xl my-2 font-semibold">฿{formatPrice(propData.renting.price_per_month)}/month</div>
+                    <div className="w-full text-xl my-2 font-semibold">฿{formatPrice(propData.renting_property.price_per_month)}/month</div>
                 </div>
 
                 <hr className="border-black "></hr>
