@@ -63,8 +63,14 @@ export default function RegisterPage() {
           changeRegState(0);
         } else if (data.session_type === "LOGIN") {
           router.push("/");
+        } else if (
+          data.registered_type === "EMAIL" &&
+          registeredType === "GOOGLE"
+        ) {
+          setUser(Object);
         } else {
           setUser(Object);
+          changeRegState(0);
         }
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -14,7 +14,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
     <div>
       <div className="mt-4 flex h-fit flex-row gap-1 overflow-y-hidden overflow-x-scroll">
         {images.map((img, i) => (
-          <div className="relative aspect-video h-44 sm:h-96" key={i}>
+          <div className="relative aspect-video h-64 sm:h-72 md:h-96" key={i}>
             <Image
               className="cursor-pointer"
               src={img}
@@ -40,6 +40,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
               height={0}
               style={{ width: "400%", height: "auto" }}
               draggable={false}
+              // className="h-auto max-w-full"
             />
           </button>
           <button

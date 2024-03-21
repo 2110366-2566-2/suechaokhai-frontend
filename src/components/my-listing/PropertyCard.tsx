@@ -7,25 +7,35 @@ import { useState } from "react";
 
 
 
-const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolean}) => {
+const PropertyCard = ({propData,editable,imgSrc}:{propData:PropertyData,editable:boolean,imgSrc:string}) => {
 
-    const [fav,setFav]  = useState<boolean>(false);
+    const [fav,setFav]  = useState<boolean>(propData.is_favorite);
     const [isDeleting,setDel] = useState<boolean>(false);
+
+    function formatPrice(num: number): string {
+        return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     return ( 
        <div className="w-full h-[800px] rounded-lg bg-[#ECECEC]">
             <div className="w-full h-[300px] relative rounded-t-lg  ">
-                <Image src={propData.images[0]} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
+                <Image src={imgSrc} alt='Product Picture' fill={true} className="object-cover rounded-t-lg"></Image>
 
             </div>
             <div className="flex flex-col mx-16 ">
                 <div className="flex flex-row h-1/6 justify-between items-center my-8 mx-1 ">
-                    <div className="w-full  font-semibold text-2xl ">{propData.project_name}</div>
+                    <div className="w-full  font-semibold text-2xl ">{propData.property_name}</div>
                     {
                         fav ? 
-                        <FavoriteIcon className="text-ci-red" sx={{ fontSize: 50 }} ></FavoriteIcon> 
+                        <FavoriteIcon className="text-ci-red" sx={{ fontSize: 50 }} 
+                                        onClick={()=>setFav(!fav)}
+
+                         ></FavoriteIcon> 
                         : 
-                        <FavoriteBorderIcon className="text-ci-red" sx={{ fontSize: 50 }} ></FavoriteBorderIcon>
+                        <FavoriteBorderIcon className="text-ci-red" sx={{ fontSize: 50 }} 
+                            onClick={()=>setFav(!fav)}
+                        
+                        ></FavoriteBorderIcon>
                     }
 
 
@@ -34,7 +44,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
 
                 <div className="flex flex-col my-4 mx-1 h-1/2 ">
                     <div className="w-full text-xl my-2 ">{propData.district}, {propData.province}</div>
-                    <div className="w-full text-xl my-2 font-semibold">฿{Math.floor(propData.renting.price_per_month/1000)},{propData.renting.price_per_month%1000}/month</div>
+                    <div className="w-full text-xl my-2 font-semibold">฿{formatPrice(propData.renting.price_per_month)}/month</div>
                 </div>
 
                 <hr className="border-black "></hr>
@@ -65,7 +75,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                     <div className="flex flex-col items-center mx-1 ">
                         <button
                         className="mx-0.5 bg-ci-blue my-2 w-full h-[60px] rounded-md text-xl px-4 font-semibold text-[#DFDFDF] shadow "
-                        onClick={()=>setFav(!fav)}
+                        //! link to edit prop page
                         >
                         Edit details
                         </button>
@@ -81,7 +91,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                     <div className="flex flex-col items-center mx-1 ">
                         <button
                         className="mx-0.5 bg-ci-blue my-2 w-full h-[60px] rounded-md text-xl px-4 font-semibold text-[#DFDFDF] shadow "
-                        onClick={()=>setFav(!fav)}
+                        //! link to propDesc page
                         >
                         Views more details
                         </button>
@@ -98,7 +108,7 @@ const PropertyCard = ({propData,editable}:{propData:PropertyData,editable:boolea
                             Delete a Property
                         </div>
                             <div className="text-xl mt-10 mb-1">Are you sure you want to delete this property ?</div>
-                            <div className="font-semibold text-2xl mt-1 mb-10 ">{propData.project_name}</div>
+                            <div className="font-semibold text-2xl mt-1 mb-10 ">{propData.property_name}</div>
 
                         
                         <div className="flex flex-roe items-center justify-center mx-1 w-full">
