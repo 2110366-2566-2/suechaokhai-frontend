@@ -5,8 +5,10 @@ import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
 import AccountCreated from "@/components/register-login/AccountCreated";
 import userRegister from "@/services/userRegister";
-import { redirect } from "next/navigation";
-import getCurrentUserRegister from "@/services/getCurrentUserRegister";
+import { useSearchParams } from "next/navigation";
+import authCallback from "@/services/authCallback";
+import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 export interface PersonalInfo {
   email: string;
@@ -15,10 +17,11 @@ export interface PersonalInfo {
   lastName: string;
   phoneNumber: string;
   img: any;
+  registered_type: string;
 }
 
 export default function RegisterPage() {
-  const [registerStage, changeRegState] = useState(0);
+  const [registerStage, changeRegState] = useState(-1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPass, setConPass] = useState("");
@@ -26,16 +29,28 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [registeredType, setRegisteredType] = useState("EMAIL");
 
   const [img, setImg] = useState();
 
   const [user, setUser] = useState();
   const [isGoogle, setIsGoogle] = useState(false);
 
+  const router = useRouter();
+
+  const queryParams = useSearchParams();
+  const queryString = Array.from(queryParams.entries())
+    .map(([key, val]) => `${key}=${val}`)
+    .join("&");
+
   useEffect(() => {
     async function getUser() {
       try {
-        const data = await getCurrentUserRegister();
+        // const data = await getCurrentUserRegister();
+        const data = await authCallback(queryString);
+
+        if (data.registered_type === "GOOGLE")
+          setRegisteredType(data.registered_type);
 
         if (
           data.registered_type === "GOOGLE" &&
@@ -45,8 +60,9 @@ export default function RegisterPage() {
           console.log(data);
           setEmail(data.email);
           setIsGoogle(true);
+          changeRegState(0);
         } else if (data.session_type === "LOGIN") {
-          redirect("/");
+          router.push("/");
         } else {
           setUser(Object);
         }
@@ -66,6 +82,7 @@ export default function RegisterPage() {
       lastName: lastName,
       phoneNumber: phoneNumber,
       img: img,
+      registered_type: registeredType,
     });
     console.log(userRegis);
     setFinReg(userRegis);
@@ -87,6 +104,12 @@ export default function RegisterPage() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-[#B8B8B8]">
+      {registerStage === -1 && (
+        <div className="flex h-[830px] w-[650px] flex-col items-center justify-center rounded-[10px] bg-white">
+          <CircularProgress />
+        </div>
+      )}
+
       {registerStage === 0 ? (
         <RegisterPage1
           emailtmp={email}

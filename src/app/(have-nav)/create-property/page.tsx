@@ -52,7 +52,6 @@ export default function CreateProperty() {
 
   return (
     <div>
-      {" "}
       {createStage === 0 ? (
         <ListingDetailPage
           changeCreateState={nextStage}
@@ -70,7 +69,6 @@ export default function CreateProperty() {
           setSalePrice={setSalePrice}
           setDescription={setDescription}
           setAddress={setAddress}
-          create={create}
         />
       ) : null}
       {createStage === 1 ? (
