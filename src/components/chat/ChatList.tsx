@@ -11,7 +11,12 @@ export default function ChatList({
   setChatWith: Function;
 }) {
   return (
-    <div className="flex flex-col overflow-auto">
+    <div className="flex h-full flex-col overflow-auto">
+      {chats.length === 0 && (
+        <div className="flex h-full select-none items-center justify-center font-semibold">
+          No chats
+        </div>
+      )}
       {chats &&
         chats.map((item: Chat, index: number) => (
           <UserCard

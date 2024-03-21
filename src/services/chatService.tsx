@@ -113,7 +113,7 @@ export class ChatService {
         credentials: "include",
       });
 
-      let chats = await response.json();
+      let chats = (await response.json()) || [];
 
       chats.forEach((chat: Chat) => {
         this.chats[chat.user_id] = {
