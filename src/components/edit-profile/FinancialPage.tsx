@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import EmptyCard from "@/components/edit-profile/EmptyCard";
 import getUserFinancial from "@/services/getUserFinancial";
 import updateUserFinancial from "@/services/updateUserFinancial";
+import CreditCard from "@/components/edit-profile/CreditCard";
 import { log } from "console";
+import AddCard from "./AddCard";
 
 type UserData = {
   bank_name : string,
@@ -12,7 +14,7 @@ type UserData = {
   created_at:string,
   credit_cards : CreditCardData[]
 }
-type CreditCardData = {
+export type CreditCardData = {
   card_color: string;
   card_nickname: string;
   card_number: string;
@@ -28,16 +30,11 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
   const [bankName, setBankName] = useState("")
   const [isSaved, setIsSaved] = useState(0)
   const [userData, setUserData] = useState<UserData|null>(null);
+  const [creditCards, setCreditCards] = useState<CreditCardData[]|null>();
+  const [displayAddCard, setDisplayAddCard] = useState(false)
+  const [displayEdit, setDisplayEdit] = useState(false);
   const options = [
-    "KASIKORN BANK",
-    "BANGKOK BANK",
-    "KRUNG THAI BANK",
-    "BANK OF AYUDHYA",
-    "CIMB THAI BANK",
-    "TMBTHANACHART BANK",
-    "SIAM COMMERCIAL BANK",
-    "GOVERNMENT SAVINGS BANK",
-    "BANK NOT SELECTED",
+    "KBANK", "BBL", "KTB", "BAY", "CIMB", "TTB", "SCB"," GSB",
   ];
   setIsChangesExist(false);
   const fetchUser = async () => {
@@ -45,7 +42,8 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
       const data = await getUserFinancial();
       setBankNumber(data.bank_account_number)
       setBankName(data.bank_name)
-      console.log(data)
+      setCreditCards(data.credit_cards)
+      console.log(creditCards)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -53,26 +51,20 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
   useEffect(() => {
     fetchUser();
   },[]);
-  const handleSave = () => {
+ 
+  const handleSave = (newCreditCards:any) => {
     const data: UserData = {
       bank_name: bankName,
       bank_account_number:bankNumber,
       created_at:"123",
-      credit_cards: [
-        {
-          card_color: "BLUE",
-          card_nickname: "John's Card",
-          card_number: "1234567890123456",
-          cardholder_name: "John Doe",
-          cvv: "123",
-          expire_month: "12",
-          expire_year: "2023",
-          tag_number: 1
-        }
-      ]
+      credit_cards: newCreditCards
     };
     setIsChangesExist(false);
     updateUserFinancial(data);
+    setDisplayAddCard(false)
+    setDisplayEdit(false);
+    setCreditCards(newCreditCards)
+    console.log(creditCards)
   };
   const handleSelect = (option: any) => {
     setBankName(option);
@@ -85,6 +77,8 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
     setIsChangesExist(true);
     setChanged(1)
     console.log(bankNumber)
+  }
+  const openCreditCardEditor = () => {
 
   }
   return (
@@ -92,10 +86,29 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
       <div className="text-[32px] font-bold">Financial Information</div>
       <div className="text-[20px] font-semibold ">Credit Card</div>
       <div className="flex w-[70%] flex-col justify-center gap-8 sm:flex-row sm:flex-wrap sm:justify-normal">
-        <EmptyCard />
-        <EmptyCard />
-        <EmptyCard />
-        <EmptyCard />
+      {creditCards && creditCards.map(card => (
+      <CreditCard
+        key={card.card_number}
+        cardHolderName={card.cardholder_name}
+        cardColor={card.card_color}
+        cardNickname={card.card_nickname}
+        cardNumber={card.card_number}
+        month={card.expire_month}
+        year={card.expire_year}
+        CVV={card.cvv}
+        creditCards={creditCards}
+        tagNumber = {card.tag_number}
+        handleSave={handleSave}
+        setCreditCards={setCreditCards}
+        setDisplayEdit={setDisplayEdit}
+        displayEdit={displayEdit}
+      />
+    ))}
+    {creditCards && creditCards.length < 4 && (
+      <EmptyCard 
+        setDisplay={setDisplayAddCard}
+      />
+    )}
       </div>
       <div className=" text-[20px] font-semibold ">Bank Account</div>
       <div className="flex flex-col space-x-0 xl:flex-row xl:space-x-8">
@@ -111,7 +124,7 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
           maxLength={10}
           spaceIndices={[]}
           setNum={handleBankNumber}
-          className="w-[400px] lg:w-[510px]"
+          addedClass="w-[400px] lg:w-[510px]"
           value={bankNumber}
         />
       </div>
@@ -125,13 +138,16 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
         </button>
         <button
           className={`rounded-xl bg-${changed ? "ci-blue" : "ci-dark-gray "} px-4 py-2 text-[20px] font-bold text-white`}
-          onClick={handleSave}
+          onClick={() => handleSave(creditCards)}
           disabled={!changed}
           type="submit"
         >
           Save
         </button>
       </div>
+      {displayAddCard && (
+        <AddCard setDisplay={setDisplayAddCard} handleSave={handleSave} creditCards={creditCards!}/>
+      )}
     </div>
     
   );

@@ -144,7 +144,7 @@ const PersonalPage = ({
             onChange={(e) => {
               setFirstName(e.target.value);
             }}
-            className="w-[300px] md:w-[400px]"
+            addedClass="w-[300px] md:w-[400px]"
           />
           <TextBox
             label="Last Name"
@@ -154,7 +154,7 @@ const PersonalPage = ({
               setLastName(e.target.value);
               console.log(lastName);
             }}
-            className="w-[300px] md:w-[400px]"
+            addedClass="w-[300px] md:w-[400px]"
           />
           <TextBox
             label="Phone Number"
@@ -164,7 +164,7 @@ const PersonalPage = ({
               setPhoneNumber(formatPhoneNumber(e.target.value));
               console.log(phoneNumber);
             }}
-            className="w-[300px] md:w-[400px]"
+            addedClass="w-[300px] md:w-[400px]"
           />
         </form>
       </div>
