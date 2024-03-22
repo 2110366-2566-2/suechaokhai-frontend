@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Dropdown from "./DropDown";
 import ListingType from "./ListingType";
 import TrackingCircle from "./TrackingCircle";
-import NumberTextBox from "./NumberTextField";
 import Map from "./Map";
 
 export default function ListingDetailPage({
@@ -28,8 +27,8 @@ export default function ListingDetailPage({
   name: string;
   listingType: string;
   propertyType: string;
-  rentPrice: number | undefined;
-  salePrice: number | undefined;
+  rentPrice: string;
+  salePrice: string;
   description: string;
   address: string;
   setName: Function;
@@ -43,10 +42,11 @@ export default function ListingDetailPage({
   const [nametmp, setNametmp] = useState<string>("");
   const [selectedListingType, setSelectedListingType] = useState<string>("");
   const [selectedPropertyType, setSelectedPropertyType] = useState<string>("");
-  const [rentPricetmp, setRentPricetmp] = useState<number | undefined>();
-  const [salePricetmp, setSalePricetmp] = useState<number | undefined>();
+  const [rentPricetmp, setRentPricetmp] = useState<string>();
+  const [salePricetmp, setSalePricetmp] = useState<string>();
   const [descriptiontmp, setDescriptiontmp] = useState<string>("");
   const [addresstmp, setAddresstmp] = useState("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const propertyTypes = [
     "Condominium",
@@ -61,8 +61,8 @@ export default function ListingDetailPage({
     name: string,
     listingType: string,
     propertyType: string,
-    rentPrice: number | undefined,
-    salePrice: number | undefined,
+    rentPrice: string,
+    salePrice: string,
     description: string,
     address: string
   ) {
@@ -75,29 +75,59 @@ export default function ListingDetailPage({
     setAddresstmp(address);
   }
 
-  const handleSelectPropertyType = (option: string) => {
+  useEffect(() => {
+    setIsFormValid(
+      name.trim() !== "" &&
+        listingType.trim() !== "" &&
+        propertyType.trim() !== "" &&
+        ((listingType.trim() === "rent" && rentPrice.trim() !== "") ||
+          (listingType.trim() === "sell" && salePrice.trim() !== "") ||
+          (listingType.trim() === "rent/sell" &&
+            rentPrice.trim() !== "" &&
+            salePrice.trim() !== "")) &&
+        description.trim() !== "" &&
+        address.trim() !== ""
+    );
+  }, [
+    name,
+    listingType,
+    propertyType,
+    rentPrice,
+    salePrice,
+    description,
+    address,
+  ]);
+
+  const handleSelectPropertyType = (option: any) => {
     setSelectedPropertyType(option);
+    setPropertyType(option);
   };
 
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setDescriptiontmp(event.target.value);
+    setDescription(event.target.value);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddresstmp(event.target.value);
+    setAddress(event.target.value);
   };
 
   async function nextPage() {
-    setName(nametmp);
-    setListingType(selectedListingType);
-    setPropertyType(selectedPropertyType);
-    setRentPrice(rentPricetmp);
-    setSalePrice(salePricetmp);
-    setDescription(descriptiontmp);
-    setAddress(addresstmp);
-    changeCreateState(1);
+    if (isFormValid) {
+      setName(name);
+      setListingType(listingType);
+      setPropertyType(propertyType);
+      setRentPrice(rentPrice);
+      setSalePrice(salePrice);
+      setDescription(description);
+      setAddress(address);
+      changeCreateState(1);
+    } else {
+      console.log("Please fill in all fields.");
+    }
   }
 
   function listingCreate1(event: FormEvent<HTMLFormElement>) {
@@ -120,13 +150,13 @@ export default function ListingDetailPage({
     >
       <button
         onClick={() => {
-          console.log(nametmp);
-          console.log(selectedListingType);
-          console.log(selectedPropertyType);
-          console.log(rentPricetmp);
-          console.log(salePricetmp);
-          console.log(descriptiontmp);
-          console.log(addresstmp);
+          console.log(name);
+          console.log(listingType);
+          console.log(propertyType);
+          console.log(rentPrice);
+          console.log(salePrice);
+          console.log(description);
+          console.log(address);
         }}
       >
         test
@@ -147,13 +177,17 @@ export default function ListingDetailPage({
                   <input
                     id="txt"
                     autoComplete="off"
-                    className="block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2"
+                    className={`block h-[60px] w-full rounded-[10px] border ${
+                      name.trim() === ""
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2 text-[20px]`}
                     type="text"
                     placeholder="Property Name"
-                    style={{ fontSize: "20px" }}
                     value={name}
                     onChange={(e) => {
                       setNametmp(e.target.value);
+                      setName(e.target.value);
                     }}
                   ></input>
                 </div>
@@ -165,6 +199,7 @@ export default function ListingDetailPage({
                     selectedType={listingType}
                     onOptionChange={(e) => {
                       setSelectedListingType(e);
+                      setListingType(e);
                     }}
                   />
                 </div>
@@ -176,31 +211,58 @@ export default function ListingDetailPage({
                     options={propertyTypes}
                     onSelect={handleSelectPropertyType}
                     placeholder="Select Property Type"
+                    selected={propertyType}
                   />
                 </div>
                 <div className="grid gap-6">
-                  <NumberTextBox
-                    label="Rent Price/m (THB)"
+                  <div className="text-[28px] font-medium text-ci-black">
+                    Rent Price/m (THB)
+                  </div>
+                  <input
+                    id="txt"
+                    autoComplete="off"
+                    className={`block h-[60px] w-full rounded-[10px] border ${
+                      rentPrice.trim() === "" &&
+                      (listingType.trim() === "rent" ||
+                        listingType.trim() === "rent/sell")
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2 text-[20px]`}
+                    type="text"
                     placeholder="฿"
-                    style={{ fontSize: "20px" }}
-                    value={rentPrice}
-                    setNum={(value: string) => {
-                      const parsedValue = parseInt(value.replace(/,/g, ""), 10);
-                      setRentPricetmp(isNaN(parsedValue) ? 0 : parsedValue);
+                    value={rentPrice !== "0" ? rentPrice : ""}
+                    onChange={(e) => {
+                      const input = e.target.value;
+                      const onlyNumbers = input.replace(/[^0-9]/g, "");
+                      setRentPricetmp(onlyNumbers);
+                      setRentPrice(onlyNumbers);
                     }}
-                  />
+                  ></input>
                 </div>
                 <div className="grid gap-6">
-                  <NumberTextBox
-                    label="Sale Price (THB)"
+                  <div className="text-[28px] font-medium text-ci-black">
+                    Sale Price (THB)
+                  </div>
+                  <input
+                    id="txt"
+                    autoComplete="off"
+                    className={`block h-[60px] w-full rounded-[10px] border ${
+                      salePrice.trim() === "" &&
+                      (listingType.trim() === "sell" ||
+                        listingType.trim() === "rent/sell")
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2 text-[20px]`}
+                    type="text"
                     placeholder="฿"
-                    style={{ fontSize: "20px" }}
-                    value={salePrice}
-                    setNum={(value: string) => {
-                      const parsedValue = parseInt(value.replace(/,/g, ""), 10);
-                      setSalePricetmp(isNaN(parsedValue) ? 0 : parsedValue);
+                    value={salePrice !== "0" ? salePrice : ""}
+                    onChange={(e) => {
+                      const input = e.target.value;
+                      const onlyNumbers = input.replace(/[^0-9]/g, "");
+                      setSalePricetmp(onlyNumbers);
+                      setSalePrice(onlyNumbers);
                     }}
-                  />
+                  ></input>
                 </div>
               </div>
               <div className="grid">
@@ -209,7 +271,11 @@ export default function ListingDetailPage({
                     Description
                   </div>
                   <textarea
-                    className="flex w-full rounded-[10px] border border-ci-dark-gray p-2"
+                    className={`flex w-full rounded-[10px] border ${
+                      description.trim() === ""
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2`}
                     id="description"
                     value={description}
                     onChange={handleDescriptionChange}
@@ -232,7 +298,11 @@ export default function ListingDetailPage({
                   <input
                     type="text"
                     value={address}
-                    className="block h-[60px] rounded-[10px] border border-ci-dark-gray p-2"
+                    className={`block h-[60px] rounded-[10px] border ${
+                      address.trim() === ""
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2`}
                     onChange={handleInputChange}
                     placeholder="Address"
                     style={{ fontSize: "20px" }}
