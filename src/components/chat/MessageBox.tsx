@@ -20,7 +20,9 @@ export default function MessageBox({ user, setChat }: MessageBoxProps) {
     ctx.fetchMessages();
   }, [ctx.chatUserId]);
 
-  const sendMessage = (msg: string) => {};
+  const sendMessage = (msg: string) => {
+    ctx.sendMessage(msg);
+  };
 
   return (
     <div className="flex h-[528px] w-96 flex-col gap-4 rounded-t-xl bg-white pb-2 shadow-xl shadow-slate-500">

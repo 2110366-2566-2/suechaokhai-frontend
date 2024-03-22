@@ -1,14 +1,7 @@
-import { Chat, ChatMessage } from "@/models/chat";
+import { Chat, ChatMessage, WSInEvent } from "@/models/chat";
 import { ChatService } from "@/services/chat/chatService";
 import getMessages from "@/services/chat/getMessages";
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 
 interface ChatContextType {
   chatUserId: string;
@@ -20,7 +13,8 @@ interface ChatContextType {
   };
   getAllChats: (query?: string) => Promise<Chat[]>;
   fetchMessages: () => void;
-  setChatUserId: Dispatch<SetStateAction<string>>;
+  openChat: (chatId: string) => void;
+  sendMessage: (message: string) => void;
 }
 
 const ChatContext = createContext<ChatContextType>({} as ChatContextType);
@@ -39,14 +33,68 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   }>({});
 
   useEffect(() => {
-    ChatService.getInstance().connect({});
+    ChatService.getInstance().connect({
+      onMessage,
+    });
   }, []);
 
   const onMessage = useCallback<(e: MessageEvent<string>) => void>(
     (e: MessageEvent<string>) => {
-      console.log(e);
+      let msg = JSON.parse(e.data) as WSInEvent;
+
+      console.log(msg);
+
+      switch (msg.event) {
+        case "MSG":
+          let payload = msg.payload as ChatMessage;
+          setChats((prev) => {
+            return {
+              ...prev,
+              [payload.chat_id]: {
+                ...prev[payload.chat_id],
+                messages: prev[payload.chat_id].messages.map((m) =>
+                  m.message_id === msg.tag ? payload : m
+                ),
+              },
+            };
+          });
+      }
     },
     []
+  );
+
+  const openChat = useCallback((chatId: string) => {
+    setChatUserId(chatId);
+    let sentAt = new Date(Date.now());
+    ChatService.getInstance().send("JOIN", chatId, sentAt);
+  }, []);
+
+  const sendMessage = useCallback(
+    (message: string) => {
+      let sentAt = new Date(Date.now());
+      let tag = ChatService.getInstance().send("MSG", message, sentAt);
+
+      setChats((prev) => {
+        return {
+          ...prev,
+          [chatUserId]: {
+            ...prev[chatUserId],
+            messages: [
+              ...prev[chatUserId].messages,
+              {
+                message_id: tag,
+                sent_at: sentAt.toISOString(),
+                chat_id: chatUserId,
+                author: true,
+                content: message,
+                read_at: "",
+              },
+            ],
+          },
+        };
+      });
+    },
+    [chatUserId]
   );
 
   const getAllChats = useCallback(async (query?: string): Promise<Chat[]> => {
@@ -88,7 +136,14 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
 
   return (
     <ChatContext.Provider
-      value={{ chatUserId, chats, getAllChats, fetchMessages, setChatUserId }}
+      value={{
+        chatUserId,
+        chats,
+        getAllChats,
+        fetchMessages,
+        openChat,
+        sendMessage,
+      }}
     >
       {children}
     </ChatContext.Provider>

@@ -17,7 +17,7 @@ export default function UserCard({ chat, setChat }: UserCardProps) {
       className="flex h-20 w-full cursor-pointer flex-row items-center justify-start gap-2 rounded-xl p-2 hover:bg-ci-light-gray"
       onClick={() => {
         setChat(true);
-        ctx.setChatUserId(chat.user_id);
+        ctx.openChat(chat.user_id);
       }}
     >
       <div className="aspect-square min-w-16 overflow-hidden rounded-full">
