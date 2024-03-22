@@ -1,17 +1,18 @@
 "use client";
 import getCurrentUser from "@/services/getCurrentUser";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserData from "../models/UserData";
 import ChatIcon from "./ChatIcon";
 import ChatBox from "./ChatBox";
 import MessageBox from "./MessageBox";
-import { ChatService } from "@/services/chatService";
+import { ChatContext, ChatContextProvider } from "@/context/ChatContext";
 
 export default function ChatModule() {
   const [user, setUser] = useState<UserData>();
   const [isOpen, setOpen] = useState<boolean>(false);
   const [isChat, setChat] = useState<boolean>(false);
-  const [chatWith, setChatWith] = useState<string>("test");
+
+  const ctx = useContext(ChatContext);
 
   useEffect(() => {
     async function getUser() {
@@ -23,33 +24,19 @@ export default function ChatModule() {
     getUser();
   }, []);
 
-  const onOpenChat = () => {
-    if (!ChatService.getInstance().isConnected()) {
-      ChatService.getInstance().connect(() => {
-        setOpen(true);
-      });
-    } else {
-      setOpen(!isOpen);
-    }
-  };
-
   return (
-    <div className="fixed bottom-0 right-0 flex">
-      {user && (
-        <div className="flex flex-row items-end justify-end gap-x-6">
-          {isChat && <MessageBox user={chatWith} setChat={setChat} />}
-          {isOpen && (
-            <ChatBox
-              setOpen={setOpen}
-              setChat={setChat}
-              setChatWith={setChatWith}
-            />
-          )}
-          <div className="p-4" onClick={onOpenChat}>
-            <ChatIcon />
+    <ChatContextProvider>
+      <div className="fixed bottom-0 right-0 flex">
+        {user && (
+          <div className="flex flex-row items-end justify-end gap-x-6">
+            {isChat && <MessageBox user={ctx.chatUserId} setChat={setChat} />}
+            {isOpen && <ChatBox setOpen={setOpen} setChat={setChat} />}
+            <div className="p-4" onClick={() => setOpen(!isOpen)}>
+              <ChatIcon />
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </ChatContextProvider>
   );
 }

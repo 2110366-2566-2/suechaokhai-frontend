@@ -1,20 +1,26 @@
-import ChatBox from "./ChatBox";
-import ChatIcon from "./ChatIcon";
-import Image from "next/image";
-import SearchBar from "./SearchBar";
-import TextFieldSection from "./TextFieldSection";
-import MessageSection from "./MessageSection";
-import { Chat, ChatService } from "@/services/chatService";
-import ProfileImage from "./ProfileImage";
+"use client";
 
-export default function MessageBox({
-  user,
-  setChat,
-}: {
+import Image from "next/image";
+import TextFieldSection from "./TextFieldSection";
+import ProfileImage from "./ProfileImage";
+import { useContext, useEffect } from "react";
+import MessageSection from "./MessageSection";
+import { ChatContext } from "@/context/ChatContext";
+
+interface MessageBoxProps {
   user: string;
   setChat: Function;
-}) {
-  const chat: Chat = ChatService.getInstance().getCurrentChat();
+}
+
+export default function MessageBox({ user, setChat }: MessageBoxProps) {
+  const ctx = useContext(ChatContext);
+  const chat = ctx.chats[ctx.chatUserId].chat;
+
+  useEffect(() => {
+    ctx.fetchMessages();
+  }, [ctx.chatUserId]);
+
+  const sendMessage = (msg: string) => {};
 
   return (
     <div className="flex h-[528px] w-96 flex-col gap-4 rounded-t-xl bg-white pb-2 shadow-xl shadow-slate-500">
@@ -29,7 +35,7 @@ export default function MessageBox({
               src="/img/chat/agreement.svg"
               width={24}
               height={24}
-              alt="ไอบอสสส"
+              alt="agreement"
             />
           </button>
           <button
@@ -42,13 +48,13 @@ export default function MessageBox({
               src="/img/chat/close-icon.svg"
               width={24}
               height={24}
-              alt="ไอบอสสส"
+              alt="close"
             />
           </button>
         </div>
       </div>
-      <MessageSection userId={chat.user_id} />
-      <TextFieldSection />
+      <MessageSection messages={ctx.chats[ctx.chatUserId].messages} />
+      <TextFieldSection sendMessage={sendMessage} />
     </div>
   );
 }

@@ -1,23 +1,23 @@
-import Image from "next/image";
-import { Chat, ChatService } from "@/services/chatService";
-import ProfileImage from "./ProfileImage";
+"use client";
 
-export default function UserCard({
-  chat,
-  setChat,
-  setChatWith,
-}: {
+import ProfileImage from "./ProfileImage";
+import { Chat } from "@/models/chat";
+import { useContext } from "react";
+import { ChatContext } from "@/context/ChatContext";
+
+interface UserCardProps {
   chat: Chat;
   setChat: Function;
-  setChatWith: Function;
-}) {
+}
+
+export default function UserCard({ chat, setChat }: UserCardProps) {
+  const ctx = useContext(ChatContext);
   return (
     <div
       className="flex h-20 w-full cursor-pointer flex-row items-center justify-start gap-2 rounded-xl p-2 hover:bg-ci-light-gray"
       onClick={() => {
         setChat(true);
-        setChatWith(chat.user_id);
-        ChatService.getInstance().openChat(chat.user_id);
+        ctx.setChatUserId(chat.user_id);
       }}
     >
       <div className="aspect-square min-w-16 overflow-hidden rounded-full">

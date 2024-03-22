@@ -3,25 +3,22 @@
 import Image from "next/image";
 import ChatList from "./ChatList";
 import SearchBar from "./SearchBar";
-import { useEffect, useState } from "react";
-import { Chat, ChatService } from "@/services/chatService";
+import { useContext, useEffect, useState } from "react";
+import { Chat } from "@/models/chat";
+import { ChatContext } from "@/context/ChatContext";
 
-export default function ChatBox({
-  setOpen,
-  setChat,
-  setChatWith,
-}: {
+interface ChatBoxProps {
   setOpen: Function;
   setChat: Function;
-  setChatWith: Function;
-}) {
+}
+
+export default function ChatBox({ setOpen, setChat }: ChatBoxProps) {
+  const ctx = useContext(ChatContext);
   const [chats, setChats] = useState<Chat[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
-    ChatService.getInstance()
-      .getAllChats(searchValue)
-      .then((res) => setChats(res));
+    ctx.getAllChats(searchValue).then((res) => setChats(res));
   }, [searchValue]);
 
   return (
@@ -34,7 +31,7 @@ export default function ChatBox({
               src="/img/chat/create-message-icon.svg"
               width={24}
               height={24}
-              alt="ไอบอสสส"
+              alt="create message"
             />
           </button>
           <button
@@ -47,13 +44,13 @@ export default function ChatBox({
               src="/img/chat/close-icon.svg"
               width={24}
               height={24}
-              alt="ไอบอสสส"
+              alt="close button"
             />
           </button>
         </div>
       </div>
       <SearchBar setSearchValue={setSearchValue} searchAfterMS={400} />
-      <ChatList chats={chats} setChat={setChat} setChatWith={setChatWith} />
+      <ChatList chats={chats} setChat={setChat} />
     </div>
   );
 }
