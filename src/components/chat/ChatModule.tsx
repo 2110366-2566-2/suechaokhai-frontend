@@ -6,6 +6,7 @@ import ChatIcon from "./ChatIcon";
 import ChatBox from "./ChatBox";
 import MessageBox from "./MessageBox";
 import { ChatContext, ChatContextProvider } from "@/context/ChatContext";
+import ChatNotification from "./ChatNotification";
 
 export default function ChatModule() {
   const [user, setUser] = useState<UserData>();
@@ -31,7 +32,8 @@ export default function ChatModule() {
           <div className="flex flex-row items-end justify-end gap-x-6">
             {isChat && <MessageBox user={ctx.chatUserId} setChat={setChat} />}
             {isOpen && <ChatBox setOpen={setOpen} setChat={setChat} />}
-            <div className="p-4" onClick={() => setOpen(!isOpen)}>
+            <div className="relative p-4" onClick={() => setOpen(!isOpen)}>
+              <ChatNotification />
               <ChatIcon />
             </div>
           </div>

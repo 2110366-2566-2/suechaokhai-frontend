@@ -181,7 +181,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
 
       setMessages((prev) => {
         let cpy = { ...prev };
-        for (let chat of chats) cpy[chat.user_id] = [];
+        for (let chat of chats) cpy[chat.user_id] = cpy[chat.user_id] || [];
         return cpy;
       });
 
@@ -204,9 +204,17 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     (chatId: string) => {
       setChatUserId(chatId);
       send("JOIN", chatId, new Date(Date.now()));
-      fetchChats();
+      setChats((prev) => {
+        return {
+          ...prev,
+          [chatId]: {
+            ...prev[chatId],
+            unread_messages: 0,
+          },
+        };
+      });
     },
-    [send, fetchChats]
+    [send]
   );
 
   const closeChat = useCallback(() => {
