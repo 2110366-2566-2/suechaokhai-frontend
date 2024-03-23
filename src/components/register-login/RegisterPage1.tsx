@@ -144,206 +144,199 @@ export default function RegisterPage1({
   return (
     <div
       onLoad={() => initial(emailtmp, passtmp, conpasstmp)}
-      className="flex h-[830px] w-full max-w-[650px] flex-col items-center justify-center gap-y-8 rounded-[10px] bg-white py-10"
+      className="flex max-h-[830px] w-full max-w-[650px] flex-col items-center justify-around gap-y-4 rounded-[10px] bg-white py-10"
     >
-      {user && !isLoading && (
-        <div className="flex flex-col items-center gap-y-4">
-          <Image src={compIcon} alt="test" width={80} height={80}></Image>
-          <div className="text-[40px] font-bold">Register</div>
-        </div>
-      )}
-
       <form
         className="flex flex-col gap-y-4 text-left text-[20px]"
         onSubmit={userReg1}
       >
-        <div>
-          {user && !isLoading ? (
-            <div>
-              {isGoogle ? (
-                <div className="flex flex-col items-center justify-center">
-                  <Image
-                    src={googleIcon2}
-                    alt={"google"}
-                    width={220}
-                    height={220}
+        {user && !isLoading ? (
+          <div>
+            <div className="flex flex-col items-center gap-y-4">
+              <Image src={compIcon} alt="test" width={80} height={80}></Image>
+              <div className="text-[40px] font-bold">Register</div>
+            </div>
+            {isGoogle ? (
+              <div className="flex flex-col items-center justify-center">
+                <Image
+                  src={googleIcon2}
+                  alt={"google"}
+                  width={220}
+                  height={220}
+                />
+                <p>You have register with Google account</p>
+                <p className="text-[#3AAEEF]">{emailtmp}</p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-[18px]">
+                <div className="flex flex-col gap-y-2">
+                  <TextField
+                    label="Email"
+                    placeholder="Enter your email here"
+                    type="email"
+                    required
+                    onChange={(e) => {
+                      email.current = e.target.value;
+                      setEmail(email.current);
+                    }}
+                    value={emailtmp}
+                    readOnly={isGoogle}
+                    onKeyDown={(e) => submit(e)}
+                    ref={inputRef}
                   />
-                  <p>You have register with Google account</p>
-                  <p className="text-[#3AAEEF]">{emailtmp}</p>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-[18px]">
-                  <div className="flex flex-col gap-y-2">
-                    <TextField
-                      label="Email"
-                      placeholder="Enter your email here"
-                      type="email"
-                      required
-                      onChange={(e) => {
-                        email.current = e.target.value;
-                        setEmail(email.current);
-                      }}
-                      value={emailtmp}
-                      readOnly={isGoogle}
-                      onKeyDown={(e) => submit(e)}
-                      ref={inputRef}
-                    />
-                    {!isEmailValid && (
-                      <div className="text-base text-ci-red">
-                        This email is already in use
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <PasswordField
-                      label="Password"
-                      placeholder="Enter your password"
-                      type="password"
-                      onChange={(e) => {
-                        password.current = e.target.value;
-                        setPassword(password.current);
-                        isPassValid(password.current);
-                        isSame(conPass.current);
-                      }}
-                      style={{ borderColor: color1 }}
-                      value={passtmp}
-                      onKeyDown={(e) => submit(e)}
-                    />
-
-                    <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
-                      {passValid === 0 ? (
-                        <Image
-                          src={normalIcon}
-                          width={16}
-                          height={0}
-                          alt={"state"}
-                          style={{
-                            objectFit: "contain",
-                            alignContent: "flex-start",
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        />
-                      ) : null}
-
-                      {passValid === 1 ? (
-                        <Image
-                          src={invalidIcon}
-                          width={16}
-                          height={0}
-                          alt={"state"}
-                          style={{
-                            objectFit: "contain",
-                            alignContent: "flex-start",
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        />
-                      ) : null}
-
-                      {passValid === 2 ? (
-                        <Image
-                          src={validIcon}
-                          width={16}
-                          height={0}
-                          alt={"state"}
-                          style={{
-                            objectFit: "contain",
-                            alignContent: "flex-start",
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        />
-                      ) : null}
-
-                      <div style={{ color: color1 }}>
-                        Password must be 8 or more characters and contain{" "}
-                        <br></br>
-                        at least 1 number
-                      </div>
+                  {!isEmailValid && (
+                    <div className="text-base text-ci-red">
+                      This email is already in use
                     </div>
-                  </div>
+                  )}
+                </div>
+                <div>
                   <PasswordField
-                    label="Confirm Password"
-                    placeholder="Re-enter your password"
+                    label="Password"
+                    placeholder="Enter your password"
                     type="password"
                     onChange={(e) => {
-                      conPass.current = e.target.value;
-                      setConPass(conPass.current);
+                      password.current = e.target.value;
+                      setPassword(password.current);
+                      isPassValid(password.current);
                       isSame(conPass.current);
                     }}
-                    style={{ borderColor: color2 }}
-                    value={conpasstmp}
+                    style={{ borderColor: color1 }}
+                    value={passtmp}
                     onKeyDown={(e) => submit(e)}
                   />
-                  <div className="flex flex-row text-[16px]">
-                    {passValid2 === 0 ? (
-                      <div className="flex flex-row gap-[7px]">
-                        <Image
-                          src={normalIcon}
-                          width={16}
-                          height={0}
-                          alt={"state"}
-                          style={{
-                            objectFit: "contain",
-                            alignContent: "flex-start",
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        />
-                        <div style={{ color: color2 }}>
-                          Please confirm password
-                        </div>
-                      </div>
-                    ) : null}
-                    {passValid2 === 1 ? (
-                      <div className="flex flex-row gap-[7px]">
-                        <Image
-                          src={invalidIcon}
-                          width={16}
-                          height={0}
-                          alt={"state"}
-                          style={{
-                            objectFit: "contain",
-                            alignContent: "flex-start",
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        />
-                        <div style={{ color: color2 }}>
-                          Password do not match
-                        </div>
-                      </div>
+
+                  <div className="flex flex-row gap-[7px] pt-[10px] text-[16px]">
+                    {passValid === 0 ? (
+                      <Image
+                        src={normalIcon}
+                        width={16}
+                        height={0}
+                        alt={"state"}
+                        style={{
+                          objectFit: "contain",
+                          alignContent: "flex-start",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      />
                     ) : null}
 
-                    {passValid2 === 2 ? (
-                      <div className="flex flex-row gap-[7px]">
-                        <Image
-                          src={validIcon}
-                          width={16}
-                          height={0}
-                          alt={"state"}
-                          style={{
-                            objectFit: "contain",
-                            alignContent: "flex-start",
-                            display: "flex",
-                            flexDirection: "row",
-                          }}
-                        />
-                        <div style={{ color: color2 }}>Password match</div>
-                      </div>
+                    {passValid === 1 ? (
+                      <Image
+                        src={invalidIcon}
+                        width={16}
+                        height={0}
+                        alt={"state"}
+                        style={{
+                          objectFit: "contain",
+                          alignContent: "flex-start",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      />
                     ) : null}
+
+                    {passValid === 2 ? (
+                      <Image
+                        src={validIcon}
+                        width={16}
+                        height={0}
+                        alt={"state"}
+                        style={{
+                          objectFit: "contain",
+                          alignContent: "flex-start",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      />
+                    ) : null}
+
+                    <div style={{ color: color1 }}>
+                      Password must be 8 or more characters and contain{" "}
+                      <br></br>
+                      at least 1 number
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-          ) : null}
-        </div>
+                <PasswordField
+                  label="Confirm Password"
+                  placeholder="Re-enter your password"
+                  type="password"
+                  onChange={(e) => {
+                    conPass.current = e.target.value;
+                    setConPass(conPass.current);
+                    isSame(conPass.current);
+                  }}
+                  style={{ borderColor: color2 }}
+                  value={conpasstmp}
+                  onKeyDown={(e) => submit(e)}
+                />
+                <div className="flex flex-row text-[16px]">
+                  {passValid2 === 0 ? (
+                    <div className="flex flex-row gap-[7px]">
+                      <Image
+                        src={normalIcon}
+                        width={16}
+                        height={0}
+                        alt={"state"}
+                        style={{
+                          objectFit: "contain",
+                          alignContent: "flex-start",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      />
+                      <div style={{ color: color2 }}>
+                        Please confirm password
+                      </div>
+                    </div>
+                  ) : null}
+                  {passValid2 === 1 ? (
+                    <div className="flex flex-row gap-[7px]">
+                      <Image
+                        src={invalidIcon}
+                        width={16}
+                        height={0}
+                        alt={"state"}
+                        style={{
+                          objectFit: "contain",
+                          alignContent: "flex-start",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      />
+                      <div style={{ color: color2 }}>Password do not match</div>
+                    </div>
+                  ) : null}
+
+                  {passValid2 === 2 ? (
+                    <div className="flex flex-row gap-[7px]">
+                      <Image
+                        src={validIcon}
+                        width={16}
+                        height={0}
+                        alt={"state"}
+                        style={{
+                          objectFit: "contain",
+                          alignContent: "flex-start",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      />
+                      <div style={{ color: color2 }}>Password match</div>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : null}
 
         {user && isGoogle && !isLoading && (
           <div>
             <button
-              className={`h-[60px] w-full rounded-[10px] bg-${isValidColor} font-bold text-white`}
+              className={`h-[60px] w-full rounded-[10px] bg-${isValidColor} py-4 font-bold text-white`}
               onClick={() => changeRegState(2)}
             >
               Confirm
