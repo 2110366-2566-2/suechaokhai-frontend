@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Dropdown from "./DropDown";
 import ListingType from "./ListingType";
 import TrackingCircle from "./TrackingCircle";
@@ -46,6 +46,7 @@ export default function ListingDetailPage({
   const [salePricetmp, setSalePricetmp] = useState<string>();
   const [descriptiontmp, setDescriptiontmp] = useState<string>("");
   const [addresstmp, setAddresstmp] = useState("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const propertyTypes = [
     "Condominium",
@@ -74,6 +75,29 @@ export default function ListingDetailPage({
     setAddresstmp(address);
   }
 
+  useEffect(() => {
+    setIsFormValid(
+      name.trim() !== "" &&
+        listingType.trim() !== "" &&
+        propertyType.trim() !== "" &&
+        ((listingType.trim() === "rent" && rentPrice.trim() !== "") ||
+          (listingType.trim() === "sell" && salePrice.trim() !== "") ||
+          (listingType.trim() === "rent/sell" &&
+            rentPrice.trim() !== "" &&
+            salePrice.trim() !== "")) &&
+        description.trim() !== "" &&
+        address.trim() !== ""
+    );
+  }, [
+    name,
+    listingType,
+    propertyType,
+    rentPrice,
+    salePrice,
+    description,
+    address,
+  ]);
+
   const handleSelectPropertyType = (option: any) => {
     setSelectedPropertyType(option);
     setPropertyType(option);
@@ -92,14 +116,18 @@ export default function ListingDetailPage({
   };
 
   async function nextPage() {
-    setName(name);
-    setListingType(listingType);
-    setPropertyType(propertyType);
-    setRentPrice(rentPrice);
-    setSalePrice(salePrice);
-    setDescription(description);
-    setAddress(address);
-    changeCreateState(1);
+    if (isFormValid) {
+      setName(name);
+      setListingType(listingType);
+      setPropertyType(propertyType);
+      setRentPrice(rentPrice);
+      setSalePrice(salePrice);
+      setDescription(description);
+      setAddress(address);
+      changeCreateState(1);
+    } else {
+      console.log("Please fill in all fields.");
+    }
   }
 
   function listingCreate1(event: FormEvent<HTMLFormElement>) {
@@ -149,7 +177,11 @@ export default function ListingDetailPage({
                   <input
                     id="txt"
                     autoComplete="off"
-                    className="block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2 text-[20px]"
+                    className={`block h-[60px] w-full rounded-[10px] border ${
+                      name.trim() === ""
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2 text-[20px]`}
                     type="text"
                     placeholder="Property Name"
                     value={name}
@@ -189,7 +221,13 @@ export default function ListingDetailPage({
                   <input
                     id="txt"
                     autoComplete="off"
-                    className="block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2 text-[20px]"
+                    className={`block h-[60px] w-full rounded-[10px] border ${
+                      rentPrice.trim() === "" &&
+                      (listingType.trim() === "rent" ||
+                        listingType.trim() === "rent/sell")
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2 text-[20px]`}
                     type="text"
                     placeholder="฿"
                     value={rentPrice !== "0" ? rentPrice : ""}
@@ -208,7 +246,13 @@ export default function ListingDetailPage({
                   <input
                     id="txt"
                     autoComplete="off"
-                    className="block h-[60px] w-full rounded-[10px] border border-ci-dark-gray p-2 text-[20px]"
+                    className={`block h-[60px] w-full rounded-[10px] border ${
+                      salePrice.trim() === "" &&
+                      (listingType.trim() === "sell" ||
+                        listingType.trim() === "rent/sell")
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2 text-[20px]`}
                     type="text"
                     placeholder="฿"
                     value={salePrice !== "0" ? salePrice : ""}
@@ -227,7 +271,11 @@ export default function ListingDetailPage({
                     Description
                   </div>
                   <textarea
-                    className="flex w-full rounded-[10px] border border-ci-dark-gray p-2"
+                    className={`flex w-full rounded-[10px] border ${
+                      description.trim() === ""
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2`}
                     id="description"
                     value={description}
                     onChange={handleDescriptionChange}
@@ -250,7 +298,11 @@ export default function ListingDetailPage({
                   <input
                     type="text"
                     value={address}
-                    className="block h-[60px] rounded-[10px] border border-ci-dark-gray p-2"
+                    className={`block h-[60px] rounded-[10px] border ${
+                      address.trim() === ""
+                        ? "border-ci-red"
+                        : "border-ci-dark-gray"
+                    } p-2`}
                     onChange={handleInputChange}
                     placeholder="Address"
                     style={{ fontSize: "20px" }}
