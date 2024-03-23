@@ -6,12 +6,10 @@ import Link from "next/link";
 
 export default function AccountCreated() {
   return (
-    <div className="flex h-[713px] w-full max-w-[1214px] flex-col items-center rounded-[10px] bg-white px-20">
-      <div className="pb-[90px] pt-[50px] text-3xl font-bold">
-        Account Created
-      </div>
+    <div className="flex max-h-[713px] w-full max-w-[1214px] flex-col items-center justify-center gap-y-6 rounded-[10px] bg-white px-20 py-16">
+      <div className=" text-3xl font-bold">Account Created</div>
 
-      <div className="flex flex-col gap-[60px]">
+      <div className="flex flex-col gap-y-10">
         <div className="font-regular flex items-center justify-center">
           <Image
             src={"/img/login-register/blue-valid-icon.svg"}
