@@ -6,7 +6,7 @@ export interface WSOutEvent {
   tag: string;
 }
 
-export type WSInEventType = "MSG" | "READ";
+export type WSInEventType = "MSG" | "READ" | "OK";
 export interface WSInEvent {
   event: WSInEventType;
   tag: string;

@@ -12,7 +12,7 @@ export default function Suechaokhai({
       <div>
         <div className="">{children}</div>
       </div>
-      <ChatModule/>
+      <ChatModule />
     </div>
   );
 }

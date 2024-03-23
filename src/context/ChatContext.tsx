@@ -34,6 +34,8 @@ interface ChatContextProviderProps {
 
 const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   const connRef = useRef<WebSocket>();
+  const [isConnected, setConnected] = useState<boolean>(false);
+
   const [chatUserId, setChatUserId] = useState<string>("");
   const [chats, setChats] = useState<{
     [key: string]: Chat;
@@ -64,61 +66,6 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       });
     },
     []
-  );
-
-  const onMessage = useCallback(
-    (e: MessageEvent<string>) => {
-      let msg = JSON.parse(e.data) as WSInEvent;
-
-      console.log(msg);
-
-      switch (msg.event) {
-        case "MSG":
-          {
-            let payload = msg.payload as ChatMessage;
-
-            setChats((prev) => {
-              return {
-                ...prev,
-                [payload.chat_id]: {
-                  ...prev[payload.chat_id],
-                  content: payload.content,
-                  unread_messages:
-                    payload.chat_id === chatUserId
-                      ? 0
-                      : prev[payload.chat_id].unread_messages + 1,
-                },
-              };
-            });
-
-            let idx = messages[payload.chat_id].findIndex(
-              (m) => m.message_id === msg.tag
-            );
-
-            // other message
-            if (idx == -1) appendMessage(payload.chat_id, payload);
-            // my message
-            else replaceMessage(payload.chat_id, idx, payload);
-          }
-          break;
-
-        case "READ":
-          {
-            let payload = msg.payload as ReadMessage;
-
-            setMessages((prev) => {
-              return {
-                ...prev,
-                [payload.chat_id]: prev[payload.chat_id].map((m) =>
-                  m.read_at === null ? { ...m, read_at: payload.read_at } : m
-                ),
-              };
-            });
-          }
-          break;
-      }
-    },
-    [chatUserId, messages, appendMessage, replaceMessage]
   );
 
   const send = useCallback(
@@ -192,8 +139,9 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   }, []);
 
   const fetchMessages = useCallback(async () => {
-    if (!messages[chatUserId] || messages[chatUserId].length === 0) {
-      let messages = await getMessages(chatUserId, 0);
+    const limit = 10;
+    if (!messages[chatUserId] || messages[chatUserId].length < limit) {
+      let messages = await getMessages(chatUserId, 0, limit);
       setMessages((prev) => {
         return { ...prev, [chatUserId]: messages };
       });
@@ -222,6 +170,69 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     send("LEFT", "", new Date(Date.now()));
   }, [send]);
 
+  const onMessage = useCallback(
+    (e: MessageEvent<string>) => {
+      let msg = JSON.parse(e.data) as WSInEvent;
+
+      console.log(msg);
+
+      switch (msg.event) {
+        case "MSG":
+          {
+            let payload = msg.payload as ChatMessage;
+
+            setChats((prev) => {
+              return {
+                ...prev,
+                [payload.chat_id]: {
+                  ...prev[payload.chat_id],
+                  content: payload.content,
+                  unread_messages:
+                    payload.chat_id === chatUserId
+                      ? 0
+                      : prev[payload.chat_id].unread_messages + 1,
+                },
+              };
+            });
+
+            let idx = messages[payload.chat_id].findIndex(
+              (m) => m.message_id === msg.tag
+            );
+
+            // other message
+            if (idx == -1) appendMessage(payload.chat_id, payload);
+            // my message
+            else replaceMessage(payload.chat_id, idx, payload);
+          }
+          break;
+
+        case "READ":
+          {
+            let payload = msg.payload as ReadMessage;
+
+            setMessages((prev) => {
+              return {
+                ...prev,
+                [payload.chat_id]: prev[payload.chat_id].map((m) =>
+                  m.read_at === null ? { ...m, read_at: payload.read_at } : m
+                ),
+              };
+            });
+          }
+          break;
+
+        case "OK":
+          {
+            setConnected(true);
+            fetchChats();
+            console.log("Connected");
+          }
+          break;
+      }
+    },
+    [chatUserId, messages, appendMessage, replaceMessage, fetchChats]
+  );
+
   useEffect(() => {
     if (!connRef.current) {
       let conn = new WebSocket(
@@ -231,13 +242,9 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       connRef.current = conn;
     }
 
-    connRef.current.onopen = (e: Event) => {
-      console.log("Connected");
-      fetchChats();
-    };
-
     connRef.current.onclose = (e: CloseEvent) => {
       console.log("Disconnected", e.reason);
+      setConnected(false);
     };
 
     connRef.current.onmessage = (e: MessageEvent<string>) => {
