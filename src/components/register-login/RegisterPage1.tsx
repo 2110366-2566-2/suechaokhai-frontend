@@ -366,7 +366,11 @@ export default function RegisterPage1({
 
       {!user ? <CircularProgress className="absolute mt-[400px]" /> : null}
 
-      {user && isLoading && <CircularProgress className="" />}
+      {user && isLoading && (
+        <div className="py-[400px]">
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 }
