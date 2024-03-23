@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import EmailVerificationPage from "@/components/register-login/EmailVerificationPage";
 import sendVerification from "@/services/sendVerificationEmail";
+import AccountCreated from "@/components/register-login/AccountCreated";
 
 export interface PersonalInfo {
   email: string;
@@ -91,10 +92,6 @@ export default function RegisterPage() {
       img: img,
       registered_type: registeredType,
     });
-    const tmp = [email];
-    const emailSend = await sendVerification(tmp);
-    console.log(emailSend);
-    console.log(userRegis);
     setFinReg(userRegis);
   };
 
@@ -153,9 +150,16 @@ export default function RegisterPage() {
       {registerStage === 1 ? (
         <div>
           <EmailVerificationPage
+            email={email}
             changeRegState={changeRegState}
             finReg={finReg}
+            isGoogle={isGoogle}
           />
+        </div>
+      ) : null}
+      {registerStage === 3 ? (
+        <div>
+          <AccountCreated />
         </div>
       ) : null}
       <button onClick={nextStage} className="absolute left-0 mx-10">

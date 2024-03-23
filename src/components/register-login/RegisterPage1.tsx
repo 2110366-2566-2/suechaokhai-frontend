@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import PasswordField from "./PasswordField";
 import Link from "next/link";
 import { CircularProgress } from "@mui/material";
+import sendVerification from "@/services/sendVerificationEmail";
 
 const normalIcon = "/img/login-register/NormalIcon.png";
 const invalidIcon = "/img/login-register/InvalidIcon.png";
@@ -122,8 +123,11 @@ export default function RegisterPage1({
     event.preventDefault();
   }
 
-  function nextStage() {
+  async function nextStage() {
     if (isInfoValid == 1) {
+      const tmp = [email.current];
+      const sendEmail = await sendVerification(tmp);
+      console.log(sendEmail);
       changeRegState(1);
     }
   }

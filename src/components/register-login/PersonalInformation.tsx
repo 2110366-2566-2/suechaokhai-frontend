@@ -84,7 +84,7 @@ export default function PersonalInformation({
     if (nextColor == "ci-blue") {
       const reg = await register();
       console.log(reg);
-      changeRegState(2);
+      changeRegState(3);
     }
   }
 

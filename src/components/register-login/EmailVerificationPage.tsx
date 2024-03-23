@@ -1,19 +1,49 @@
 "use client";
 
+import authCallback from "@/services/authCallback";
+import sendVerification from "@/services/sendVerificationEmail";
 import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function EmailVerificationPage({
+  email,
   finReg,
   changeRegState,
+  isGoogle,
 }: {
+  email: string;
   changeRegState: Function;
   finReg: any;
+  isGoogle: boolean;
 }) {
-  function checkVerification() {
-    changeRegState(2);
+  const [code, setCode] = useState<string>();
+  const queryParams = useSearchParams();
+  const queryString = Array.from(queryParams.entries())
+    .map(([key, val]) => `${key}=${val}`)
+    .join("&");
+
+  useEffect(() => {
+    if (isGoogle) {
+      changeRegState(2);
+    }
+  }, []);
+  async function checkVerification() {
+    if (!isGoogle) {
+      const checkCode = await authCallback(`code=SCK-${code}&email=${email}`);
+      if (checkCode) {
+        changeRegState(2);
+      }
+    }
   }
+  async function sendEmail() {
+    const tmp = [email];
+    const sendEmail = await sendVerification(tmp);
+    console.log(sendEmail);
+  }
+
   return (
     <div>
       {true ? (
@@ -42,6 +72,10 @@ export default function EmailVerificationPage({
               type="text"
               className="block h-[50px] w-full rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
               placeholder="Enter your verification code"
+              onChange={(e) => {
+                setCode(e.target.value);
+                console.log(code);
+              }}
             ></input>
             <button
               onClick={() => {
@@ -53,7 +87,9 @@ export default function EmailVerificationPage({
             </button>
           </div>
           <div className="flex flex-col gap-y-6 text-center text-lg text-ci-blue">
-            <div className="cursor-pointer">Resend verification link</div>
+            <div onClick={sendEmail} className="cursor-pointer">
+              Resend verification link
+            </div>
             <div
               onClick={() => {
                 changeRegState(0);

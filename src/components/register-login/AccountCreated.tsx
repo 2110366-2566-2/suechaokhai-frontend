@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function AccountCreated() {
   return (
-    <div className="flex h-[713px] w-full max-w-[1214px] flex-col items-center rounded-[10px] bg-white">
+    <div className="flex h-[713px] w-full max-w-[1214px] flex-col items-center rounded-[10px] bg-white px-20">
       <div className="pb-[90px] pt-[50px] text-[40px] font-bold">
         Account Created
       </div>
