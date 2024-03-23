@@ -45,8 +45,6 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         case "MSG":
           let payload = msg.payload as ChatMessage;
           setMessages((prev) => {
-            console.log(prev);
-            console.log(payload.chat_id);
             let idx = prev[payload.chat_id].findIndex(
               (m) => m.message_id === msg.tag
             );
@@ -60,8 +58,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
             } else {
               // my message
               let msgs = [...prev[payload.chat_id]];
-              let mut = { ...prev[payload.chat_id][idx] };
-              msgs[idx] = mut;
+              msgs[idx] = payload;
 
               return {
                 ...prev,
