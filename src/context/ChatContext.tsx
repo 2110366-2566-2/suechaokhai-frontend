@@ -1,4 +1,4 @@
-import { Chat, ChatMessage, WSInEvent } from "@/models/chat";
+import { Chat, ChatMessage, ReadMessage, WSInEvent } from "@/models/chat";
 import { ChatService } from "@/services/chat/chatService";
 import getMessages from "@/services/chat/getMessages";
 import React, { createContext, useCallback, useEffect, useState } from "react";
@@ -43,30 +43,46 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
 
       switch (msg.event) {
         case "MSG":
-          let payload = msg.payload as ChatMessage;
-          setMessages((prev) => {
-            let idx = prev[payload.chat_id].findIndex(
-              (m) => m.message_id === msg.tag
-            );
+          {
+            let payload = msg.payload as ChatMessage;
+            setMessages((prev) => {
+              let idx = prev[payload.chat_id].findIndex(
+                (m) => m.message_id === msg.tag
+              );
 
-            if (idx == -1) {
-              // other message
+              if (idx == -1) {
+                // other message
+                return {
+                  ...prev,
+                  [payload.chat_id]: [...prev[payload.chat_id], payload],
+                };
+              } else {
+                // my message
+                let msgs = [...prev[payload.chat_id]];
+                msgs[idx] = payload;
+
+                return {
+                  ...prev,
+                  [payload.chat_id]: msgs,
+                };
+              }
+            });
+          }
+          break;
+
+        case "READ":
+          {
+            let payload = msg.payload as ReadMessage;
+
+            setMessages((prev) => {
               return {
                 ...prev,
-                [payload.chat_id]: [...prev[payload.chat_id], payload],
+                [payload.chat_id]: prev[payload.chat_id].map((m) =>
+                  m.read_at === null ? { ...m, read_at: payload.read_at } : m
+                ),
               };
-            } else {
-              // my message
-              let msgs = [...prev[payload.chat_id]];
-              msgs[idx] = payload;
-
-              return {
-                ...prev,
-                [payload.chat_id]: msgs,
-              };
-            }
-          });
-
+            });
+          }
           break;
       }
     },

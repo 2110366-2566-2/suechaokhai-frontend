@@ -30,3 +30,8 @@ export interface Chat {
   unread_messages: number;
   content: string;
 }
+
+export interface ReadMessage {
+  chat_id: string;
+  read_at: string;
+}
