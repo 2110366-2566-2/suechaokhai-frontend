@@ -45,12 +45,29 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         case "MSG":
           let payload = msg.payload as ChatMessage;
           setMessages((prev) => {
-            return {
-              ...prev,
-              [chatUserId]: prev[payload.chat_id].map((m) =>
-                m.message_id === msg.tag ? payload : m
-              ),
-            };
+            console.log(prev);
+            console.log(payload.chat_id);
+            let idx = prev[payload.chat_id].findIndex(
+              (m) => m.message_id === msg.tag
+            );
+
+            if (idx == -1) {
+              // other message
+              return {
+                ...prev,
+                [payload.chat_id]: [...prev[payload.chat_id], payload],
+              };
+            } else {
+              // my message
+              let msgs = [...prev[payload.chat_id]];
+              let mut = { ...prev[payload.chat_id][idx] };
+              msgs[idx] = mut;
+
+              return {
+                ...prev,
+                [payload.chat_id]: msgs,
+              };
+            }
           });
 
           break;
