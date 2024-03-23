@@ -144,7 +144,7 @@ export default function RegisterPage1({
   return (
     <div
       onLoad={() => initial(emailtmp, passtmp, conpasstmp)}
-      className="flex max-h-[830px] w-full max-w-[650px] flex-col items-center justify-around gap-y-4 rounded-[10px] bg-white py-10"
+      className="flex max-h-[830px] w-full max-w-[650px] flex-col items-center justify-around gap-y-4 rounded-[10px] bg-white py-20"
     >
       <form
         className="flex flex-col gap-y-4 text-left text-[20px]"
