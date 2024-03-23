@@ -1,6 +1,5 @@
 "use client";
 
-import { ChatService } from "@/services/chat/chatService";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -37,6 +36,7 @@ export default function TextFieldSection(props: TextFieldSectionProps) {
         onKeyDown={onKeyDownHandler}
         onChange={onChangeHandler}
         value={message}
+        autoFocus
       />
 
       <button onClick={sendHandler}>
