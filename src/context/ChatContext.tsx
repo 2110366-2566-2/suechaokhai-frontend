@@ -225,6 +225,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
 
     connRef.current.onopen = (e: Event) => {
       console.log("Connected");
+      fetchChats();
     };
 
     connRef.current.onclose = (e: CloseEvent) => {
@@ -234,7 +235,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     connRef.current.onmessage = (e: MessageEvent<string>) => {
       onMessage(e);
     };
-  }, [onMessage]);
+  }, [onMessage, fetchChats]);
 
   return (
     <ChatContext.Provider
