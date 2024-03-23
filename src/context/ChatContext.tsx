@@ -21,8 +21,9 @@ interface ChatContextType {
   messages: { [key: string]: ChatMessage[] };
   getAllChats: (query?: string) => Promise<Chat[]>;
   fetchMessages: () => void;
-  openChat: (chatId: string) => void;
   sendMessage: (message: string) => void;
+  openChat: (chatId: string) => void;
+  closeChat: () => void;
 }
 
 const ChatContext = createContext<ChatContextType>({} as ChatContextType);
@@ -204,12 +205,16 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   const openChat = useCallback(
     (chatId: string) => {
       setChatUserId(chatId);
-      let sentAt = new Date(Date.now());
-      send("JOIN", chatId, sentAt);
+      send("JOIN", chatId, new Date(Date.now()));
       getAllChats();
     },
     [send, getAllChats]
   );
+
+  const closeChat = useCallback(() => {
+    setChatUserId("");
+    send("LEFT", "", new Date(Date.now()));
+  }, [send]);
 
   useEffect(() => {
     if (!connRef.current) {
@@ -241,8 +246,9 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         messages,
         getAllChats,
         fetchMessages,
-        openChat,
         sendMessage,
+        openChat,
+        closeChat,
       }}
     >
       {children}

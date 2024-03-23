@@ -43,6 +43,7 @@ export default function MessageBox({ user, setChat }: MessageBoxProps) {
           <button
             className="rounded-md hover:bg-slate-300"
             onClick={() => {
+              ctx.closeChat();
               setChat(false);
             }}
           >
