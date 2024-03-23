@@ -1,7 +1,19 @@
-import { Chat, ChatMessage, ReadMessage, WSInEvent } from "@/models/chat";
-import { ChatService } from "@/services/chat/chatService";
+import {
+  Chat,
+  ChatMessage,
+  ReadMessage,
+  WSInEvent,
+  WSOutEvent,
+  WSOutEventType,
+} from "@/models/chat";
 import getMessages from "@/services/chat/getMessages";
-import React, { createContext, useCallback, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface ChatContextType {
   chatUserId: string;
@@ -20,6 +32,7 @@ interface ChatContextProviderProps {
 }
 
 const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
+  const connRef = useRef<WebSocket>();
   const [chatUserId, setChatUserId] = useState<string>("");
   const [chats, setChats] = useState<{
     [key: string]: Chat;
@@ -29,11 +42,28 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     [key: string]: ChatMessage[];
   }>({});
 
-  useEffect(() => {
-    ChatService.getInstance().connect({
-      onMessage,
+  const appendMessage = useCallback((chatId: string, msg: ChatMessage) => {
+    setMessages((prev) => {
+      return {
+        ...prev,
+        [chatId]: [...prev[chatId], msg],
+      };
     });
   }, []);
+
+  const replaceMessage = useCallback(
+    (chatId: string, index: number, msg: ChatMessage) => {
+      setMessages((prev) => {
+        let msgs = [...prev[chatId]];
+        msgs[index] = msg;
+        return {
+          ...prev,
+          [chatId]: msgs,
+        };
+      });
+    },
+    []
+  );
 
   const onMessage = useCallback(
     (e: MessageEvent<string>) => {
@@ -45,28 +75,29 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         case "MSG":
           {
             let payload = msg.payload as ChatMessage;
-            setMessages((prev) => {
-              let idx = prev[payload.chat_id].findIndex(
-                (m) => m.message_id === msg.tag
-              );
 
-              if (idx == -1) {
-                // other message
-                return {
-                  ...prev,
-                  [payload.chat_id]: [...prev[payload.chat_id], payload],
-                };
-              } else {
-                // my message
-                let msgs = [...prev[payload.chat_id]];
-                msgs[idx] = payload;
-
-                return {
-                  ...prev,
-                  [payload.chat_id]: msgs,
-                };
-              }
+            setChats((prev) => {
+              return {
+                ...prev,
+                [payload.chat_id]: {
+                  ...prev[payload.chat_id],
+                  content: payload.content,
+                  unread_messages:
+                    payload.chat_id === chatUserId
+                      ? 0
+                      : prev[payload.chat_id].unread_messages + 1,
+                },
+              };
             });
+
+            let idx = messages[payload.chat_id].findIndex(
+              (m) => m.message_id === msg.tag
+            );
+
+            // other message
+            if (idx == -1) appendMessage(payload.chat_id, payload);
+            // my message
+            else replaceMessage(payload.chat_id, idx, payload);
           }
           break;
 
@@ -86,20 +117,32 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
           break;
       }
     },
-    [chatUserId]
+    [chatUserId, messages, appendMessage, replaceMessage]
   );
 
-  const openChat = useCallback((chatId: string) => {
-    setChatUserId(chatId);
-    let sentAt = new Date(Date.now());
-    ChatService.getInstance().send("JOIN", chatId, sentAt);
-    getAllChats();
-  }, []);
+  const send = useCallback(
+    (event: WSOutEventType, content: string, sentAt: Date): string => {
+      if (!connRef.current) return "";
+
+      let tag: string = Math.random().toString(16).substring(2);
+      let msg: WSOutEvent = {
+        event,
+        content,
+        sent_at: sentAt.toISOString(),
+        tag,
+      };
+
+      connRef.current.send(JSON.stringify(msg));
+
+      return tag;
+    },
+    []
+  );
 
   const sendMessage = useCallback(
     (message: string) => {
       let sentAt = new Date(Date.now());
-      let tag = ChatService.getInstance().send("MSG", message, sentAt);
+      let tag = send("MSG", message, sentAt);
 
       setMessages((prev) => {
         return {
@@ -118,7 +161,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         };
       });
     },
-    [chatUserId]
+    [chatUserId, send]
   );
 
   const getAllChats = useCallback(async (query?: string): Promise<Chat[]> => {
@@ -153,12 +196,42 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     if (!messages[chatUserId] || messages[chatUserId].length === 0) {
       let messages = await getMessages(chatUserId, 0);
       setMessages((prev) => {
-        let cpy = { ...prev };
-        cpy[chatUserId] = messages;
-        return cpy;
+        return { ...prev, [chatUserId]: messages };
       });
     }
-  }, [chatUserId]);
+  }, [chatUserId, messages]);
+
+  const openChat = useCallback(
+    (chatId: string) => {
+      setChatUserId(chatId);
+      let sentAt = new Date(Date.now());
+      send("JOIN", chatId, sentAt);
+      getAllChats();
+    },
+    [send, getAllChats]
+  );
+
+  useEffect(() => {
+    if (!connRef.current) {
+      let conn = new WebSocket(
+        `${process.env.NEXT_PUBLIC_WS_BACKEND_HOST!}/ws/chats`
+      );
+
+      connRef.current = conn;
+    }
+
+    connRef.current.onopen = (e: Event) => {
+      console.log("Connected");
+    };
+
+    connRef.current.onclose = (e: CloseEvent) => {
+      console.log("Disconnected", e.reason);
+    };
+
+    connRef.current.onmessage = (e: MessageEvent<string>) => {
+      onMessage(e);
+    };
+  }, [onMessage]);
 
   return (
     <ChatContext.Provider
