@@ -131,6 +131,17 @@ export default function RegisterPage() {
         />
       ) : null}
 
+      {registerStage === 1 ? (
+        <div>
+          <EmailVerificationPage
+            email={email}
+            changeRegState={changeRegState}
+            finReg={finReg}
+            isGoogle={isGoogle}
+          />
+        </div>
+      ) : null}
+
       {registerStage === 2 ? (
         <div>
           <PersonalInformation
@@ -143,28 +154,16 @@ export default function RegisterPage() {
             changeRegState={changeRegState}
             setImg={setImg}
             register={register}
-          />
-        </div>
-      ) : null}
-
-      {registerStage === 1 ? (
-        <div>
-          <EmailVerificationPage
-            email={email}
-            changeRegState={changeRegState}
-            finReg={finReg}
             isGoogle={isGoogle}
           />
         </div>
       ) : null}
+
       {registerStage === 3 ? (
         <div>
           <AccountCreated />
         </div>
       ) : null}
-      <button onClick={nextStage} className="absolute left-0 mx-10">
-        test
-      </button>
     </div>
   );
 }

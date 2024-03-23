@@ -39,6 +39,8 @@ export default function RegisterPage1({
   const [passValid2, changeValid2] = useState(0);
   const [isValidColor, setValidColor] = useState("ci-gray");
   const [isInfoValid, setInfoValid] = useState(0);
+  const [isEmailValid, setEmailValid] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   const submit = (event: { keyCode: number }) => {
     if (event.keyCode === 13) {
@@ -124,60 +126,74 @@ export default function RegisterPage1({
   }
 
   async function nextStage() {
+    setLoading(true);
     if (isInfoValid == 1) {
       const tmp = [email.current];
       const sendEmail = await sendVerification(tmp);
       console.log(sendEmail);
-      changeRegState(1);
+      if (sendEmail) {
+        setEmailValid(true);
+        changeRegState(1);
+      } else {
+        setEmailValid(false);
+        setLoading(false);
+      }
     }
   }
 
   return (
     <div
       onLoad={() => initial(emailtmp, passtmp, conpasstmp)}
-      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
+      className="flex h-[830px] w-full max-w-[650px] flex-col items-center justify-center gap-y-8 rounded-[10px] bg-white py-10"
     >
-      <Image
-        src={compIcon}
-        alt="test"
-        width={80}
-        height={80}
-        className="pt-[41px]"
-      ></Image>
-      <div className="pb-[9px] pt-[19px] text-[40px] font-bold">Register</div>
-      <form className="px-[70px] text-left text-[20px]" onSubmit={userReg1}>
+      {user && !isLoading && (
+        <div className="flex flex-col items-center gap-y-4">
+          <Image src={compIcon} alt="test" width={80} height={80}></Image>
+          <div className="text-[40px] font-bold">Register</div>
+        </div>
+      )}
+
+      <form
+        className="flex flex-col gap-y-4 text-left text-[20px]"
+        onSubmit={userReg1}
+      >
         <div>
-          {user ? (
+          {user && !isLoading ? (
             <div>
               {isGoogle ? (
-                <div className="flex flex-col items-center justify-center py-[40px]">
+                <div className="flex flex-col items-center justify-center">
                   <Image
                     src={googleIcon2}
                     alt={"google"}
                     width={220}
                     height={220}
                   />
-                  <p className="py-[20px]">
-                    You have register with Google account
-                  </p>
+                  <p>You have register with Google account</p>
                   <p className="text-[#3AAEEF]">{emailtmp}</p>
                 </div>
               ) : (
                 <div className="flex flex-col gap-[18px]">
-                  <TextField
-                    label="Email"
-                    placeholder="Enter your email here"
-                    type="email"
-                    required
-                    onChange={(e) => {
-                      email.current = e.target.value;
-                      setEmail(email.current);
-                    }}
-                    value={emailtmp}
-                    readOnly={isGoogle}
-                    onKeyDown={(e) => submit(e)}
-                    ref={inputRef}
-                  />
+                  <div className="flex flex-col gap-y-2">
+                    <TextField
+                      label="Email"
+                      placeholder="Enter your email here"
+                      type="email"
+                      required
+                      onChange={(e) => {
+                        email.current = e.target.value;
+                        setEmail(email.current);
+                      }}
+                      value={emailtmp}
+                      readOnly={isGoogle}
+                      onKeyDown={(e) => submit(e)}
+                      ref={inputRef}
+                    />
+                    {!isEmailValid && (
+                      <div className="text-base text-ci-red">
+                        This email is already in use
+                      </div>
+                    )}
+                  </div>
                   <div>
                     <PasswordField
                       label="Password"
@@ -324,20 +340,30 @@ export default function RegisterPage1({
           ) : null}
         </div>
 
-        {user ? (
-          <div className="pt-[45px]">
+        {user && isGoogle && !isLoading && (
+          <div>
             <button
-              className={`h-[60px] w-[510px] rounded-[10px] bg-${isValidColor} font-bold text-white`}
+              className={`h-[60px] w-full rounded-[10px] bg-${isValidColor} font-bold text-white`}
+              onClick={() => changeRegState(2)}
+            >
+              Confirm
+            </button>
+          </div>
+        )}
+        {user && !isGoogle && !isLoading && (
+          <div>
+            <button
+              className={`h-[60px] w-full rounded-[10px] bg-${isValidColor} font-bold text-white`}
               onClick={nextStage}
             >
               Confirm
             </button>
           </div>
-        ) : null}
+        )}
       </form>
 
-      {user ? (
-        <div className="flex flex-row items-center justify-center pt-[30px] text-[20px]">
+      {user && !isGoogle && !isLoading ? (
+        <div className="flex flex-row items-center justify-center text-[20px]">
           <div className="">Already have an account?</div>
           <Link href="/login">
             <div className="pl-[16px] text-ci-blue ">Login</div>
@@ -346,6 +372,8 @@ export default function RegisterPage1({
       ) : null}
 
       {!user ? <CircularProgress className="absolute mt-[400px]" /> : null}
+
+      {user && isLoading && <CircularProgress className="" />}
     </div>
   );
 }

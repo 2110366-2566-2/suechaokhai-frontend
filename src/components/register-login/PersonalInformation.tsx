@@ -12,6 +12,7 @@ export default function PersonalInformation({
   setPhoneNumber,
   setImg,
   register,
+  isGoogle,
 }: {
   firsttmp: string;
   lasttmp: string;
@@ -22,6 +23,7 @@ export default function PersonalInformation({
   setPhoneNumber: Function;
   setImg: Function;
   register: Function;
+  isGoogle: boolean;
 }) {
   const [nextColor, setNextColor] = useState("ci-grey");
   const firstName = useRef("");
@@ -99,23 +101,21 @@ export default function PersonalInformation({
   return (
     <div
       onLoad={() => initial(firsttmp, lasttmp, numtemp)}
-      className="flex h-[830px] w-[650px] flex-col items-center rounded-[10px] bg-white"
+      className="flex h-full w-full flex-col items-center justify-center gap-y-8 rounded-[10px] bg-white px-20 py-14"
     >
-      <div className="pb-[25px] pt-[50px] text-[40px] font-bold">
-        Personal Information
-      </div>
-      <div className="h-[167px] w-[167px] overflow-hidden rounded-full">
-        <Image
-          src={src}
-          alt="Your Image"
-          width={167}
-          height={167}
-          layout="responsive"
-        />
-      </div>
+      <div className="text-[40px] font-bold">Personal Information</div>
 
-      <form className="px-[67px] text-left text-[20px]" onSubmit={userReg1}>
-        <div className="flex flex-col items-center justify-center pt-[12px] text-[20px] font-bold text-ci-blue">
+      <form className="gap-y-8 text-left text-[20px]" onSubmit={userReg1}>
+        <div className="flex flex-col items-center justify-center gap-y-4 text-[20px] font-bold text-ci-blue">
+          <div className="h-[167px] w-[167px] overflow-hidden rounded-full">
+            <Image
+              src={src}
+              alt="Your Image"
+              width={167}
+              height={167}
+              layout="responsive"
+            />
+          </div>
           <input
             type="file"
             accept="image/*"
@@ -134,7 +134,7 @@ export default function PersonalInformation({
             Upload your photo
           </div>
         </div>
-        <div className="flex flex-col gap-[22px] pt-[22px]">
+        <div className="flex flex-col gap-y-4">
           <TextBox
             label="First Name"
             placeholder="Enter your first name"
@@ -145,8 +145,6 @@ export default function PersonalInformation({
             value={firsttmp}
             ref={inputRef}
           ></TextBox>
-        </div>
-        <div className="flex flex-col gap-[22px] pt-[22px]">
           <TextBox
             label="Last Name"
             placeholder="Enter your last name"
@@ -156,8 +154,6 @@ export default function PersonalInformation({
             }}
             value={lasttmp}
           ></TextBox>
-        </div>
-        <div className="flex flex-col gap-[22px] pt-[22px]">
           <TextBox
             label="Phone Number"
             placeholder="Enter your phone number"
@@ -168,25 +164,41 @@ export default function PersonalInformation({
           ></TextBox>
         </div>
       </form>
-      <div className="grid grid-cols-2 gap-x-[130px] pt-[50px]">
-        <div>
-          <button
-            onClick={back}
-            className="h-[60px] w-[190px] rounded-[10px] bg-ci-dark-gray text-[24px] font-bold text-white"
-          >
-            Back
-          </button>
+      {!isGoogle && (
+        <div className="grid grid-cols-2 gap-x-[130px]">
+          <div>
+            <button
+              onClick={back}
+              className="h-[60px] w-[190px] rounded-[10px] bg-ci-dark-gray text-[24px] font-bold text-white"
+            >
+              Back
+            </button>
+          </div>
+          <div>
+            <button
+              type="submit"
+              onClick={nextPageStatus}
+              className={`h-[60px] w-[190px] rounded-[10px] bg-${nextColor} text-[24px] font-bold text-white`}
+            >
+              Next
+            </button>
+          </div>
         </div>
-        <div>
-          <button
-            type="submit"
-            onClick={nextPageStatus}
-            className={`h-[60px] w-[190px] rounded-[10px] bg-${nextColor} text-[24px] font-bold text-white`}
-          >
-            Next
-          </button>
+      )}
+
+      {isGoogle && (
+        <div className="flex w-full flex-col">
+          <div>
+            <button
+              type="submit"
+              onClick={nextPageStatus}
+              className={`h-[60px] w-full rounded-[10px] bg-${nextColor} text-[24px] font-bold text-white`}
+            >
+              Next
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

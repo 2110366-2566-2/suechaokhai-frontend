@@ -20,10 +20,6 @@ export default function EmailVerificationPage({
   isGoogle: boolean;
 }) {
   const [code, setCode] = useState<string>();
-  const queryParams = useSearchParams();
-  const queryString = Array.from(queryParams.entries())
-    .map(([key, val]) => `${key}=${val}`)
-    .join("&");
 
   useEffect(() => {
     if (isGoogle) {
@@ -47,7 +43,7 @@ export default function EmailVerificationPage({
   return (
     <div>
       {true ? (
-        <div className="flex h-full flex-col items-center justify-center gap-y-10 rounded-[10px] bg-white px-14 py-16">
+        <div className="flex h-full flex-col items-center justify-center gap-y-10 rounded-[10px] bg-white px-20 py-16">
           <div className="text-3xl font-bold">Please Verify Your Email</div>
 
           <div className="flex flex-col items-center gap-y-10">
