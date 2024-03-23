@@ -17,15 +17,30 @@ export default function MessageSection({ messages }: MessageSectionProps) {
     bottomRef.current?.scrollIntoView({ behavior: "instant" });
   };
 
+  const splitMessages = (): { sent: ChatMessage[]; sending: ChatMessage[] } => {
+    let idx = messages.findIndex((msg) => msg.read_at === "sending");
+    idx = idx === -1 ? messages.length : idx;
+
+    return {
+      sent: messages.slice(0, idx),
+      sending: messages.slice(idx),
+    };
+  };
+
+  const { sent, sending } = splitMessages();
+
   return (
-    <div className="flex h-full flex-col gap-y-2 overflow-auto px-6">
-      <div className="flex flex-col gap-y-4">
-        {messages &&
-          messages.map((item: ChatMessage) => (
-            <Message key={item.message_id} message={item} />
-          ))}
+    <div className="flex h-full flex-col overflow-auto px-6">
+      <div className="flex flex-col gap-4">
+        {sent.map((item: ChatMessage) => (
+          <Message key={item.message_id} message={item} />
+        ))}
       </div>
-      <div className="flex items-center justify-end px-2 text-sm">Read</div>
+      <div className="flex flex-col gap-4 text-ci-dark-gray">
+        {sending.map((item: ChatMessage) => (
+          <Message key={item.message_id} message={item} />
+        ))}
+      </div>
       <div ref={bottomRef}></div>
     </div>
   );

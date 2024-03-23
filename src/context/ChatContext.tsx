@@ -95,7 +95,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
               chat_id: chatUserId,
               author: true,
               content: message,
-              read_at: "",
+              read_at: "sending",
             },
           ],
         };
@@ -116,11 +116,16 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
 
       setChats((prev) => {
         let cpy = { ...prev };
-        for (let chat of chats) {
-          cpy[chat.user_id] = chat;
-        }
+        for (let chat of chats) cpy[chat.user_id] = chat;
         return cpy;
       });
+
+      setMessages((prev) => {
+        let cpy = { ...prev };
+        for (let chat of chats) cpy[chat.user_id] = [];
+        return cpy;
+      });
+
       return Promise.resolve(chats);
     } catch (err) {
       return Promise.reject(err);
