@@ -1,4 +1,4 @@
-import { ChatMessage } from "@/services/chat/chatService";
+import { ChatMessage } from "@/models/chat";
 
 export default function Message({ message }: { message: ChatMessage }) {
   return (

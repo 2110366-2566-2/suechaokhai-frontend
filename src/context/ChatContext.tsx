@@ -5,12 +5,8 @@ import React, { createContext, useCallback, useEffect, useState } from "react";
 
 interface ChatContextType {
   chatUserId: string;
-  chats: {
-    [key: string]: {
-      chat: Chat;
-      messages: ChatMessage[];
-    };
-  };
+  chats: { [key: string]: Chat };
+  messages: { [key: string]: ChatMessage[] };
   getAllChats: (query?: string) => Promise<Chat[]>;
   fetchMessages: () => void;
   openChat: (chatId: string) => void;
@@ -26,10 +22,11 @@ interface ChatContextProviderProps {
 const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   const [chatUserId, setChatUserId] = useState<string>("");
   const [chats, setChats] = useState<{
-    [key: string]: {
-      chat: Chat;
-      messages: ChatMessage[];
-    };
+    [key: string]: Chat;
+  }>({});
+
+  const [messages, setMessages] = useState<{
+    [key: string]: ChatMessage[];
   }>({});
 
   useEffect(() => {
@@ -47,17 +44,16 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       switch (msg.event) {
         case "MSG":
           let payload = msg.payload as ChatMessage;
-          setChats((prev) => {
+          setMessages((prev) => {
             return {
               ...prev,
-              [payload.chat_id]: {
-                ...prev[payload.chat_id],
-                messages: prev[payload.chat_id].messages.map((m) =>
-                  m.message_id === msg.tag ? payload : m
-                ),
-              },
+              [chatUserId]: prev[payload.chat_id].map((m) =>
+                m.message_id === msg.tag ? payload : m
+              ),
             };
           });
+
+          break;
       }
     },
     []
@@ -74,23 +70,20 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       let sentAt = new Date(Date.now());
       let tag = ChatService.getInstance().send("MSG", message, sentAt);
 
-      setChats((prev) => {
+      setMessages((prev) => {
         return {
           ...prev,
-          [chatUserId]: {
+          [chatUserId]: [
             ...prev[chatUserId],
-            messages: [
-              ...prev[chatUserId].messages,
-              {
-                message_id: tag,
-                sent_at: sentAt.toISOString(),
-                chat_id: chatUserId,
-                author: true,
-                content: message,
-                read_at: "",
-              },
-            ],
-          },
+            {
+              message_id: tag,
+              sent_at: sentAt.toISOString(),
+              chat_id: chatUserId,
+              author: true,
+              content: message,
+              read_at: "",
+            },
+          ],
         };
       });
     },
@@ -110,10 +103,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       setChats((prev) => {
         let cpy = { ...prev };
         for (let chat of chats) {
-          cpy[chat.user_id] = {
-            chat,
-            messages: [],
-          };
+          cpy[chat.user_id] = chat;
         }
         return cpy;
       });
@@ -124,11 +114,11 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   }, []);
 
   const fetchMessages = useCallback(async () => {
-    if (chats[chatUserId].messages.length === 0) {
+    if (!messages[chatUserId] || messages[chatUserId].length === 0) {
       let messages = await getMessages(chatUserId, 0);
-      setChats((prev) => {
+      setMessages((prev) => {
         let cpy = { ...prev };
-        cpy[chatUserId].messages = messages;
+        cpy[chatUserId] = messages;
         return cpy;
       });
     }
@@ -139,6 +129,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       value={{
         chatUserId,
         chats,
+        messages,
         getAllChats,
         fetchMessages,
         openChat,
