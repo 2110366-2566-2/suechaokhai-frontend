@@ -4,7 +4,6 @@ import Image from "next/image";
 import ChatList from "./ChatList";
 import SearchBar from "./SearchBar";
 import { useContext, useEffect, useState } from "react";
-import { Chat } from "@/models/chat";
 import { ChatContext } from "@/context/ChatContext";
 
 interface ChatBoxProps {
@@ -13,11 +12,12 @@ interface ChatBoxProps {
 }
 
 export default function ChatBox({ setOpen, setChat }: ChatBoxProps) {
-  const ctx = useContext(ChatContext);
   const [searchValue, setSearchValue] = useState<string>("");
+  const ctx = useContext(ChatContext);
+  const chats = Object.values(ctx.chats);
 
   useEffect(() => {
-    ctx.getAllChats(searchValue);
+    ctx.fetchChats(searchValue);
   }, [searchValue]);
 
   return (
@@ -49,7 +49,7 @@ export default function ChatBox({ setOpen, setChat }: ChatBoxProps) {
         </div>
       </div>
       <SearchBar setSearchValue={setSearchValue} searchAfterMS={400} />
-      <ChatList chats={Object.values(ctx.chats)} setChat={setChat} />
+      <ChatList chats={chats} setChat={setChat} />
     </div>
   );
 }

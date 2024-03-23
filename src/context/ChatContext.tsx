@@ -19,7 +19,7 @@ interface ChatContextType {
   chatUserId: string;
   chats: { [key: string]: Chat };
   messages: { [key: string]: ChatMessage[] };
-  getAllChats: (query?: string) => Promise<Chat[]>;
+  fetchChats: (query?: string) => Promise<Chat[]>;
   fetchMessages: () => void;
   sendMessage: (message: string) => void;
   openChat: (chatId: string) => void;
@@ -165,7 +165,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     [chatUserId, send]
   );
 
-  const getAllChats = useCallback(async (query?: string): Promise<Chat[]> => {
+  const fetchChats = useCallback(async (query?: string): Promise<Chat[]> => {
     try {
       const url = `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST!}/api/v1/chats?query=${query || ""}`;
       let response = await fetch(url, {
@@ -175,10 +175,8 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
 
       let chats: Chat[] = (await response.json()) || [];
 
-      setChats((prev) => {
-        let cpy = { ...prev };
-        for (let chat of chats) cpy[chat.user_id] = chat;
-        return cpy;
+      setChats(() => {
+        return Object.fromEntries(chats.map((chat) => [chat.user_id, chat]));
       });
 
       setMessages((prev) => {
@@ -206,9 +204,9 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     (chatId: string) => {
       setChatUserId(chatId);
       send("JOIN", chatId, new Date(Date.now()));
-      getAllChats();
+      fetchChats();
     },
-    [send, getAllChats]
+    [send, fetchChats]
   );
 
   const closeChat = useCallback(() => {
@@ -244,7 +242,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         chatUserId,
         chats,
         messages,
-        getAllChats,
+        fetchChats,
         fetchMessages,
         sendMessage,
         openChat,
