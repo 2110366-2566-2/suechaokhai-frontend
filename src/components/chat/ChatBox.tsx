@@ -14,11 +14,10 @@ interface ChatBoxProps {
 
 export default function ChatBox({ setOpen, setChat }: ChatBoxProps) {
   const ctx = useContext(ChatContext);
-  const [chats, setChats] = useState<Chat[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
-    ctx.getAllChats(searchValue).then((res) => setChats(res));
+    ctx.getAllChats(searchValue);
   }, [searchValue]);
 
   return (
@@ -50,7 +49,7 @@ export default function ChatBox({ setOpen, setChat }: ChatBoxProps) {
         </div>
       </div>
       <SearchBar setSearchValue={setSearchValue} searchAfterMS={400} />
-      <ChatList chats={chats} setChat={setChat} />
+      <ChatList chats={Object.values(ctx.chats)} setChat={setChat} />
     </div>
   );
 }

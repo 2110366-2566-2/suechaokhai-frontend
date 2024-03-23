@@ -36,7 +36,7 @@ export default function MessageSection({ messages }: MessageSectionProps) {
           <Message key={item.message_id} message={item} />
         ))}
       </div>
-      <div className="flex flex-col gap-4 text-ci-dark-gray">
+      <div className="mt-4 flex flex-col gap-4 text-ci-dark-gray">
         {sending.map((item: ChatMessage) => (
           <Message key={item.message_id} message={item} />
         ))}

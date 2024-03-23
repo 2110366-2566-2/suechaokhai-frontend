@@ -23,10 +23,15 @@ export default function UserCard({ chat, setChat }: UserCardProps) {
       <div className="aspect-square min-w-16 overflow-hidden rounded-full">
         <ProfileImage src={chat.profile_image_url} />
       </div>
-      <div className="overflow-hidden">
+      <div className="w-full overflow-hidden">
         <div className="truncate text-xl font-bold">{`${chat.first_name} ${chat.last_name}`}</div>
         <div className="truncate">{chat.content}</div>
       </div>
+      {chat.unread_messages > 0 && (
+        <div className="flex aspect-square size-6 items-center justify-center rounded-full bg-ci-red text-white">
+          {chat.unread_messages}
+        </div>
+      )}
     </div>
   );
 }

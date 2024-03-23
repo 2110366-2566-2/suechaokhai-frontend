@@ -35,7 +35,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     });
   }, []);
 
-  const onMessage = useCallback<(e: MessageEvent<string>) => void>(
+  const onMessage = useCallback(
     (e: MessageEvent<string>) => {
       let msg = JSON.parse(e.data) as WSInEvent;
 
@@ -86,13 +86,14 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
           break;
       }
     },
-    []
+    [chatUserId]
   );
 
   const openChat = useCallback((chatId: string) => {
     setChatUserId(chatId);
     let sentAt = new Date(Date.now());
     ChatService.getInstance().send("JOIN", chatId, sentAt);
+    getAllChats();
   }, []);
 
   const sendMessage = useCallback(
