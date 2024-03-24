@@ -15,6 +15,7 @@ interface MessageBoxProps {
 export default function MessageBox({ user, setChat }: MessageBoxProps) {
   const ctx = useContext(ChatContext);
   const chat = ctx.chats[ctx.chatUserId];
+  const messages = ctx.messages[ctx.chatUserId] ?? [];
 
   useEffect(() => {
     ctx.fetchMessages();
@@ -56,7 +57,7 @@ export default function MessageBox({ user, setChat }: MessageBoxProps) {
           </button>
         </div>
       </div>
-      <MessageSection messages={ctx.messages[ctx.chatUserId]} />
+      <MessageSection messages={messages} />
       <TextFieldSection sendMessage={sendMessage} />
     </div>
   );
