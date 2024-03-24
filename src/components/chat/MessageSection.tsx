@@ -18,8 +18,10 @@ export default function MessageSection({ messages }: MessageSectionProps) {
   };
 
   const splitMessages = (): { sent: ChatMessage[]; sending: ChatMessage[] } => {
-    let idx = messages.findIndex((msg) => msg.read_at === "sending");
-    idx = idx === -1 ? messages.length : idx;
+    let idx;
+    for (idx = 0; idx < messages.length; idx++) {
+      if (messages[idx].read_at === "sending") break;
+    }
 
     return {
       sent: messages.slice(0, idx),

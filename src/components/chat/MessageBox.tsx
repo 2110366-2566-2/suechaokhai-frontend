@@ -15,7 +15,7 @@ interface MessageBoxProps {
 export default function MessageBox({ user, setChat }: MessageBoxProps) {
   const ctx = useContext(ChatContext);
   const chat = ctx.chats[ctx.chatUserId];
-  const messages = ctx.messages[ctx.chatUserId] ?? [];
+  const messages = ctx.messages[ctx.chatUserId];
 
   useEffect(() => {
     ctx.fetchMessages();
