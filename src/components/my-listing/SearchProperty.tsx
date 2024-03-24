@@ -4,6 +4,45 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 
+const all_filters = [
+  {
+    id: "Pet-Friendly",
+    label: "Pet-Friendly",
+  },
+  {
+    id: "Kitchen",
+    label: "Kitchen",
+  },
+  {
+    id: "Air-Conditioning",
+    label: "Air-Conditioning",
+  },
+  {
+    id: "Family-Friendly",
+    label: "Family-Friendly",
+  },
+  {
+    id: "Balcony",
+    label: "Balcony",
+  },
+  {
+    id: "Living-Room",
+    label: "Living Room",
+  },
+  {
+    id: "Swimming-Pool",
+    label: "Swimming Pool",
+  },
+  {
+    id: "Gym",
+    label: "Gym",
+  },
+  {
+    id: "Laundry-Room",
+    label: "Laundry Room",
+  },
+];
+
 const SearchProperty = () => {
   const [filterPrice, setFilterPrice] = useState(false);
   const [filterSize, setFilterSize] = useState(false);
@@ -32,8 +71,12 @@ const SearchProperty = () => {
     console.log(bedrooms);
   }
 
+  // function onSubmit(data: z.infer<typeof FormSchema>) {
+
+  // }
+
   return (
-    <div className="m-8 flex w-full flex-col  justify-self-center ">
+    <div className="m-8 flex w-full flex-col justify-self-center text-xl ">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
         <input
           type="text"
@@ -44,7 +87,7 @@ const SearchProperty = () => {
         ></input>
         <button
           onClick={test}
-          className="h-1/2 w-56 rounded-xl bg-ci-blue text-xl font-medium text-white"
+          className="h-1/2 w-56 rounded-xl bg-ci-blue  font-semibold text-white"
         >
           Search
         </button>
@@ -60,7 +103,7 @@ const SearchProperty = () => {
             }}
             className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterPrice ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
           >
-            <p className="px-2 text-xl font-medium">Price Range</p>
+            <p className="px-2  font-semibold">Price</p>
             {filterPrice ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
@@ -89,7 +132,7 @@ const SearchProperty = () => {
             }}
             className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterSize ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
           >
-            <p className="px-2 text-xl font-medium">Size</p>
+            <p className="px-2  font-semibold">Size</p>
             {filterSize ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
@@ -118,7 +161,7 @@ const SearchProperty = () => {
             }}
             className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filter ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
           >
-            <p className="px-2 text-xl font-medium">Fliters</p>
+            <p className="px-2  font-semibold">Fliters</p>
             {filter ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
@@ -144,7 +187,7 @@ const SearchProperty = () => {
         {filterPrice ? (
           <div className="flex h-36 w-full flex-row items-center justify-center gap-y-2 rounded-xl ">
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4">
-              <div className="text-xl">Min. price</div>
+              <div className="">Min. price</div>
               <input
                 type="number"
                 className="h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
@@ -160,7 +203,7 @@ const SearchProperty = () => {
               ></input>
             </div>
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4">
-              <div className="text-xl">Max. price</div>
+              <div className="">Max. price</div>
               <input
                 type="number"
                 className="h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
@@ -180,7 +223,7 @@ const SearchProperty = () => {
         {filterSize ? (
           <div className="flex h-36 w-full flex-row items-center justify-center gap-y-2 rounded-xl ">
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4">
-              <p className="text-xl">Min (m²)</p>
+              <p className="">Min (m²)</p>
               <input
                 type="number"
                 className="h-14 w-full rounded-xl border bg-ci-light-gray px-4"
@@ -196,7 +239,7 @@ const SearchProperty = () => {
               ></input>
             </div>
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4 ">
-              <p className="text-xl">Max (m²)</p>
+              <p className="">Max (m²)</p>
               <input
                 type="number"
                 className="h-14 w-full rounded-xl border bg-ci-light-gray px-4"
@@ -214,10 +257,10 @@ const SearchProperty = () => {
           </div>
         ) : null}
         {filter ? (
-          <div className="m-3 h-1/2 w-full flex-col  gap-y-2 rounded-xl bg-ci-light-gray p-2 ">
+          <div className="m-3 h-1/2 w-full flex-col  gap-y-2 rounded-xl bg-ci-light-gray p-3 ">
             <div className="flex justify-between  sm:flex-col md:flex-col 2xl:flex-row">
               <div className="h-18 m-3 flex w-2/5 items-center justify-center  rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
-                <div className="font-medium">Bedroom(s)</div>
+                <div className="font-semibold">Bedroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
                     onClick={() => {
@@ -250,7 +293,7 @@ const SearchProperty = () => {
                 </div>
               </div>
               <div className="h-18 m-3 flex w-2/5 items-center justify-center gap-y-2 rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
-                <div className="font-medium">Bathroom(s)</div>
+                <div className="font-semibold">Bathroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
                     onClick={() => {
@@ -284,9 +327,16 @@ const SearchProperty = () => {
               </div>
             </div>
 
-            <div className="flex bg-white">
-              <div className="font-medium">features</div>
-              <div className="grid grid-cols-3"></div>
+            <div className="m-3 flex flex-col rounded-xl bg-white p-2">
+              <div className="m-2 font-semibold">Features</div>
+              <div className="grid grid-cols-3">
+                {all_filters.map((fil) => (
+                  <div className="m-3 flex flex-row">
+                    <Checkbox id={fil.id} className="h-7 w-7"></Checkbox>
+                    <div className="mx-2 ">{fil.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ) : null}
