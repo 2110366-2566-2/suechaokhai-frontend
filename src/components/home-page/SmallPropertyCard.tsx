@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import PropertyData from "../models/PropertyData";
+import PropertyData from "../../models/PropertyData";
 import addUserFavorite from "@/services/addUserFavorite";
 import deleteUserFavorite from "@/services/removeUserFavorite";
 export default function SmallPropertyCard({

@@ -10,7 +10,7 @@ import PropertyTag from "@/components/property-description/PropertyTag";
 import { useEffect, useState } from "react";
 import getPropertyDetail from "@/services/getPropertyDetail";
 import getOwnerData from "@/services/getOwnerData";
-import PropertyData from "@/components/models/PropertyData";
+import PropertyData from "@/models/PropertyData";
 import UserData from "@/components/models/UserData";
 import getCurrentUser from "@/services/getCurrentUser";
 import { useParams } from "next/navigation";
