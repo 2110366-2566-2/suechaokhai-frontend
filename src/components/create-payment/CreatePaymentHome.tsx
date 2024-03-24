@@ -41,8 +41,15 @@ export const CreatePaymentHomePage = ({
         }
         return names
     }
-    const handleSelectCard = () => {
-
+    const maskedCardNumber = (cardNumber:string) => {
+        return "xxxx xxxx xxxx " + cardNumber.slice(12,16);
+      }
+    const handleSelectCard = (cardName:any) => {
+        for(let i = 0; i < creditCards!.length; i++ ){
+            if(creditCards![i].card_nickname === cardName){
+                setSelectedCardNumber(maskedCardNumber(creditCards![i].card_number))
+            }
+        }
     }
     return (
         <div className="flex flex-col justify-center items-center sm:text-md text-sm">

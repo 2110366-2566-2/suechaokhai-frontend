@@ -117,6 +117,7 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
           options={options}
           onSelect={handleSelect}
           className="w-[400px] lg:w-[510px]"
+
         />
         <NumberTextBox
           label="Bank Account Number"
