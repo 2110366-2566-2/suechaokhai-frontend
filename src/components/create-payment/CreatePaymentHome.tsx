@@ -13,7 +13,11 @@ type PaymentInfo = {
     total_night: string,
     price: string
 };
-export const CreatePaymentHomePage = () => {
+export const CreatePaymentHomePage = ({
+    setConfirm
+    }:{
+    setConfirm: Function
+    }) => {
     const [paymentType, setPaymentType] = useState("QR");
     const [message, setMessage] = useState("");
     const [creditCards, setCreditCards] = useState<CreditCardData[]|null>();
@@ -113,7 +117,7 @@ export const CreatePaymentHomePage = () => {
                     <div className="mt-1">Price</div>
                     <div className="flex flex-col space-y-2">
                         <div className="text-2xl text-ci-red">$10,000</div>
-                        <button className="text-white bg-ci-blue text-sm px-4 rounded-md py-1">Confirm</button>
+                        <button className="text-white bg-ci-blue text-sm px-4 rounded-md py-1" onClick={() => {setConfirm(1)}}>Confirm</button>
                     </div>
                 </div>
             </div>
