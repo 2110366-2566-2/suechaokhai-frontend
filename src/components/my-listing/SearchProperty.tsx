@@ -62,6 +62,17 @@ const SearchProperty = () => {
       setBedrooms(val);
     }
   }
+
+  const [bathrooms, setBathrooms] = useState<number>(0);
+
+  function formatBathroom(val: number) {
+    if (val < 0) {
+      setBathrooms(0);
+    } else {
+      setBathrooms(val);
+    }
+  }
+
   function test() {
     console.log(searchContent);
     console.log(minPrice);
@@ -76,7 +87,7 @@ const SearchProperty = () => {
   // }
 
   return (
-    <div className="m-8 flex w-full flex-col justify-self-center text-xl ">
+    <div className="m-8 flex w-1/2 flex-col justify-self-center text-xl ">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
         <input
           type="text"
@@ -257,9 +268,9 @@ const SearchProperty = () => {
           </div>
         ) : null}
         {filter ? (
-          <div className="m-3 h-1/2 w-full flex-col  gap-y-2 rounded-xl bg-ci-light-gray p-3 ">
-            <div className="flex justify-between  sm:flex-col md:flex-col 2xl:flex-row">
-              <div className="h-18 m-3 flex w-2/5 items-center justify-center  rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
+          <div className="m-3 h-full w-full flex-col justify-around gap-y-2 rounded-xl bg-ci-light-gray p-3 ">
+            <div className="flex justify-between  sm:flex-col md:flex-col 2xl:flex-row h-1/3">
+              <div className="h-18 m-7 flex w-2/5 items-center justify-center  rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
                 <div className="font-semibold">Bedroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
@@ -292,12 +303,12 @@ const SearchProperty = () => {
                   </button>
                 </div>
               </div>
-              <div className="h-18 m-3 flex w-2/5 items-center justify-center gap-y-2 rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
+              <div className="h-18 m-7 flex w-2/5 items-center justify-center gap-y-2 rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
                 <div className="font-semibold">Bathroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
                     onClick={() => {
-                      formatBedroom(bedrooms - 1);
+                      formatBathroom(bathrooms - 1);
                     }}
                     className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
                   >
@@ -308,16 +319,16 @@ const SearchProperty = () => {
                     className="h-14 w-14 rounded-xl border  px-2 text-center"
                     onChange={(e) => {
                       if (e.target.value === "") {
-                        setBedrooms(0);
+                        setBathrooms(0);
                       } else {
-                        formatBedroom(Number(e.target.value));
+                        formatBathroom(Number(e.target.value));
                       }
                     }}
-                    value={bedrooms.toString()}
+                    value={bathrooms.toString()}
                   ></input>
                   <button
                     onClick={() => {
-                      formatBedroom(bedrooms + 1);
+                      formatBathroom(bathrooms + 1);
                     }}
                     className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
                   >
@@ -327,7 +338,7 @@ const SearchProperty = () => {
               </div>
             </div>
 
-            <div className="m-3 flex flex-col rounded-xl bg-white p-2">
+            <div className="m-7 flex  flex-col rounded-xl bg-white p-2">
               <div className="m-2 font-semibold">Features</div>
               <div className="grid grid-cols-3">
                 {all_filters.map((fil) => (

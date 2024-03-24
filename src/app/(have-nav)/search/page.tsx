@@ -26,11 +26,11 @@ const myFavPage = () => {
 
   return (
     <>
+      <div className="w-full justify-center flex ">
+        <SearchProperty></SearchProperty>
+      </div>
       {total !== 0 ? (
         <div className="mx-80 flex h-full flex-col  ">
-          <div className="px-48 ">
-            <SearchProperty></SearchProperty>
-          </div>
           <PropertyCards
             propData={propData}
             totalProp={total}
@@ -42,7 +42,7 @@ const myFavPage = () => {
       ) : (
         <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
           <div className="text-center text-4xl font-bold">
-            Empty property listing
+            Property not found
           </div>
 
           <Image
