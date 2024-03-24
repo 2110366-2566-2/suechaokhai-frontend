@@ -1,3 +1,4 @@
+import ChatModule from "@/components/chat/ChatModule";
 import PropertyNavigationBar from "@/components/property-description/PropertyNavigationBar";
 
 export default function Suechaokhai({
@@ -11,6 +12,7 @@ export default function Suechaokhai({
       <div>
         <div className="">{children}</div>
       </div>
+      <ChatModule />
     </div>
   );
 }
