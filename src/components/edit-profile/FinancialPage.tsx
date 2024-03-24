@@ -1,11 +1,12 @@
-import Dropdown from "../register-login/DropDown";
+// import Dropdown from "../register-login/DropDown";
+import Dropdown from "./DropDown";
 import NumberTextBox from "../register-login/NumberTextField";
 import { useState, useEffect } from "react";
 import EmptyCard from "@/components/edit-profile/EmptyCard";
 import getUserFinancial from "@/services/getUserFinancial";
 import updateUserFinancial from "@/services/updateUserFinancial";
 import CreditCard from "@/components/edit-profile/CreditCard";
-import { log } from "console";
+import EditCard from "./EditCard";
 import AddCard from "./AddCard";
 
 type UserData = {
@@ -33,6 +34,7 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
   const [creditCards, setCreditCards] = useState<CreditCardData[]|null>();
   const [displayAddCard, setDisplayAddCard] = useState(false)
   const [displayEdit, setDisplayEdit] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<CreditCardData>();
   const options = [
     "KBANK", "BBL", "KTB", "BAY", "CIMB", "TTB", "SCB"," GSB",
   ];
@@ -70,16 +72,16 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
     setBankName(option);
     setChanged(1)
     setIsChangesExist(true);
-    console.log(bankName)
   };
   const handleBankNumber = (no : any) => {
     setBankNumber(no);
     setIsChangesExist(true);
     setChanged(1)
-    console.log(bankNumber)
   }
-  const openCreditCardEditor = () => {
-
+  const handleEditCard = (card:any) => {
+    setSelectedCard(card);
+    setDisplayEdit(true);
+    console.log("work")
   }
   return (
     <div className="flex max-w-[100%] flex-col justify-center space-y-4">
@@ -87,7 +89,8 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
       <div className="text-[20px] font-semibold ">Credit Card</div>
       <div className="flex w-[70%] flex-col justify-center gap-8 sm:flex-row sm:flex-wrap sm:justify-normal">
       {creditCards && creditCards.map(card => (
-      <CreditCard
+        <div  onClick={() => {handleEditCard(card)}}>
+        <CreditCard
         key={card.card_number}
         cardHolderName={card.cardholder_name}
         cardColor={card.card_color}
@@ -96,13 +99,9 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
         month={card.expire_month}
         year={card.expire_year}
         CVV={card.cvv}
-        creditCards={creditCards}
         tagNumber = {card.tag_number}
-        handleSave={handleSave}
-        setCreditCards={setCreditCards}
-        setDisplayEdit={setDisplayEdit}
-        displayEdit={displayEdit}
-      />
+        />
+        </div>
     ))}
     {creditCards && creditCards.length < 4 && (
       <EmptyCard 
@@ -117,6 +116,7 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
           options={options}
           onSelect={handleSelect}
           className="w-[400px] lg:w-[510px]"
+          selected={bankName}
         />
         <NumberTextBox
           label="Bank Account Number"
@@ -131,7 +131,6 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
       <div className="mt-40 flex select-none flex-row justify-end space-x-5">
         <button
           className={`rounded-xl bg-${changed ? "ci-gray" : "ci-dark-gray "} px-4 py-2 text-[20px] font-bold text-white`}
-          // onClick={handleCancel}
           disabled={!changed}
         >
           Cancel
@@ -147,6 +146,21 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
       </div>
       {displayAddCard && (
         <AddCard setDisplay={setDisplayAddCard} handleSave={handleSave} creditCards={creditCards!}/>
+      )}
+      {displayEdit && (
+          <EditCard  setDisplay={setDisplayEdit} 
+          handleSave={handleSave} 
+          creditCards={creditCards!} 
+          defaultCVV={selectedCard!.cvv} 
+          defaultColor={selectedCard!.card_color} 
+          defaultMonth={selectedCard!.expire_month} 
+          defaultYear={selectedCard!.expire_year} 
+          defaultCardNumber={selectedCard!.card_number} 
+          defaultCardholderName={selectedCard!.cardholder_name} 
+          defaultCardNickname={selectedCard!.card_nickname} 
+          tagNumber={selectedCard!.tag_number} 
+          setCreditCards={setCreditCards}/>
+        
       )}
     </div>
     

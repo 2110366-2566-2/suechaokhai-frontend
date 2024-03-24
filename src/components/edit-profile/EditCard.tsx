@@ -46,6 +46,7 @@ const EditCard = ({
   const [nickname, setNickname] = useState(defaultCardNickname);
   const [cardholderName, setCardholderName] = useState(defaultCardholderName);
   const [confirm, setConfirm] = useState(false);
+  console.log(tagNumber)
   const handleSaveCard = () => {
     deleteTag()
     const newCard = {
@@ -60,8 +61,8 @@ const EditCard = ({
     };
     creditCards.push(newCard);
     creditCards = sortCreditCardsByTagNumber();
-    handleSave(creditCards)
-    setCreditCards(creditCards)
+    handleSave([...creditCards])
+    setCreditCards([...creditCards])
   };
   
   const deleteTag = () => {
@@ -85,8 +86,8 @@ const EditCard = ({
     const deleteCard = () => {
         deleteTag()
         resetTag()
-        handleSave(creditCards)
-        setCreditCards(creditCards)
+        handleSave([...creditCards])
+        setCreditCards([...creditCards])
 
     }
   const handleInfo = () => {
