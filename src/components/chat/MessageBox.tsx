@@ -19,7 +19,7 @@ export default function MessageBox({ user, setChat }: MessageBoxProps) {
 
   useEffect(() => {
     ctx.fetchMessages();
-  }, [ctx.chatUserId, ctx]);
+  }, [ctx.chatUserId]);
 
   const sendMessage = (msg: string) => {
     ctx.sendMessage(msg);
