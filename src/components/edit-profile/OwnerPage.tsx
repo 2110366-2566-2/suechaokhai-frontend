@@ -21,7 +21,6 @@ const OwnerPage = () => {
   const fetchUser = async () => {
     try {
       const data = await getCurrentUser();
-      // setIsVerified(data.is_verified);
       setIsVerified(data.is_verified);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -31,7 +30,7 @@ const OwnerPage = () => {
     fetchUser();
   }),
     [];
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: any) => {
     const file = e.target.files[0];
     setChanged(1);
     setImg(file);
@@ -45,7 +44,6 @@ const OwnerPage = () => {
       const enteredId = id.current;
       const isValid = idRegex.test(enteredId);
       setIsIdValid(isValid);
-
       return isValid;
     }
     return false;
@@ -62,6 +60,7 @@ const OwnerPage = () => {
       formData.append("citizen_id", citizenId);
       formData.append("citizen_card_image", img);
       verifyCurrentUser(formData);
+    }
   };
 
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {

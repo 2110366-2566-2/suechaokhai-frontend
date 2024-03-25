@@ -1,6 +1,6 @@
 import Image from "next/image";
 import getCurrentUser from "@/services/users/getCurrentUser";
-import UserData from "../models/UserData";
+import UserData from "@/models/UserData";
 import TextBox from "../register-login/TextField";
 import updateCurrentUser from "@/services/users/updateCurrentUser";
 import { useRef, useState, useEffect, FormEvent } from "react";
@@ -39,7 +39,7 @@ const PersonalPage = ({
   const handleClose = () => {
     setIsSaved(false);
   };
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: any) => {
     const file = e.target.files[0];
     setChanged(1);
     setImg(file);
