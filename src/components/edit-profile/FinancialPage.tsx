@@ -2,16 +2,16 @@ import Dropdown from "../register-login/DropDown";
 import NumberTextBox from "../register-login/NumberTextField";
 import { useState, useEffect } from "react";
 import EmptyCard from "@/components/edit-profile/EmptyCard";
-import getUserFinancial from "@/services/getUserFinancial";
-import updateUserFinancial from "@/services/updateUserFinancial";
+import getUserFinancial from "@/services/users/getUserFinancial";
+import updateUserFinancial from "@/services/users/updateUserFinancial";
 import { log } from "console";
 
 type UserData = {
-  bank_name : string,
-  bank_account_number : string,
-  created_at:string,
-  credit_cards : CreditCardData[]
-}
+  bank_name: string;
+  bank_account_number: string;
+  created_at: string;
+  credit_cards: CreditCardData[];
+};
 type CreditCardData = {
   card_color: string;
   card_nickname: string;
@@ -22,12 +22,16 @@ type CreditCardData = {
   expire_year: string;
   tag_number: number;
 };
-const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
+const FinancialPage = ({
+  setIsChangesExist,
+}: {
+  setIsChangesExist: Function;
+}) => {
   const [bankNumber, setBankNumber] = useState("");
   const [changed, setChanged] = useState(0);
-  const [bankName, setBankName] = useState("")
-  const [isSaved, setIsSaved] = useState(0)
-  const [userData, setUserData] = useState<UserData|null>(null);
+  const [bankName, setBankName] = useState("");
+  const [isSaved, setIsSaved] = useState(0);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const options = [
     "KASIKORN BANK",
     "BANGKOK BANK",
@@ -43,21 +47,21 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
   const fetchUser = async () => {
     try {
       const data = await getUserFinancial();
-      setBankNumber(data.bank_account_number)
-      setBankName(data.bank_name)
-      console.log(data)
+      setBankNumber(data.bank_account_number);
+      setBankName(data.bank_name);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
+  };
   useEffect(() => {
     fetchUser();
-  },[]);
+  }, []);
   const handleSave = () => {
     const data: UserData = {
       bank_name: bankName,
-      bank_account_number:bankNumber,
-      created_at:"123",
+      bank_account_number: bankNumber,
+      created_at: "123",
       credit_cards: [
         {
           card_color: "BLUE",
@@ -67,26 +71,25 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
           cvv: "123",
           expire_month: "12",
           expire_year: "2023",
-          tag_number: 1
-        }
-      ]
+          tag_number: 1,
+        },
+      ],
     };
     setIsChangesExist(false);
     updateUserFinancial(data);
   };
   const handleSelect = (option: any) => {
     setBankName(option);
-    setChanged(1)
+    setChanged(1);
     setIsChangesExist(true);
-    console.log(bankName)
+    console.log(bankName);
   };
-  const handleBankNumber = (no : any) => {
+  const handleBankNumber = (no: any) => {
     setBankNumber(no);
     setIsChangesExist(true);
-    setChanged(1)
-    console.log(bankNumber)
-
-  }
+    setChanged(1);
+    console.log(bankNumber);
+  };
   return (
     <div className="flex max-w-[100%] flex-col justify-center space-y-4">
       <div className="text-[32px] font-bold">Financial Information</div>
@@ -133,7 +136,6 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
         </button>
       </div>
     </div>
-    
   );
 };
 export default FinancialPage;

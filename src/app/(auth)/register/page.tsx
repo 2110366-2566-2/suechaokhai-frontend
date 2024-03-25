@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
-import userRegister from "@/services/userRegister";
+import userRegister from "@/services/users/userRegister";
 import { useSearchParams } from "next/navigation";
-import authCallback from "@/services/authCallback";
+import authCallback from "@/services/auth/authCallback";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import EmailVerificationPage from "@/components/register-login/EmailVerificationPage";
-import sendVerification from "@/services/sendVerificationEmail";
+import sendVerification from "@/services/emails/sendVerificationEmail";
 import AccountCreated from "@/components/register-login/AccountCreated";
 
 export interface PersonalInfo {

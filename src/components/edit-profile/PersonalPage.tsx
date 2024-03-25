@@ -1,8 +1,8 @@
 import Image from "next/image";
-import getCurrentUser from "@/services/getCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";
-import updateCurrentUser from "@/services/updateCurrentUser";
+import updateCurrentUser from "@/services/users/updateCurrentUser";
 import { useRef, useState, useEffect, FormEvent } from "react";
 import { CheckModal } from "./CheckModal";
 import { NotSavedPopUp } from "./NotSavedPopUp";
@@ -63,7 +63,7 @@ const PersonalPage = ({
       setLastName(data.last_name);
       setPhoneNumber(data.phone_number);
       setProfileUrl(data.profile_image_url);
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

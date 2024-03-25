@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import AccountMenu from "./AccountMenu";
-import getCurrentUser from "@/services/getCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import UserData from "@/models/UserData";
 import { HamburgerIcon } from "../ui/icon";
 import { useRouter } from "next/navigation";

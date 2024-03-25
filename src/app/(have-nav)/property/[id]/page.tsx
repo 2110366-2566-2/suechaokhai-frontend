@@ -9,10 +9,10 @@ import WestIcon from "@mui/icons-material/West";
 import PropertyTag from "@/components/property-description/PropertyTag";
 import { useEffect, useState } from "react";
 import getPropertyDetail from "@/services/property/getPropertyDetail";
-import getOwnerData from "@/services/getOwnerData";
+import getOwnerData from "@/services/users/getOwnerData";
 import PropertyData from "@/models/PropertyData";
 import UserData from "@/components/models/UserData";
-import getCurrentUser from "@/services/getCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import { useParams } from "next/navigation";
 // Mock property
 type FeatureProps = {
