@@ -85,6 +85,7 @@ const SearchProperty = () => {
         <input
           type="text"
           className="h-1/2 w-full rounded-xl border  bg-ci-light-gray  px-5"
+          placeholder={searchContent.current}
           onChange={(e) => {
             searchContent.current = e.target.value;
             console.log(searchContent.current, "testing search");
