@@ -61,7 +61,7 @@ const PropertyCards = ({
     <>
       {showAmount ? (
         <div className="text-xl ">
-          {10 * (page - 1)} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
+          {10 * (page - 1)+1} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
           {totalProp} properties {additionaltext}
         </div>
       ) : null}
@@ -112,7 +112,7 @@ const PropertyCards = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-24 ">
+      <div className="flex flex-col md:grid grid-cols-2 gap-24">
         {propData
           .slice(10 * (page - 1), 10 * page)
           .map((prop: PropertyData) => (
@@ -137,7 +137,7 @@ const PropertyCards = ({
       <div className="flex h-[100px] items-center justify-center pb-24 pt-16 text-2xl">
         {/* num prop text here */}
         <div>
-          {10 * (page - 1)} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
+          {10 * (page - 1)+1} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
           {totalProp} properties {additionaltext}
         </div>
       </div>

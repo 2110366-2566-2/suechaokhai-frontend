@@ -7,7 +7,6 @@ import { useState } from "react";
 import favoriteProperty from "@/services/property/favoriteProperty";
 import unfavoriteProperty from "@/services/property/unfavoriteProperty";
 import deleteProperty from "@/services/property/deleteProperty";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -23,8 +22,6 @@ const PropertyCard = ({
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
 
-  const router = useRouter();
-
   const { toast } = useToast();
 
   function formatPrice(num: number): string {
@@ -38,7 +35,7 @@ const PropertyCard = ({
 
   return (
     <div
-      className="h-[800px] w-full rounded-lg bg-[#ECECEC]"
+      className="h-full w-full rounded-lg bg-[#ECECEC]"
       key={propData.property_id}
     >
       <div className="relative h-[300px] w-full rounded-t-lg  ">
@@ -83,7 +80,7 @@ const PropertyCard = ({
             {propData.district}, {propData.province}
           </div>
           <div className="my-2 w-full text-xl font-semibold">
-            ฿{formatPrice(propData.renting.price_per_month)}/month
+            ฿{formatPrice(propData.renting_property.price_per_month)}/month
           </div>
         </div>
 
