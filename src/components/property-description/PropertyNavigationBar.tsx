@@ -3,8 +3,8 @@ import React from "react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import AccountMenu from "./AccountMenu";
-import getCurrentUser from "@/services/getCurrentUser";
-import UserData from "../models/UserData";
+import getCurrentUser from "@/services/users/getCurrentUser";
+import UserData from "@/models/UserData";
 import { HamburgerIcon } from "../ui/icon";
 import { useRouter } from "next/navigation";
 import { MenuHamburger } from "./MenuHamburger";
@@ -60,7 +60,7 @@ const PropertyNavigationBar = () => {
           <div className="cursor-pointer hover:opacity-60">Agreement</div>
           <div
             className="cursor-pointer hover:opacity-60"
-            onClick={() => router.push("/my-Listing")}
+            onClick={() => router.push("/listing")}
           >
             My Listing
           </div>
@@ -76,20 +76,20 @@ const PropertyNavigationBar = () => {
             </div>
             <Image
               src={favoriteIcon}
-              onClick={() => router.push("/my-Favorite")}
+              onClick={() => router.push("/favorite")}
               alt={"favorite"}
               width={36}
               height={36}
               className="cursor-pointer"
             />
-            <div className="aspect-square min-h-16 min-w-16 overflow-hidden rounded-full">
+            <div className="relative flex aspect-square w-16 items-center justify-center overflow-hidden rounded-full">
               <Image
                 src={accountIcon}
                 alt={"accountMenu"}
-                width={16}
-                height={16}
                 draggable={false}
-                className="min-h-16 min-w-16"
+                fill
+                style={{ objectFit: "cover"}}
+                
               />
             </div>
             {!accountMenu && (
