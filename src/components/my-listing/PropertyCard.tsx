@@ -4,6 +4,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useState } from "react";
+import favoriteProperty from "@/services/favoriteProperty";
+import unfavoriteProperty from "@/services/unfavoriteProperty";
 
 const PropertyCard = ({
   propData,
@@ -45,13 +47,21 @@ const PropertyCard = ({
             <FavoriteIcon
               className="text-ci-red"
               sx={{ fontSize: 50 }}
-              onClick={() => setFav(!fav)}
+              onClick={async () => {
+                setFav(!fav);
+                const res = await unfavoriteProperty(propData.property_id);
+                console.log(res.message);
+              }}
             ></FavoriteIcon>
           ) : (
             <FavoriteBorderIcon
               className="text-ci-red"
               sx={{ fontSize: 50 }}
-              onClick={() => setFav(!fav)}
+              onClick={async () => {
+                setFav(!fav);
+                const res = await favoriteProperty(propData.property_id);
+                console.log(res.message);
+              }}
             ></FavoriteBorderIcon>
           )}
         </div>
