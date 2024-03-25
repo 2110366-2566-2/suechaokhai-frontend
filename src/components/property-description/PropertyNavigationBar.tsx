@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import AccountMenu from "./AccountMenu";
 import getCurrentUser from "@/services/getCurrentUser";
-import UserData from "../models/UserData";
+import UserData from "@/models/UserData";
 import { HamburgerIcon } from "../ui/icon";
 import { useRouter } from "next/navigation";
 import { MenuHamburger } from "./MenuHamburger";
