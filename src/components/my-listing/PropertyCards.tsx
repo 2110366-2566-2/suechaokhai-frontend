@@ -1,7 +1,6 @@
 "use client";
 "use client";
 import PropertyData from "../../models/PropertyData";
-import NumPageText from "./NumPageText";
 import PropertyCard from "./PropertyCard";
 import Pagination from "@mui/material/Pagination";
 import { useState, useEffect, useReducer } from "react";
@@ -61,7 +60,7 @@ const PropertyCards = ({
     <>
       {showAmount ? (
         <div className="text-xl ">
-          {10 * (page - 1)} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
+          {10 * (page - 1)+1} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
           {totalProp} properties {additionaltext}
         </div>
       ) : null}
@@ -81,19 +80,28 @@ const PropertyCards = ({
               <div className="flex flex-col justify-around rounded-2xl bg-white p-1">
                 <div
                   className="h-full w-full p-2 font-normal text-black hover:bg-[#ECECEC]"
-                  onClick={() => setText("Newest Listing First")}
+                  onClick={() => {
+                    setText("Newest Listing First");
+                    setChangingSort(!changingSort);
+                  }}
                 >
                   Newest Listing First
                 </div>
                 <div
                   className="h-full w-full p-2 font-normal text-black hover:bg-[#ECECEC]"
-                  onClick={() => setText("Price from lowest to highest")}
+                  onClick={() => {
+                    setText("Price from lowest to highest");
+                    setChangingSort(!changingSort);
+                  }}
                 >
                   Price from lowest to highest
                 </div>
                 <div
                   className="h-full w-full p-2 font-normal text-black hover:bg-[#ECECEC]"
-                  onClick={() => setText("Price from highest to lowest")}
+                  onClick={() => {
+                    setText("Price from highest to lowest");
+                    setChangingSort(!changingSort);
+                  }}
                 >
                   Price from highest to lowest
                 </div>
@@ -103,7 +111,7 @@ const PropertyCards = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-24 ">
+      <div className="flex flex-col md:grid grid-cols-2 gap-24">
         {propData
           .slice(10 * (page - 1), 10 * page)
           .map((prop: PropertyData) => (
@@ -128,7 +136,7 @@ const PropertyCards = ({
       <div className="flex h-[100px] items-center justify-center pb-24 pt-16 text-2xl">
         {/* num prop text here */}
         <div>
-          {10 * (page - 1)} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
+          {10 * (page - 1)+1} - {totalProp < 10 * page ? totalProp : 10 * page} of{" "}
           {totalProp} properties {additionaltext}
         </div>
       </div>

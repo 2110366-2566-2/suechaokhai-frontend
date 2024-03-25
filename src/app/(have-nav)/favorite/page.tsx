@@ -24,7 +24,7 @@ const myFavPage = () => {
 
   return (
     <>
-      {total !== 0 ? (
+      {total !== 0 && propData!==undefined? (
         <div className="mx-80 mt-8 flex h-full flex-col ">
           <div className="text-4xl font-bold">My Favorites</div>
           <PropertyCards
