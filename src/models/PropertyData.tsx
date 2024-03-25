@@ -1,6 +1,6 @@
 interface Image {
   created_at: string;
-  url: string;
+  image_url: string;
 }
 
 interface Renting {
@@ -27,7 +27,7 @@ export default interface PropertyData {
   floor_size: number;
   floor_size_unit: string;
   furnishing: string;
-  images: Image[];
+  property_images: Image[];
   is_favorite: boolean;
   owner_id: string;
   postal_code: string;
@@ -36,8 +36,8 @@ export default interface PropertyData {
   property_name: string;
   property_type: string;
   province: string;
-  renting: Renting;
-  selling: Selling;
+  renting_property: Renting;
+  selling_property: Selling;
   street: string;
   sub_district: string;
   unit_number: number;

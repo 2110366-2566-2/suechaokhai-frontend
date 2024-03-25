@@ -4,19 +4,19 @@ const Dropdown = ({
   options,
   onSelect,
   className,
+  selected,
 }: {
   label: string;
   options: Array<string>;
   onSelect: any;
   className?: string;
+  selected?: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-
   const handleSelect = ({ option }: { option: string }) => {
     setSelectedOption(option);
     onSelect(option);
   };
-
   return (
     <div>
       {label && (
@@ -27,6 +27,7 @@ const Dropdown = ({
       <select
         className={`${className} dropdown-select block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700`}
         value={selectedOption}
+        {...props}
         onChange={(e) => handleSelect({ option: e.target.value })}
       >
         <option value=""></option>

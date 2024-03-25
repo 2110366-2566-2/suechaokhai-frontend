@@ -13,7 +13,7 @@ import getOwnerData from "@/services/getOwnerData";
 import postAppointment from "@/services/postAppointment";
 import PropertyData from "@/components/models/PropertyData";
 import UserData from "@/components/models/UserData";
-import getCurrentUser from "@/services/getCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import { useParams } from "next/navigation";
 import AppointmentData from "@/components/models/AppointmentData";
 

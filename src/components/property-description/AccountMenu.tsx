@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import userLogout from "@/services/userLogout";
+import userLogout from "@/services/auth/userLogout";
 import { useRouter } from "next/navigation";
 const editIcon = "/img/PropertyNavBar/tabler_pencil.svg";
 const logoutIcon = "/img/PropertyNavBar/logout-icon.svg";
@@ -16,14 +16,15 @@ const AccountMenu = ({ profileUrl }: { profileUrl: string }) => {
   return (
     <div className="fixed right-0 z-40 mt-24 flex  h-80 w-80  flex-col overflow-hidden rounded-lg bg-white text-[20px]">
       <div className="relative flex h-3/5 items-center justify-center bg-ci-gray">
-        <div className="aspect-square overflow-hidden rounded-full">
-          <Image
-            src={accountIcon}
-            alt={"account"}
-            width={160}
-            height={160}
-            draggable={false}
-          />
+      <div className="relative flex aspect-square w-32 items-center justify-center overflow-hidden rounded-full">
+              <Image
+                src={accountIcon}
+                alt={"accountMenu"}
+                draggable={false}
+                fill
+                style={{ objectFit: "cover"}}
+                
+              />
         </div>
       </div>
       <div
