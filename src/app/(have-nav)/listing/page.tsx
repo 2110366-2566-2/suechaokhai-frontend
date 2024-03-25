@@ -1,7 +1,7 @@
 "use client";
 import PropertyData from "@/models/PropertyData";
 import PropertyCards from "@/components/my-listing/PropertyCards";
-import getUserProperty from "@/services/getUserProperty";
+import getUserProperty from "@/services/property/getUserProperty";
 import Image from "next/image";
 
 import { useEffect, useState } from "react";

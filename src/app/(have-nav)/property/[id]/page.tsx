@@ -8,7 +8,7 @@ import OwnerInfo from "@/components/property-description/OwnerInfo";
 import WestIcon from "@mui/icons-material/West";
 import PropertyTag from "@/components/property-description/PropertyTag";
 import { useEffect, useState } from "react";
-import getPropertyDetail from "@/services/getPropertyDetail";
+import getPropertyDetail from "@/services/property/getPropertyDetail";
 import getOwnerData from "@/services/getOwnerData";
 import PropertyData from "@/models/PropertyData";
 import UserData from "@/components/models/UserData";

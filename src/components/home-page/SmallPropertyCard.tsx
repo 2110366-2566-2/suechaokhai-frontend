@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import PropertyData from "../../models/PropertyData";
-import addUserFavorite from "@/services/addUserFavorite";
-import deleteUserFavorite from "@/services/removeUserFavorite";
+import unfavoriteProperty from "@/services/property/unfavoriteProperty";
+import favoriteProperty from "@/services/property/favoriteProperty";
 export default function SmallPropertyCard({
   property,
 }: {
@@ -12,9 +12,9 @@ export default function SmallPropertyCard({
 
   async function favoriting() {
     if (isFavorite) {
-      const res = await deleteUserFavorite(property.property_id);
+      const res = await unfavoriteProperty(property.property_id);
     } else {
-      const res = await addUserFavorite(property.property_id);
+      const res = await favoriteProperty(property.property_id);
     }
   }
 

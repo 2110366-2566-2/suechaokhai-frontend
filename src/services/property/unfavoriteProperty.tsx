@@ -9,7 +9,7 @@ export default async function unfavoriteProperty(property_id:string) {
         
       });
       if (!response.ok) {
-        throw new Error("Failed to fav a property");
+        throw new Error("Failed to delete favorite");
       }
       return await response.json();
     } catch (error) {

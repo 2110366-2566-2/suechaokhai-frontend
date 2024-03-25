@@ -4,9 +4,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useState } from "react";
-import favoriteProperty from "@/services/favoriteProperty";
-import unfavoriteProperty from "@/services/unfavoriteProperty";
-import deleteProperty from "@/services/deleteProperty";
+import favoriteProperty from "@/services/property/favoriteProperty";
+import unfavoriteProperty from "@/services/property/unfavoriteProperty";
+import deleteProperty from "@/services/property/deleteProperty";
 import { useRouter } from "next/navigation";
 
 const PropertyCard = ({
