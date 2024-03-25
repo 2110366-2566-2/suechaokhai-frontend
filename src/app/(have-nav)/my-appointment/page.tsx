@@ -5,11 +5,17 @@ import AppointmentList from "@/components/my-appointment/AppointmentList";
 import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
 import getUserAppointment from "@/services/getUserAppointment";
 import AppointmentData from "@/components/models/AppointmentData";
+import PropertyData from "@/components/models/PropertyData";
+import getPropertyDetail from "@/services/getPropertyDetail";
+import AppointmentDetailData from "@/components/models/AppointmentDetailData";
+import getOwnerData from "@/services/getOwnerData";
 
 export default function MyAppointment() {
 
     const [appointmentData, setAppointmentData] = useState<AppointmentData[]>([]);
     const [total, setTotal] = useState<number>(0);
+    const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetailData[]>([]);
+    const [finishFetching, setFinishFetching] = useState<boolean>(false);
 
     const [selectOn, setSelectOn] = useState(0);
     const [selectedOption, setSelectedOption] = useState('');
@@ -34,14 +40,39 @@ export default function MyAppointment() {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getUserAppointment();
-            if (data) {
-                setAppointmentData(data);
-                setTotal(data.total);
-            }
-            console.log(data);
-        }
+            console.log(data)
+            setAppointmentData(data);
+            setTotal(data.length);
+        }    
         fetchData()
+        setFinishFetching(true)
     }, [])
+
+    // useEffect(() => {
+    //     const fetchPropertyData = async () => {
+    //         const dataDetail = [];
+    //         for (let i = 0; i < total; i++) {
+    //             const dataObject = await getPropertyDetail(appointmentData[i].property.property_id);
+    //             console.log(appointmentData[i]);
+    //             console.log(dataObject);
+    //             const ownerDetail = await getOwnerData(appointmentData[i].owner.owner_user_id);
+    //             const newJSON = Object.assign({}, appointmentData[i], dataObject, ownerDetail); 
+    //             dataDetail.push(newJSON);
+    //         }
+    //         setAppointmentDetail(dataDetail);
+    //     }
+    //     fetchPropertyData();
+    //     setFinishFetching(true);
+    // }, [appointmentData])
+
+    useEffect(() => {
+        console.log(appointmentData);
+        console.log(total)
+    }, [appointmentData])
+
+    useEffect(() => {
+        console.log(appointmentDetail)
+    }, [appointmentDetail])
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(event.target.value);
@@ -51,6 +82,26 @@ export default function MyAppointment() {
         console.log('Checkbox value:', event.target.value);
         // Handle checkbox change logic here
     };
+
+    const getDate = (dateString: string) => {
+        const date = new Date(dateString);
+
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        return `${day} ${months[month - 1]} ${year}`;
+    }
+
+    const getTime = (dateString: string) => {
+        const date = new Date(dateString);
+
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
 
     return (
         <div className="w-[80%] mt-8 mx-auto h-full">
@@ -129,9 +180,28 @@ export default function MyAppointment() {
                     </div>
                 </div>
             </div>
-            <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
-            <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
-            <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/>
+            {finishFetching?
+                <div>
+                {appointmentData.map(appt => {
+                    return (
+                        <AppointmentList apptId={appt.appointment_id} propertyImgSrc={(appt.property.property_images.length === 0) ? '/img/my-appointment/mhadaeng.png': appt.property.property_images[0].image_url} 
+                            propertyName={appt.property.property_name} 
+                            propertySubName={appt.property.property_type.charAt(0) + appt.property.property_type.toLowerCase().slice(1)} 
+                            ownerImgSrc={appt.owner.owner_profile_image_url} ownerName={appt.owner.owner_first_name + ' ' + appt.owner.owner_last_name} 
+                            date={getDate(appt.appointment_date)} time={getTime(appt.appointment_date)} 
+                            status={appt.status.charAt(0) + appt.status.    toLowerCase().slice(1)}
+                        />
+                    )
+                })} 
+                </div>
+            : null}
+            
+            {/* <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
+            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
+            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/> */}
+            <div className="flex h-20 place-items-center justify-center w-full mx-auto font-medium text-2xl">
+                {total} lists
+            </div>
         </div>
     )
 }
