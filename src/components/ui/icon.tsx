@@ -81,3 +81,18 @@ export const DropDownIcon = ({ size, className }: Icon) => {
     />
   );
 };
+export const CreditCardIcon = ({ size, className }: Icon) => {
+  return (
+    <Image
+      src={"/img/edit-profile/credit-card-icon.svg"}
+      alt={"credit-card-icon"}
+      width={size}
+      height={size}
+      style={{ height: `${size}px`, width: "auto" }}
+      className={className}
+      draggable={false}
+    />
+  );
+};
+
+

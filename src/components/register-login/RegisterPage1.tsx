@@ -5,7 +5,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import PasswordField from "./PasswordField";
 import Link from "next/link";
 import { CircularProgress } from "@mui/material";
-import sendVerification from "@/services/sendVerificationEmail";
+import sendVerification from "@/services/emails/sendVerificationEmail";
 
 const normalIcon = "/img/login-register/NormalIcon.png";
 const invalidIcon = "/img/login-register/InvalidIcon.png";

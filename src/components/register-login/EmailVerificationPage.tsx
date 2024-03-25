@@ -1,7 +1,7 @@
 "use client";
 
-import authCallback from "@/services/authCallback";
-import sendVerification from "@/services/sendVerificationEmail";
+import authCallback from "@/services/auth/authCallback";
+import sendVerification from "@/services/emails/sendVerificationEmail";
 import { CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
