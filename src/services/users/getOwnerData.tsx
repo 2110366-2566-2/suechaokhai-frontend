@@ -1,7 +1,7 @@
 export default async function getOwnerData(ownerId: string) {
   try {
     const response = await fetch(
-      `http://localhost:8000/api/v1/user/${ownerId}`
+      `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/user/${ownerId}`
     );
     const data = await response.json();
     console.log;
