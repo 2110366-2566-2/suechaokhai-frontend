@@ -6,5 +6,9 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
-  return NextResponse.redirect(new URL("http://localhost:3000/login"));
+    const session = request.cookies.get('session')
+    // console.log(session,"from cookie")
+    if (!session ) {
+        return NextResponse.redirect(new URL("http://localhost:3000/login"));
+    }
 }

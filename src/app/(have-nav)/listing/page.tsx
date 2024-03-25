@@ -27,8 +27,8 @@ const myListingPage = () => {
   };
   return (
     <>
-      {total !== 0 ? (
-        <div className=" mt-8 flex h-full flex-col mx-30 lg:mx-40 xl:mx-50 2xl:mx-60">
+      {total !== 0  && propData!==undefined ? (
+        <div className="mt-8 flex h-full flex-col mx-30 lg:mx-40 xl:mx-50 2xl:mx-60">
           <div className="text-4xl font-bold">My Listing</div>
           <PropertyCards
             propData={propData}
