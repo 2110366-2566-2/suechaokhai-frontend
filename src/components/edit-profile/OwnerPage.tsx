@@ -2,8 +2,8 @@ import { useState, useRef, FormEvent, ChangeEvent, useEffect } from "react";
 import FileUploadField from "../register-login/FileUploadField";
 import Image from "next/image";
 import TextField from "@/components/register-login/TextField";
-import getCurrentUser from "@/services/getCurrentUser";
-import verifyCurrentUser from "@/services/verifyCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
+import verifyCurrentUser from "@/services/users/verifyCurrentUser";
 import { BlueValidIcon, InvalidIcon } from "../ui/icon";
 const OwnerPage = () => {
   const id = useRef("");

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import getCurrentUser from "@/services/getCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import UserData from "../models/UserData";
 import TextBox from "../register-login/TextField";
-import updateCurrentUser from "@/services/updateCurrentUser";
+import updateCurrentUser from "@/services/users/updateCurrentUser";
 import { useRef, useState, useEffect, FormEvent } from "react";
 import { CheckModal } from "./CheckModal";
 import { NotSavedPopUp } from "./NotSavedPopUp";
@@ -110,14 +110,13 @@ const PersonalPage = ({
       <div className="ml-12 text-[36px] font-bold">Personal Information</div>
       <div className="mt-10 flex flex-col items-center 2xl:ml-40 2xl:flex-row">
         <div className="flex flex-col items-center">
-        <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-full">
+          <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-full">
             <Image
               src={profileUrl}
               alt="profilePic"
               fill
               draggable={false}
-              style={{ objectFit: "cover"}}
-
+              style={{ objectFit: "cover" }}
             />
           </div>
           <label>

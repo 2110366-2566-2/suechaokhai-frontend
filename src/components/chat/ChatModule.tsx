@@ -1,7 +1,7 @@
 "use client";
-import getCurrentUser from "@/services/getCurrentUser";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import { useContext, useEffect, useState } from "react";
-import UserData from "../models/UserData";
+import UserData from "@/models/UserData";
 import ChatIcon from "./ChatIcon";
 import ChatBox from "./ChatBox";
 import MessageBox from "./MessageBox";
