@@ -1,7 +1,7 @@
 export default async function getPropertyDetail(propertyId: string) {
   try {
     const response = await fetch(
-      `http://localhost:8000/api/v1/property/${propertyId}`
+      `http://localhost:8000/api/v1/properties/${propertyId}`
     );
     const data = await response.json();
     console.log;
