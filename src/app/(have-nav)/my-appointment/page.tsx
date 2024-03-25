@@ -45,24 +45,25 @@ export default function MyAppointment() {
             setTotal(data.length);
         }    
         fetchData()
+        setFinishFetching(true)
     }, [])
 
-    useEffect(() => {
-        const fetchPropertyData = async () => {
-            const dataDetail = [];
-            for (let i = 0; i < total; i++) {
-                const dataObject = await getPropertyDetail(appointmentData[i].property_id);
-                console.log(appointmentData[i]);
-                console.log(dataObject);
-                const ownerDetail = await getOwnerData(appointmentData[i].owner_user_id);
-                const newJSON = Object.assign({}, appointmentData[i], dataObject, ownerDetail); 
-                dataDetail.push(newJSON);
-            }
-            setAppointmentDetail(dataDetail);
-        }
-        fetchPropertyData();
-        setFinishFetching(true);
-    }, [appointmentData])
+    // useEffect(() => {
+    //     const fetchPropertyData = async () => {
+    //         const dataDetail = [];
+    //         for (let i = 0; i < total; i++) {
+    //             const dataObject = await getPropertyDetail(appointmentData[i].property.property_id);
+    //             console.log(appointmentData[i]);
+    //             console.log(dataObject);
+    //             const ownerDetail = await getOwnerData(appointmentData[i].owner.owner_user_id);
+    //             const newJSON = Object.assign({}, appointmentData[i], dataObject, ownerDetail); 
+    //             dataDetail.push(newJSON);
+    //         }
+    //         setAppointmentDetail(dataDetail);
+    //     }
+    //     fetchPropertyData();
+    //     setFinishFetching(true);
+    // }, [appointmentData])
 
     useEffect(() => {
         console.log(appointmentData);
@@ -181,23 +182,26 @@ export default function MyAppointment() {
             </div>
             {finishFetching?
                 <div>
-                {appointmentDetail.map(appt => {
+                {appointmentData.map(appt => {
                     return (
-                        <AppointmentList apptId={appt.appointment_id} propertyImgSrc="/img/my-appointment/mhadaeng.png" 
-                            propertyName={appt.property_name} 
-                            propertySubName={appt.property_type.charAt(0) + appt.property_type.toLowerCase().slice(1)} 
-                            ownerImgSrc="/img/babywinsmoking.JPG" ownerName={appt.first_name + ' ' + appt.last_name} 
+                        <AppointmentList apptId={appt.appointment_id} propertyImgSrc={(appt.property.property_images.length === 0) ? '/img/my-appointment/mhadaeng.png': appt.property.property_images[0].image_url} 
+                            propertyName={appt.property.property_name} 
+                            propertySubName={appt.property.property_type.charAt(0) + appt.property.property_type.toLowerCase().slice(1)} 
+                            ownerImgSrc={appt.owner.owner_profile_image_url} ownerName={appt.owner.owner_first_name + ' ' + appt.owner.owner_last_name} 
                             date={getDate(appt.appointment_date)} time={getTime(appt.appointment_date)} 
-                            status={appt.status.charAt(0) + appt.status.toLowerCase().slice(1)}
+                            status={appt.status.charAt(0) + appt.status.    toLowerCase().slice(1)}
                         />
                     )
                 })} 
                 </div>
             : null}
             
-            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
+            {/* <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
             <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
-            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/>
+            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/> */}
+            <div className="flex h-20 place-items-center justify-center w-full mx-auto font-medium text-2xl">
+                {total} lists
+            </div>
         </div>
     )
 }

@@ -1,17 +1,23 @@
 export default async function UpdateAppointmentStatus({
     appointmentId, 
-    status
+    status,
+    msg
 } : {
     appointmentId: string,
-    status: string
+    status: string,
+    msg: string
 }) {
     try {
         const response = await fetch(
             `http://localhost:8000/api/v1/appointments/${appointmentId}`, {
-                method: 'PUT',
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 credentials: 'include',
                 body: JSON.stringify({
-                    status: status
+                    status: status,
+                    cancelled_message: msg
                 })
             }
         );

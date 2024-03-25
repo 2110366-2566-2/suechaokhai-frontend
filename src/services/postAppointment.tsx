@@ -4,15 +4,17 @@ export default async function postAppointment({
   propertyId,
   ownerId,
   dwellerId,
-  apptDate
+  apptDate,
+  message
 } : {
   propertyId: string | undefined,
   ownerId: string | undefined,
   dwellerId: string,
-  apptDate: Date[]
+  apptDate: string,
+  message: string
 }) {
-    const apptISODate = [];
-    for (let i = 0; i < apptDate.length; i++) {apptISODate.push(apptDate[i].toISOString().slice(0, -5) + 'Z')}
+    // const apptISODate = apptDate.toISOString()
+    // console.log(apptISODate)
     try {
       const response = await fetch(
         `http://localhost:8000/api/v1/appointments`, {
@@ -29,7 +31,9 @@ export default async function postAppointment({
               property_id: propertyId,
               owner_user_id: ownerId,
               dweller_user_id: dwellerId,
-              appointment_dates: apptISODate,     
+              appointment_dates: apptDate,
+              // appointment_dates: apptDate,
+              note: message
             })
         }
       );

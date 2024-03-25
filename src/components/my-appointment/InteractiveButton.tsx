@@ -16,7 +16,7 @@ export function DetailButton({
                 className="w-full bg-ci-blue text-white rounded-lg font-medium text-2xl text-center py-3 hover:shadow-blue-950 hover:shadow-inner"
                 onClick={(e) => {
                     e.stopPropagation();
-                    router.push(`/my-appointment/${appointmentId}/detail`)
+                    router.push(`/my-appointment/${appointmentId}`)
                 }}
             >
                 Detail
@@ -29,10 +29,12 @@ export function CancelButton({
     status,
     reasontmp,
     setReason,
+    setCancel
 } : {
     status: string,
     reasontmp: string
-    setReason: Function
+    setReason: Function,
+    setCancel: Function
 }) {
     const [isPending, setPending] = useState<Boolean>(false);
 
@@ -108,7 +110,13 @@ export function CancelButton({
                                         Confirm
                                     </button>
                                 ) : (
-                                    <button className="w-[180px] h-[50px] bg-ci-blue rounded-2xl hover:shadow-blue-950 hover:shadow-inner" >
+                                    <button 
+                                        className="w-[180px] h-[50px] bg-ci-blue rounded-2xl hover:shadow-blue-950 hover:shadow-inner" 
+                                        onClick={() => {
+                                            setCancel(true);
+                                            setPending(false);
+                                        }}    
+                                    >
                                         Confirm
                                     </button>
                                 )}

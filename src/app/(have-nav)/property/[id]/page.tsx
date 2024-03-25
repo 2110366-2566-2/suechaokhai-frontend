@@ -52,12 +52,16 @@ export default function PropertyDescriptionPage() {
   const [apptData, setApptData] = useState<AppointmentData | null>(null);
 
 
-  const handlePost = async (selectedDays: Date[]) => {
+  const handlePost = async (selectedDay: string, note: string) => {
+      const me = await getCurrentUser();
+      const myid = me.user_id;
+      console.log(myid)
       const data = {
         propertyId: property?.property_id,
         ownerId: property?.owner_id,
-        dwellerId: "f38f80b3-f326-4825-9afc-ebc331626555",
-        apptDate: selectedDays
+        dwellerId: myid,
+        apptDate: selectedDay,
+        message: note
       }
       await postAppointment(data);
   }

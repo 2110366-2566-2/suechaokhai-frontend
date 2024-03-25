@@ -1,5 +1,6 @@
+
 "use client";
-import { useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 
 import { isSameDay } from "date-fns";
 import { DayClickEventHandler, DayPicker } from "react-day-picker";
@@ -13,25 +14,38 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 const RoomTourRes = ({ Property, handlePost }: { Property: string, handlePost: Function }) => {
   const today = new Date();
   const [isReserving, setReserve] = useState<boolean>(false);
-  const [selectedDays, setSelectedDays] = useState<Date[]>([]);
+  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const [message, setMessage] = useState<string>('');
+  const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null)
   const messageRef = useRef("");
 
   const handleDayClick: DayClickEventHandler = (day: Date, modifiers: any) => {
-    const newSelectedDays = [...selectedDays];
+    // const newSelectedDays = [...selectedDays];
     if (modifiers.selected) {
-      const index = selectedDays.findIndex((selectedDay) =>
-        isSameDay(day, selectedDay)
-      );
-      newSelectedDays.splice(index, 1);
+      // const index = selectedDays.findIndex((selectedDay) =>
+      //   isSameDay(day, selectedDay)
+      // );
+      // newSelectedDays.splice(index, 1);
+      setSelectedDay(null);
     } else {
-      newSelectedDays.push(day);
+      // newSelectedDays.push(day);
+      setSelectedDay(day);
     }
-    setSelectedDays(newSelectedDays);
-    console.log(selectedDays[0].toISOString().slice(0, -5) + 'Z')
+    // setSelectedDays(newSelectedDays);
+    // console.log(selectedDays[0].toISOString().slice(0, -5) + 'Z')
   };
+
+  useEffect(() => {
+    console.log(selectedDay)
+  }, [selectedDay])
+
+
+  // useEffect(() => {
+  //   console.log(typeof(selectedTime?.$d.toISOString()))
+  //   console.log(selectedTime?.$d.toISOString().split('T')[1])
+  // }, [selectedTime])
 
   const disableDate = (day: Date) => {
     if (!isSameDay(day, today) && day.getTime() < today.getTime()) {
@@ -92,7 +106,7 @@ const RoomTourRes = ({ Property, handlePost }: { Property: string, handlePost: F
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DayPicker
                       onDayClick={handleDayClick}
-                      selected={selectedDays}
+                      selected={selectedDay}
                       disabled={disableDate}
                       modifiersStyles={{
                         selected: {
@@ -117,7 +131,13 @@ const RoomTourRes = ({ Property, handlePost }: { Property: string, handlePost: F
                   </LocalizationProvider>
                 
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <TimePicker label="Basic time picker"/>
+                  <TimePicker 
+                    label="Select time"
+                    value={selectedTime}
+                    onChange={(time) => {
+                      setSelectedTime(time);
+                    }}
+                  />
                 </LocalizationProvider>
               </div>
               <div className="">
@@ -134,13 +154,16 @@ const RoomTourRes = ({ Property, handlePost }: { Property: string, handlePost: F
                 </textarea>
               </div>
 
-          {selectedDays.length === 0 ? (
+          {selectedDay === null ? (
             <div className="flex-row">
               <button
-                className="mx-0.5  my-4 w-[48%] rounded-md  px-4 py-2 font-semibold text-[#DFDFDF] shadow "
-                disabled
+                className="mx-0.5 my-4 w-[48%] rounded-md bg-[#3AAEEF] px-4 py-2 font-semibold text-white shadow hover:bg-blue-800 "
+                onClick={(e) => {
+                  e.preventDefault();
+                  setReserve(false);
+                }}
               >
-                Save
+                Cancel
               </button>
               <button
                 className="mx-0.5  my-4 w-[48%] rounded-md  bg-[#DFDFDF] px-4 py-2 font-semibold text-white shadow"
@@ -152,21 +175,23 @@ const RoomTourRes = ({ Property, handlePost }: { Property: string, handlePost: F
           ) : (
             <div className="flex-row">
               <button
-                className="mx-0.5 my-4 w-[48%] rounded-md border-[1px] border-black px-4 py-2 font-semibold text-black shadow hover:bg-[#DFDFDF] "
+                className="mx-0.5 my-4 w-[48%] rounded-md bg-[#3AAEEF] px-4 py-2 font-semibold text-white shadow hover:bg-blue-800 "
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSave();
+                  setReserve(false);
                 }}
-                disabled={selectedDays.length === 0}
               >
-                Save
+                Cancel
               </button>
               <button
                 className="mx-0.5 my-4 w-[48%] rounded-md bg-[#3AAEEF] px-4 py-2 font-semibold text-white shadow hover:bg-blue-800 "
                 onClick={(e) => {
                   e.preventDefault();
                   setReserve(true);
-                  handlePost(selectedDays);
+                  const strDay = selectedDay.toISOString().split('T')[0] + 'T' + selectedTime?.toISOString().split('T')[1].slice(0, -5) + 'Z';
+                  console.log(strDay);
+                  handlePost(strDay, message);
+                  setReserve(false);
                 }}
               >
                 Reserve Now
