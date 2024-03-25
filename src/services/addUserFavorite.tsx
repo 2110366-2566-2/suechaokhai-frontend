@@ -1,7 +1,7 @@
 export default async function addUserFavorite(property_id: string) {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/v1/property/favorites/" + property_id,
+      "http://localhost:8000/api/v1/properties/favorites/" + property_id,
       {
         method: "POST",
         credentials: "include",
