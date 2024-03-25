@@ -4,25 +4,15 @@ import PropertyData from "../../models/PropertyData";
 import unfavoriteProperty from "@/services/property/unfavoriteProperty";
 import favoriteProperty from "@/services/property/favoriteProperty";
 import getCurrentUser from "@/services/users/getCurrentUser";
+import UserData from "@/models/UserData";
 export default function SmallPropertyCard({
   property,
+  user,
 }: {
   property: PropertyData;
+  user: UserData | undefined;
 }) {
   const [isFavorite, setIsFavorite] = useState<boolean>(property.is_favorite);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const data = await getCurrentUser();
-        setUser(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    getUser();
-  }, []);
 
   async function favoriting() {
     if (isFavorite) {
