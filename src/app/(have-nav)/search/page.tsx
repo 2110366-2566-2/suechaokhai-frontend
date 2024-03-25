@@ -5,40 +5,37 @@ import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import SearchProperty from "@/components/my-listing/SearchProperty";
-import getProperties from "@/services/getProperties";
+import getProperties from "@/services/property/getProperties";
 import { useSearchContext } from "@/context/SearchContext";
 
-
 const myFavPage = () => {
-
-  const { searchContent,  isSearching, setIsSearching } =
-  useSearchContext();
+  const { searchContent, isSearching, setIsSearching } = useSearchContext();
 
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
     const fetchProp = async () => {
-
       const data = await getProperties(searchContent.current, 20, 1);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
       }
 
-      setIsSearching(false)
-
+      setIsSearching(false);
     };
 
-    console.log({ searchContent, isSearching, setIsSearching },"testing search context")
+    console.log(
+      { searchContent, isSearching, setIsSearching },
+      "testing search context"
+    );
     fetchProp();
-
   }, [isSearching]);
 
   return (
     <>
       <div className="flex w-full justify-center ">
-        <SearchProperty ></SearchProperty>
+        <SearchProperty></SearchProperty>
       </div>
       {total !== 0 ? (
         <div className="mx-80 flex h-full flex-col  ">

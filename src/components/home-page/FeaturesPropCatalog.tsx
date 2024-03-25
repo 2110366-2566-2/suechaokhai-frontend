@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import SmallPropertyCard from "./SmallPropertyCard";
 import Image from "next/image";
-import getTopProperty from "@/services/getTopProperty";
-import PropertyData from "../../models/PropertyData";
+import getTopProperty from "@/services/property/getTopProperty";
+import PropertyData from "@/models/PropertyData";
 import Link from "next/link";
 
 export default function FeaturesPropCatalog() {

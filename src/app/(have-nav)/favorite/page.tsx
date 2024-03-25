@@ -1,7 +1,7 @@
 "use client";
 import PropertyData from "@/models/PropertyData";
 import PropertyCards from "@/components/my-listing/PropertyCards";
-import getUserFavProperty from "@/services/getUserFavProperty";
+import getUserFavProperty from "@/services/property/getUserFavProperty";
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
@@ -21,7 +21,6 @@ const myFavPage = () => {
     };
     fetchProp();
   }, []);
-
 
   return (
     <>

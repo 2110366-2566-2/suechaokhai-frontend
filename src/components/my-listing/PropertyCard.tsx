@@ -4,8 +4,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useState } from "react";
-import favoriteProperty from "@/services/favoriteProperty";
-import unfavoriteProperty from "@/services/unfavoriteProperty";
+import favoriteProperty from "@/services/property/favoriteProperty";
+import unfavoriteProperty from "@/services/property/unfavoriteProperty";
+import deleteProperty from "@/services/property/deleteProperty";
+import { useRouter } from "next/navigation";
 
 const PropertyCard = ({
   propData,
@@ -18,6 +20,8 @@ const PropertyCard = ({
 }) => {
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
+
+  const router = useRouter();
 
   function formatPrice(num: number): string {
     return Math.round(num)
@@ -72,7 +76,7 @@ const PropertyCard = ({
             {propData.district}, {propData.province}
           </div>
           <div className="my-2 w-full text-xl font-semibold">
-            ฿{formatPrice(propData.renting.price_per_month)}/month
+            ฿{formatPrice(propData.renting_property.price_per_month)}/month
           </div>
         </div>
 
@@ -109,7 +113,9 @@ const PropertyCard = ({
             </button>
             <button
               className="mx-0.5 my-2 h-[60px] w-full rounded-md bg-ci-red px-4 text-xl font-semibold text-[#DFDFDF] shadow "
-              onClick={() => setDel(!isDeleting)}
+              onClick={() => {
+                setDel(!isDeleting);
+              }}
             >
               Delete property
             </button>
@@ -140,15 +146,19 @@ const PropertyCard = ({
             <div className="flex-roe mx-1 flex w-full items-center justify-center">
               <button
                 className="mx-2 my-2 h-[60px] w-1/3 rounded-md bg-[#B3B3B3] px-4 text-2xl font-bold text-[#DFDFDF] shadow "
-                onClick={() => setDel(!isDeleting)}
+                onClick={() => {
+                  setDel(!isDeleting);
+                }}
               >
                 Cancel
               </button>
               <button
                 className="mx-2 my-2 h-[60px] w-1/3 rounded-md bg-ci-red px-4 text-2xl font-bold text-[#DFDFDF] shadow "
-                onClick={() => {
+                onClick={async () => {
                   setDel(!isDeleting);
-                  alert("del");
+                  const res = await deleteProperty(propData.property_id);
+                  console.log(res.message);
+                  router.refresh();
                 }}
               >
                 Delete
