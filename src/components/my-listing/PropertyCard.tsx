@@ -8,8 +8,8 @@ import favoriteProperty from "@/services/property/favoriteProperty";
 import unfavoriteProperty from "@/services/property/unfavoriteProperty";
 import deleteProperty from "@/services/property/deleteProperty";
 import { useRouter } from "next/navigation";
-import { Toaster,toast} from "sonner";
-
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const PropertyCard = ({
   propData,
@@ -25,14 +25,15 @@ const PropertyCard = ({
 
   const router = useRouter();
 
+  const { toast } = useToast();
+
   function formatPrice(num: number): string {
-    if(num){
+    if (num) {
       return Math.round(num)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    return "0"
-    
+    return "0";
   }
 
   return (
@@ -113,15 +114,13 @@ const PropertyCard = ({
           <div className="mx-1 flex flex-col items-center ">
             <button
               className="mx-0.5 my-2 h-[60px] w-full rounded-md bg-ci-blue px-4 text-xl font-semibold text-[#DFDFDF] shadow "
-              //! link to edit prop page
-              onClick={(e)=>toast.success('sdfvghbj')}
-
+              //! link to edit prop page\
             >
               Edit details
             </button>
             <button
               className="mx-0.5 my-2 h-[60px] w-full rounded-md bg-ci-red px-4 text-xl font-semibold text-[#DFDFDF] shadow "
-              onClick={() => {
+              onClick={(e) => {
                 setDel(!isDeleting);
               }}
             >
@@ -165,9 +164,17 @@ const PropertyCard = ({
                 onClick={async () => {
                   setDel(!isDeleting);
                   const res = await deleteProperty(propData.property_id);
+                  if (res) {
+                    // router.push("listing");
+                    window.location.href = "/listing"
+                    toast({
+                      // variant: "destructive",
+                      title: "Deleted",
+                      description:
+                        "Your property has been deleted successfully.",
+                    });
+                  }
                   console.log(res.message);
-                  router.refresh();
-                  toast.success('sdfvghbj')
                 }}
               >
                 Delete
@@ -176,7 +183,7 @@ const PropertyCard = ({
           </div>
         </div>
       ) : null}
-      <Toaster richColors></Toaster>
+      <Toaster></Toaster>
     </div>
   );
 };
