@@ -11,7 +11,7 @@ import { useSearchContext } from "@/context/SearchContext";
 
 const myFavPage = () => {
 
-  const { searchContent, setSearchContent, isSearching, setIsSearching } =
+  const { searchContent,  isSearching, setIsSearching } =
   useSearchContext();
 
   const [propData, setData] = useState<PropertyData[]>([]);
@@ -20,7 +20,7 @@ const myFavPage = () => {
   useEffect(() => {
     const fetchProp = async () => {
 
-      const data = await getProperties(searchContent, 20, 1);
+      const data = await getProperties(searchContent.current, 20, 1);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -30,7 +30,7 @@ const myFavPage = () => {
 
     };
 
-    // console.log({ searchContent, setSearchContent, isSearching, setIsSearching },"testing search context")
+    console.log({ searchContent, isSearching, setIsSearching },"testing search context")
     fetchProp();
 
   }, [isSearching]);

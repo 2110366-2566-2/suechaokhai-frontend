@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState} from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchContext } from "@/context/SearchContext";
 
@@ -46,7 +46,7 @@ const all_filters = [
 
 const SearchProperty = () => {
 
-  const { searchContent, setSearchContent, isSearching, setIsSearching } =
+  const { searchContent, setIsSearching } =
   useSearchContext();
 
   const [filterPrice, setFilterPrice] = useState<boolean>(false);
@@ -78,6 +78,7 @@ const SearchProperty = () => {
     }
   }
 
+
   return (
     <div className="m-8 flex w-1/2 flex-col justify-self-center text-xl ">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
@@ -85,7 +86,8 @@ const SearchProperty = () => {
           type="text"
           className="h-1/2 w-full rounded-xl border  bg-ci-light-gray  px-5"
           onChange={(e) => {
-            setSearchContent(e.target.value);
+            searchContent.current = e.target.value;
+            console.log(searchContent.current, "testing search");
           }}
         ></input>
         <button

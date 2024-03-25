@@ -1,24 +1,26 @@
 "use client";
 import {
-  useEffect,
   useState,
+  useRef,
   createContext,
   useContext,
   Dispatch,
   SetStateAction,
+  MutableRefObject
 } from "react";
 import React from "react";
 
 interface SearchContextType {
-  searchContent: string;
-  setSearchContent: Dispatch<SetStateAction<string>>;
+  searchContent: MutableRefObject<string>;
+
   isSearching: boolean;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
 }
 
 const SearchContext = createContext<SearchContextType>({
-  searchContent: "",
-  setSearchContent: (): string => "",
+  searchContent: {current:""},
+
+
   isSearching:false,
   setIsSearching: ():boolean => false,
 });
@@ -28,14 +30,13 @@ export const SearchContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [searchContent, setSearchContent] = useState<string>("");
+  const searchContent = useRef("")
+
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  
   return (
     <SearchContext.Provider
       value={{
         searchContent,
-        setSearchContent,
         isSearching,
         setIsSearching
       }}
