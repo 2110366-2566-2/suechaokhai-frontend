@@ -114,6 +114,8 @@ const PropertyCard = ({
             <button
               className="mx-0.5 my-2 h-[60px] w-full rounded-md bg-ci-blue px-4 text-xl font-semibold text-[#DFDFDF] shadow "
               //! link to edit prop page
+              onClick={(e)=>toast.success('sdfvghbj')}
+
             >
               Edit details
             </button>
@@ -165,6 +167,7 @@ const PropertyCard = ({
                   const res = await deleteProperty(propData.property_id);
                   console.log(res.message);
                   router.refresh();
+                  toast.success('sdfvghbj')
                 }}
               >
                 Delete

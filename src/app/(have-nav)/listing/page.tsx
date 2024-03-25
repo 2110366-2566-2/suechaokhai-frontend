@@ -12,7 +12,7 @@ const myListingPage = () => {
 
   useEffect(() => {
     const fetchProp = async () => {
-      const data = await getUserProperty(20, 1);
+      const data = await getUserProperty(10, 1);
       if (data) {
         setData(data.properties);
         setTotal(data.total);

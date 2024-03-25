@@ -81,19 +81,28 @@ const PropertyCards = ({
               <div className="flex flex-col justify-around rounded-2xl bg-white p-1">
                 <div
                   className="h-full w-full p-2 font-normal text-black hover:bg-[#ECECEC]"
-                  onClick={() => setText("Newest Listing First")}
+                  onClick={() => {
+                    setText("Newest Listing First");
+                    setChangingSort(!changingSort);
+                  }}
                 >
                   Newest Listing First
                 </div>
                 <div
                   className="h-full w-full p-2 font-normal text-black hover:bg-[#ECECEC]"
-                  onClick={() => setText("Price from lowest to highest")}
+                  onClick={() => {
+                    setText("Price from lowest to highest");
+                    setChangingSort(!changingSort);
+                  }}
                 >
                   Price from lowest to highest
                 </div>
                 <div
                   className="h-full w-full p-2 font-normal text-black hover:bg-[#ECECEC]"
-                  onClick={() => setText("Price from highest to lowest")}
+                  onClick={() => {
+                    setText("Price from highest to lowest");
+                    setChangingSort(!changingSort);
+                  }}
                 >
                   Price from highest to lowest
                 </div>
