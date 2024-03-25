@@ -1,7 +1,7 @@
 export default async function authCallback(query: string) {
   try {
     const response = await fetch(
-      `http://localhost:8000/api/v1/auth/callback?${query}`,
+      `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/auth/callback?${query}`,
       {
         method: "GET",
         credentials: "include",

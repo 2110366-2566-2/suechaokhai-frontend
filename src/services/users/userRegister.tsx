@@ -15,11 +15,14 @@ export default async function userRegister(personalInfo: PersonalInfo) {
 
   console.log(personalInfo.img);
   try {
-    const response = await fetch("http://localhost:8000/api/v1/register", {
-      method: "POST",
-      credentials: "include",
-      body: formData,
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/register`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch register");
     }
