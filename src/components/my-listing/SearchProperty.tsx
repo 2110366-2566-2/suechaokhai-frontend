@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useSearchContext } from "@/context/SearchContext";
 
 const all_filters = [
   {
@@ -44,11 +45,15 @@ const all_filters = [
 ];
 
 const SearchProperty = () => {
-  const [filterPrice, setFilterPrice] = useState(false);
-  const [filterSize, setFilterSize] = useState(false);
-  const [filter, setFilter] = useState(false);
 
-  const [searchContent, setSearchContent] = useState("");
+  const { searchContent, setSearchContent, isSearching, setIsSearching } =
+  useSearchContext();
+
+  const [filterPrice, setFilterPrice] = useState<boolean>(false);
+  const [filterSize, setFilterSize] = useState<boolean>(false);
+  const [filter, setFilter] = useState<boolean>(false);
+
+
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [minSize, setMinSize] = useState<number>(0);
@@ -73,19 +78,6 @@ const SearchProperty = () => {
     }
   }
 
-  function test() {
-    console.log(searchContent);
-    console.log(minPrice);
-    console.log(maxPrice);
-    console.log(minSize);
-    console.log(maxSize);
-    console.log(bedrooms);
-  }
-
-  // function onSubmit(data: z.infer<typeof FormSchema>) {
-
-  // }
-
   return (
     <div className="m-8 flex w-1/2 flex-col justify-self-center text-xl ">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
@@ -97,7 +89,7 @@ const SearchProperty = () => {
           }}
         ></input>
         <button
-          onClick={test}
+          onClick={() => setIsSearching(true)}
           className="h-1/2 w-56 rounded-xl bg-ci-blue  font-semibold text-white"
         >
           Search
@@ -269,7 +261,7 @@ const SearchProperty = () => {
         ) : null}
         {filter ? (
           <div className="m-3 h-full w-full flex-col justify-around gap-y-2 rounded-xl bg-ci-light-gray p-3 ">
-            <div className="flex justify-between  sm:flex-col md:flex-col 2xl:flex-row h-1/3">
+            <div className="flex h-1/3  justify-between sm:flex-col md:flex-col 2xl:flex-row">
               <div className="h-18 m-7 flex w-2/5 items-center justify-center  rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
                 <div className="font-semibold">Bedroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">

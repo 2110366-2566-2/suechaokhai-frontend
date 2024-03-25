@@ -24,7 +24,10 @@ const PropertyCard = ({
   }
 
   return (
-    <div className="h-[800px] w-full rounded-lg bg-[#ECECEC]">
+    <div
+      className="h-[800px] w-full rounded-lg bg-[#ECECEC]"
+      key={propData.property_id}
+    >
       <div className="relative h-[300px] w-full rounded-t-lg  ">
         <Image
           src={imgSrc}

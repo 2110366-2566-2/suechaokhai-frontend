@@ -1,7 +1,7 @@
-export default async function getProperties(querry:string,limit:number,page:number) {
+export default async function getProperties(query:string,limit:number,page:number) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/properties?querry=${querry}limit=${limit}&page=${page}`,
+        `http://localhost:8000/api/v1/properties?query=${query}&limit=${limit}&page=${page}`,
         
         {
           method: "GET",
