@@ -28,7 +28,6 @@ const CreditCard = ({
   year:string,
   tagNumber: number
   }) => {
-  console.log(tagNumber)
   return (
     <div>
       <div className={`flex h-56 min-w-[400px] max-w-[400px] cursor-pointer select-none flex-col items-start rounded-xl bg-ci-${colorMap[cardColor]} hover:bg-opacity-80 hover:text-white p-5`}>

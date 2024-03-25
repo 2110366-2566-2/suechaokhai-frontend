@@ -82,14 +82,14 @@ const PropertyNavigationBar = () => {
               height={36}
               className="cursor-pointer"
             />
-            <div className="aspect-square min-h-16 min-w-16 overflow-hidden rounded-full">
+            <div className="relative flex aspect-square w-16 items-center justify-center overflow-hidden rounded-full">
               <Image
                 src={accountIcon}
                 alt={"accountMenu"}
-                width={16}
-                height={16}
                 draggable={false}
-                className="min-h-16 min-w-16"
+                fill
+                style={{ objectFit: "cover"}}
+                
               />
             </div>
             {!accountMenu && (

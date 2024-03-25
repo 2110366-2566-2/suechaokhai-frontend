@@ -46,7 +46,6 @@ const EditCard = ({
   const [nickname, setNickname] = useState(defaultCardNickname);
   const [cardholderName, setCardholderName] = useState(defaultCardholderName);
   const [confirm, setConfirm] = useState(false);
-  console.log(tagNumber)
   const handleSaveCard = () => {
     deleteTag()
     const newCard = {

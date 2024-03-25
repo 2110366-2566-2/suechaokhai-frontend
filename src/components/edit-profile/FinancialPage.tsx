@@ -45,7 +45,6 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
       setBankNumber(data.bank_account_number)
       setBankName(data.bank_name)
       setCreditCards(data.credit_cards)
-      console.log(creditCards)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -66,7 +65,6 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
     setDisplayAddCard(false)
     setDisplayEdit(false);
     setCreditCards(newCreditCards)
-    console.log(creditCards)
   };
   const handleSelect = (option: any) => {
     setBankName(option);
@@ -81,7 +79,6 @@ const FinancialPage = ({setIsChangesExist}:{setIsChangesExist:Function}) => {
   const handleEditCard = (card:any) => {
     setSelectedCard(card);
     setDisplayEdit(true);
-    console.log("work")
   }
   return (
     <div className="flex max-w-[100%] flex-col justify-center space-y-4">

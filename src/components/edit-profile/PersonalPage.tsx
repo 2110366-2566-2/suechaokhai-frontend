@@ -23,7 +23,6 @@ const PersonalPage = ({
   const [img, setImg] = useState<any>();
   const [changed, setChanged] = useState(0);
   const handleChange = () => {
-    console.log(firstName, lastName, phoneNumber);
     if (
       firstName != userData?.first_name ||
       lastName != userData.last_name ||
@@ -39,7 +38,6 @@ const PersonalPage = ({
   };
   const handleClose = () => {
     setIsSaved(false);
-    console.log("close");
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -63,7 +61,6 @@ const PersonalPage = ({
       setLastName(data.last_name);
       setPhoneNumber(data.phone_number);
       setProfileUrl(data.profile_image_url);
-      console.log(data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -113,14 +110,14 @@ const PersonalPage = ({
       <div className="ml-12 text-[36px] font-bold">Personal Information</div>
       <div className="mt-10 flex flex-col items-center 2xl:ml-40 2xl:flex-row">
         <div className="flex flex-col items-center">
-          <div className="aspect-square w-40 overflow-hidden rounded-full ">
+        <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-full">
             <Image
               src={profileUrl}
               alt="profilePic"
-              width={160}
-              height={160}
+              fill
               draggable={false}
-              style={{ width: "100%", height: "auto" }}
+              style={{ objectFit: "cover"}}
+
             />
           </div>
           <label>
@@ -152,7 +149,6 @@ const PersonalPage = ({
             value={lastName}
             onChange={(e) => {
               setLastName(e.target.value);
-              console.log(lastName);
             }}
             addedClass="w-[300px] md:w-[400px]"
           />
@@ -162,7 +158,6 @@ const PersonalPage = ({
             value={formatPhoneNumber(phoneNumber)}
             onChange={(e) => {
               setPhoneNumber(formatPhoneNumber(e.target.value));
-              console.log(phoneNumber);
             }}
             addedClass="w-[300px] md:w-[400px]"
           />
