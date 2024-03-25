@@ -1,8 +1,10 @@
 import Image from "next/image";
 const emptyCardIcon = "/img/edit-profile/empty-card.svg";
-const EmptyCard = () => {
+const EmptyCard = ({setDisplay}:{setDisplay:Function}) => {
   return (
-    <div className=" flex h-56 min-w-[400px] cursor-pointer select-none flex-col items-center justify-center rounded-xl bg-ci-light-gray hover:bg-ci-dark-gray hover:text-white">
+    <div className=" flex h-56 min-w-[400px] cursor-pointer select-none flex-col items-center justify-center rounded-xl bg-ci-light-gray hover:bg-ci-dark-gray hover:text-white"
+    onClick={() => setDisplay(true)}
+    >
       <Image
         src={emptyCardIcon}
         alt={"empty-card"}

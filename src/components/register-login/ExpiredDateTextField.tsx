@@ -5,13 +5,15 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   children?: React.ReactNode;
+  monthValue? : string
+  yearValue? : string
   setMonth: React.Dispatch<React.SetStateAction<string>>;
   setYear: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ExpiryDateInput = React.forwardRef<HTMLInputElement, IProps>(
   (
-    { children, label, type = "text", error, setMonth, setYear, ...props },
+    { children, label, type = "text", error, monthValue, yearValue, setMonth, setYear, ...props },
     ref
   ) => {
     const monthRef = useRef<HTMLInputElement>(null);
@@ -62,6 +64,7 @@ const ExpiryDateInput = React.forwardRef<HTMLInputElement, IProps>(
               spaceIndices={[]}
               className="h-[50px] w-[60px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
               setNum={setMonth}
+              value={monthValue}
             />
           </div>
           <span className="px-1">/</span>
@@ -72,6 +75,7 @@ const ExpiryDateInput = React.forwardRef<HTMLInputElement, IProps>(
               spaceIndices={[]}
               className="h-[50px] w-[60px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
               setNum={setYear}
+              value={yearValue}
             />
           </div>
         </div>
