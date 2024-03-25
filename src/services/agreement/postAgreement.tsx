@@ -1,23 +1,27 @@
-import AppointmentData from "@/models/AppointmentData";
+import AgreementData from "@/models/AgreementData";
 
-export default async function postAppointment({
+export default async function postAgreement({
   propertyId,
   ownerId,
   dwellerId,
-  apptDate,
-  message
+  agreementDate,
+  depositAmt,
+  rentFee,
+  rentalDuration
 } : {
   propertyId: string | undefined,
   ownerId: string | undefined,
   dwellerId: string,
-  apptDate: string,
-  message: string
+  agreementDate: string,
+  depositAmt: number,
+  rentFee: number,
+  rentalDuration: number 
 }) {
     // const apptISODate = apptDate.toISOString()
     // console.log(apptISODate)
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/appointments`, {
+        `http://localhost:8000/api/v1/agreements`, {
             method: 'POST',
             headers: {
               "Content-Type": "application/json"
@@ -31,14 +35,16 @@ export default async function postAppointment({
               property_id: propertyId,
               owner_user_id: ownerId,
               dweller_user_id: dwellerId,
-              appointment_dates: apptDate,
+              agreement_date: agreementDate,
               // appointment_dates: apptDate,
-              note: message
+              depositAmt: depositAmt,
+              rentFee: rentFee,
+              rentalDuration: rentalDuration
             })
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to post appointment");
+        throw new Error("Failed to post agreement");
       }
       return await response.json()
     } catch (error) {

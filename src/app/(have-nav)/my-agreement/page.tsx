@@ -4,17 +4,17 @@ import Image from "next/image";
 import AppointmentList from "@/components/my-appointment/AppointmentList";
 import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
 import getUserAppointment from "@/services/getUserAppointment";
-import AppointmentData from "@/components/models/AppointmentData";
+import AgreementData from "@/models/AgreementData";
 
 export default function MyAgreement() {
 
-    const [appointmentData, setAppointmentData] = useState<AppointmentData[]>([]);
+    const [agreementData, setAgreementData] = useState<AgreementData[]>([]);
     const [total, setTotal] = useState<number>(0);
 
     const [selectOn, setSelectOn] = useState(0);
     const [selectedOption, setSelectedOption] = useState('');
     const [showFilter, setShowFilter] = useState(false);
-    const [selectedStatus, setSelectedStatus] = useState<Array<string>>(["Archive", "Cancelled", "Confirm", "Pending", "Rejected"]);
+    const [selectedStatus, setSelectedStatus] = useState<Array<string>>(["Archive", "Await Deposit", "Await Rent", "Cancelled", "Overdue", "Renting"]);
     
     const ref = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ export default function MyAgreement() {
         const fetchData = async () => {
             const data = await getUserAppointment();
             if (data) {
-                setAppointmentData(data);
+                setAgreementData(data);
                 setTotal(data.total);
             }
             console.log(data);
@@ -56,7 +56,7 @@ export default function MyAgreement() {
         <div className="w-[80%] mt-8 mx-auto h-full">
             <div className="flex flex-row">
                 <div className="text-5xl font-bold mr-auto">
-                    My Appointment
+                    My Agreement
                 </div>
                 <div className="pt-1">
                     <ToggleSwitch 
@@ -77,8 +77,8 @@ export default function MyAgreement() {
                         className="font-semibold text-xl text-ci-blue block w-full rounded-md focus:border-none focus-within:border-none hover:cursor-pointer"
                         value={selectedOption} onChange={handleChange}
                     >
-                        <option className="hover:bg-ci-light-gray hover:shadow-inner" value="latest">Latest Appointment First</option>
-                        <option className="hover:bg-ci-light-gray hover:shadow-inner" value="oldest">Oldest Appointment First</option>
+                        <option className="hover:bg-ci-light-gray hover:shadow-inner" value="latest">Latest Agreement First</option>
+                        <option className="hover:bg-ci-light-gray hover:shadow-inner" value="oldest">Oldest Agreement First</option>
                     </select>
                 </div>
                 <div 
