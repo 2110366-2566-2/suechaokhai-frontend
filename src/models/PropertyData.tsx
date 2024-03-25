@@ -36,8 +36,8 @@ export default interface PropertyData {
   property_name: string;
   property_type: string;
   province: string;
-  renting_property: Renting;
-  selling_property: Selling;
+  renting: Renting;
+  selling: Selling;
   street: string;
   sub_district: string;
   unit_number: number;

@@ -8,6 +8,8 @@ import favoriteProperty from "@/services/property/favoriteProperty";
 import unfavoriteProperty from "@/services/property/unfavoriteProperty";
 import deleteProperty from "@/services/property/deleteProperty";
 import { useRouter } from "next/navigation";
+import { Toaster,toast} from "sonner";
+
 
 const PropertyCard = ({
   propData,
@@ -24,9 +26,13 @@ const PropertyCard = ({
   const router = useRouter();
 
   function formatPrice(num: number): string {
-    return Math.round(num)
+    if(num){
+      return Math.round(num)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    return "0"
+    
   }
 
   return (
@@ -76,7 +82,7 @@ const PropertyCard = ({
             {propData.district}, {propData.province}
           </div>
           <div className="my-2 w-full text-xl font-semibold">
-            ฿{formatPrice(propData.renting_property.price_per_month)}/month
+            ฿{formatPrice(propData.renting.price_per_month)}/month
           </div>
         </div>
 
@@ -167,6 +173,7 @@ const PropertyCard = ({
           </div>
         </div>
       ) : null}
+      <Toaster richColors></Toaster>
     </div>
   );
 };
