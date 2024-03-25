@@ -6,7 +6,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
   maxLength?: number;
   spaceIndices?: number[];
-  className?: string;
+  addedClass?: string;
   setNum: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -17,7 +17,7 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
       label,
       maxLength = 19,
       spaceIndices = [4, 8, 12],
-      className,
+      addedClass,
       setNum,
       ...props
     },
@@ -67,7 +67,7 @@ const NumberTextBox = React.forwardRef<HTMLInputElement, IProps>(
         <input
           id="txt"
           autoComplete="off"
-          className={`block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700 ${className}`}
+          className={`block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700 ${addedClass}`}
           {...props}
           ref={(input) => {
             inputRef.current = input;

@@ -1,30 +1,34 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 const Dropdown = ({
   label,
   options,
   onSelect,
+  className,
+  selected,
 }: {
   label: string;
   options: Array<string>;
   onSelect: any;
+  className?: string;
+  selected: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-
   const handleSelect = ({ option }: { option: string }) => {
     setSelectedOption(option);
     onSelect(option);
   };
-
+  useEffect(() => {
+    setSelectedOption(selected);
+  }, [selected]);
   return (
     <div>
       {label && (
-        <label className="block pb-[8px] text-[20px] font-medium" htmlFor="txt">
+        <label className="block pb-2 text-[20px] font-medium" htmlFor="txt">
           {label} :
         </label>
       )}
       <select
-        className="dropdown-select block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700"
+        className={`${className} dropdown-select block h-[50px] w-[510px] rounded-[10px] border border-[#B3B3B3] p-2 text-gray-700`}
         value={selectedOption}
         onChange={(e) => handleSelect({ option: e.target.value })}
       >

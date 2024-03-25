@@ -21,9 +21,6 @@ const OwnerPage = () => {
   const fetchUser = async () => {
     try {
       const data = await getCurrentUser();
-      // setIsVerified(data.is_verified);
-      console.log("current ID:", data.citizen_id);
-      console.log("verify?:", data.is_verified);
       setIsVerified(data.is_verified);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -33,7 +30,7 @@ const OwnerPage = () => {
     fetchUser();
   }),
     [];
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: any) => {
     const file = e.target.files[0];
     setChanged(1);
     setImg(file);
@@ -47,7 +44,6 @@ const OwnerPage = () => {
       const enteredId = id.current;
       const isValid = idRegex.test(enteredId);
       setIsIdValid(isValid);
-
       return isValid;
     }
     return false;
@@ -58,22 +54,18 @@ const OwnerPage = () => {
     e.preventDefault();
     const isIdValid = validateId();
     if (isIdValid) {
-      console.log("ID is valid:", id.current);
       const formData = new FormData();
       setIsVerified(true);
       formData.append("is_verified", "true");
       formData.append("citizen_id", citizenId);
       formData.append("citizen_card_image", img);
       verifyCurrentUser(formData);
-    } else {
-      console.log("Invalid ID number.", id.current);
     }
   };
 
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     const formattedId = formatId(inputValue);
-    console.log(citizenId);
     if (inputValue.length <= 17) {
       id.current = inputValue.replace(/\s/g, "");
     }
