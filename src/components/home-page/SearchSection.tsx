@@ -2,15 +2,19 @@
 
 import { min } from "date-fns/fp/min";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { useSearchContext } from "@/context/SearchContext";
 
 export default function SearchSection() {
+  const router = useRouter();
+
+  const { searchContent} = useSearchContext();
+
   const [filterPrice, setFilterPrice] = useState(false);
   const [filterSize, setFilterSize] = useState(false);
   const [filterBedroom, setFilterBedroom] = useState(false);
 
-  const [searchContent, setSearchContent] = useState("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [minSize, setMinSize] = useState<number>(0);
@@ -25,16 +29,6 @@ export default function SearchSection() {
     }
   }
 
-  function test() {
-    console.log(searchContent);
-    console.log(minPrice);
-    console.log(maxPrice);
-    console.log(minSize);
-    console.log(maxSize);
-    console.log(bedrooms);
-    window.location.href = `http://localhost:3000/search?search=${searchContent}&min-price=${minPrice}&max-price=${maxPrice}&min-size=${minSize}&max-size=${maxSize}&bedrooms=${bedrooms}`;
-  }
-
   return (
     <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
@@ -43,11 +37,13 @@ export default function SearchSection() {
           className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5"
           placeholder="Location, building"
           onChange={(e) => {
-            setSearchContent(e.target.value);
+            searchContent.current = e.target.value;
+            console.log(searchContent.current, "testing");
+            
           }}
         ></input>
         <button
-          onClick={test}
+          onClick={()=>router.push('/search')}
           className="h-1/2 w-56 rounded-xl bg-ci-blue font-semibold text-white"
         >
           Search Now!

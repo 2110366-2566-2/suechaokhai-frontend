@@ -60,7 +60,7 @@ const PropertyNavigationBar = () => {
           <div className="cursor-pointer hover:opacity-60">Agreement</div>
           <div
             className="cursor-pointer hover:opacity-60"
-            onClick={() => router.push("/my-Listing")}
+            onClick={() => router.push("/listing")}
           >
             My Listing
           </div>
@@ -76,7 +76,7 @@ const PropertyNavigationBar = () => {
             </div>
             <Image
               src={favoriteIcon}
-              onClick={() => router.push("/my-Favorite")}
+              onClick={() => router.push("/favorite")}
               alt={"favorite"}
               width={36}
               height={36}
