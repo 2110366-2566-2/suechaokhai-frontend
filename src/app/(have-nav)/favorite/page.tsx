@@ -22,12 +22,7 @@ const myFavPage = () => {
     fetchProp();
   }, []);
 
-  const [haveProp, setHave] = useState<boolean>(true);
 
-  const handleCreate = () => {
-    console.log(haveProp);
-    setHave(!haveProp);
-  };
   return (
     <>
       {total !== 0 ? (
@@ -42,7 +37,6 @@ const myFavPage = () => {
           ></PropertyCards>
         </div>
       ) : (
-        //!fix this toooooooooooooooooooo
         <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
           <div className="text-center text-4xl font-bold">
             Empty favorite property
