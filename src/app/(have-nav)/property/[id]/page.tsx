@@ -10,12 +10,12 @@ import PropertyTag from "@/components/property-description/PropertyTag";
 import { useEffect, useState } from "react";
 import getPropertyDetail from "@/services/property/getPropertyDetail";
 import getOwnerData from "@/services/users/getOwnerData";
-import postAppointment from "@/services/postAppointment";
-import PropertyData from "@/components/models/PropertyData";
-import UserData from "@/components/models/UserData";
+import postAppointment from "@/services/appointments/postAppointment";
+import PropertyData from "@/models/PropertyData";
+import UserData from "@/models/UserData";
 import getCurrentUser from "@/services/users/getCurrentUser";
 import { useParams } from "next/navigation";
-import AppointmentData from "@/components/models/AppointmentData";
+import AppointmentData from "@/models/AppointmentData";
 
 // Mock property
 type FeatureProps = {
@@ -51,20 +51,19 @@ export default function PropertyDescriptionPage() {
   const [owner, setOwner] = useState<UserData | null>(null);
   const [apptData, setApptData] = useState<AppointmentData | null>(null);
 
-
   const handlePost = async (selectedDay: string, note: string) => {
-      const me = await getCurrentUser();
-      const myid = me.user_id;
-      console.log(myid)
-      const data = {
-        propertyId: property?.property_id,
-        ownerId: property?.owner_id,
-        dwellerId: myid,
-        apptDate: selectedDay,
-        message: note
-      }
-      await postAppointment(data);
-  }
+    const me = await getCurrentUser();
+    const myid = me.user_id;
+    console.log(myid);
+    const data = {
+      propertyId: property?.property_id,
+      ownerId: property?.owner_id,
+      dwellerId: myid,
+      apptDate: selectedDay,
+      message: note,
+    };
+    await postAppointment(data);
+  };
 
   const fetchData = async () => {
     const result = await getPropertyDetail(params.id);
@@ -94,47 +93,50 @@ export default function PropertyDescriptionPage() {
     (property?.province || "") +
     " " +
     (property?.postal_code || "");
-    return (
-      <div className=" px-[5%] sm:px-[15%] ">
-        <div className="flex flex-row items-center ">
-          <WestIcon className="mx-3"></WestIcon>
-          <div className="m-3 text-3xl font-bold">
-            {property?.project_name || ""}
-          </div>
+  return (
+    <div className=" px-[5%] sm:px-[15%] ">
+      <div className="flex flex-row items-center ">
+        <WestIcon className="mx-3"></WestIcon>
+        <div className="m-3 text-3xl font-bold">
+          {property?.project_name || ""}
         </div>
-  
-        <div className="flex flex-row">
-          {propertyTag.map((name: string) => (
-            <PropertyTag name={name} key={name} />
-          ))}
-        </div>
-{/*   
+      </div>
+
+      <div className="flex flex-row">
+        {propertyTag.map((name: string) => (
+          <PropertyTag name={name} key={name} />
+        ))}
+      </div>
+      {/*   
         {property?.images !== null? (
           <ImageSlider images={property?.images.map((value) => value.url) || []} />
         ) : null} */}
-        {/* <ImageSlider images={propertyImages} /> */}
-        <div className="flex flex-col">
-          <div className="flex flex-col lg:flex-row">
-            <PropertyDescription
-              name={property?.project_name || ""}
-              features={propertyFeatures}
-              price={property?.renting_property.price_per_month || 0}
-              description={property?.description || ""}
-              address={propertyAddress}
-            />
-            <div className="lg:ml-auto">
-              <RoomTourRes Property={property?.project_name || ""} handlePost={handlePost}></RoomTourRes>
-            </div>
+      {/* <ImageSlider images={propertyImages} /> */}
+      <div className="flex flex-col">
+        <div className="flex flex-col lg:flex-row">
+          <PropertyDescription
+            name={property?.project_name || ""}
+            features={propertyFeatures}
+            price={property?.renting_property.price_per_month || 0}
+            description={property?.description || ""}
+            address={propertyAddress}
+          />
+          <div className="lg:ml-auto">
+            <RoomTourRes
+              Property={property?.project_name || ""}
+              handlePost={handlePost}
+            ></RoomTourRes>
           </div>
-          {/* <OwnerInfo
+        </div>
+        {/* <OwnerInfo
             name={(owner?.first_name || "") + " " + (owner?.last_name || "")}
             tel={owner?.phone_number || ""}
             mail={owner?.email || ""}
             imgSrc={owner?.profile_image_url || ""}
           ></OwnerInfo> */}
-        </div>
-  
-        <Toaster richColors></Toaster>
       </div>
-    );
-  }
+
+      <Toaster richColors></Toaster>
+    </div>
+  );
+}
