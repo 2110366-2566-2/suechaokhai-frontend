@@ -65,48 +65,50 @@ const Slider = ({
   }, [active]);
 
   return (
-    <div>
-      <div className="wrapper" style={{ backgroundColor: bgColor }}>
-        {((showArrowControls && !loop && active !== 0) ||
-          (showArrowControls && loop)) && (
-            <div className="leftClick" onClick={leftClickHandle}>
-              <img className="button" src="/img/property/back.svg" alt="back" />
-            </div>
-          )}
-        <img
-          src={imageList[active].image_url}
-          style={{
-            width: width,
-            height: height,
-            objectFit: "cover",
-          }}
-          alt="image"
-        />
-        {((showArrowControls && !loop && active !== imageList.length - 1) ||
-          (showArrowControls && loop)) && (
-            <div className="rightClick" onClick={rightClickHandle}>
-              <img className="button" src="/img/property/next.svg" alt="next" />
-            </div>
-          )}
-      </div>
-      {showDotControls && (
-        <div className="dots">
-          {imageList.map((el, index) => {
-            if (index !== active) {
-              return (
-                <div
-                  key={index}
-                  className="dot"
-                  data-key={index}
-                  onClick={() => { dotClickHandler }}
-                />
-              );
-            } else {
-              return <div key={index} className="activeDot"></div>;
-            }
-          })}
+    <div className="flex flex-col w-full">
+      <div>
+        <div className="wrapper" style={{ backgroundColor: bgColor }}>
+          {((showArrowControls && !loop && active !== 0) ||
+            (showArrowControls && loop)) && (
+              <div className="leftClick" onClick={leftClickHandle}>
+                <img className="button" src="/img/property/back.svg" alt="back" />
+              </div>
+            )}
+          <img
+            src={imageList[active].image_url}
+            style={{
+              width: width,
+              height: height,
+              objectFit: "cover",
+            }}
+            alt="image"
+          />
+          {((showArrowControls && !loop && active !== imageList.length - 1) ||
+            (showArrowControls && loop)) && (
+              <div className="rightClick" onClick={rightClickHandle}>
+                <img className="button" src="/img/property/next.svg" alt="next" />
+              </div>
+            )}
         </div>
-      )}
+        {showDotControls && (
+          <div className="dots">
+            {imageList.map((el, index) => {
+              if (index !== active) {
+                return (
+                  <div
+                    key={index}
+                    className="dot"
+                    data-key={index}
+                    onClick={() => { dotClickHandler }}
+                  />
+                );
+              } else {
+                return <div key={index} className="activeDot"></div>;
+              }
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
