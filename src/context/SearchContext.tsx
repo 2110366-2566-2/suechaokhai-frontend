@@ -11,14 +11,14 @@ import {
 import React from "react";
 
 interface SearchFilters {
-  minPrice: number;
-  maxPrice: number;
+  minPrice: number|null;
+  maxPrice: number|null;
 
-  minFloorSize: number;
-  maxFloorSize: number;
+  minFloorSize: number|null;
+  maxFloorSize: number|null;
 
-  numBedrooms: number;
-  numBathrooms: number;
+  numBedrooms: number|null;
+  numBathrooms: number|null;
 }
 
 interface SearchContextType {
@@ -35,14 +35,14 @@ const SearchContext = createContext<SearchContextType>({
 
   searchFilters: {
     current: {
-      minPrice: 0,
-      maxPrice: 0,
+      minPrice: null,
+      maxPrice: null,
 
-      minFloorSize: 0,
-      maxFloorSize: 0,
+      minFloorSize: null,
+      maxFloorSize: null,
 
-      numBedrooms: 0,
-      numBathrooms: 0,
+      numBedrooms: null,
+      numBathrooms: null,
     } as SearchFilters,
   },
 
@@ -57,14 +57,14 @@ export const SearchContextProvider = ({
 }) => {
   const searchContent = useRef<string>("");
   const filters: SearchFilters = {
-    minPrice: 0,
-    maxPrice: 0,
+    minPrice: null,
+    maxPrice: null,
 
-    minFloorSize: 0,
-    maxFloorSize: 0,
+    minFloorSize: null,
+    maxFloorSize: null,
 
-    numBedrooms: 0,
-    numBathrooms: 0,
+    numBedrooms: null,
+    numBathrooms: null,
   };
   const searchFilters = useRef<SearchFilters>(filters);
 

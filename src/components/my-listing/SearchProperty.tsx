@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchContext } from "@/context/SearchContext";
 
@@ -51,12 +51,12 @@ const SearchProperty = () => {
   const [filterSize, setFilterSize] = useState<boolean>(false);
   const [filter, setFilter] = useState<boolean>(false);
 
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(0);
-  const [minSize, setMinSize] = useState<number>(0);
-  const [maxSize, setMaxSize] = useState<number>(0);
-
   const [bedrooms, setBedrooms] = useState<number>(0);
+  const [bathrooms, setBathrooms] = useState<number>(0);
+
+  const [bedNull,setBedNull] = useState<boolean>(true)
+  const [bathNull,setBathNull] = useState<boolean>(true)
+
 
   function formatBedroom(val: number) {
     if (val < 0) {
@@ -66,7 +66,6 @@ const SearchProperty = () => {
     }
   }
 
-  const [bathrooms, setBathrooms] = useState<number>(0);
 
   function formatBathroom(val: number) {
     if (val < 0) {
@@ -76,18 +75,17 @@ const SearchProperty = () => {
     }
   }
 
-  useEffect(()=>{
-    searchFilters.current.numBedrooms = bedrooms
-    searchFilters.current.numBathrooms = bathrooms
-
-  },[bathrooms,bedrooms])
+  useEffect(() => {
+    if(!bedNull)searchFilters.current.numBedrooms = bedrooms;
+    if(!bathNull)searchFilters.current.numBathrooms = bathrooms;
+  }, [bathrooms, bedrooms]);
 
   return (
     <div className="small-text m-4 flex flex-col justify-self-center sm:m-8 md:w-[600px] lg:w-[800px]">
       <div className="my-4 flex h-14 flex-row items-center justify-center gap-x-5 rounded-2xl bg-white px-3 text-black  md:gap-x-7">
         <input
           type="text"
-          className="h-full placeholder-black w-full rounded-xl border  bg-ci-light-gray px-3 lg:px-5"
+          className="h-full w-full rounded-xl border bg-ci-light-gray  px-3 placeholder-black lg:px-5"
           placeholder={searchContent.current}
           onChange={(e) => {
             searchContent.current = e.target.value;
@@ -203,7 +201,7 @@ const SearchProperty = () => {
               <div className="">Min. price</div>
               <input
                 type="number"
-                className="placeholder-black h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
+                className="h-14 w-full rounded-xl border bg-ci-light-gray  px-4 placeholder-black"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
                     searchFilters.current.minPrice = Number(e.target.value);
@@ -211,14 +209,14 @@ const SearchProperty = () => {
                     searchFilters.current.minPrice = 0;
                   }
                 }}
-                placeholder={searchFilters.current.minPrice.toString()}
+                placeholder={searchFilters.current.minPrice?.toString()}
               ></input>
             </div>
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4">
               <div className="">Max. price</div>
               <input
                 type="number"
-                className="placeholder-black h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
+                className="h-14 w-full rounded-xl border bg-ci-light-gray  px-4 placeholder-black"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
                     searchFilters.current.maxPrice = Number(e.target.value);
@@ -226,7 +224,7 @@ const SearchProperty = () => {
                     searchFilters.current.maxPrice = 0;
                   }
                 }}
-                placeholder={searchFilters.current.maxPrice.toString()}
+                placeholder={searchFilters.current.maxPrice?.toString()}
               ></input>
             </div>
           </div>
@@ -237,7 +235,7 @@ const SearchProperty = () => {
               <p className="">Min (m²)</p>
               <input
                 type="number"
-                className="placeholder-black h-14 w-full rounded-xl border bg-ci-light-gray px-4"
+                className="h-14 w-full rounded-xl border bg-ci-light-gray px-4 placeholder-black"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
                     searchFilters.current.minFloorSize = Number(e.target.value);
@@ -245,23 +243,22 @@ const SearchProperty = () => {
                     searchFilters.current.minFloorSize = 0;
                   }
                 }}
-                placeholder={searchFilters.current.minFloorSize.toString()}
+                placeholder={searchFilters.current.minFloorSize?.toString()}
               ></input>
             </div>
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4 ">
               <p className="">Max (m²)</p>
               <input
                 type="number"
-                className="placeholder-black h-14 w-full rounded-xl border bg-ci-light-gray px-4"
+                className="h-14 w-full rounded-xl border bg-ci-light-gray px-4 placeholder-black"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
                     searchFilters.current.maxFloorSize = Number(e.target.value);
-
                   } else {
-                    searchFilters.current.maxFloorSize = 0
+                    searchFilters.current.maxFloorSize = 0;
                   }
                 }}
-                placeholder={searchFilters.current.maxFloorSize.toString()}
+                placeholder={searchFilters.current.maxFloorSize?.toString()}
               ></input>
             </div>
           </div>
@@ -282,19 +279,21 @@ const SearchProperty = () => {
                   </button>
                   <input
                     type="number"
-                    className="placeholder-black h-10 w-10 justify-center rounded-xl border  px-2 pb-1 text-center"
+                    className="h-10 w-10 justify-center rounded-xl border px-2  pb-1 text-center placeholder-black"
                     onChange={(e) => {
                       if (e.target.value === "") {
-                        setBedrooms(0)
+                        setBedrooms(0);
                       } else {
                         formatBedroom(Number(e.target.value));
                       }
                     }}
                     value={bedrooms.toString()}
+                    placeholder={searchFilters.current.numBedrooms?.toString()}
                   ></input>
                   <button
                     onClick={() => {
                       formatBedroom(bedrooms + 1);
+                      setBedNull(false)
                     }}
                     className="large-text flex cursor-pointer rounded-xl px-2 pb-2 text-center hover:bg-ci-gray"
                   >
@@ -315,7 +314,7 @@ const SearchProperty = () => {
                   </button>
                   <input
                     type="number"
-                    className="h-10 w-10 justify-center rounded-xl border px-2 pb-1 text-center"
+                    className="h-10 w-10 justify-center rounded-xl border px-2 pb-1 text-center placeholder-black"
                     onChange={(e) => {
                       if (e.target.value === "") {
                         setBathrooms(0);
@@ -324,10 +323,12 @@ const SearchProperty = () => {
                       }
                     }}
                     value={bathrooms.toString()}
+                    placeholder={searchFilters.current.numBathrooms?.toString()}
                   ></input>
                   <button
                     onClick={() => {
                       formatBathroom(bathrooms + 1);
+                      setBathNull(false)
                     }}
                     className="large-text cursor-pointer justify-center rounded-xl px-2 pb-2 hover:bg-ci-gray"
                   >
