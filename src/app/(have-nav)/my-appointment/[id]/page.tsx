@@ -155,7 +155,7 @@ export default function AppointmentDetail() {
               <div className="flex w-full flex-row justify-between">
                 <div className="w-[40%]">
                   <Image
-                    // src={apptDetail?.property.property_images[0].image_url}
+                    src={apptDetail?.property.property_images[0].image_url}
                     alt="property image"
                     width={600}
                     height={400}
