@@ -2,6 +2,7 @@ import PropertyData from "@/models/PropertyData";
 import Image from "next/image";
 import PropertyFeatures from "./PropertyFeatures";
 import PropertyMap from "../property-description/PropertyMap";
+import RelatedProperty from "./RelatedProperty";
 
 export default function PropertyDetail({ property }: { property: PropertyData }) {
 
@@ -41,6 +42,7 @@ export default function PropertyDetail({ property }: { property: PropertyData })
             </div>
             <PropertyFeatures property={property} />
             <PropertyMap name={property.property_name} />
+            <RelatedProperty street={property.street} />
         </div>
     )
 }
