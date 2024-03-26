@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
-
-import backButton from "./icons/back.svg";
-import nextButton from "./icons/next.svg";
+import "@/components/new-property/ImagesSlider.css";
 import PropertyImages from "@/models/PropertyData";
 
 const Slider = ({
@@ -14,18 +11,17 @@ const Slider = ({
   autoPlayInterval = 3000,
   showArrowControls = true,
   showDotControls = true,
-  
-  
   bgColor = "none",
-}:{
-    imageList:PropertyImages[]; 
-    width:string,height:string; 
-    loop:boolean; 
-    autoPlay:boolean;
-    autoPlayInterval:number,
-    showArrowControls:boolean; 
-    showDotControls:boolean; 
-    bgColor:string}) => {
+}: {
+  imageList: PropertyImages[];
+  width: number, height: number;
+  loop: boolean;
+  autoPlay: boolean;
+  autoPlayInterval: number,
+  showArrowControls: boolean;
+  showDotControls: boolean;
+  bgColor: string
+}) => {
   let [active, setActive] = useState(0);
 
   const setPreviousImage = () => {
@@ -73,10 +69,10 @@ const Slider = ({
       <div className="wrapper" style={{ backgroundColor: bgColor }}>
         {((showArrowControls && !loop && active !== 0) ||
           (showArrowControls && loop)) && (
-          <div className="leftClick" onClick={leftClickHandle}>
-            <img className="button" src={backButton} alt="back" />
-          </div>
-        )}
+            <div className="leftClick" onClick={leftClickHandle}>
+              <img className="button" src="/img/property/back.svg" alt="back" />
+            </div>
+          )}
         <img
           src={imageList[active].image_url}
           style={{
@@ -88,10 +84,10 @@ const Slider = ({
         />
         {((showArrowControls && !loop && active !== imageList.length - 1) ||
           (showArrowControls && loop)) && (
-          <div className="rightClick" onClick={rightClickHandle}>
-            <img className="button" src={nextButton} alt="next" />
-          </div>
-        )}
+            <div className="rightClick" onClick={rightClickHandle}>
+              <img className="button" src="/img/property/next.svg" alt="next" />
+            </div>
+          )}
       </div>
       {showDotControls && (
         <div className="dots">
@@ -102,7 +98,7 @@ const Slider = ({
                   key={index}
                   className="dot"
                   data-key={index}
-                  onClick={()=>{dotClickHandler}}
+                  onClick={() => { dotClickHandler }}
                 />
               );
             } else {

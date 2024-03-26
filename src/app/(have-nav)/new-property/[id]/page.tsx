@@ -1,5 +1,6 @@
 "use client"
 
+import ImagesSlider from "@/components/new-property/ImagesSlider";
 import ImageSlider from "@/components/property-description/ImageSlider";
 import PropertyData from "@/models/PropertyData";
 import getPropertyDetail from "@/services/property/getPropertyDetail";
@@ -20,8 +21,21 @@ export default function PropertyPage({params}:{params:{id:string}}){
     },[])
 
     return(
-        <div className="flex flex-col items-center">
-            {property&&<ImageSlider images={property.property_images}/>}
+        <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col w-full">
+            {property&&
+            <ImagesSlider 
+                imageList={property.property_images} 
+                width={1920} 
+                height={500} 
+                loop={true} 
+                autoPlay = {true}
+                autoPlayInterval = {3000}
+                showArrowControls = {true}
+                showDotControls = {true}
+                bgColor="none"/>
+                }
+            </div>
         </div>
     )
 }
