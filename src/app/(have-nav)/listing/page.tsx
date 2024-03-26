@@ -10,10 +10,11 @@ const myListingPage = () => {
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [sort,setSortby]  = useState<string>("created_at:desc")
+  const [onPage, setOnPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchProp = async () => {
-      const data = await getUserProperty(10, 1,sort);
+      const data = await getUserProperty(10, onPage,sort);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -21,7 +22,7 @@ const myListingPage = () => {
       console.log(data);
     };
     fetchProp();
-  }, [sort]);
+  }, [sort,onPage]);
 
   const handleCreate = () => {
     window.location.href = "http://localhost:3000/create-property";
@@ -39,6 +40,7 @@ const myListingPage = () => {
               additionaltext={"for rent or sales in my listing"}
               showAmount={false}
               setSort={setSortby}
+              setOnPage={setOnPage}
             ></PropertyCards>
           </div>
 

@@ -11,10 +11,11 @@ const myFavPage = () => {
   const [total, setTotal] = useState<number>(0);
 
   const [sort,setSortby]  = useState<string>("created_at:desc")
+  const [onPage, setOnPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchProp = async () => {
-      const data = await getUserFavProperty(10, 1,sort);
+      const data = await getUserFavProperty(10, onPage,sort);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -22,7 +23,7 @@ const myFavPage = () => {
       console.log(data);
     };
     fetchProp();
-  }, [sort]);
+  }, [sort,onPage]);
 
   return (
     <>
@@ -37,6 +38,7 @@ const myFavPage = () => {
               additionaltext="for rent or sales in my favorites"
               showAmount={false}
               setSort={setSortby}
+              setOnPage={setOnPage}
             ></PropertyCards>
           </div>
         </div>

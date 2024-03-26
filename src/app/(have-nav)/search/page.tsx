@@ -29,7 +29,7 @@ function magic(mn: number | null, mx: number | null, json: string): string {
   return tmp;
 }
 
-function makeFilterString(searchFilters:any): string {
+function makeFilterString(searchFilters: any): string {
   const minFloorSize: number | null = searchFilters.minFloorSize;
   const maxFloorSize: number | null = searchFilters.maxFloorSize;
   const minPrice: number | null = searchFilters.minPrice;
@@ -38,14 +38,16 @@ function makeFilterString(searchFilters:any): string {
   const numBedrooms: number | null = searchFilters.numBedrooms;
   let filters: string = "";
 
-  filters += magic(minFloorSize, maxFloorSize, "floor_size")+magic(minPrice,maxPrice,"renting_property.price_per_month");
+  filters +=
+    magic(minFloorSize, maxFloorSize, "floor_size") +
+    magic(minPrice, maxPrice, "renting_property.price_per_month");
 
-  if(numBathrooms!==null){
-    filters += ",bathrooms[eql]:"+numBathrooms.toString()
+  if (numBathrooms !== null) {
+    filters += ",bathrooms[eql]:" + numBathrooms.toString();
   }
 
-  if(numBedrooms!==null){
-    filters += ",bedrooms[eql]:"+numBedrooms.toString()
+  if (numBedrooms !== null) {
+    filters += ",bedrooms[eql]:" + numBedrooms.toString();
   }
 
   return filters.slice(1);
@@ -58,19 +60,24 @@ const myFavPage = () => {
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);
 
-  const [sort,setSortby]  = useState<string>("created_at:desc")
-  
+  const [sort, setSortby] = useState<string>("created_at:desc");
+
+  const [onPage, setOnPage] = useState<number>(1);
+
   useEffect(() => {
     const fetchProp = async () => {
-      const filters:string = makeFilterString(searchFilters.current);
-      // console.log(filters,"test filters")
-      console.log(sort,"test sort")
-      const data = await getProperties(searchContent.current, 20, 1,sort, filters);
+      const filters: string = makeFilterString(searchFilters.current);
+      const data = await getProperties(
+        searchContent.current,
+        10,
+        onPage,
+        sort,
+        filters
+      );
       if (data) {
         setData(data.properties);
         setTotal(data.total);
       }
-
       setIsSearching(false);
     };
 
@@ -79,7 +86,7 @@ const myFavPage = () => {
       "testing search context"
     );
     fetchProp();
-  }, [isSearching,sort]);
+  }, [isSearching, sort, onPage]);
 
   return (
     <>
@@ -96,6 +103,7 @@ const myFavPage = () => {
               additionaltext="from searching result"
               showAmount={true}
               setSort={setSortby}
+              setOnPage={setOnPage}
             ></PropertyCards>
           </div>
         </div>
