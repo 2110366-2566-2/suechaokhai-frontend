@@ -38,14 +38,16 @@ const myFavPage = () => {
         <SearchProperty></SearchProperty>
       </div>
       {total !== 0 ? (
-        <div className="mx-80 flex h-full flex-col  ">
-          <PropertyCards
-            propData={propData}
-            totalProp={total}
-            isEditable={false}
-            additionaltext="from searching result"
-            showAmount={true}
-          ></PropertyCards>
+        <div className="mt-8 flex h-full w-full flex-col items-center ">
+          <div className="md:w-[700px] lg:w-[1000px]">
+            <PropertyCards
+              propData={propData}
+              totalProp={total}
+              isEditable={false}
+              additionaltext="from searching result"
+              showAmount={true}
+            ></PropertyCards>
+          </div>
         </div>
       ) : (
         <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
