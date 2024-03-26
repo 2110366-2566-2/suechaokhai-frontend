@@ -3,15 +3,12 @@
 import { useState } from "react";
 import ListingDetailPage from "@/components/create-property/ListingDetailPage";
 import AdditionalDetailPane from "@/components/create-property/AdditionalDetailPane";
-import propertyCreate from "@/services/getCurrentUserRegister";
+import propertyCreate from "@/services/propertyCreate";
 
 export interface PropertyInfo {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  img: any;
+  name: string;
+  furnishing: string;
+  photos: Blob[];
 }
 
 export default function CreateProperty() {
@@ -38,8 +35,14 @@ export default function CreateProperty() {
   const [phone_number, setPhone_number] = useState("");
   const [email, setEmail] = useState("");
 
-  const create = async () => {
-    // const propertyCreate = await {};
+  const createProperty = async () => {
+    console.log(name);
+    const propertyCreateRes = await propertyCreate({
+      name: name,
+      furnishing: furnishing,
+      photos: photos,
+    });
+    console.log(propertyCreateRes);
   };
 
   function nextStage() {
@@ -53,27 +56,34 @@ export default function CreateProperty() {
   return (
     <div>
       {createStage === 0 ? (
-        <ListingDetailPage
-          changeCreateState={nextStage}
-          name={name}
-          listingType={listingType}
-          propertyType={propertyType}
-          rentPrice={rentPrice}
-          salePrice={salePrice}
-          description={description}
-          address={address}
-          setName={setName}
-          setListingType={setListingType}
-          setPropertyType={setPropertyType}
-          setRentPrice={setRentPrice}
-          setSalePrice={setSalePrice}
-          setDescription={setDescription}
-          setAddress={setAddress}
-        />
+        <div>
+          <ListingDetailPage
+            changeCreateState={nextStage}
+            name={name}
+            listingType={listingType}
+            propertyType={propertyType}
+            rentPrice={rentPrice}
+            salePrice={salePrice}
+            description={description}
+            address={address}
+            setName={setName}
+            setListingType={setListingType}
+            setPropertyType={setPropertyType}
+            setRentPrice={setRentPrice}
+            setSalePrice={setSalePrice}
+            setDescription={setDescription}
+            setAddress={setAddress}
+          />
+          <button onClick={nextStage}>Back</button>
+        </div>
       ) : null}
       {createStage === 1 ? (
         <div>
-          <AdditionalDetailPane />
+          <AdditionalDetailPane
+            photos={photos}
+            setPhotos={setPhotos}
+            createProperty={createProperty}
+          />
           <button onClick={nextStage}>Back</button>
           <div></div>
           <button

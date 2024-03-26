@@ -6,26 +6,49 @@ import { Input } from "@/components/ui/input";
 import FurnishingButton from "@/components/create-property/FurnishingButton";
 import TrackingCircle from "@/components/create-property/TrackingCircle";
 
-export default function AdditionalDetailPane() {
+export default function AdditionalDetailPane({
+  photos,
+  setPhotos,
+  createProperty,
+}: {
+  photos: string[];
+  setPhotos: Function;
+  createProperty: Function;
+}) {
   const [furnishing, setFurnishing] = useState<string>("fully-furnished");
   const [bedrooms, setBedrooms] = useState<number | undefined>();
   const [bathrooms, setBathrooms] = useState<number | undefined>();
   const [floor, setFloor] = useState<number | undefined>();
   const [floorSize, setFloorSize] = useState<number | undefined>();
   const [unitNumber, setUnitNumber] = useState<number | undefined>();
-  const [photos, setPhotos] = useState<string[]>([]);
+  // const [photos, setPhotos] = useState<string[]>([]);
 
-  const handlePhotoUpload = (event) => {
+  async function nextPageStatus() {
+    const res = await createProperty();
+    console.log(res);
+  }
+
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     const newPhotos = [...photos];
-    for (let i = 0; i < files.length; i++) {
-      newPhotos.push(URL.createObjectURL(files[i]));
+
+    if (files !== null) {
+      for (let i = 0; i < files.length; i++) {
+        newPhotos.push(URL.createObjectURL(files[i]));
+      }
     }
+
     setPhotos(newPhotos);
+    console.log(photos);
   };
+
+  function test() {
+    console.log(photos);
+  }
 
   return (
     <div>
+      <button onClick={test}>test addi</button>
       <TrackingCircle page="Additional" />
       <div className="mx-auto h-auto max-w-4xl items-center justify-center rounded-md border border-ci-dark-gray bg-white p-4 px-20 pt-10 shadow-md">
         <h2 className="mb-4 text-2xl font-bold">Additional Details</h2>
@@ -90,7 +113,7 @@ export default function AdditionalDetailPane() {
                 placeholder="Bedrooms"
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -106,7 +129,7 @@ export default function AdditionalDetailPane() {
                 placeholder="Bathrooms"
                 value={bathrooms}
                 onChange={(e) => setBathrooms(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -122,7 +145,7 @@ export default function AdditionalDetailPane() {
                 placeholder="Floor"
                 value={floor}
                 onChange={(e) => setFloor(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -139,7 +162,7 @@ export default function AdditionalDetailPane() {
                   placeholder="Floor Size"
                   value={floorSize}
                   onChange={(e) => setFloorSize(e.target.value)}
-                  className="block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  className="sm:text-sm block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500"
                 />
                 <div className="flex items-center rounded-md bg-ci-light-blue hover:bg-ci-dark-blue">
                   <label htmlFor="floorSizeUnit" className="sr-only">
@@ -147,7 +170,7 @@ export default function AdditionalDetailPane() {
                   </label>
                   <select
                     id="floorSizeUnit"
-                    className="h-full border-transparent bg-transparent py-0 pl-2 pr-7 text-white  focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="sm:text-sm h-full border-transparent bg-transparent py-0 pl-2 pr-7  text-white focus:border-blue-500 focus:ring-blue-500"
                   >
                     <option value="sqm">sqm</option>
                     <option value="sqft">sqft</option>
@@ -169,7 +192,7 @@ export default function AdditionalDetailPane() {
                 placeholder="Unit Number"
                 value={unitNumber}
                 onChange={(e) => setUnitNumber(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -251,7 +274,10 @@ export default function AdditionalDetailPane() {
           <button className="rounded-md bg-white px-10 py-2 text-gray-700 outline outline-gray-300 hover:bg-ci-dark-blue hover:text-white hover:outline-none">
             Back
           </button>
-          <button className="rounded-md bg-ci-light-blue px-10 py-2 text-white hover:bg-ci-dark-blue">
+          <button
+            className="rounded-md bg-ci-light-blue px-10 py-2 text-white hover:bg-ci-dark-blue"
+            onClick={nextPageStatus}
+          >
             Submit
           </button>
         </div>
