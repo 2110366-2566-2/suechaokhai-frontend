@@ -89,7 +89,7 @@ export default function FeaturesPropCatalog() {
       </div>
 
       {propertiesId ? (
-        <div className="flex flex-row justify-between gap-x-4">
+        <div className="flex select-none flex-row justify-between gap-x-4">
           {start > 0 ? (
             <Image
               src="/img/home-page/back.svg"

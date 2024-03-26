@@ -9,7 +9,7 @@ import { useSearchContext } from "@/context/SearchContext";
 export default function SearchSection() {
   const router = useRouter();
 
-  const { searchContent} = useSearchContext();
+  const { searchContent } = useSearchContext();
 
   const [filterPrice, setFilterPrice] = useState(false);
   const [filterSize, setFilterSize] = useState(false);
@@ -30,7 +30,7 @@ export default function SearchSection() {
   }
 
   return (
-    <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl">
+    <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl ">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
         <input
           type="text"
@@ -39,19 +39,18 @@ export default function SearchSection() {
           onChange={(e) => {
             searchContent.current = e.target.value;
             console.log(searchContent.current, "testing");
-            
           }}
         ></input>
         <button
-          onClick={()=>router.push('/search')}
-          className="h-1/2 w-56 rounded-xl bg-ci-blue font-semibold text-white"
+          onClick={() => router.push("/search")}
+          className="h-1/2 w-56 select-none rounded-xl bg-ci-blue font-semibold text-white"
         >
           Search Now!
         </button>
       </div>
 
-      <div className="flex w-full flex-row gap-x-7 text-ci-black">
-        <div className="flex w-1/3 min-w-24 flex-col gap-3">
+      <div className="flex w-full select-none flex-row gap-x-7 text-ci-black">
+        <div className="flex w-1/3 min-w-24 flex-col gap-3 ">
           <div
             onClick={() => setFilterPrice(!filterPrice)}
             className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-white px-6 text-left "
