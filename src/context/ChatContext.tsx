@@ -141,8 +141,6 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   const fetchMessages = useCallback(
     async (offset: number = messages[chatUserId].length) => {
       const limit = 10;
-      // if (!messages[chatUserId] || messages[chatUserId].length < limit) {
-      console.log("fetching", offset, limit);
       let msgs = await getMessages(chatUserId, offset, limit);
       setMessages((prev) => {
         return { ...prev, [chatUserId]: msgs.concat(prev[chatUserId]) };

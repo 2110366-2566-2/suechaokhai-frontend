@@ -32,11 +32,20 @@ function MessageSection(
   const bottomRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const [bottomOffset, setBottomOffset] = useState<number>(0);
+
   const scrollToBottom = (instant: boolean = true) => {
     setAutoScrolling(true);
     bottomRef.current?.scrollIntoView({
       behavior: instant ? "instant" : "smooth",
     });
+  };
+
+  const scrollToLastPosition = () => {
+    contentRef.current?.scrollTo(
+      0,
+      contentRef.current!.scrollHeight - bottomOffset
+    );
   };
 
   useImperativeHandle(ref, () => ({
@@ -45,7 +54,18 @@ function MessageSection(
 
   useEffect(() => {
     if (autoScrolling) scrollToBottom();
+    else scrollToLastPosition();
   }, [messages]);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.addEventListener("scroll", (e: Event) => {
+        setBottomOffset(
+          contentRef.current!.scrollHeight - contentRef.current!.scrollTop
+        );
+      });
+    }
+  }, [contentRef]);
 
   const splitMessages = (): { sent: ChatMessage[]; sending: ChatMessage[] } => {
     let idx;

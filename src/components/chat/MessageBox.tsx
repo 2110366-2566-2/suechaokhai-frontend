@@ -28,7 +28,7 @@ export default function MessageBox({ user, setChat }: MessageBoxProps) {
       setFetching(true);
       ctx.fetchMessages().then(() => setFetching(false));
     }
-  }, [isVisible, isFetching]);
+  }, [isVisible]);
 
   const sendMessage = (msg: string) => {
     ctx.sendMessage(msg);
