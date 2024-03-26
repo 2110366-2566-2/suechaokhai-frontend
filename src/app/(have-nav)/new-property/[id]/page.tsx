@@ -17,6 +17,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
     async function getUser() {
       try {
         const data = await getCurrentUser();
+
         setUser(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -30,7 +31,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
       try {
         const property = await getPropertyDetail(params.id);
         setProperty(property);
-        console.log(property.is_favorite);
+        console.log(property);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
