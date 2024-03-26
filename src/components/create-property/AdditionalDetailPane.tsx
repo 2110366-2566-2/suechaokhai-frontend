@@ -34,12 +34,12 @@ export default function AdditionalDetailPane({
 
     if (files !== null) {
       for (let i = 0; i < files.length; i++) {
-        newPhotos.push(URL.createObjectURL(files[i]));
+        // newPhotos.push(URL.createObjectURL(files[i]));
+        newPhotos.push(files[i]);
       }
     }
 
     setPhotos(newPhotos);
-    console.log(photos);
   };
 
   function test() {

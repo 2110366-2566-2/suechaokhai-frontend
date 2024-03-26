@@ -28,9 +28,11 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
   // property_images:[]
   console.log(propertyInfo);
   // formData.append("property_images", propertyInfo.photos);
+  console.log(propertyInfo.photos);
   propertyInfo.photos.forEach((image, index) => {
+    console.log(image);
     const blob = new Blob([image], { type: "image/jpeg" });
-    formData.append(`property_images`, blob, index.toString());
+    formData.append("property_images", blob, image.name);
   });
 
   propertyInfo = {
