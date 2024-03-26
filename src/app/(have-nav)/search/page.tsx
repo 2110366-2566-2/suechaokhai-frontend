@@ -9,7 +9,7 @@ import getProperties from "@/services/property/getProperties";
 import { useSearchContext } from "@/context/SearchContext";
 
 const myFavPage = () => {
-  const { searchContent, isSearching, setIsSearching } = useSearchContext();
+  const { searchContent, isSearching, setIsSearching ,searchFilters} = useSearchContext();
 
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);

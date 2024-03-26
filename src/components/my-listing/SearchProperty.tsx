@@ -45,7 +45,7 @@ const all_filters = [
 ];
 
 const SearchProperty = () => {
-  const { searchContent, setIsSearching } = useSearchContext();
+  const { searchContent, setIsSearching ,searchFilters} = useSearchContext();
 
   const [filterPrice, setFilterPrice] = useState<boolean>(false);
   const [filterSize, setFilterSize] = useState<boolean>(false);
