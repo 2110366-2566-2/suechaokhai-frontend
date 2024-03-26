@@ -1,11 +1,12 @@
 export default async function getProperties(
   query: string,
   limit: number,
-  page: number
+  page: number,
+  filter:string
 ) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/properties?query=${query}&limit=${limit}&page=${page}`,
+      `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/properties?query=${query}&limit=${limit}&page=${page}&filter=${filter}`,
 
       {
         method: "GET",
