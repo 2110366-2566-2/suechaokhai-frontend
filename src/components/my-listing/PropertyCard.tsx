@@ -7,7 +7,8 @@ import { useState } from "react";
 import favoriteProperty from "@/services/property/favoriteProperty";
 import unfavoriteProperty from "@/services/property/unfavoriteProperty";
 import deleteProperty from "@/services/property/deleteProperty";
-import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const PropertyCard = ({
   propData,
@@ -21,17 +22,20 @@ const PropertyCard = ({
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
 
-  const router = useRouter();
+  const { toast } = useToast();
 
   function formatPrice(num: number): string {
-    return Math.round(num)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (num) {
+      return Math.round(num)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    return "0";
   }
 
   return (
     <div
-      className="h-[800px] w-full rounded-lg bg-[#ECECEC]"
+      className="h-full w-full rounded-lg bg-[#ECECEC]"
       key={propData.property_id}
     >
       <div className="relative h-[300px] w-full rounded-t-lg  ">
@@ -107,13 +111,13 @@ const PropertyCard = ({
           <div className="mx-1 flex flex-col items-center ">
             <button
               className="mx-0.5 my-2 h-[60px] w-full rounded-md bg-ci-blue px-4 text-xl font-semibold text-[#DFDFDF] shadow "
-              //! link to edit prop page
+              //! link to edit prop page\
             >
               Edit details
             </button>
             <button
               className="mx-0.5 my-2 h-[60px] w-full rounded-md bg-ci-red px-4 text-xl font-semibold text-[#DFDFDF] shadow "
-              onClick={() => {
+              onClick={(e) => {
                 setDel(!isDeleting);
               }}
             >
@@ -157,8 +161,17 @@ const PropertyCard = ({
                 onClick={async () => {
                   setDel(!isDeleting);
                   const res = await deleteProperty(propData.property_id);
+                  if (res) {
+                    // router.push("listing");
+                    window.location.href = "/listing"
+                    toast({
+                      // variant: "destructive",
+                      title: "Deleted",
+                      description:
+                        "Your property has been deleted successfully.",
+                    });
+                  }
                   console.log(res.message);
-                  router.refresh();
                 }}
               >
                 Delete
@@ -167,6 +180,7 @@ const PropertyCard = ({
           </div>
         </div>
       ) : null}
+      <Toaster></Toaster>
     </div>
   );
 };

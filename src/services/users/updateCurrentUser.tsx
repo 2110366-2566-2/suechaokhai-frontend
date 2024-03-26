@@ -1,10 +1,13 @@
 export default async function updateCurrentUser(updatedUserData: FormData) {
   try {
-    const response = await fetch(`http://localhost:8000/api/v1/user/me/personal-information`, {
-      method: "PUT",
-      credentials: "include",
-      body: updatedUserData,
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/user/me/personal-information`,
+      {
+        method: "PUT",
+        credentials: "include",
+        body: updatedUserData,
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch update current user data");
     }

@@ -12,7 +12,7 @@ const myListingPage = () => {
 
   useEffect(() => {
     const fetchProp = async () => {
-      const data = await getUserProperty(20, 1);
+      const data = await getUserProperty(10, 1);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -27,8 +27,8 @@ const myListingPage = () => {
   };
   return (
     <>
-      {total !== 0 ? (
-        <div className="mx-80 mt-8 flex h-full flex-col ">
+      {total !== 0  && propData!==undefined ? (
+        <div className="mt-8 flex h-full flex-col mx-30 lg:mx-40 xl:mx-50 2xl:mx-60">
           <div className="text-4xl font-bold">My Listing</div>
           <PropertyCards
             propData={propData}
