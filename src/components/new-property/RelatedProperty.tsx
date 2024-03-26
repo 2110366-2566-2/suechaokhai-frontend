@@ -78,7 +78,7 @@ export default function RelatedProperty({ street }: { street: string }) {
   }
 
   return (
-    <div className="flex w-full flex-col gap-y-10">
+    <div className="flex w-full flex-col gap-y-10 bg-ci-gray px-16 py-12 sm:px-32">
       <div className="flex flex-col gap-y-5">
         <div className="text-3xl font-bold">Other Listings</div>
       </div>
@@ -105,7 +105,7 @@ export default function RelatedProperty({ street }: { street: string }) {
                 href={"/property/" + item.property_id}
                 key={item.property_id}
               >
-                <RelatedPropertyCard
+                <SmallPropertyCard
                   property={item}
                   key={item.property_id}
                   user={user}

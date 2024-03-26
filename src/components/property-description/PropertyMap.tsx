@@ -16,4 +16,4 @@ export default function PropertyMap({ name }: { name: string }) {
       ></iframe>
     </div>
   );
-};
+}
