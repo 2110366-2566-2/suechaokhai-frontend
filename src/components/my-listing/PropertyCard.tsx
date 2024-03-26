@@ -55,7 +55,7 @@ const PropertyCard = ({
               onClick={async () => {
                 setFav(!fav);
                 const res = await unfavoriteProperty(propData.property_id);
-                console.log(res.message);
+                if (res) console.log(res.message);
               }}
             ></FavoriteIcon>
           ) : (
@@ -65,7 +65,7 @@ const PropertyCard = ({
               onClick={async () => {
                 setFav(!fav);
                 const res = await favoriteProperty(propData.property_id);
-                console.log(res.message);
+                if (res) console.log(res.message);
               }}
             ></FavoriteBorderIcon>
           )}

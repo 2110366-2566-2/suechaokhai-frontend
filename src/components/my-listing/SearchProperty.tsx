@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState} from "react";
+import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchContext } from "@/context/SearchContext";
 
@@ -45,14 +45,11 @@ const all_filters = [
 ];
 
 const SearchProperty = () => {
-
-  const { searchContent, setIsSearching } =
-  useSearchContext();
+  const { searchContent, setIsSearching } = useSearchContext();
 
   const [filterPrice, setFilterPrice] = useState<boolean>(false);
   const [filterSize, setFilterSize] = useState<boolean>(false);
   const [filter, setFilter] = useState<boolean>(false);
-
 
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
@@ -78,13 +75,12 @@ const SearchProperty = () => {
     }
   }
 
-
   return (
-    <div className="m-8 flex w-1/2 flex-col justify-self-center text-xl ">
-      <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
+    <div className="small-text m-8 flex flex-col justify-self-center md:w-[600px] lg:w-[800px]">
+      <div className="flex h-28 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
         <input
           type="text"
-          className="h-1/2 w-full rounded-xl border  bg-ci-light-gray  px-5"
+          className="h-1/2 w-full rounded-xl border  bg-ci-light-gray px-3 lg:px-5"
           placeholder={searchContent.current}
           onChange={(e) => {
             searchContent.current = e.target.value;
@@ -99,7 +95,7 @@ const SearchProperty = () => {
         </button>
       </div>
       {/* filter section */}
-      <div className="flex flex-row justify-center">
+      <div className="flex h-14 flex-row justify-center">
         <div className="flex w-1/3 gap-3 px-3">
           <div
             onClick={() => {
@@ -107,9 +103,9 @@ const SearchProperty = () => {
               setFilterSize(false);
               setFilter(false);
             }}
-            className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterPrice ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
+            className={`flex  h-full w-full cursor-pointer place-content-center items-center rounded-xl ${filterPrice ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
           >
-            <p className="px-2  font-semibold">Price</p>
+            <p className="justify-center px-2  font-semibold">Price</p>
             {filterPrice ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
@@ -136,9 +132,9 @@ const SearchProperty = () => {
               setFilterSize(!filterSize);
               setFilter(false);
             }}
-            className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filterSize ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
+            className={`flex  h-full  w-full cursor-pointer place-content-center items-center rounded-xl ${filterSize ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
           >
-            <p className="px-2  font-semibold">Size</p>
+            <p className="justify-center px-2  font-semibold">Size</p>
             {filterSize ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
@@ -165,9 +161,9 @@ const SearchProperty = () => {
               setFilterSize(false);
               setFilter(!filter);
             }}
-            className={`flex h-16 w-full cursor-pointer place-content-center items-center rounded-xl ${filter ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
+            className={`flex  h-full w-full cursor-pointer place-content-center items-center rounded-xl ${filter ? "bg-ci-light-blue" : "bg-ci-light-gray"} px-6 text-left`}
           >
-            <p className="px-2  font-semibold">Fliters</p>
+            <p className="justify-center px-2  font-semibold">Fliters</p>
             {filter ? (
               <Image
                 src="/img/home-page/arrow-up.svg"
@@ -263,22 +259,22 @@ const SearchProperty = () => {
           </div>
         ) : null}
         {filter ? (
-          <div className="m-3 h-full w-full flex-col justify-around gap-y-2 rounded-xl bg-ci-light-gray p-3 ">
-            <div className="flex h-1/3  justify-between sm:flex-col md:flex-col 2xl:flex-row">
-              <div className="h-18 m-7 flex w-2/5 items-center justify-center  rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
+          <div className="m-3 h-full w-full flex-col justify-around  rounded-xl bg-ci-light-gray p-2 ">
+            <div className="flex h-1/3  flex-col  justify-between sm:flex-row">
+              <div className="h-18 m-auto flex w-full  flex-row items-center justify-center  rounded-xl bg-white sm:w-2/5">
                 <div className="font-semibold">Bedroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
                     onClick={() => {
                       formatBedroom(bedrooms - 1);
                     }}
-                    className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    className="large-text cursor-pointer justify-center rounded-xl px-2 pb-2 hover:bg-ci-gray"
                   >
                     -
                   </button>
                   <input
                     type="number"
-                    className="h-14 w-14 rounded-xl border  px-2 text-center"
+                    className="h-10 w-10 justify-center rounded-xl border  px-2 pb-1 text-center"
                     onChange={(e) => {
                       if (e.target.value === "") {
                         setBedrooms(0);
@@ -292,26 +288,26 @@ const SearchProperty = () => {
                     onClick={() => {
                       formatBedroom(bedrooms + 1);
                     }}
-                    className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    className="large-text flex cursor-pointer rounded-xl px-2 pb-2 text-center hover:bg-ci-gray"
                   >
                     +
                   </button>
                 </div>
               </div>
-              <div className="h-18 m-7 flex w-2/5 items-center justify-center gap-y-2 rounded-xl bg-white sm:flex-col md:flex-col 2xl:flex-row">
+              <div className="h-18 m-auto flex w-full flex-row items-center justify-center gap-y-2 rounded-xl bg-white sm:w-2/5">
                 <div className="font-semibold">Bathroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
                     onClick={() => {
                       formatBathroom(bathrooms - 1);
                     }}
-                    className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    className="large-text cursor-pointer justify-center  rounded-xl px-2 pb-2 hover:bg-ci-gray"
                   >
                     -
                   </button>
                   <input
                     type="number"
-                    className="h-14 w-14 rounded-xl border  px-2 text-center"
+                    className="h-10 w-10 justify-center rounded-xl border px-2 pb-1 text-center"
                     onChange={(e) => {
                       if (e.target.value === "") {
                         setBathrooms(0);
@@ -325,7 +321,7 @@ const SearchProperty = () => {
                     onClick={() => {
                       formatBathroom(bathrooms + 1);
                     }}
-                    className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
+                    className="large-text cursor-pointer justify-center rounded-xl px-2 pb-2 hover:bg-ci-gray"
                   >
                     +
                   </button>
@@ -333,9 +329,9 @@ const SearchProperty = () => {
               </div>
             </div>
 
-            <div className="m-7 flex  flex-col rounded-xl bg-white p-2">
+            <div className="m-5 flex  flex-col rounded-xl bg-white p-2 ">
               <div className="m-2 font-semibold">Features</div>
-              <div className="grid grid-cols-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 ">
                 {all_filters.map((fil) => (
                   <div className="m-3 flex flex-row">
                     <Checkbox id={fil.id} className="h-7 w-7"></Checkbox>
