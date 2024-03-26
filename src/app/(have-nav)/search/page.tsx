@@ -8,6 +8,49 @@ import SearchProperty from "@/components/my-listing/SearchProperty";
 import getProperties from "@/services/property/getProperties";
 import { useSearchContext } from "@/context/SearchContext";
 
+function magic(mn: number | null, mx: number | null, json: string): string {
+  let tmp: string = "";
+
+  if (mn === null && mx !== null) {
+    tmp = tmp + "," + json + "[lte]:" + mx.toString();
+  } else if (mn !== null && mx === null) {
+    tmp = tmp + "," + json + "[gte]:" + mn.toString();
+  } else if (mn !== null && mx !== null) {
+    if (mn !== 0 && mx !== 0) {
+      if (mn <= mx) {
+        tmp = tmp + "," + json + "[gte]:" + mn.toString();
+        tmp = tmp + "," + json + "[lte]:" + mx.toString();
+      } else {
+        tmp = tmp + "," + json + "[gte]:" + mx.toString();
+        tmp = tmp + "," + json + "[lte]:" + mn.toString();
+      }
+    }
+  }
+  return tmp;
+}
+
+function makeFilterString(searchFilters:any): string {
+  const minFloorSize: number | null = searchFilters.minFloorSize;
+  const maxFloorSize: number | null = searchFilters.maxFloorSize;
+  const minPrice: number | null = searchFilters.minPrice;
+  const maxPrice: number | null = searchFilters.maxPrice;
+  const numBathrooms: number | null = searchFilters.numBathrooms;
+  const numBedrooms: number | null = searchFilters.numBedrooms;
+  let filters: string = "";
+
+  filters += magic(minFloorSize, maxFloorSize, "floor_size")+magic(minPrice,maxPrice,"renting_property.price_per_month");
+
+  if(numBathrooms!==null){
+    filters += ",bathrooms[eql]:"+numBathrooms.toString()
+  }
+
+  if(numBedrooms!==null){
+    filters += ",bedrooms[eql]:"+numBedrooms.toString()
+  }
+
+  return filters.slice(1);
+}
+
 const myFavPage = () => {
   const { searchContent, isSearching, setIsSearching, searchFilters } =
     useSearchContext();
@@ -15,54 +58,14 @@ const myFavPage = () => {
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);
 
-  function magic(mn: number | null, mx: number | null, json: string): string {
-    let tmp: string = "";
-
-    if (mn === null && mx !== null) {
-      tmp = tmp + "," + json + "[lte]:" + mx.toString();
-    } else if (mn !== null && mx === null) {
-      tmp = tmp + "," + json + "[gte]:" + mn.toString();
-    } else if (mn !== null && mx !== null) {
-      if (mn !== 0 && mx !== 0) {
-        if (mn <= mx) {
-          tmp = tmp + "," + json + "[gte]:" + mn.toString();
-          tmp = tmp + "," + json + "[lte]:" + mx.toString();
-        } else {
-          tmp = tmp + "," + json + "[gte]:" + mx.toString();
-          tmp = tmp + "," + json + "[lte]:" + mn.toString();
-        }
-      }
-    }
-    return tmp;
-  }
-
-  function makeFilterString(): string {
-    const minFloorSize: number | null = searchFilters.current.minFloorSize;
-    const maxFloorSize: number | null = searchFilters.current.maxFloorSize;
-    const minPrice: number | null = searchFilters.current.minPrice;
-    const maxPrice: number | null = searchFilters.current.maxPrice;
-    const numBathrooms: number | null = searchFilters.current.numBathrooms;
-    const numBedrooms: number | null = searchFilters.current.numBedrooms;
-    let filters: string = "";
-
-    filters += magic(minFloorSize, maxFloorSize, "floor_size")+magic(minPrice,maxPrice,"renting_property.price_per_month");
-
-    if(numBathrooms!==null){
-      filters += ",bathrooms[eql]:"+numBathrooms.toString()
-    }
-
-    if(numBedrooms!==null){
-      filters += ",bedrooms[eql]:"+numBedrooms.toString()
-    }
-
-    return filters.slice(1);
-  }
-
+  const [sort,setSortby]  = useState<string>("created_at:desc")
+  
   useEffect(() => {
     const fetchProp = async () => {
-      const filters = makeFilterString();
-      console.log(filters,"test filters")
-      const data = await getProperties(searchContent.current, 20, 1, filters);
+      const filters:string = makeFilterString(searchFilters.current);
+      // console.log(filters,"test filters")
+      console.log(sort,"test sort")
+      const data = await getProperties(searchContent.current, 20, 1,sort, filters);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -76,7 +79,7 @@ const myFavPage = () => {
       "testing search context"
     );
     fetchProp();
-  }, [isSearching]);
+  }, [isSearching,sort]);
 
   return (
     <>
@@ -92,6 +95,7 @@ const myFavPage = () => {
               isEditable={false}
               additionaltext="from searching result"
               showAmount={true}
+              setSort={setSortby}
             ></PropertyCards>
           </div>
         </div>

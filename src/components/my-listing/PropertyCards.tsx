@@ -1,9 +1,8 @@
 "use client";
-"use client";
 import PropertyData from "../../models/PropertyData";
 import PropertyCard from "./PropertyCard";
 import Pagination from "@mui/material/Pagination";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer ,SetStateAction,Dispatch} from "react";
 
 const PropertyCards = ({
   propData,
@@ -11,12 +10,14 @@ const PropertyCards = ({
   isEditable,
   additionaltext,
   showAmount,
+  setSort
 }: {
   propData: PropertyData[];
   totalProp: number;
   isEditable: boolean;
   additionaltext: string;
   showAmount: boolean;
+  setSort: Dispatch<SetStateAction<string>>;
 }) => {
   const sortType = {
     date: "Newest Listing First",
@@ -83,6 +84,7 @@ const PropertyCards = ({
                   className="h-full w-full p-3 font-normal text-black rounded-t-2xl hover:bg-[#ECECEC] "
                   onClick={() => {
                     setText("Newest Listing First");
+                    setSort("created_at:desc")
                     setChangingSort(!changingSort);
                   }}
                 >
@@ -92,6 +94,7 @@ const PropertyCards = ({
                   className="h-full w-full p-3 font-normal text-black hover:bg-[#ECECEC]"
                   onClick={() => {
                     setText("Price from lowest to highest");
+                    setSort("renting_property.price_per_month:asc")
                     setChangingSort(!changingSort);
                   }}
                 >
@@ -101,6 +104,7 @@ const PropertyCards = ({
                   className="h-full w-full p-3 font-normal text-black rounded-b-2xl hover:bg-[#ECECEC]"
                   onClick={() => {
                     setText("Price from highest to lowest");
+                    setSort("renting_property.price_per_month:desc")
                     setChangingSort(!changingSort);
                   }}
                 >

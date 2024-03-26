@@ -89,7 +89,7 @@ const PropertyCard = ({
               <Image src="/img/mylisting/bed.svg" alt="bed" fill={true} />
             </div>
 
-            <div className="small-text">2 Bedrooms</div>
+            <div className="small-text">{propData.bathrooms} Bedrooms</div>
           </div>
 
           <div className="my-1 flex  w-full flex-row items-center justify-around lg:w-1/2">
@@ -97,14 +97,14 @@ const PropertyCard = ({
               <Image src="/img/mylisting/arrow.svg" alt="arrow" fill={true} />
             </div>
 
-            <div className="small-text">60 m²</div>
+            <div className="small-text">{propData.floor_size} m²</div>
           </div>
         </div>
         {editable ? (
           <div className=" flex flex-col items-center ">
             <button
               className="small-text  in-card-button  bg-ci-blue "
-              //! link to edit prop page\
+              //! link to edit prop page
             >
               Edit details
             </button>
@@ -123,7 +123,7 @@ const PropertyCard = ({
               className="small-text  in-card-button  bg-ci-blue "
               //! link to propDesc page
             >
-              Views more details
+              View more details
             </button>
           </div>
         )}

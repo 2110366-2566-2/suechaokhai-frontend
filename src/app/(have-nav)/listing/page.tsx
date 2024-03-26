@@ -9,10 +9,11 @@ import { useEffect, useState } from "react";
 const myListingPage = () => {
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [sort,setSortby]  = useState<string>("created_at:desc")
 
   useEffect(() => {
     const fetchProp = async () => {
-      const data = await getUserProperty(10, 1);
+      const data = await getUserProperty(10, 1,sort);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -20,7 +21,7 @@ const myListingPage = () => {
       console.log(data);
     };
     fetchProp();
-  }, []);
+  }, [sort]);
 
   const handleCreate = () => {
     window.location.href = "http://localhost:3000/create-property";
@@ -37,6 +38,7 @@ const myListingPage = () => {
               isEditable={true}
               additionaltext={"for rent or sales in my listing"}
               showAmount={false}
+              setSort={setSortby}
             ></PropertyCards>
           </div>
 
