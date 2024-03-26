@@ -7,10 +7,11 @@ import Image from "next/image";
 import getProperties from "@/services/property/getProperties";
 import SmallPropertyCard from "../home-page/SmallPropertyCard";
 import Link from "next/link";
+import RelatedPropertyCard from "./RelatedPropertyCard";
 
 export default function RelatedProperty({ street }: { street: string }) {
     const [start, setStart] = useState<number>(0);
-    const [windowSize, setWindowSize] = useState<number>(3);
+    const [windowSize, setWindowSize] = useState<number>(4);
     const [propertiesId, setPropsId] = useState<PropertyData[]>([]);
     const [user, setUser] = useState<UserData | undefined>();
 
@@ -56,11 +57,11 @@ export default function RelatedProperty({ street }: { street: string }) {
 
     function calculateStopValue() {
         if (window.innerWidth > 1536) {
-            return 3;
+            return 4;
         } else if (window.innerWidth > 1024) {
-            return 2;
+            return 3;
         } else {
-            return 1;
+            return 2;
         }
     }
 
@@ -85,7 +86,7 @@ export default function RelatedProperty({ street }: { street: string }) {
             </div>
 
             {propertiesId ? (
-                <div className="flex flex-row justify-around gap-x-4">
+                <div className="flex flex-row items-center gap-x-4">
                     {start > 0 ? (
                         <Image
                             src="/img/home-page/back.svg"
@@ -106,7 +107,7 @@ export default function RelatedProperty({ street }: { street: string }) {
                                 href={"/property/" + item.property_id}
                                 key={item.property_id}
                             >
-                                <SmallPropertyCard
+                                <RelatedPropertyCard
                                     property={item}
                                     key={item.property_id}
                                     user={user}
