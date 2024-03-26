@@ -32,7 +32,6 @@ const AddCard = ({setDisplay, handleSave, creditCards}:{setDisplay:Function, han
     const cardNumber = card.replace(/[^\d]/g,"")
     const yearNum = +year
     const monthNum = +month
-    console.log(monthNum)
     if(CVV.length == 3 && color != "" && month.length == 2 && year.length == 2 && cardNumber.length == 16 && cardholderName != "" && nickname != "" && monthNum <= 12){
       setConfirm(true)
     }

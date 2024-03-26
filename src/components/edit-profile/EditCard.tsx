@@ -60,8 +60,8 @@ const EditCard = ({
     };
     creditCards.push(newCard);
     creditCards = sortCreditCardsByTagNumber();
-    handleSave(creditCards)
-    setCreditCards(creditCards)
+    handleSave([...creditCards])
+    setCreditCards([...creditCards])
   };
   
   const deleteTag = () => {
@@ -85,8 +85,8 @@ const EditCard = ({
     const deleteCard = () => {
         deleteTag()
         resetTag()
-        handleSave(creditCards)
-        setCreditCards(creditCards)
+        handleSave([...creditCards])
+        setCreditCards([...creditCards])
 
     }
   const handleInfo = () => {
