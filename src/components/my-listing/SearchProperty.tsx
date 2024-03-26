@@ -45,7 +45,7 @@ const all_filters = [
 ];
 
 const SearchProperty = () => {
-  const { searchContent, setIsSearching ,searchFilters} = useSearchContext();
+  const { searchContent, setIsSearching, searchFilters } = useSearchContext();
 
   const [filterPrice, setFilterPrice] = useState<boolean>(false);
   const [filterSize, setFilterSize] = useState<boolean>(false);
@@ -76,26 +76,28 @@ const SearchProperty = () => {
   }
 
   return (
-    <div className="small-text m-8 flex flex-col justify-self-center md:w-[600px] lg:w-[800px]">
-      <div className="flex h-28 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-3  text-black">
+    <div className="small-text m-4 sm:m-8 flex flex-col justify-self-center md:w-[600px] lg:w-[800px]">
+      <div className="my-4 flex h-14 flex-row items-center justify-center gap-x-5 md:gap-x-7 rounded-2xl bg-white px-3  text-black">
         <input
           type="text"
-          className="h-1/2 w-full rounded-xl border  bg-ci-light-gray px-3 lg:px-5"
+          className="h-full w-full rounded-xl border  bg-ci-light-gray px-3 lg:px-5"
           placeholder={searchContent.current}
           onChange={(e) => {
             searchContent.current = e.target.value;
             console.log(searchContent.current, "testing search");
           }}
         ></input>
+        
         <button
           onClick={() => setIsSearching(true)}
-          className="h-1/2 w-56 rounded-xl bg-ci-blue  font-semibold text-white"
+          className="h-full w-1/5 rounded-xl bg-ci-blue  font-semibold text-white"
         >
           Search
         </button>
       </div>
       {/* filter section */}
       <div className="flex h-14 flex-row justify-center">
+        {/* button price */}
         <div className="flex w-1/3 gap-3 px-3">
           <div
             onClick={() => {
@@ -125,6 +127,7 @@ const SearchProperty = () => {
             )}
           </div>
         </div>
+        {/* button size */}
         <div className="flex w-1/3 flex-col gap-3 px-3">
           <div
             onClick={() => {
@@ -154,6 +157,7 @@ const SearchProperty = () => {
             )}
           </div>
         </div>
+        {/* button filter */}
         <div className="flex w-1/3 flex-col gap-3 px-3">
           <div
             onClick={() => {
@@ -259,9 +263,9 @@ const SearchProperty = () => {
           </div>
         ) : null}
         {filter ? (
-          <div className="m-3 h-full w-full flex-col justify-around  rounded-xl bg-ci-light-gray p-2 ">
-            <div className="flex h-1/3  flex-col  justify-between sm:flex-row">
-              <div className="h-18 m-auto flex w-full  flex-row items-center justify-center  rounded-xl bg-white sm:w-2/5">
+          <div className="m-3 h-full w-full flex-col justify-around  rounded-xl bg-ci-light-gray p-2 pb-20 sm:pb-12 md:pb-16 lg:pb-8">
+            <div className="flex h-1/3  flex-col items-center justify-between sm:flex-row">
+              <div className="h-18  m-auto flex  w-4/5 flex-row items-center  justify-center rounded-xl bg-white sm:w-2/5">
                 <div className="font-semibold">Bedroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
@@ -294,7 +298,7 @@ const SearchProperty = () => {
                   </button>
                 </div>
               </div>
-              <div className="h-18 m-auto flex w-full flex-row items-center justify-center gap-y-2 rounded-xl bg-white sm:w-2/5">
+              <div className="h-18 m-auto flex w-4/5 flex-row items-center justify-center gap-y-2 rounded-xl bg-white sm:w-2/5">
                 <div className="font-semibold">Bathroom(s)</div>
                 <div className="flex flex-row items-center gap-x-1 py-2">
                   <button
@@ -329,7 +333,7 @@ const SearchProperty = () => {
               </div>
             </div>
 
-            <div className="m-5 flex  flex-col rounded-xl bg-white p-2 ">
+            <div className="mx-5 flex  flex-col rounded-xl bg-white p-2 ">
               <div className="m-2 font-semibold">Features</div>
               <div className="grid grid-cols-2 sm:grid-cols-3 ">
                 {all_filters.map((fil) => (

@@ -35,7 +35,7 @@ const PropertyCard = ({
 
   return (
     <div className="h-full w-full rounded-lg bg-[#ECECEC] pb-4 ">
-      <div className="relative h-[200px] w-full rounded-t-lg  ">
+      <div className="relative h-[200px] w-full rounded-t-lg lg:h-[300px]  ">
         <Image
           src={imgSrc}
           alt="Product Picture"
@@ -83,26 +83,18 @@ const PropertyCard = ({
 
         <hr className="border-black "></hr>
 
-        <div className=" my-4 flex h-1/6 flex-col items-center lg:flex-row">
+        <div className=" my-2 flex h-1/6 flex-col items-center lg:my-4 lg:flex-row">
           <div className="my-1 flex w-full flex-row items-center justify-around lg:w-1/2">
-            <div className="relative w-10 h-10">
-              <Image
-                src="/img/mylisting/bed.svg"
-                alt="bed"
-                fill={true}
-              />
+            <div className="relative h-10 w-10">
+              <Image src="/img/mylisting/bed.svg" alt="bed" fill={true} />
             </div>
 
             <div className="small-text">2 Bedrooms</div>
           </div>
 
           <div className="my-1 flex  w-full flex-row items-center justify-around lg:w-1/2">
-            <div className="relative w-9 h-9">
-              <Image
-                src="/img/mylisting/arrow.svg"
-                alt="arrow"
-                fill={true}
-              />
+            <div className="relative h-9 w-9">
+              <Image src="/img/mylisting/arrow.svg" alt="arrow" fill={true} />
             </div>
 
             <div className="small-text">60 m²</div>
@@ -111,13 +103,13 @@ const PropertyCard = ({
         {editable ? (
           <div className=" flex flex-col items-center ">
             <button
-              className="small-text  bg-ci-blue  in-card-button "
+              className="small-text  in-card-button  bg-ci-blue "
               //! link to edit prop page\
             >
               Edit details
             </button>
             <button
-              className="small-text  bg-ci-red  in-card-button "
+              className="small-text  in-card-button  bg-ci-red "
               onClick={(e) => {
                 setDel(!isDeleting);
               }}
@@ -128,7 +120,7 @@ const PropertyCard = ({
         ) : (
           <div className=" flex flex-col items-center ">
             <button
-              className="small-text  bg-ci-blue  in-card-button "
+              className="small-text  in-card-button  bg-ci-blue "
               //! link to propDesc page
             >
               Views more details
