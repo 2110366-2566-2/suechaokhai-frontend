@@ -26,7 +26,7 @@ const myFavPage = () => {
     };
 
     console.log(
-      { searchContent, isSearching, setIsSearching },
+      { searchContent, isSearching, setIsSearching , searchFilters},
       "testing search context"
     );
     fetchProp();

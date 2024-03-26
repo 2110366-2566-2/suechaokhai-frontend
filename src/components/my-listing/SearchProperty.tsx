@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchContext } from "@/context/SearchContext";
 
@@ -55,11 +55,12 @@ const SearchProperty = () => {
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [minSize, setMinSize] = useState<number>(0);
   const [maxSize, setMaxSize] = useState<number>(0);
+
   const [bedrooms, setBedrooms] = useState<number>(0);
 
   function formatBedroom(val: number) {
     if (val < 0) {
-      setBedrooms(0);
+      setBathrooms(0);
     } else {
       setBedrooms(val);
     }
@@ -75,19 +76,25 @@ const SearchProperty = () => {
     }
   }
 
+  useEffect(()=>{
+    searchFilters.current.numBedrooms = bedrooms
+    searchFilters.current.numBathrooms = bathrooms
+
+  },[bathrooms,bedrooms])
+
   return (
-    <div className="small-text m-4 sm:m-8 flex flex-col justify-self-center md:w-[600px] lg:w-[800px]">
-      <div className="my-4 flex h-14 flex-row items-center justify-center gap-x-5 md:gap-x-7 rounded-2xl bg-white px-3  text-black">
+    <div className="small-text m-4 flex flex-col justify-self-center sm:m-8 md:w-[600px] lg:w-[800px]">
+      <div className="my-4 flex h-14 flex-row items-center justify-center gap-x-5 rounded-2xl bg-white px-3 text-black  md:gap-x-7">
         <input
           type="text"
-          className="h-full w-full rounded-xl border  bg-ci-light-gray px-3 lg:px-5"
+          className="h-full placeholder-black w-full rounded-xl border  bg-ci-light-gray px-3 lg:px-5"
           placeholder={searchContent.current}
           onChange={(e) => {
             searchContent.current = e.target.value;
             console.log(searchContent.current, "testing search");
           }}
         ></input>
-        
+
         <button
           onClick={() => setIsSearching(true)}
           className="h-full w-1/5 rounded-xl bg-ci-blue  font-semibold text-white"
@@ -196,32 +203,30 @@ const SearchProperty = () => {
               <div className="">Min. price</div>
               <input
                 type="number"
-                className="h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
+                className="placeholder-black h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
-                    setMinPrice(Number(e.target.value));
+                    searchFilters.current.minPrice = Number(e.target.value);
                   } else {
-                    setMinPrice(0);
+                    searchFilters.current.minPrice = 0;
                   }
                 }}
-                value={minPrice.toString()}
-                placeholder="0"
+                placeholder={searchFilters.current.minPrice.toString()}
               ></input>
             </div>
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4">
               <div className="">Max. price</div>
               <input
                 type="number"
-                className="h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
+                className="placeholder-black h-14 w-full rounded-xl border  bg-ci-light-gray px-4"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
-                    setMaxPrice(Number(e.target.value));
+                    searchFilters.current.maxPrice = Number(e.target.value);
                   } else {
-                    setMaxPrice(0);
+                    searchFilters.current.maxPrice = 0;
                   }
                 }}
-                value={maxPrice.toString()}
-                placeholder="1000000"
+                placeholder={searchFilters.current.maxPrice.toString()}
               ></input>
             </div>
           </div>
@@ -232,32 +237,31 @@ const SearchProperty = () => {
               <p className="">Min (m²)</p>
               <input
                 type="number"
-                className="h-14 w-full rounded-xl border bg-ci-light-gray px-4"
+                className="placeholder-black h-14 w-full rounded-xl border bg-ci-light-gray px-4"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
-                    setMinSize(Number(e.target.value));
+                    searchFilters.current.minFloorSize = Number(e.target.value);
                   } else {
-                    setMinSize(0);
+                    searchFilters.current.minFloorSize = 0;
                   }
                 }}
-                value={minSize.toString()}
-                placeholder="0"
+                placeholder={searchFilters.current.minFloorSize.toString()}
               ></input>
             </div>
             <div className="mx-3 flex w-1/2  flex-col gap-x-2 gap-y-4 ">
               <p className="">Max (m²)</p>
               <input
                 type="number"
-                className="h-14 w-full rounded-xl border bg-ci-light-gray px-4"
+                className="placeholder-black h-14 w-full rounded-xl border bg-ci-light-gray px-4"
                 onChange={(e) => {
                   if (parseInt(e.target.value) >= 0 || e.target.value === "") {
-                    setMaxSize(Number(e.target.value));
+                    searchFilters.current.maxFloorSize = Number(e.target.value);
+
                   } else {
-                    setMaxSize(0);
+                    searchFilters.current.maxFloorSize = 0
                   }
                 }}
-                value={maxSize.toString()}
-                placeholder="10000"
+                placeholder={searchFilters.current.maxFloorSize.toString()}
               ></input>
             </div>
           </div>
@@ -278,10 +282,10 @@ const SearchProperty = () => {
                   </button>
                   <input
                     type="number"
-                    className="h-10 w-10 justify-center rounded-xl border  px-2 pb-1 text-center"
+                    className="placeholder-black h-10 w-10 justify-center rounded-xl border  px-2 pb-1 text-center"
                     onChange={(e) => {
                       if (e.target.value === "") {
-                        setBedrooms(0);
+                        setBedrooms(0)
                       } else {
                         formatBedroom(Number(e.target.value));
                       }
