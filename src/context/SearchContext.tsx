@@ -6,23 +6,48 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
-  MutableRefObject
+  MutableRefObject,
 } from "react";
 import React from "react";
 
+interface SearchFilters {
+  minPrice: number|null;
+  maxPrice: number|null;
+
+  minFloorSize: number|null;
+  maxFloorSize: number|null;
+
+  numBedrooms: number|null;
+  numBathrooms: number|null;
+}
+
 interface SearchContextType {
   searchContent: MutableRefObject<string>;
+
+  searchFilters: MutableRefObject<SearchFilters>;
 
   isSearching: boolean;
   setIsSearching: Dispatch<SetStateAction<boolean>>;
 }
 
 const SearchContext = createContext<SearchContextType>({
-  searchContent: {current:""},
+  searchContent: { current: "" },
 
+  searchFilters: {
+    current: {
+      minPrice: null,
+      maxPrice: null,
 
-  isSearching:false,
-  setIsSearching: ():boolean => false,
+      minFloorSize: null,
+      maxFloorSize: null,
+
+      numBedrooms: null,
+      numBathrooms: null,
+    } as SearchFilters,
+  },
+
+  isSearching: false,
+  setIsSearching: (): boolean => false,
 });
 
 export const SearchContextProvider = ({
@@ -30,15 +55,27 @@ export const SearchContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const searchContent = useRef("")
+  const searchContent = useRef<string>("");
+  const filters: SearchFilters = {
+    minPrice: null,
+    maxPrice: null,
+
+    minFloorSize: null,
+    maxFloorSize: null,
+
+    numBedrooms: null,
+    numBathrooms: null,
+  };
+  const searchFilters = useRef<SearchFilters>(filters);
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
   return (
     <SearchContext.Provider
       value={{
         searchContent,
+        searchFilters,
         isSearching,
-        setIsSearching
+        setIsSearching,
       }}
     >
       {children}

@@ -24,16 +24,18 @@ const myFavPage = () => {
 
   return (
     <>
-      {total !== 0 ? (
-        <div className="mx-80 mt-8 flex h-full flex-col ">
-          <div className="text-4xl font-bold">My Favorites</div>
-          <PropertyCards
-            propData={propData}
-            totalProp={total}
-            isEditable={false}
-            additionaltext="for rent or sales in my favorites"
-            showAmount={false}
-          ></PropertyCards>
+      {total !== 0 && propData !== undefined ? (
+        <div className="mt-8 flex h-full w-full flex-col items-center">
+          <div className="flex flex-col md:w-[700px] lg:w-[1000px]">
+            <div className="large-text font-bold">My Favorites</div>
+            <PropertyCards
+              propData={propData}
+              totalProp={total}
+              isEditable={false}
+              additionaltext="for rent or sales in my favorites"
+              showAmount={false}
+            ></PropertyCards>
+          </div>
         </div>
       ) : (
         <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">

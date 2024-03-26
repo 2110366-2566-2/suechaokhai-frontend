@@ -12,7 +12,7 @@ const myListingPage = () => {
 
   useEffect(() => {
     const fetchProp = async () => {
-      const data = await getUserProperty(20, 1);
+      const data = await getUserProperty(10, 1);
       if (data) {
         setData(data.properties);
         setTotal(data.total);
@@ -27,35 +27,36 @@ const myListingPage = () => {
   };
   return (
     <>
-      {total !== 0 ? (
-        <div className="mx-80 mt-8 flex h-full flex-col ">
-          <div className="text-4xl font-bold">My Listing</div>
-          <PropertyCards
-            propData={propData}
-            totalProp={total}
-            isEditable={true}
-            additionaltext={"for rent or sales in my listing"}
-            showAmount={false}
-          ></PropertyCards>
+      {total !== 0 && propData !== undefined ? (
+        <div className="mt-8 flex h-full w-full flex-col items-center">
+          <div className="flex flex-col md:w-[700px] lg:w-[1000px]">
+            <div className="large-text font-bold ">My Listing</div>
+            <PropertyCards
+              propData={propData}
+              totalProp={total}
+              isEditable={true}
+              additionaltext={"for rent or sales in my listing"}
+              showAmount={false}
+            ></PropertyCards>
+          </div>
 
           <button
-            className="fixed bottom-24 right-24 flex w-1/6 flex-row justify-around rounded-md bg-ci-blue p-4 "
+            className="fixed bottom-24 right-4 size-16 rounded-full bg-ci-blue  shadow-xl shadow-slate-400"
             onClick={handleCreate}
           >
-            <Image
-              src="/img/mylisting/plusCircle.svg"
-              alt="add"
-              width={30}
-              height={30}
-            />
-            <div className="text-2xl font-bold text-white ">
-              Create Property
+            <div className=" size-15 relative p-5">
+              <Image
+                src="/img/mylisting/plusCircle.svg"
+                alt="add"
+                fill={true}
+                // className="m-4"
+              />
             </div>
           </button>
         </div>
       ) : (
         <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
-          <div className="text-center text-4xl font-bold">
+          <div className="large-text text-center font-bold">
             Empty property listing
           </div>
 
@@ -84,7 +85,7 @@ const myListingPage = () => {
               width={30}
               height={30}
             />
-            <div className="text-2xl font-bold text-white ">
+            <div className="medium-text font-bold text-white ">
               Create Property
             </div>
           </button>
