@@ -1,20 +1,33 @@
 'use client';
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image";
-import AppointmentList from "@/components/my-appointment/AppointmentList";
+import AgreementList from "@/components/my-agreement/AgreementList";
 import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
-import getUserAppointment from "@/services/getUserAppointment";
 import AgreementData from "@/models/AgreementData";
+import getUserAgreement from "@/services/agreement/getUserAgreement";
+import Dropdown, { IDropdownOption } from "@/components/my-agreement/Dropdown";
 
 export default function MyAgreement() {
 
     const [agreementData, setAgreementData] = useState<AgreementData[]>([]);
     const [total, setTotal] = useState<number>(0);
+    const [finishFetching, setFinishFetching] = useState<boolean>(false);
+    const [properties, setProperties] = useState<string[]>([]);
+    const [options, setOptions] = useState<IDropdownOption[]>([]);
+
+    const [selectedOption, setSelectedOption] = useState<string | number>();
 
     const [selectOn, setSelectOn] = useState(0);
-    const [selectedOption, setSelectedOption] = useState('');
     const [showFilter, setShowFilter] = useState(false);
-    const [selectedStatus, setSelectedStatus] = useState<Array<string>>(["Archive", "Await Deposit", "Await Rent", "Cancelled", "Overdue", "Renting"]);
+    const [isMakingAgreement, setMakingAgreement] = useState<boolean>(false);
+    const [selectedStatus, setSelectedStatus] = useState<Array<string>>([
+        "Archive", 
+        "Await Deposit", 
+        "Await Rent", 
+        "Cancelled", 
+        "Overdue", 
+        "Renting"
+    ]);
     
     const ref = useRef<HTMLDivElement>(null);
 
@@ -33,15 +46,38 @@ export default function MyAgreement() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getUserAppointment();
-            if (data) {
-                setAgreementData(data);
-                setTotal(data.total);
-            }
-            console.log(data);
-        }
-        fetchData()
-    }, [])
+          const data = await getUserAgreement();
+          console.log(data);
+          setAgreementData(data);
+          setTotal(data.length);
+        };
+        fetchData();
+        setFinishFetching(true);
+      }, []);
+
+    useEffect(() => {
+        console.log(total);
+        console.log(agreementData);
+        const props: string[] = [];
+        agreementData.map((agmt) => {
+            // props.push(agmt.property.property_name);
+            props.push("1");
+        })
+        setProperties(props);
+    }, [agreementData])
+
+    useEffect(() => {
+        let label: string | number;
+        let labelValue: string | number;
+        const optionArray: IDropdownOption[] = [];
+        properties.map((prop) => {
+            label = prop;
+            labelValue = prop;
+            let option = {label, labelValue};
+            optionArray.push(option);
+        })
+        setOptions(optionArray);
+    }, [properties])
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(event.target.value);
@@ -52,86 +88,200 @@ export default function MyAgreement() {
         // Handle checkbox change logic here
     };
 
-    return (
-        <div className="w-[80%] mt-8 mx-auto h-full">
-            <div className="flex flex-row">
-                <div className="text-5xl font-bold mr-auto">
-                    My Agreement
-                </div>
-                <div className="pt-1">
-                    <ToggleSwitch 
-                        label1="Dweller"
-                        label2="Owner"
-                        selectOn={selectOn}
-                        setSelectOn={setSelectOn}
-                    />
-                </div>
-                
-            </div>
-            <div className="flex flex-row my-5">
-                <div className="text-xl font-bold">
-                    Sort By
-                </div>
-                <div className="ml-1">
-                    <select 
-                        className="font-semibold text-xl text-ci-blue block w-full rounded-md focus:border-none focus-within:border-none hover:cursor-pointer"
-                        value={selectedOption} onChange={handleChange}
-                    >
-                        <option className="hover:bg-ci-light-gray hover:shadow-inner" value="latest">Latest Agreement First</option>
-                        <option className="hover:bg-ci-light-gray hover:shadow-inner" value="oldest">Oldest Agreement First</option>
-                    </select>
-                </div>
-                <div 
-                    className="flex flex-row text-xl font-bold ml-2 place-items-start relative"
-                >
-                    <div
-                        className="flex flex-row hover:cursor-pointer"
-                        onClick={() => {
-                            setShowFilter(!showFilter)
-                        }}
-                    >
-                        Filter Status Type
-                        <Image 
-                            className="mx-1 hover:cursor-pointer"
-                            src="img/my-appointment/filter.svg"
-                            alt="filter"
-                            width={25}
-                            height={25}
-                        />
-                    </div>
-                    
-                    {showFilter? (
-                        <div ref={ref} className="absolute flex flex-col z-40 border border-black bg-white items-center w-full top-full -right-40">
-                            {selectedStatus.map(selected => (
-                                <div className="flex flex-row w-full h-[50px] bg-slate-200 p-3 mx-auto">
-                                    <input className="w-1/5 accent-ci-light-gray" type="checkbox" value={selected} onChange={handleCheckboxChange} checked={true}/>
-                                    <div className="w-4/5">
-                                        {selected}
-                                    </div> 
-                                </div>
-                            ))}
-                        </div>
-                    ) : null}
-                </div>
-                
-            </div>
+    const getDate = (dateString: string) => {
+        const date = new Date(dateString);
+    
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+    
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+    
+        return `${day} ${months[month - 1]} ${year}`;
+      };
+    
+    const getTime = (dateString: string) => {
+        const date = new Date(dateString);
 
-            <div className="h-[80px] rounded-t-3xl bg-ci-dark-blue text-white text-2xl font-semibold">
-                <div className="flex flex-row w-[90%] h-full mx-auto my-auto">
-                    <div className="ml-2 w-[40%] my-auto">
-                        Property
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        return `${hours}:${minutes}`;
+    };
+    
+
+    return (
+        <div className="mx-auto mt-8 h-full w-[80%]">
+          <div className="flex flex-row">
+            <div className="mr-auto text-5xl font-bold">My Agreement</div>
+            <div className="pt-1">
+              <ToggleSwitch
+                label1="Dweller"
+                label2="Owner"
+                selectOn={selectOn}
+                setSelectOn={setSelectOn}
+              />
+            </div>
+          </div>
+          <div className="w-full mx-auto my-5 flex flex-row items-center">
+            <div className="text-xl font-bold">Sort By</div>
+            <div className="ml-1">
+              <select
+                className="block w-full rounded-md text-xl font-semibold text-ci-blue focus-within:border-none hover:cursor-pointer focus:border-none"
+                value={selectedOption}
+                onChange={handleChange}
+              >
+                <option
+                  className="hover:bg-ci-light-gray hover:shadow-inner"
+                  value="latest"
+                >
+                  Latest Agreement First
+                </option>
+                <option
+                  className="hover:bg-ci-light-gray hover:shadow-inner"
+                  value="oldest"
+                >
+                  Oldest Agreement First
+                </option>
+              </select>
+            </div>
+            <div className="relative ml-2 mr-auto flex flex-row place-items-start text-xl font-bold">
+              <div
+                className="flex flex-row hover:cursor-pointer"
+                onClick={() => {
+                  setShowFilter(!showFilter);
+                }}
+              >
+                Filter Status Type
+                <Image
+                  className="mx-1 hover:cursor-pointer"
+                  src="img/my-appointment/filter.svg"
+                  alt="filter"
+                  width={25}
+                  height={25}
+                />
+              </div>
+    
+              {showFilter ? (
+                <div
+                  ref={ref}
+                  className="absolute -right-40 top-full z-40 flex w-full flex-col items-center border border-black bg-white"
+                >
+                  {selectedStatus.map((selected) => (
+                    <div className="mx-auto flex h-[50px] w-full flex-row bg-slate-200 p-3">
+                      <input
+                        className="w-1/5 accent-ci-light-gray"
+                        type="checkbox"
+                        value={selected}
+                        onChange={handleCheckboxChange}
+                        checked={true}
+                      />
+                      <div className="w-4/5">{selected}</div>
                     </div>
-                    <div className="mx-[80px] my-auto">
-                        Date - Time
-                    </div>
-                    <div className="mx-[80px] my-auto">
-                        Status
+                  ))}
+                </div>
+              ) : null}
+            </div>
+            <div className="flex w-[25%] justify-end">
+                <button 
+                    className="w-full bg-ci-blue text-white rounded-lg font-medium text-2xl text-center py-3 hover:shadow-blue-950 hover:shadow-inner"
+                    onClick={() => {
+                        setMakingAgreement(true);
+                    }}
+                >
+                    Make Agreement
+                </button>
+            </div>
+            {isMakingAgreement ? (
+                <div className="fixed left-[0] top-[0] z-40 flex h-[100vh] w-[100%] flex-col items-center justify-center bg-black bg-opacity-20">
+                    <div className="relative flex flex-col rounded-2xl bg-white p-[32px] items-center w-1/2 h-4/5 justify-around">
+                        <div className="text-4xl font-bold">
+                            Make Agreement
+                        </div>
+                        <div className="flex flex-row w-full justify-center mx-auto">
+                            <div className="flex flex-col w-[40%] mx-auto">
+                                <div className="text-2xl font-medium">
+                                    Select your property
+                                </div>
+                                <div className="">
+                                    <Dropdown 
+                                        name="Property" options={options} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-col w-[40%] mx-auto">
+                                <div className="text-2xl font-medium">
+                                    Select dweller
+                                </div>
+                                <div className="">
+                                    <Dropdown 
+                                        name="Dweller" options={options} required={true} placeHolder="Select Dweller" 
+                                        type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            ) : null}
+          </div>
+    
+          <div className="h-[80px] rounded-t-3xl bg-ci-dark-blue text-2xl font-semibold text-white">
+            <div className="mx-auto my-auto flex h-full w-[90%] flex-row">
+              <div className="my-auto ml-2 w-[40%]">Property</div>
+              <div className="mx-[80px] my-auto">Date - Time</div>
+              <div className="mx-[80px] my-auto">Status</div>
             </div>
-            <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
-            <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
-            <AppointmentList propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/>
+          </div>
+          {finishFetching ? (
+            <div>
+              {agreementData.map((agmt) => {
+                return (
+                  <AgreementList
+                    agreementId={agmt.agreement_id}
+                    // propertyImgSrc={
+                    //   agmt.property.property_images.length === 0
+                    //     ? "/img/my-appointment/mhadaeng.png"
+                    //     : agmt.property.property_images[0].image_url
+                    // }
+                    // propertyName={agmt.property.property_name}
+                    // propertySubName={
+                    //   agmt.property.property_type.charAt(0) +
+                    //   agmt.property.property_type.toLowerCase().slice(1)
+                    // }
+                    // ownerImgSrc={agmt.owner.owner_profile_image_url}
+                    // ownerName={
+                    //   agmt.owner.owner_first_name + " " + agmt.owner.owner_last_name
+                    // }
+                    date={getDate(agmt.agreement_date)}
+                    time={getTime(agmt.agreement_date)}
+                    // status={
+                    //   agmt.status.charAt(0) + agmt.status.toLowerCase().slice(1)
+                    // }
+                  />
+                );
+              })}
+            </div>
+          ) : null}
+    
+          {/* <AppointmentList agmtId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
+                <AppointmentList agmtId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
+                <AppointmentList agmtId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/> */}
+          <div className="mx-auto flex h-20 w-full place-items-center justify-center text-2xl font-medium">
+            {total} lists
+          </div>
         </div>
-    )
-}
+      );
+    }

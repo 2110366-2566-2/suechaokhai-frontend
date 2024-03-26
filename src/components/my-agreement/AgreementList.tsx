@@ -1,8 +1,8 @@
 import Image from "next/image";
-import StatusBox from "@/components/my-appointment/StatusBox";
-import { DetailButton, CancelButton } from "@/components/my-appointment/InteractiveButton";
+import StatusBox from "@/components/my-agreement/StatusBox";
+import { DetailButton, CancelButton } from "@/components/my-agreement/InteractiveButton";
 import { useEffect, useState } from "react";
-import UpdateAppointmentStatus from "@/services/updateAppointmentStatus";
+import UpdateAgreementStatus from "@/services/agreement/updateAgreementStatus";
 
 export default function AgreementList({
     agreementId,
@@ -32,8 +32,8 @@ export default function AgreementList({
     useEffect(() => {
         const updateCancel = async () => {
             if (isCancelled) {
-                const data = await UpdateAppointmentStatus({
-                    appointmentId: agreementId,
+                const data = await UpdateAgreementStatus({
+                    agreementId: agreementId,
                     status: "CANCELLED",
                     msg: reason
                 });
@@ -93,7 +93,7 @@ export default function AgreementList({
                     <StatusBox status={currentStatus}/>
                 </div>
                 <div className="flex flex-col w-[12.5%] h-full ml-28 my-auto justify-between">
-                    <DetailButton appointmentId={agreementId}/>
+                    <DetailButton agreementId={agreementId}/>
                     <CancelButton status={status} reasontmp={reason} setReason={setReason} setCancel={setCancel}/>            
                 </div>
             </div>

@@ -1,10 +1,10 @@
 import React from "react";
 
-let googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
-
 const PropertyMap = ({ name }: { name: string }) => {
+  let googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
+    
   return (
-    <div>
+  <div>
       <iframe
         width="600"
         height="450"
