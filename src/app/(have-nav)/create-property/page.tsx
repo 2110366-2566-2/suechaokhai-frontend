@@ -5,6 +5,26 @@ import ListingDetailPage from "@/components/create-property/ListingDetailPage";
 import AdditionalDetailPane from "@/components/create-property/AdditionalDetailPane";
 import propertyCreate from "@/services/propertyCreate";
 
+export interface ListingDetailPageProps {
+  name: string;
+  listingType: string;
+  propertyType: string;
+  rentPrice: string;
+  salePrice: string;
+  description: string;
+  address: string;
+}
+
+export interface AdditionalDetailPaneProps {
+  furnishing: string;
+  bedrooms: string;
+  bathrooms: string;
+  floor: string;
+  floorSize: string;
+  unitNumber: string;
+  photos: File[];
+}
+
 export interface PropertyInfo {
   name: string;
   furnishing: string;
@@ -13,6 +33,28 @@ export interface PropertyInfo {
 
 export default function CreateProperty() {
   const [createStage, changeState] = useState(0);
+
+  const [listingDetailPageProps, setListingDetailPageProps] =
+    useState<ListingDetailPageProps>({
+      name: "",
+      listingType: "",
+      propertyType: "",
+      rentPrice: "",
+      salePrice: "",
+      description: "",
+      address: "",
+    });
+
+  const [additionalDetailPaneProps, setAdditionalDetailPaneProps] =
+    useState<AdditionalDetailPaneProps>({
+      furnishing: "",
+      bedrooms: "",
+      bathrooms: "",
+      floor: "",
+      floorSize: "",
+      unitNumber: "",
+      photos: [],
+    });
 
   const [name, setName] = useState<string>("");
   const [listingType, setListingType] = useState<string>("");
@@ -28,7 +70,7 @@ export default function CreateProperty() {
   const [floor, setFloor] = useState("");
   const [floorSize, setFloorSize] = useState("");
   const [unitNumber, setUnitNumber] = useState("");
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState<File[]>([]);
 
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -40,7 +82,7 @@ export default function CreateProperty() {
     const propertyCreateRes = await propertyCreate({
       name: name,
       furnishing: furnishing,
-      photos: photos,
+      photos: additionalDetailPaneProps.photos,
     });
     console.log(propertyCreateRes);
   };
@@ -80,8 +122,8 @@ export default function CreateProperty() {
       {createStage === 1 ? (
         <div>
           <AdditionalDetailPane
-            photos={photos}
-            setPhotos={setPhotos}
+            additionalDetailPaneProps={additionalDetailPaneProps}
+            setAdditionalDetailPaneProps={setAdditionalDetailPaneProps}
             createProperty={createProperty}
           />
           <button onClick={nextStage}>Back</button>

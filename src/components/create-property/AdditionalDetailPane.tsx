@@ -5,23 +5,28 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import FurnishingButton from "@/components/create-property/FurnishingButton";
 import TrackingCircle from "@/components/create-property/TrackingCircle";
+import { AdditionalDetailPaneProps } from "@/app/(have-nav)/create-property/page";
 
 export default function AdditionalDetailPane({
-  photos,
-  setPhotos,
+  additionalDetailPaneProps,
+  setAdditionalDetailPaneProps,
   createProperty,
 }: {
-  photos: string[];
-  setPhotos: Function;
+  additionalDetailPaneProps: AdditionalDetailPaneProps;
+  setAdditionalDetailPaneProps: Function;
   createProperty: Function;
 }) {
-  const [furnishing, setFurnishing] = useState<string>("fully-furnished");
-  const [bedrooms, setBedrooms] = useState<number | undefined>();
-  const [bathrooms, setBathrooms] = useState<number | undefined>();
-  const [floor, setFloor] = useState<number | undefined>();
-  const [floorSize, setFloorSize] = useState<number | undefined>();
-  const [unitNumber, setUnitNumber] = useState<number | undefined>();
-  // const [photos, setPhotos] = useState<string[]>([]);
+  const {
+    furnishing,
+    bedrooms,
+    bathrooms,
+    floor,
+    floorSize,
+    unitNumber,
+    photos,
+  } = additionalDetailPaneProps;
+
+  const [imageURLS, setImageURLS] = useState<string[]>([]);
 
   async function nextPageStatus() {
     const res = await createProperty();
@@ -30,19 +35,25 @@ export default function AdditionalDetailPane({
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
+    console.log(files);
     const newPhotos = [...photos];
+    const newImageURLS = [...imageURLS];
 
     if (files !== null) {
       for (let i = 0; i < files.length; i++) {
-        // newPhotos.push(URL.createObjectURL(files[i]));
         newPhotos.push(files[i]);
+        newImageURLS.push(URL.createObjectURL(files[i]));
       }
     }
-
-    setPhotos(newPhotos);
+    setAdditionalDetailPaneProps({
+      ...additionalDetailPaneProps,
+      photos: newPhotos,
+    });
+    setImageURLS(newImageURLS);
   };
 
   function test() {
+    console.log(additionalDetailPaneProps);
     console.log(photos);
   }
 
@@ -229,7 +240,7 @@ export default function AdditionalDetailPane({
             </label>
           </div>
           <div className="mt-4 flex w-full space-x-4 overflow-x-auto">
-            {photos.map((photo, index) => (
+            {imageURLS.map((imageURL, index) => (
               <div
                 key={index}
                 className="relative inline-block h-28 w-44 flex-shrink-0"
@@ -237,7 +248,7 @@ export default function AdditionalDetailPane({
                 {" "}
                 {/* Adjust width as needed */}
                 <Image
-                  src={photo}
+                  src={imageURL}
                   alt={`Property Photo ${index + 1}`}
                   layout="fill" // This makes the image fill the container
                   objectFit="cover" // Adjusts the image's fit within its box
@@ -248,7 +259,11 @@ export default function AdditionalDetailPane({
                   onClick={() => {
                     const newPhotos = [...photos];
                     newPhotos.splice(index, 1);
-                    setPhotos(newPhotos);
+                    // setPhotos(newPhotos);
+                    setAdditionalDetailPaneProps({
+                      ...additionalDetailPaneProps,
+                      photos: newPhotos,
+                    });
                   }}
                 >
                   <svg
