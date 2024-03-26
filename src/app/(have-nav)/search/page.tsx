@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import SearchProperty from "@/components/my-listing/SearchProperty";
 import getProperties from "@/services/property/getProperties";
 import { useSearchContext } from "@/context/SearchContext";
+import EmptyProperty from "@/components/my-listing/EmptyProperty";
 
 function magic(mn: number | null, mx: number | null, json: string): string {
   let tmp: string = "";
@@ -108,26 +109,12 @@ const myFavPage = () => {
           </div>
         </div>
       ) : (
-        <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
-          <div className="text-center text-4xl font-bold">
-            Property not found
-          </div>
-
-          <Image
-            src="/img/mylisting/home.svg"
-            alt="home"
-            width={100}
-            height={100}
-          />
-          <div className="">
-            <div className="m-1 text-center text-2xl">
-              Your listing is empty.
-            </div>
-            <div className="m-1 text-center text-2xl">
-              Let&apos;s create a property on your listing.
-            </div>
-          </div>
-        </div>
+        <EmptyProperty
+          headerText="Property not found"
+          text1="There is no property that is matched with your need."
+          text2="Please change the filter and try again."
+          haveButton={false}
+        />
       )}
     </>
   );

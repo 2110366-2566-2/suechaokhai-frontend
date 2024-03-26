@@ -5,6 +5,7 @@ import getUserFavProperty from "@/services/property/getUserFavProperty";
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
+import EmptyProperty from "@/components/my-listing/EmptyProperty";
 
 const myFavPage = () => {
   const [propData, setData] = useState<PropertyData[]>([]);
@@ -42,23 +43,7 @@ const myFavPage = () => {
             ></PropertyCards>
           </div>
         </div>
-      ) : (
-        <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
-          <div className="text-center text-4xl font-bold">
-            Empty favorite property
-          </div>
-
-          <Image
-            src="/img/mylisting/home.svg"
-            alt="home"
-            width={100}
-            height={100}
-          />
-          <div className="m-1 text-center text-2xl">
-            Your favorite property is empty.
-          </div>
-        </div>
-      )}
+      ) : <EmptyProperty headerText="Empty favorite property" text1="Your favorite property is empty." haveButton={false}/>}
     </>
   );
 };
