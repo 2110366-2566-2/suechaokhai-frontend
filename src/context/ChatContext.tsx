@@ -20,7 +20,7 @@ interface ChatContextType {
   chats: { [key: string]: Chat };
   messages: { [key: string]: ChatMessage[] };
   fetchChats: (query?: string) => Promise<Chat[]>;
-  fetchMessages: () => void;
+  fetchMessages: (offset?: number) => Promise<void>;
   sendMessage: (message: string) => void;
   openChat: (chatId: string) => void;
   closeChat: () => void;
@@ -138,15 +138,19 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
     }
   }, []);
 
-  const fetchMessages = useCallback(async () => {
-    const limit = 10;
-    if (!messages[chatUserId] || messages[chatUserId].length < limit) {
-      let messages = await getMessages(chatUserId, 0, limit);
+  const fetchMessages = useCallback(
+    async (offset: number = messages[chatUserId].length) => {
+      const limit = 10;
+      // if (!messages[chatUserId] || messages[chatUserId].length < limit) {
+      console.log("fetching", offset, limit);
+      let msgs = await getMessages(chatUserId, offset, limit);
       setMessages((prev) => {
-        return { ...prev, [chatUserId]: messages };
+        return { ...prev, [chatUserId]: msgs.concat(prev[chatUserId]) };
       });
-    }
-  }, [chatUserId, messages]);
+      // }
+    },
+    [chatUserId, messages]
+  );
 
   const openChat = useCallback(
     (chatId: string) => {
