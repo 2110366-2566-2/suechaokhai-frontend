@@ -114,6 +114,10 @@ export default function MyAgreement() {
         let labelValue: string; // id
         const optionArray: IDropdownOption[] = [];
 
+        if (allProperties !== null) {
+          
+        }
+
         (allProperties.properties).map((prop) => {
             label = prop.property_name;
             labelValue = prop.property_id;
@@ -157,14 +161,16 @@ export default function MyAgreement() {
         let labelValue: string;
         const optionArray: IDropdownOption[] = [];
 
-        allDwellers.map((dwlr) => {
-            label = `${dwlr.first_name} ${dwlr.last_name}`;
-            labelValue = dwlr.user_id;
-            let option = {label, labelValue};
-            optionArray.push(option);
-        })
-
-        setDwellersOptions(optionArray);
+        if (allDwellers !== null) {
+          allDwellers.map((dwlr) => {
+              label = `${dwlr.first_name} ${dwlr.last_name}`;
+              labelValue = dwlr.user_id;
+              let option = {label, labelValue};
+              optionArray.push(option);
+          })
+  
+          setDwellersOptions(optionArray);
+        }
 
         // const dwlrs: string[] = [];
         // allDwellers.map((dwlr) => {
