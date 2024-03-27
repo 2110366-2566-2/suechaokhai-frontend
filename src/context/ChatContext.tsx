@@ -206,7 +206,7 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         };
       });
     },
-    [send]
+    [send, initChat]
   );
 
   const closeChat = useCallback(() => {

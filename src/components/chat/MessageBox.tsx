@@ -23,7 +23,7 @@ export default function MessageBox() {
       setFetching(true);
       ctx.fetchMessages().then(() => setFetching(false));
     }
-  }, [isVisible]);
+  }, [isVisible, ctx.chatUserId]);
 
   const sendMessage = (msg: string) => {
     ctx.sendMessage(msg);
