@@ -129,7 +129,7 @@ export default function PropertyDetail({
             </div>
           </div>
         </div>
-        <RoomTourRes property={property} handlePost={handlePost} />
+        {user && <RoomTourRes property={property} handlePost={handlePost} />}
       </div>
       <PropertyFeatures property={property} />
       <PropertyMap name={property.property_name} />
