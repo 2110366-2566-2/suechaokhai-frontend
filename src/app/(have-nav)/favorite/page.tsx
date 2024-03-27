@@ -21,7 +21,6 @@ const myFavPage = () => {
         setData(data.properties);
         setTotal(data.total);
       }
-      console.log(data);
     };
     fetchProp();
   }, [sort,onPage]);

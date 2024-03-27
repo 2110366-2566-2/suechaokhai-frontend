@@ -1,4 +1,8 @@
-export default async function getUserProperty(limit: number, page: number,sort:string) {
+export default async function getUserProperty(
+  limit: number,
+  page: number,
+  sort: string
+) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_HTTP_BACKEND_HOST}/api/v1/user/me/properties?limit=${limit}&page=${page}&sort=${sort}`,

@@ -17,10 +17,9 @@ const myListingPage = () => {
     const fetchProp = async () => {
       const data = await getUserProperty(10, onPage, sort);
       if (data) {
-        setData(data.properties);
+        setData(data.properties)
         setTotal(data.total);
       }
-      console.log(data);
     };
     fetchProp();
   }, [sort, onPage]);

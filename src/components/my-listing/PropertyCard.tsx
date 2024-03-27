@@ -14,10 +14,12 @@ const PropertyCard = ({
   propData,
   editable,
   imgSrc,
+  canFav
 }: {
   propData: PropertyData;
   editable: boolean;
   imgSrc: string;
+  canFav:boolean;
 }) => {
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
@@ -48,7 +50,30 @@ const PropertyCard = ({
           <div className="medium-text  w-full font-semibold ">
             {propData.property_name}
           </div>
-          {fav ? (
+          {canFav && fav ?(
+            <FavoriteIcon
+            className="text-ci-red"
+            sx={{ fontSize: 30 }}
+            onClick={async () => {
+              setFav(!fav);
+              const res = await unfavoriteProperty(propData.property_id);
+              if (res) console.log(res.message);
+            }}
+          ></FavoriteIcon>
+          ):null}
+          {canFav && !fav ?(
+            <FavoriteBorderIcon
+              className="text-ci-red"
+              sx={{ fontSize: 30 }}
+              onClick={async () => {
+                setFav(!fav);
+                const res = await favoriteProperty(propData.property_id);
+                if (res) console.log(res.message);
+              }}
+            ></FavoriteBorderIcon>
+          ):null}
+          
+          {/* {fav ? (
             <FavoriteIcon
               className="text-ci-red"
               sx={{ fontSize: 30 }}
@@ -68,7 +93,7 @@ const PropertyCard = ({
                 if (res) console.log(res.message);
               }}
             ></FavoriteBorderIcon>
-          )}
+          )} */}
         </div>
         <hr className="border-black "></hr>
 

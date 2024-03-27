@@ -2,10 +2,10 @@
 import PropertyData from "../../models/PropertyData";
 import PropertyCard from "./PropertyCard";
 import Pagination from "@mui/material/Pagination";
+import getCurrentUser from "@/services/users/getCurrentUser";
 import {
   useState,
   useEffect,
-  useReducer,
   SetStateAction,
   Dispatch,
 } from "react";
@@ -30,11 +30,21 @@ const PropertyCards = ({
   const [page, setPage] = useState<number>(1);
   const [text, setText] = useState<string>("Newest Listing First");
   const [changingSort, setChangingSort] = useState<boolean>(false);
+  const [isLogin,setIsLogin] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     setOnPage(value)
   };
+  useEffect(()=>{
+    const fetchUser = async()=>{
+      const user = await getCurrentUser()
+      if(user){
+        setIsLogin(true)
+      }
+    }
+    fetchUser()
+  },[])
 
   useEffect(() => {
     // Scroll to the top of the page
@@ -107,6 +117,7 @@ const PropertyCards = ({
               propData={prop}
               editable={isEditable}
               imgSrc="/img/Property.png"
+              canFav={isLogin}
               key={prop.property_id}
             ></PropertyCard>
           ))}

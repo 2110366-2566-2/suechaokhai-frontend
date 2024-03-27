@@ -11,6 +11,7 @@ export default async function getProperties(
 
       {
         method: "GET",
+        credentials: "include",
       }
     );
     const data = await response.json();

@@ -1,8 +1,6 @@
 "use client";
 import PropertyData from "@/models/PropertyData";
 import PropertyCards from "@/components/my-listing/PropertyCards";
-import Image from "next/image";
-
 import { useEffect, useState } from "react";
 import SearchProperty from "@/components/my-listing/SearchProperty";
 import getProperties from "@/services/property/getProperties";
@@ -54,15 +52,13 @@ function makeFilterString(searchFilters: any): string {
   return filters.slice(1);
 }
 
-const myFavPage = () => {
+const SearchPage = () => {
   const { searchContent, isSearching, setIsSearching, searchFilters } =
     useSearchContext();
 
   const [propData, setData] = useState<PropertyData[]>([]);
   const [total, setTotal] = useState<number>(0);
-
   const [sort, setSortby] = useState<string>("created_at:desc");
-
   const [onPage, setOnPage] = useState<number>(1);
 
   useEffect(() => {
@@ -78,15 +74,11 @@ const myFavPage = () => {
       if (data) {
         setData(data.properties);
         setTotal(data.total);
+        console.log(propData, "test fetch search with total =", total);
       }
-      setIsSearching(false);
     };
-
-    console.log(
-      { searchContent, isSearching, setIsSearching, ...searchFilters.current },
-      "testing search context"
-    );
     fetchProp();
+    setIsSearching(false);
   }, [isSearching, sort, onPage]);
 
   return (
@@ -120,4 +112,4 @@ const myFavPage = () => {
   );
 };
 
-export default myFavPage;
+export default SearchPage;
