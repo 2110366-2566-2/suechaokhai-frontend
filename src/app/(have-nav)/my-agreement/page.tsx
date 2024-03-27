@@ -22,10 +22,22 @@ export default function MyAgreement() {
     const [dwellersOptions, setDwellersOptions] = useState<IDropdownOption[]>([]);
 
     const [selectedOption, setSelectedOption] = useState<string | number>();
+    const [selectedPropertyOption, setSelectedPropertyOption] = useState<string | number>();
+    const [selectedDwellerOption, setSelectedDwellerOption] = useState<string | number>();
+
+    const [deptAmount, setDeptAmount] = useState<number | null>(null);
+    const [paymentPerMonth, setPaymentPerMonth] = useState<number | null>(null);
+    const [paymentDuration, setPaymentDuration] = useState<number | null>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const deptRef = useRef(0);
+    const ppmRef = useRef(0);
+    const pDRef = useRef(0);
 
     const [selectOn, setSelectOn] = useState(0);
+    const [selectTypeOn, setSelectTypeOn] = useState(0);
     const [showFilter, setShowFilter] = useState(false);
     const [isMakingAgreement, setMakingAgreement] = useState<boolean>(false);
+    const [isCreateValid, setCreateValid] = useState<boolean>(false);
     const [selectedStatus, setSelectedStatus] = useState<Array<string>>([
         "Archive", 
         "Await Deposit", 
@@ -148,9 +160,35 @@ export default function MyAgreement() {
       getDweller();
     }, [])
 
+    useEffect(() => {
+      if (selectedPropertyOption === null || 
+          selectedDwellerOption === null ||
+          deptAmount === null ||
+          paymentPerMonth === null ||
+          paymentDuration === null  
+        ) {
+          setCreateValid(false);
+        }
+      else {
+        setCreateValid(true);
+      }
+      // console.log(selectedPropertyOption)
+      // console.log(selectedDwellerOption)
+      // console.log(deptAmount)
+      // console.log(paymentPerMonth)
+      // console.log(paymentDuration)
+    }, [selectedPropertyOption, selectedDwellerOption, deptAmount, paymentPerMonth, paymentDuration])
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedOption(event.target.value);
+      setSelectedOption(event.target.value);
+    };
+
+    const handlePropertyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedPropertyOption(event.target.value);
+    };
+
+    const handleDwellerChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedDwellerOption(event.target.value);
     };
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -287,7 +325,7 @@ export default function MyAgreement() {
                                 </div>
                                 <div className="">
                                     <Dropdown 
-                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
+                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedPropertyOption} setSelectedItem={setSelectedPropertyOption}
                                     />
                                 </div>
                             </div>
@@ -298,10 +336,105 @@ export default function MyAgreement() {
                                 <div className="">
                                     <Dropdown 
                                         name="Dweller" options={dwellersOptions} required={true} placeHolder="Select Dweller" 
-                                        type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
+                                        type="arrow-down" selectedItem={selectedDwellerOption} setSelectedItem={setSelectedDwellerOption}
                                     />
                                 </div>
                             </div>
+                        </div>
+                        <div className="flex flex-row w-full h-1/3">
+                          <div className="flex flex-col w-1/2 text-xl font-medium ml-auto">
+                            <div className="h-1/4">
+                              <ToggleSwitch 
+                                label1="Renting"
+                                label2="Selling"
+                                selectOn={selectTypeOn}
+                                setSelectOn={setSelectTypeOn}
+                              />
+                            </div>
+                            <div className="flex flex-row h-3/4">
+                              <div className="flex flex-col">
+                                <div className="mt-auto">
+                                  Deposit Amount:
+                                </div>
+                                <div className="mt-auto">
+                                  Payment per month:
+                                </div>
+                                <div className="mt-auto">
+                                  Payment Duration:
+                                </div>
+                              </div>
+                              <div className="flex flex-col w-1/4 mx-auto">
+                                <div className="w-full mt-auto">
+                                  <textarea 
+                                    className={`w-full text-l font-normal text-ci-black border-2 border-ci-dark-gray rounded-lg drop-shadow-input pl-3 transition relative flex items-center hover:cursor-text`}
+                                    name="depositAmount" id="depositAmount" cols={1} rows={1} placeholder="Enter Amount (THB)"
+                                    value={deptAmount} ref={inputRef}
+                                    onChange={(e) => {
+                                      const re = /^[0-9\b]+$/;
+                                      if (e.target.value === '' || re.test(e.target.value)) {
+                                        deptRef.current = Number(e.target.value);
+                                        setDeptAmount(deptRef.current);
+                                      }
+                                    }}
+                                  >
+                                  </textarea>
+                                </div>
+                                <div className="w-full mt-auto">
+                                  <textarea 
+                                    className={`w-full text-l font-normal text-ci-black border-2 border-ci-dark-gray rounded-lg drop-shadow-input pl-3 transition relative flex items-center hover:cursor-text`}
+                                    name="paymentPerMonth" id="paymentPerMonth" cols={1} rows={1} placeholder="Enter Amount (THB)"
+                                    value={paymentPerMonth} ref={inputRef}
+                                    onChange={(e) => {
+                                      const re = /^[0-9\b]+$/;
+                                      if (e.target.value === '' || re.test(e.target.value)) {
+                                        ppmRef.current = Number(e.target.value);
+                                        setPaymentPerMonth(ppmRef.current);
+                                      }
+                                    }}
+                                  >
+                                  </textarea>
+                                </div>
+                                <div className="w-full mt-auto">
+                                  <textarea 
+                                    className={`w-full text-l font-normal text-ci-black border-2 border-ci-dark-gray rounded-lg drop-shadow-input pl-3 transition relative flex items-center hover:cursor-text`}
+                                    name="paymentMonth" id="paymentMonth" cols={1} rows={1} placeholder="Enter Month"
+                                    value={paymentDuration} ref={inputRef}
+                                    onChange={(e) => {
+                                      const re = /^[0-9\b]+$/;
+                                      if (e.target.value === '' || re.test(e.target.value)) {
+                                        pDRef.current = Number(e.target.value);
+                                        setPaymentDuration(pDRef.current);
+                                      }
+                                    }}
+                                  >
+                                  </textarea>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div className="flex flex-col w-1/3 h-full mx-auto my-auto">
+                            {isCreateValid ? (
+                                <button className="w-full h-1/3 text-white font-semibold text-xl bg-ci-blue rounded-full my-auto">
+                                  Create
+                                </button>
+                            ) : (
+                                <button 
+                                  className="w-full h-1/3 text-white font-semibold text-xl bg-ci-gray rounded-full my-auto"
+                                  disabled
+                                >
+                                  Create
+                                </button>
+                            )}
+                              <button 
+                                className="w-full h-1/3 text-white font-semibold text-xl bg-ci-blue rounded-full my-auto"
+                                onClick={() => {
+                                  setMakingAgreement(false);
+                                }}
+                              >
+                                Cancel
+                              </button>
+                          </div>
                         </div>
                     </div>
                 </div>

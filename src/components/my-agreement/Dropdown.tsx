@@ -77,7 +77,7 @@ function Dropdown({
 			<div
 				tabIndex={tabIndex}
 				className={
-					`w-full text-xl font-medium text-ci-dark-gray h-[60px] border-2 border-ci-dark-gray rounded-lg drop-shadow-input pl-3 transition relative flex items-center hover:cursor-pointer ${isFocused? 'rounded-b-[0]': ''}`
+					`w-full text-xl font-medium text-ci-black h-[60px] border-2 border-ci-dark-gray rounded-lg drop-shadow-input pl-3 transition relative flex items-center hover:cursor-pointer ${isFocused? 'rounded-b-[0]': ''}`
 				}
 				onClick={() => setFocused(!isFocused)}
             >
@@ -90,8 +90,8 @@ function Dropdown({
 				<ul className="items-center gap-4 block absolute w-full border-2 border-[#ECECEC] shadow-lg">
 					{options.map(({ label, labelValue }) => (
 						<li
-							onClick={() => onValueChange(labelValue)}
-							className="h-[50px] text-xl font-medium rounded-sm shadow-[inset_1px_0px_0px_rgba(0,0,0,0.2) bg-white drop-shadow-input pl-3 place-items-center hover:bg-[#ECECEC] hover:cursor-pointer
+							onClick={() => onValueChange(label)}
+							className="h-[50px] z-50 text-xl font-medium rounded-sm shadow-[inset_1px_0px_0px_rgba(0,0,0,0.2) bg-white drop-shadow-input pl-3 place-items-center hover:bg-[#ECECEC] hover:cursor-pointer
                             focus:outline-0 focus:drop-shadow-none transition relative flex">
 							{label}
 						</li>

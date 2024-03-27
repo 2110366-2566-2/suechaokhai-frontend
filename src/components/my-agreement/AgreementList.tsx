@@ -94,7 +94,7 @@ export default function AgreementList({
                 </div>
                 <div className="flex flex-col w-[12.5%] h-full ml-28 my-auto justify-between">
                     <DetailButton agreementId={agreementId}/>
-                    <CancelButton status={status} reasontmp={reason} setReason={setReason} setCancel={setCancel}/>            
+                    <CancelButton status={currentStatus} reasontmp={reason} setReason={setReason} setCancel={setCancel}/>            
                 </div>
             </div>
         </div>

@@ -5,14 +5,18 @@ export default function StatusBox({
 }) {
     const setBoxColor = (value: string) => {
         switch (value) {
-            case 'Awaiting_deposit' || 'Awaiting_rent':
+            case 'Awaiting_deposit':
+                return 'bg-ci-yellow text-black';
+            case 'Awaiting_rent':
                 return 'bg-ci-yellow text-black';
             case 'Overdue':
                 return 'bg-ci-red text-white';
-            case 'Archive' || 'Cancelled':
+            case 'Archive':
+                return 'bg-ci-gray text-black';
+            case 'Cancelled':
                 return 'bg-ci-gray text-black';
             case 'Renting':
-                return 'bg-ci-green text-black'
+                return 'bg-ci-green text-black';
         }
     }
 
