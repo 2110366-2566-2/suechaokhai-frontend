@@ -19,6 +19,10 @@ interface ChatContextType {
   chatUserId: string;
   chats: { [key: string]: Chat };
   messages: { [key: string]: ChatMessage[] };
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isChat: boolean;
+  setChat: React.Dispatch<React.SetStateAction<boolean>>;
   fetchChats: (query?: string) => Promise<Chat[]>;
   fetchMessages: (offset?: number) => Promise<void>;
   sendMessage: (message: string) => void;
@@ -35,6 +39,9 @@ interface ChatContextProviderProps {
 const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
   const connRef = useRef<WebSocket>();
   const [isConnected, setConnected] = useState<boolean>(false);
+
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isChat, setChat] = useState<boolean>(false);
 
   const [chatUserId, setChatUserId] = useState<string>("");
   const [chats, setChats] = useState<{
@@ -145,7 +152,6 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
       setMessages((prev) => {
         return { ...prev, [chatUserId]: msgs.concat(prev[chatUserId]) };
       });
-      // }
     },
     [chatUserId, messages]
   );
@@ -260,6 +266,10 @@ const ChatContextProvider = ({ children }: ChatContextProviderProps) => {
         chatUserId,
         chats,
         messages,
+        isChat,
+        setChat,
+        isOpen,
+        setOpen,
         fetchChats,
         fetchMessages,
         sendMessage,
