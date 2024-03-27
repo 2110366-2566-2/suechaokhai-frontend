@@ -1,21 +1,27 @@
 import AgreementData from "@/models/AgreementData";
 
 export default async function postAgreement({
+  agreementType,
   propertyId,
   ownerId,
   dwellerId,
   agreementDate,
+  status,
   depositAmt,
-  rentFee,
-  rentalDuration
+  paymentPerMonth,
+  paymentDuration,
+  totalPayment
 } : {
-  propertyId: string | undefined,
-  ownerId: string | undefined,
+  agreementType: string,
+  propertyId: string,
+  ownerId: string,
   dwellerId: string,
   agreementDate: string,
+  status: string,
   depositAmt: number,
-  rentFee: number,
-  rentalDuration: number 
+  paymentPerMonth: number,
+  paymentDuration: number,
+  totalPayment: number 
 }) {
     // const apptISODate = apptDate.toISOString()
     // console.log(apptISODate)
@@ -28,18 +34,16 @@ export default async function postAgreement({
             },
             credentials: 'include',
             body: JSON.stringify({
-              // property_id: propertyId,
-              // owner_user_id: ownerId,
-              // dweller_user_id: dwellerId,
-              // appointment_date: apptDate,
+              agreement_type: agreementType,
               property_id: propertyId,
-              owner_user_id: ownerId,
+              // owner_user_id: ownerId,
               dweller_user_id: dwellerId,
               agreement_date: agreementDate,
-              // appointment_dates: apptDate,
-              depositAmt: depositAmt,
-              rentFee: rentFee,
-              rentalDuration: rentalDuration
+              status: status,
+              deposit_amount: depositAmt,
+              payment_per_month: paymentPerMonth,
+              payment_duration: paymentDuration,
+              total_payment: totalPayment
             })
         }
       );

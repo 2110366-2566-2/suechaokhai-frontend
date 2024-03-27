@@ -8,9 +8,12 @@ import getUserAgreement from "@/services/agreement/getUserAgreement";
 import Dropdown, { IDropdownOption } from "@/components/my-agreement/Dropdown";
 import getUserProperties from "@/services/agreement/getUserProperties";
 import getUsersFromChat from "@/services/agreement/getUsersFromChat";
+import postAgreement from "@/services/agreement/postAgreement";
+import getCurrentUser from "@/services/users/getCurrentUser";
 
 export default function MyAgreement() {
 
+    const [userId, setUserId] = useState<string>('');
     const [ownerAgreementData, setOwnerAgreementData] = useState<AgreementData[]>([]);
     const [dwellerAgreementData, setDwellerAgreementData] = useState<AgreementData[]>([]);
     const [ownerTotal, setOwnerTotal] = useState<number>(0);
@@ -23,11 +26,13 @@ export default function MyAgreement() {
 
     const [selectedOption, setSelectedOption] = useState<string | number>();
     const [selectedPropertyOption, setSelectedPropertyOption] = useState<string | number>();
+    const [selectedPropertyId, setSelectedPropertyId] = useState<string>();
     const [selectedDwellerOption, setSelectedDwellerOption] = useState<string | number>();
+    const [selectedDwellerId, setSelectedDwellerId] = useState<string>();
 
-    const [deptAmount, setDeptAmount] = useState<number | null>(null);
-    const [paymentPerMonth, setPaymentPerMonth] = useState<number | null>(null);
-    const [paymentDuration, setPaymentDuration] = useState<number | null>(null);
+    const [deptAmount, setDeptAmount] = useState<number>();
+    const [paymentPerMonth, setPaymentPerMonth] = useState<number>();
+    const [paymentDuration, setPaymentDuration] = useState<number>();
     const inputRef = useRef<HTMLInputElement>(null);
     const deptRef = useRef(0);
     const ppmRef = useRef(0);
@@ -48,6 +53,14 @@ export default function MyAgreement() {
     ]);
     
     const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      const getUser = async () => {
+        const data = await getCurrentUser();
+        setUserId(data.user_id);
+      }
+      getUser();
+    }, [])
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -96,7 +109,7 @@ export default function MyAgreement() {
         console.log(allProperties)
 
         let label: string | number;
-        let labelValue: string | number;
+        let labelValue: string; // id
         const optionArray: IDropdownOption[] = [];
 
         (allProperties.properties).map((prop) => {
@@ -139,7 +152,7 @@ export default function MyAgreement() {
         console.log(allDwellers)
 
         let label: string | number;
-        let labelValue: string | number;
+        let labelValue: string;
         const optionArray: IDropdownOption[] = [];
 
         allDwellers.map((dwlr) => {
@@ -195,6 +208,26 @@ export default function MyAgreement() {
         console.log('Checkbox value:', event.target.value);
         // Handle checkbox change logic here
     };
+
+    const handlePost = async () => {
+      const agreementType = selectOn % 2 == 0 ? 'RENTING': 'SELLING'
+      const date = new Date().toISOString();
+      const firstStatus = 'AWAITING_DEPOSIT';
+      const sum = deptAmount + (paymentPerMonth * paymentDuration);
+      const data = await postAgreement({
+        agreementType,
+        selectedPropertyId,
+        userId,
+        selectedDwellerId,
+        date,
+        firstStatus,
+        deptAmount,
+        paymentPerMonth,
+        paymentDuration,
+        sum
+      });
+      console.log('posted');
+    }
 
     const getDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -325,7 +358,7 @@ export default function MyAgreement() {
                                 </div>
                                 <div className="">
                                     <Dropdown 
-                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedPropertyOption} setSelectedItem={setSelectedPropertyOption}
+                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedPropertyOption} setSelectedItem={setSelectedPropertyOption} id={selectedPropertyId} setId={setSelectedPropertyId}
                                     />
                                 </div>
                             </div>
@@ -336,7 +369,7 @@ export default function MyAgreement() {
                                 <div className="">
                                     <Dropdown 
                                         name="Dweller" options={dwellersOptions} required={true} placeHolder="Select Dweller" 
-                                        type="arrow-down" selectedItem={selectedDwellerOption} setSelectedItem={setSelectedDwellerOption}
+                                        type="arrow-down" selectedItem={selectedDwellerOption} setSelectedItem={setSelectedDwellerOption} id={selectedDwellerId} setId={setSelectedDwellerId}
                                     />
                                 </div>
                             </div>
@@ -415,7 +448,10 @@ export default function MyAgreement() {
                           </div>
                           <div className="flex flex-col w-1/3 h-full mx-auto my-auto">
                             {isCreateValid ? (
-                                <button className="w-full h-1/3 text-white font-semibold text-xl bg-ci-blue rounded-full my-auto">
+                                <button 
+                                  className="w-full h-1/3 text-white font-semibold text-xl bg-ci-blue rounded-full my-auto"
+                                  onClick={handlePost}
+                                >
                                   Create
                                 </button>
                             ) : (
@@ -459,7 +495,7 @@ export default function MyAgreement() {
                       </div>
           
                       <Image
-                        src="/img/my-agreement/handshake.svg"
+                        src="/img/my-agreement/handshake2.svg"
                         alt="home"
                         width={100}
                         height={100}
@@ -510,7 +546,7 @@ export default function MyAgreement() {
                       </div>
           
                       <Image
-                        src="/img/my-agreement/handshake.svg"
+                        src="/img/my-agreement/handshake2.svg"
                         alt="home"
                         width={100}
                         height={100}

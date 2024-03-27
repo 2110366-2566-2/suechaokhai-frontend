@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export interface IDropdownOption {
 	label: string | number;
-	labelValue: string | number;
+	labelValue: string;
 }
 
 interface IDropdownProps {
@@ -17,6 +17,8 @@ interface IDropdownProps {
 	labelName?: string;
     selectedItem: string | number;
     setSelectedItem: Function;
+	id: string;
+	setId: Function;
 }
 
 function Dropdown({
@@ -29,7 +31,9 @@ function Dropdown({
 	className,
 	tabIndex,
     selectedItem,
-    setSelectedItem
+    setSelectedItem,
+	id,
+	setId
 }: IDropdownProps) {
 	const [isFocused, setFocused] = useState<boolean>(false);
 	// const [selectedItem, setSelectedItem] = useState<number | string>();
@@ -48,8 +52,9 @@ function Dropdown({
 		};
 	}, [wrapperRef]);
 
-	const onValueChange = (selectedValue: string | number) => {
+	const onValueChange = (selectedValue: string | number, selectedId: string) => {
 		setSelectedItem(selectedValue);
+		setId(selectedId);
 		setFocused(false);
 	};
 
@@ -90,7 +95,7 @@ function Dropdown({
 				<ul className="items-center gap-4 block absolute w-full border-2 border-[#ECECEC] shadow-lg">
 					{options.map(({ label, labelValue }) => (
 						<li
-							onClick={() => onValueChange(label)}
+							onClick={() => onValueChange(label, labelValue)}
 							className="h-[50px] z-50 text-xl font-medium rounded-sm shadow-[inset_1px_0px_0px_rgba(0,0,0,0.2) bg-white drop-shadow-input pl-3 place-items-center hover:bg-[#ECECEC] hover:cursor-pointer
                             focus:outline-0 focus:drop-shadow-none transition relative flex">
 							{label}
