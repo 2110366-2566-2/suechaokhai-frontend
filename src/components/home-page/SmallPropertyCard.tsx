@@ -28,7 +28,11 @@ export default function SmallPropertyCard({
         <div className="w-[320px] select-none rounded-3xl bg-white xl:w-[400px]">
           <div className="relative h-60 w-full">
             <Image
-              src="/img/home-page/lumpini.png"
+              src={
+                property.property_images[0]
+                  ? property.property_images[0].image_url
+                  : "/img/home-page/lumpini.png"
+              }
               alt="prop-img"
               fill={true}
               className="rounded-t-3xl"
