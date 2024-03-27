@@ -6,11 +6,14 @@ import ToggleSwitch from "@/components/my-appointment/ToggleSwitch";
 import AgreementData from "@/models/AgreementData";
 import getUserAgreement from "@/services/agreement/getUserAgreement";
 import Dropdown, { IDropdownOption } from "@/components/my-agreement/Dropdown";
+import getUserProperties from "@/services/agreement/getUserProperties";
 
 export default function MyAgreement() {
 
-    const [agreementData, setAgreementData] = useState<AgreementData[]>([]);
-    const [total, setTotal] = useState<number>(0);
+    const [ownerAgreementData, setOwnerAgreementData] = useState<AgreementData[]>([]);
+    const [dwellerAgreementData, setDwellerAgreementData] = useState<AgreementData[]>([]);
+    const [ownerTotal, setOwnerTotal] = useState<number>(0);
+    const [dwellerTotal, setDwellerTotal] = useState<number>(0);
     const [finishFetching, setFinishFetching] = useState<boolean>(false);
     const [properties, setProperties] = useState<string[]>([]);
     const [options, setOptions] = useState<IDropdownOption[]>([]);
@@ -48,23 +51,38 @@ export default function MyAgreement() {
         const fetchData = async () => {
           const data = await getUserAgreement();
           console.log(data);
-          setAgreementData(data);
-          setTotal(data.length);
+          setOwnerAgreementData(data.owner_agreements);
+          setOwnerTotal(data.owner_agreements.length);
+          setDwellerAgreementData(data.dweller_agreements);
+          setDwellerTotal(data.dweller_agreements.length);
         };
         fetchData();
         setFinishFetching(true);
       }, []);
 
+    // useEffect(() => {
+    //     console.log(total);
+    //     console.log(agreementData);
+    //     const props: string[] = [];
+    //     agreementData.map((agmt) => {
+    //         // props.push(agmt.property.property_name);
+    //         props.push("1");
+    //     })
+    //     setProperties(props);
+    // }, [agreementData])
+
     useEffect(() => {
-        console.log(total);
-        console.log(agreementData);
+      const getProperty = async () => {
+        const allProperties = await getUserProperties();
+        console.log(allProperties)
         const props: string[] = [];
-        agreementData.map((agmt) => {
-            // props.push(agmt.property.property_name);
-            props.push("1");
+        (allProperties.properties).map((prop) => {
+          props.push(prop.property_name)
         })
-        setProperties(props);
-    }, [agreementData])
+        setProperties(props)
+      }
+      getProperty();
+    }, [])
 
     useEffect(() => {
         let label: string | number;
@@ -247,40 +265,127 @@ export default function MyAgreement() {
           </div>
           {finishFetching ? (
             <div>
-              {agreementData.map((agmt) => {
-                return (
-                  <AgreementList
-                    agreementId={agmt.agreement_id}
-                    // propertyImgSrc={
-                    //   agmt.property.property_images.length === 0
-                    //     ? "/img/my-appointment/mhadaeng.png"
-                    //     : agmt.property.property_images[0].image_url
-                    // }
-                    // propertyName={agmt.property.property_name}
-                    // propertySubName={
-                    //   agmt.property.property_type.charAt(0) +
-                    //   agmt.property.property_type.toLowerCase().slice(1)
-                    // }
-                    // ownerImgSrc={agmt.owner.owner_profile_image_url}
-                    // ownerName={
-                    //   agmt.owner.owner_first_name + " " + agmt.owner.owner_last_name
-                    // }
-                    date={getDate(agmt.agreement_date)}
-                    time={getTime(agmt.agreement_date)}
-                    // status={
-                    //   agmt.status.charAt(0) + agmt.status.toLowerCase().slice(1)
-                    // }
-                  />
-                );
-              })}
+              {selectOn % 2 == 0 ? (
+                <div>
+                  {dwellerTotal == 0 ? (
+                    <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
+                      <div className="large-text text-center font-bold">
+                        Empty agreement listing
+                      </div>
+          
+                      <Image
+                        src="/img/mylisting/home.svg"
+                        alt="home"
+                        width={100}
+                        height={100}
+                      />
+                      
+                      <div className="m-1 text-center text-2xl">
+                        Your agreement is empty.
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                        {dwellerAgreementData.map((agmt) => {
+                      return (
+                        <AgreementList
+                          agreementId={agmt.agreement_id}
+                          propertyImgSrc={
+                            agmt.property.property_images.length === 0
+                            ? "/img/my-appointment/mhadaeng.png"
+                            : agmt.property.property_images[0].image_url
+                          }
+                          propertyName={agmt.property.property_name}
+                          propertySubName={
+                            agmt.property.property_type.charAt(0) +
+                            agmt.property.property_type.toLowerCase().slice(1)
+                          }
+                          ownerImgSrc={agmt.owner.owner_profile_image_url}
+                          ownerName={
+                            agmt.owner.owner_first_name + " " + agmt.owner.owner_last_name
+                          }
+                          date={getDate(agmt.agreement_date)}
+                          time={getTime(agmt.agreement_date)}
+                          status={
+                            agmt.status.charAt(0) + agmt.status.toLowerCase().slice(1)
+                          }
+                        />      
+                      );
+                    })}
+                    </div>
+                  )}
+                    
+                </div>
+              ) : (
+                <div>
+                  {ownerTotal == 0 ? (
+                    <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
+                      <div className="large-text text-center font-bold">
+                        Empty agreement listing
+                      </div>
+          
+                      <Image
+                        src="/img/mylisting/home.svg"
+                        alt="home"
+                        width={100}
+                        height={100}
+                      />
+                      
+                      <div className="m-1 text-center text-2xl">
+                        Your agreement is empty.
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                        {ownerAgreementData.map((agmt) => {
+                      return (
+                        <AgreementList
+                          agreementId={agmt.agreement_id}
+                          propertyImgSrc={
+                            agmt.property.property_images.length === 0
+                            ? "/img/my-appointment/mhadaeng.png"
+                            : agmt.property.property_images[0].image_url
+                          }
+                          propertyName={agmt.property.property_name}
+                          propertySubName={
+                            agmt.property.property_type.charAt(0) +
+                            agmt.property.property_type.toLowerCase().slice(1)
+                          }
+                          ownerImgSrc={agmt.owner.owner_profile_image_url}
+                          ownerName={
+                            agmt.owner.owner_first_name + " " + agmt.owner.owner_last_name
+                          }
+                          date={getDate(agmt.agreement_date)}
+                          time={getTime(agmt.agreement_date)}
+                          status={
+                            agmt.status.charAt(0) + agmt.status.toLowerCase().slice(1)
+                          }
+                        />      
+                      );
+                    })}
+                    </div>
+                  )}
+                    
+                </div>
+              )}
+
+              
+              
             </div>
           ) : null}
     
-          {/* <AppointmentList agmtId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
-                <AppointmentList agmtId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
-                <AppointmentList agmtId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/> */}
           <div className="mx-auto flex h-20 w-full place-items-center justify-center text-2xl font-medium">
-            {total} lists
+            {selectOn % 2 == 0 ? (
+              <div>
+                {dwellerTotal} lists
+              </div>
+            ): (
+              <div>
+                {ownerTotal} lists
+              </div>
+            )
+            }
+            
           </div>
         </div>
       );

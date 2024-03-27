@@ -83,8 +83,7 @@ function Dropdown({
             >
 				<span className='mr-auto'>{selectedItem ?? placeHolder}</span>
                 <div className='mr-2'>
-                    {/* <ArrowDownIcon /> */}
-                    V
+                    <ArrowDownIcon />
                 </div>
 			</div>
 			{isFocused && (

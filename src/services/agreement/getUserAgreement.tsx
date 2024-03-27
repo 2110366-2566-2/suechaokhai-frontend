@@ -1,7 +1,7 @@
 export default async function getUserAgreement() {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/agreements`,
+        `http://localhost:8000/api/v1/user/me/agreements`,
         {
           method: "GET",
           credentials: "include"
