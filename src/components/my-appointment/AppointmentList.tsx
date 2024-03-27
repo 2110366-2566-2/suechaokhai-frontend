@@ -51,26 +51,27 @@ export default function AppointmentList({
     <div className="flex h-[240px] w-full border-x-4 border-y-2 border-ci-dark-gray bg-ci-light-gray">
       <div className="mx-auto flex h-[67%] w-[90%] flex-row my-auto">
         <div className="my-auto flex w-[40%] flex-row">
-          <div className="my-auto w-[40%]">
+          <div className="my-auto w-40 relative flex aspect-square items-center justify-center overflow-hidden rounded-lg">
             <Image
               src={propertyImgSrc}
               alt="propertyImg"
-              width={240}
-              height={160}
+              draggable={false}
+              fill
               objectFit="cover"
-              layout="responsive"
+              // layout="responsive"
             />
           </div>
           <div className="my-auto ml-5 flex flex-col">
             <div className="text-2xl font-medium">{propertyName}</div>
             <div className="text-xl font-normal">{propertySubName}</div>
             <div className="mt-3 flex flex-row text-xl font-normal">
-              <div>
+              <div className="w-20 relative flex aspect-square items-center justify-center overflow-hidden rounded-full">
                 <Image
                   src={ownerImgSrc}
                   alt="Owner Image"
-                  width={60}
-                  height={60}
+                  draggable={false}
+                  fill
+                  objectFit="cover"
                   // layout="responsive"
                 />
               </div>

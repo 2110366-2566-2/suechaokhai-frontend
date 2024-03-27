@@ -17,12 +17,12 @@ export default function UserCard({
                 {role}
             </div>
             <div className="flex flex-row mx-auto w-full">
-                <div>
+                <div className='my-auto w-40 relative flex aspect-square items-center justify-center overflow-hidden rounded-full'>
                     <Image 
                         src={profilePicSrc}
                         alt='profile pic'
-                        width={150}
-                        height={150}
+                        draggable={false}
+                        fill
                         objectFit='cover'
                         // layout='responsive'
                     />
