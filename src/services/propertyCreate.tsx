@@ -36,6 +36,7 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
     formData.append("property_images", blob, image.name);
   });
 
+  /*
   propertyInfo = {
     name: "Property Name",
     description: "descriptiondescription",
@@ -62,18 +63,19 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
     // property_images: ["https://fastly.picsum.photos/id/46/300/200.jpg"],
     // property_images: ["https://picsum.photos/id/45/300/200"],
     // property_images: [
-    //   "https://picsum.photos/id/45/300/200",
-    //   "https://picsum.photos/id/46/300/200",
+      //   "https://picsum.photos/id/45/300/200",
+      //   "https://picsum.photos/id/46/300/200",
     // ],
     // property_images: [
-    //   "https://picsum.photos/id/45/300/200.jpg",
-    //   "https://picsum.photos/id/46/300/200.jpg",
-    // ],
-  };
+      //   "https://picsum.photos/id/45/300/200.jpg",
+      //   "https://picsum.photos/id/46/300/200.jpg",
+      // ],
+    };
+    */
 
   formData.append("property_name", propertyInfo.name);
   formData.append("property_description", propertyInfo.description);
-  formData.append("property_type", propertyInfo.propertyType);
+  formData.append("property_type", propertyInfo.propertyType.toUpperCase());
   formData.append("address", propertyInfo.address);
 
   formData.append("alley", propertyInfo.alley);
@@ -86,14 +88,15 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
 
   formData.append("bedrooms", propertyInfo.bedrooms);
   formData.append("bathrooms", propertyInfo.bathrooms);
-  formData.append("furnishing", propertyInfo.furnishing);
+  formData.append("furnishing", propertyInfo.furnishing.toUpperCase());
   formData.append("floor", propertyInfo.floor);
-  formData.append("floor_size", propertyInfo.floor_size);
-  formData.append("floor_size_unit", propertyInfo.floor_size_unit);
-  formData.append("unit_number", propertyInfo.unit_number);
+  formData.append("floor_size", propertyInfo.floorSize);
+  // formData.append("floor_size_unit", propertyInfo.floorSizeUnit);
+  formData.append("floor_size_unit", "SQFT");
+  formData.append("unit_number", propertyInfo.unitNumber);
 
-  formData.append("price", propertyInfo.price);
-  formData.append("price_per_month", propertyInfo.price_per_month);
+  formData.append("price", propertyInfo.salePrice);
+  formData.append("price_per_month", propertyInfo.rentPrice);
 
   formData.append("is_sold", propertyInfo.is_sold);
   formData.append("is_occupied", propertyInfo.is_occupied);

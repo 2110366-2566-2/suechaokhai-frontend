@@ -81,8 +81,10 @@ export default function CreateProperty() {
       name: name,
       description: description,
       propertyType: propertyType,
+      rentPrice: rentPrice,
+      salePrice: salePrice,
       address: address,
-
+      
       alley: "",
       street: "",
       sub_district: "",
@@ -100,15 +102,11 @@ export default function CreateProperty() {
   };
 
   function nextStage() {
-    console.log("nextStage", createStage);
     changeState((createStage + 1) % 2);
-    console.log("nextStage", createStage);
   }
 
   function backStage() {
-    console.log("backStage", createStage);
     changeState((createStage - 1) % 2);
-    console.log("backStage", createStage);
   }
 
   return (

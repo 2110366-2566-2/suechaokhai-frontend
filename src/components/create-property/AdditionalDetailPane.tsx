@@ -146,7 +146,12 @@ export default function AdditionalDetailPane({
                 id="bedrooms"
                 placeholder="Bedrooms"
                 value={bedrooms}
-                onChange={(e) => setBedrooms(e.target.value)}
+                onChange={(e) =>
+                  setAdditionalDetailPaneProps({
+                    ...additionalDetailPaneProps,
+                    bedrooms: e.target.value,
+                  })
+                }
                 className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 text-ci-light-gray shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -162,7 +167,12 @@ export default function AdditionalDetailPane({
                 id="bathrooms"
                 placeholder="Bathrooms"
                 value={bathrooms}
-                onChange={(e) => setBathrooms(e.target.value)}
+                onChange={(e) =>
+                  setAdditionalDetailPaneProps({
+                    ...additionalDetailPaneProps,
+                    bathrooms: e.target.value,
+                  })
+                }
                 className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -178,7 +188,12 @@ export default function AdditionalDetailPane({
                 id="floor"
                 placeholder="Floor"
                 value={floor}
-                onChange={(e) => setFloor(e.target.value)}
+                onChange={(e) =>
+                  setAdditionalDetailPaneProps({
+                    ...additionalDetailPaneProps,
+                    floor: e.target.value,
+                  })
+                }
                 className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -195,7 +210,12 @@ export default function AdditionalDetailPane({
                   id="floorSize"
                   placeholder="Floor Size"
                   value={floorSize}
-                  onChange={(e) => setFloorSize(e.target.value)}
+                  onChange={(e) =>
+                    setAdditionalDetailPaneProps({
+                      ...additionalDetailPaneProps,
+                      floorSize: e.target.value,
+                    })
+                  }
                   className="sm:text-c-sm block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500"
                 />
                 <div className="flex items-center rounded-md bg-ci-light-blue hover:bg-ci-dark-blue">
@@ -225,7 +245,12 @@ export default function AdditionalDetailPane({
                 id="unitNumber"
                 placeholder="Unit Number"
                 value={unitNumber}
-                onChange={(e) => setUnitNumber(e.target.value)}
+                onChange={(e) =>
+                  setAdditionalDetailPaneProps({
+                    ...additionalDetailPaneProps,
+                    unitNumber: e.target.value,
+                  })
+                }
                 className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
