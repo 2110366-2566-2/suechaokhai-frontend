@@ -31,18 +31,6 @@ const EditProperty = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const [createStage, changeState] = useState(0);
-
-  const [name, setName] = useState<string>("");
-  const [listingType, setListingType] = useState<string>("");
-  const [propertyType, setPropertyType] = useState<string>("");
-  const [rentPrice, setRentPrice] = useState<string>("");
-  const [salePrice, setSalePrice] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [address, setAddress] = useState("");
-  function nextStage() {
-    changeState((createStage + 1) % 2);
-  }
   return (
     <div className=" flex min-h-dvh  flex-row">
       <Sidebar
@@ -57,23 +45,7 @@ const EditProperty = ({ params }: { params: { id: string } }) => {
       <div className="m-5 min-w-[40%] max-w-full">
         {tab === "Listing Details" && (
           // <PersonalPage setIsChangesExist={setIsChangesExist} />
-          <ListingDetail
-            changeCreateState={nextStage}
-            name={name}
-            listingType={listingType}
-            propertyType={propertyType}
-            rentPrice={rentPrice}
-            salePrice={salePrice}
-            description={description}
-            address={address}
-            setName={setName}
-            setListingType={setListingType}
-            setPropertyType={setPropertyType}
-            setRentPrice={setRentPrice}
-            setSalePrice={setSalePrice}
-            setDescription={setDescription}
-            setAddress={setAddress}
-          ></ListingDetail>
+          <ListingDetail propId={params.id}></ListingDetail>
         )}
         {tab === "Additional Details" && (
           <FinancialPage setIsChangesExist={setIsChangesExist} />
