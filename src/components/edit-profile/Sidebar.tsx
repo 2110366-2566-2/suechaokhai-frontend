@@ -16,9 +16,9 @@ const Sidebar = ({
   text1: string;
   text2: string;
   text3: string;
-  iconSrc1: string;
-  iconSrc2: string;
-  iconSrc3: string;
+  iconSrc1?: string;
+  iconSrc2?: string;
+  iconSrc3?: string;
   switchTo1: () => void;
   switchTo2: () => void;
   switchTo3: () => void;
@@ -33,7 +33,7 @@ const Sidebar = ({
         onClick={switchTo1}
       >
         <div className="ml-4 flex items-center">
-          <Image src={iconSrc1} alt={"first icon"} width={18} height={18} />
+          {iconSrc1 ? <Image src={iconSrc1} alt={"first icon"} width={18} height={18} /> :null}
         </div>
         <div className="flex items-center">{text1}</div>
       </div>
@@ -42,7 +42,7 @@ const Sidebar = ({
         onClick={switchTo2}
       >
         <div className="ml-4 flex items-center">
-          <Image src={iconSrc2} alt={"second icon"} width={18} height={18} />
+          {iconSrc2 ? <Image src={iconSrc2} alt={"second icon"} width={18} height={18} /> :null}
         </div>
         <div className="flex items-center">{text2}</div>
       </div>
@@ -51,7 +51,7 @@ const Sidebar = ({
         onClick={switchTo3}
       >
         <div className="ml-4 flex items-center">
-          <Image src={iconSrc3} alt={"third icon"} width={18} height={18} />
+          {iconSrc3 ? <Image src={iconSrc3} alt={"third icon"} width={18} height={18} /> :null}
         </div>
         <div className="flex items-center">{text3}</div>
       </div>
