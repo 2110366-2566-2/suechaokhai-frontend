@@ -10,6 +10,8 @@ import deleteProperty from "@/services/property/deleteProperty";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
+import {useRouter} from "next/navigation";
+
 const PropertyCard = ({
   propData,
   editable,
@@ -24,7 +26,7 @@ const PropertyCard = ({
   const imgSrc = propData.property_images.length !== 0
     ? propData.property_images[0].image_url
     : "/img/Property.png";
-
+  const router = useRouter()
   const { toast } = useToast();
 
   function formatPrice(num: number): string {
@@ -40,7 +42,6 @@ const PropertyCard = ({
     <div className="h-full w-full rounded-lg bg-[#ECECEC] pb-4 ">
       <div className="relative h-[200px] w-full rounded-t-lg lg:h-[300px]  ">
         <Image
-          // src={propData.property_images[0].image_url}
           src={imgSrc}
           alt="Product Picture"
           fill={true}
@@ -74,28 +75,6 @@ const PropertyCard = ({
               }}
             ></FavoriteBorderIcon>
           ) : null}
-
-          {/* {fav ? (
-            <FavoriteIcon
-              className="text-ci-red"
-              sx={{ fontSize: 30 }}
-              onClick={async () => {
-                setFav(!fav);
-                const res = await unfavoriteProperty(propData.property_id);
-                if (res) console.log(res.message);
-              }}
-            ></FavoriteIcon>
-          ) : (
-            <FavoriteBorderIcon
-              className="text-ci-red"
-              sx={{ fontSize: 30 }}
-              onClick={async () => {
-                setFav(!fav);
-                const res = await favoriteProperty(propData.property_id);
-                if (res) console.log(res.message);
-              }}
-            ></FavoriteBorderIcon>
-          )} */}
         </div>
         <hr className="border-black "></hr>
 
@@ -148,7 +127,9 @@ const PropertyCard = ({
           <div className=" flex flex-col items-center ">
             <button
               className="small-text  in-card-button  bg-ci-blue "
-              //! link to propDesc page
+              onClick={()=>{
+                router.push("/properties/"+propData.property_id);
+              }}
             >
               View more details
             </button>
@@ -182,10 +163,8 @@ const PropertyCard = ({
                   setDel(!isDeleting);
                   const res = await deleteProperty(propData.property_id);
                   if (res) {
-                    // router.push("listing");
                     window.location.href = "/listing";
                     toast({
-                      // variant: "destructive",
                       title: "Deleted",
                       description:
                         "Your property has been deleted successfully.",
