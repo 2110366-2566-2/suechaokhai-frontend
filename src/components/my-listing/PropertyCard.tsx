@@ -82,7 +82,8 @@ const PropertyCard = ({
 
         <div className=" my-4 flex h-1/2 flex-col ">
           <div className="small-text my-0.5 w-full ">
-            {propData.district}, {propData.province}
+            {/* {propData.district}, {propData.province} */}
+            {propData.address}
           </div>
           <div className="small-text my-0.5 w-full font-semibold">
             ฿{formatPrice(propData.renting_property.price_per_month)}/month
