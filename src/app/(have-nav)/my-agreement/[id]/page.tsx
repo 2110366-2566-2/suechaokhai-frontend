@@ -171,7 +171,7 @@ export default function AgreementDetail() {
                 <div className="text-4xl font-bold">
                   {agmntDetail?.property.property_name}
                 </div>
-                <div className="w-[15%]">
+                <div className="w-[20%]">
                   <StatusBox
                     status={
                       agmntDetail?.status.charAt(0) +

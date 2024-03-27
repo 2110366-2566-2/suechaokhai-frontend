@@ -90,7 +90,7 @@ export default function AgreementList({
                         {time}
                     </div>
                 </div>
-                <div className="w-[15%] h-[30%] ml-20 my-auto">
+                <div className="w-[20%] h-[30%] ml-20 my-auto">
                     <StatusBox status={currentStatus}/>
                 </div>
                 <div className="flex flex-col w-[12.5%] h-full ml-28 my-auto justify-between">
