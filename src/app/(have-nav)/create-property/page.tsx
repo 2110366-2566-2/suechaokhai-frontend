@@ -7,28 +7,38 @@ import propertyCreate from "@/services/propertyCreate";
 
 export interface ListingDetailPageProps {
   name: string;
-  listingType: string;
+  description: string;
   propertyType: string;
+  address: string;
+  listingType: string;
   rentPrice: string;
   salePrice: string;
-  description: string;
-  address: string;
 }
 
 export interface AdditionalDetailPaneProps {
-  furnishing: string;
   bedrooms: string;
   bathrooms: string;
+  furnishing: string;
   floor: string;
   floorSize: string;
+  floorSizeUnit: string;
   unitNumber: string;
-  photos: File[];
+  images: File[];
+  imageURLs: string[];
 }
 
-export interface PropertyInfo {
-  name: string;
-  furnishing: string;
-  photos: Blob[];
+export interface ContactPaneProps {
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  email: string;
+}
+
+export interface PropertyInfo
+  extends ListingDetailPageProps,
+    AdditionalDetailPaneProps {
+  is_sold: string;
+  is_occupied: string;
 }
 
 export default function CreateProperty() {
@@ -47,13 +57,15 @@ export default function CreateProperty() {
 
   const [additionalDetailPaneProps, setAdditionalDetailPaneProps] =
     useState<AdditionalDetailPaneProps>({
-      furnishing: "",
       bedrooms: "",
       bathrooms: "",
+      furnishing: "",
       floor: "",
       floorSize: "",
+      floorSizeUnit: "",
       unitNumber: "",
-      photos: [],
+      images: [],
+      imageURLs: [],
     });
 
   const [name, setName] = useState<string>("");
@@ -64,35 +76,39 @@ export default function CreateProperty() {
   const [description, setDescription] = useState<string>("");
   const [address, setAddress] = useState("");
 
-  const [furnishing, setFurnishing] = useState("fully-furnished");
-  const [bedrooms, setBedrooms] = useState("");
-  const [bathrooms, setBathrooms] = useState("");
-  const [floor, setFloor] = useState("");
-  const [floorSize, setFloorSize] = useState("");
-  const [unitNumber, setUnitNumber] = useState("");
-  const [photos, setPhotos] = useState<File[]>([]);
-
-  const [first_name, setFirst_name] = useState("");
-  const [last_name, setLast_name] = useState("");
-  const [phone_number, setPhone_number] = useState("");
-  const [email, setEmail] = useState("");
-
   const createProperty = async () => {
-    console.log(name);
     const propertyCreateRes = await propertyCreate({
       name: name,
-      furnishing: furnishing,
-      photos: additionalDetailPaneProps.photos,
+      description: description,
+      propertyType: propertyType,
+      address: address,
+
+      alley: "",
+      street: "",
+      sub_district: "",
+      district: "",
+      province: "",
+      country: "",
+      postal_code: "",
+
+      ...additionalDetailPaneProps,
+
+      is_sold: "false",
+      is_occupied: "false",
     });
     console.log(propertyCreateRes);
   };
 
   function nextStage() {
+    console.log("nextStage", createStage);
     changeState((createStage + 1) % 2);
+    console.log("nextStage", createStage);
   }
 
   function backStage() {
+    console.log("backStage", createStage);
     changeState((createStage - 1) % 2);
+    console.log("backStage", createStage);
   }
 
   return (
@@ -116,7 +132,8 @@ export default function CreateProperty() {
             setDescription={setDescription}
             setAddress={setAddress}
           />
-          <button onClick={nextStage}>Back</button>
+          <button onClick={nextStage}>Next</button>
+          <button onClick={backStage}>Back</button>
         </div>
       ) : null}
       {createStage === 1 ? (
@@ -125,6 +142,8 @@ export default function CreateProperty() {
             additionalDetailPaneProps={additionalDetailPaneProps}
             setAdditionalDetailPaneProps={setAdditionalDetailPaneProps}
             createProperty={createProperty}
+            nextStage={nextStage}
+            backStage={backStage}
           />
           <button onClick={nextStage}>Back</button>
           <div></div>

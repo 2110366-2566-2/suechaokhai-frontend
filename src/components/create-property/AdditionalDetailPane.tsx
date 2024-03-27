@@ -11,10 +11,14 @@ export default function AdditionalDetailPane({
   additionalDetailPaneProps,
   setAdditionalDetailPaneProps,
   createProperty,
+  nextStage,
+  backStage,
 }: {
   additionalDetailPaneProps: AdditionalDetailPaneProps;
   setAdditionalDetailPaneProps: Function;
   createProperty: Function;
+  nextStage: Function;
+  backStage: Function;
 }) {
   const {
     furnishing,
@@ -23,12 +27,12 @@ export default function AdditionalDetailPane({
     floor,
     floorSize,
     unitNumber,
-    photos,
+    images,
+    imageURLs,
   } = additionalDetailPaneProps;
 
-  const [imageURLS, setImageURLS] = useState<string[]>([]);
-
   async function nextPageStatus() {
+    console.log(additionalDetailPaneProps);
     const res = await createProperty();
     console.log(res);
   }
@@ -36,37 +40,36 @@ export default function AdditionalDetailPane({
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     console.log(files);
-    const newPhotos = [...photos];
-    const newImageURLS = [...imageURLS];
+    const newImages = [...images];
+    const newImageURLs = [...imageURLs];
 
     if (files !== null) {
       for (let i = 0; i < files.length; i++) {
-        newPhotos.push(files[i]);
-        newImageURLS.push(URL.createObjectURL(files[i]));
+        newImages.push(files[i]);
+        newImageURLs.push(URL.createObjectURL(files[i]));
       }
     }
     setAdditionalDetailPaneProps({
       ...additionalDetailPaneProps,
-      photos: newPhotos,
+      images: newImages,
+      imageURLs: newImageURLs,
     });
-    setImageURLS(newImageURLS);
   };
 
   function test() {
     console.log(additionalDetailPaneProps);
-    console.log(photos);
   }
 
   return (
     <div>
-      <button onClick={test}>test addi</button>
-      <TrackingCircle page="Additional" />
-      <div className="mx-auto h-auto max-w-4xl items-center justify-center rounded-md border border-ci-dark-gray bg-white p-4 px-20 pt-10 shadow-md">
-        <h2 className="mb-4 text-2xl font-bold">Additional Details</h2>
+      <button onClick={test}>test</button>
+      <TrackingCircle page="Additional" className="pb-10" />
+      <div className="m-20 my-20 h-auto min-w-fit max-w-4xl items-center justify-center space-y-10 rounded-2xl border-2 border-ci-gray bg-white p-4 px-20 pt-10">
+        <h2 className="text-c-2xl mb-4 font-bold">Additional Details</h2>
         <div className="mb-4">
           <div className="flex space-x-4">
             <div className="w-full">
-              <h3 className="text-md mb-2">Furnishing</h3>
+              <h3 className="text-c-md mb-2">Furnishing</h3>
               <div className="flex flex-col space-y-4">
                 <div className="flex flex-row space-x-4">
                   <div className="w-full">
@@ -74,7 +77,12 @@ export default function AdditionalDetailPane({
                       furnishing={furnishing}
                       label="Ready to Move"
                       tag={"ready-to-move"}
-                      onClick={() => setFurnishing("ready-to-move")}
+                      onClick={() =>
+                        setAdditionalDetailPaneProps({
+                          ...additionalDetailPaneProps,
+                          furnishing: "ready-to-move",
+                        })
+                      }
                     />
                   </div>
                   <div className="w-full">
@@ -82,7 +90,12 @@ export default function AdditionalDetailPane({
                       furnishing={furnishing}
                       label="Fully-Furnished"
                       tag={"fully-furnished"}
-                      onClick={() => setFurnishing("fully-furnished")}
+                      onClick={() =>
+                        setAdditionalDetailPaneProps({
+                          ...additionalDetailPaneProps,
+                          furnishing: "fully-furnished",
+                        })
+                      }
                     />
                   </div>
                 </div>
@@ -92,7 +105,12 @@ export default function AdditionalDetailPane({
                       furnishing={furnishing}
                       label="Partially-Furnished"
                       tag={"partially-furnished"}
-                      onClick={() => setFurnishing("partially-furnished")}
+                      onClick={() =>
+                        setAdditionalDetailPaneProps({
+                          ...additionalDetailPaneProps,
+                          furnishing: "partially-furnished",
+                        })
+                      }
                     />
                   </div>
                   <div className="w-full">
@@ -100,7 +118,12 @@ export default function AdditionalDetailPane({
                       furnishing={furnishing}
                       label="Unfurnished"
                       tag={"unfurnished"}
-                      onClick={() => setFurnishing("unfurnished")}
+                      onClick={() =>
+                        setAdditionalDetailPaneProps({
+                          ...additionalDetailPaneProps,
+                          furnishing: "unfurnished",
+                        })
+                      }
                     />
                   </div>
                 </div>
@@ -114,7 +137,7 @@ export default function AdditionalDetailPane({
             <div>
               <label
                 htmlFor="bedrooms"
-                className="text-md block font-medium text-gray-700"
+                className="text-c-md block font-medium text-gray-700"
               >
                 Bedrooms
               </label>
@@ -124,13 +147,13 @@ export default function AdditionalDetailPane({
                 placeholder="Bedrooms"
                 value={bedrooms}
                 onChange={(e) => setBedrooms(e.target.value)}
-                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 text-ci-light-gray shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
               <label
                 htmlFor="bathrooms"
-                className="text-md block font-medium text-gray-700"
+                className="text-c-md block font-medium text-gray-700"
               >
                 Bathrooms
               </label>
@@ -140,13 +163,13 @@ export default function AdditionalDetailPane({
                 placeholder="Bathrooms"
                 value={bathrooms}
                 onChange={(e) => setBathrooms(e.target.value)}
-                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
               <label
                 htmlFor="floor"
-                className="text-md block font-medium text-gray-700"
+                className="text-c-md block font-medium text-gray-700"
               >
                 Floor
               </label>
@@ -156,13 +179,13 @@ export default function AdditionalDetailPane({
                 placeholder="Floor"
                 value={floor}
                 onChange={(e) => setFloor(e.target.value)}
-                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
             <div>
               <label
                 htmlFor="floorSize"
-                className="text-md block font-medium text-gray-700"
+                className="text-c-md block font-medium text-gray-700"
               >
                 Floor Size
               </label>
@@ -173,7 +196,7 @@ export default function AdditionalDetailPane({
                   placeholder="Floor Size"
                   value={floorSize}
                   onChange={(e) => setFloorSize(e.target.value)}
-                  className="sm:text-sm block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500"
+                  className="sm:text-c-sm block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500"
                 />
                 <div className="flex items-center rounded-md bg-ci-light-blue hover:bg-ci-dark-blue">
                   <label htmlFor="floorSizeUnit" className="sr-only">
@@ -193,7 +216,7 @@ export default function AdditionalDetailPane({
             <div>
               <label
                 htmlFor="unitNumber"
-                className="text-md block font-medium text-gray-700"
+                className="text-c-md block font-medium text-gray-700"
               >
                 Unit Number
               </label>
@@ -203,13 +226,13 @@ export default function AdditionalDetailPane({
                 placeholder="Unit Number"
                 value={unitNumber}
                 onChange={(e) => setUnitNumber(e.target.value)}
-                className="sm:text-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
           </div>
         </div>
         <div className="mb-4">
-          <h3 className="text-md mb-2">Upload Photos of Your Property</h3>
+          <h3 className="text-c-md mb-2">Upload Photos of Your Property</h3>
           <div className="flex w-full items-center justify-center">
             <label
               htmlFor="photo-upload"
@@ -240,7 +263,7 @@ export default function AdditionalDetailPane({
             </label>
           </div>
           <div className="mt-4 flex w-full space-x-4 overflow-x-auto">
-            {imageURLS.map((imageURL, index) => (
+            {imageURLs.map((imageURL, index) => (
               <div
                 key={index}
                 className="relative inline-block h-28 w-44 flex-shrink-0"
@@ -257,12 +280,11 @@ export default function AdditionalDetailPane({
                 <button
                   className="absolute bottom-0 right-0 m-1 rounded-full bg-red-500 p-1 text-white"
                   onClick={() => {
-                    const newPhotos = [...photos];
-                    newPhotos.splice(index, 1);
-                    // setPhotos(newPhotos);
+                    const newImages = [...images];
+                    newImages.splice(index, 1);
                     setAdditionalDetailPaneProps({
                       ...additionalDetailPaneProps,
-                      photos: newPhotos,
+                      images: newImages,
                     });
                   }}
                 >
@@ -286,7 +308,10 @@ export default function AdditionalDetailPane({
           </div>
         </div>
         <div className="flex justify-between">
-          <button className="rounded-md bg-white px-10 py-2 text-gray-700 outline outline-gray-300 hover:bg-ci-dark-blue hover:text-white hover:outline-none">
+          <button
+            className="rounded-md bg-white px-10 py-2 text-gray-700 outline outline-gray-300 hover:bg-ci-dark-blue hover:text-white hover:outline-none"
+            onClick={backStage}
+          >
             Back
           </button>
           <button

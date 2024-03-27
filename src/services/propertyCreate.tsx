@@ -1,6 +1,8 @@
 import { PropertyInfo } from "@/app/(have-nav)/create-property/page";
 
 export default async function propertyCreate(propertyInfo: PropertyInfo) {
+  console.log("propertyInfo:", propertyInfo);
+
   const formData = new FormData();
 
   // property_name:Property Name
@@ -26,10 +28,9 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
   // price_per_month:123
   // is_occupied:false
   // property_images:[]
-  console.log(propertyInfo);
-  // formData.append("property_images", propertyInfo.photos);
-  console.log(propertyInfo.photos);
-  propertyInfo.photos.forEach((image, index) => {
+
+  console.log(propertyInfo.images);
+  propertyInfo.images.forEach((image, index) => {
     console.log(image);
     const blob = new Blob([image], { type: "image/jpeg" });
     formData.append("property_images", blob, image.name);
@@ -70,11 +71,11 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
     // ],
   };
 
-  console.log(propertyInfo);
   formData.append("property_name", propertyInfo.name);
   formData.append("property_description", propertyInfo.description);
   formData.append("property_type", propertyInfo.propertyType);
   formData.append("address", propertyInfo.address);
+
   formData.append("alley", propertyInfo.alley);
   formData.append("street", propertyInfo.street);
   formData.append("sub_district", propertyInfo.sub_district);
@@ -82,6 +83,7 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
   formData.append("province", propertyInfo.province);
   formData.append("country", propertyInfo.country);
   formData.append("postal_code", propertyInfo.postal_code);
+
   formData.append("bedrooms", propertyInfo.bedrooms);
   formData.append("bathrooms", propertyInfo.bathrooms);
   formData.append("furnishing", propertyInfo.furnishing);
@@ -89,21 +91,23 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
   formData.append("floor_size", propertyInfo.floor_size);
   formData.append("floor_size_unit", propertyInfo.floor_size_unit);
   formData.append("unit_number", propertyInfo.unit_number);
+
   formData.append("price", propertyInfo.price);
-  formData.append("is_sold", propertyInfo.is_sold);
   formData.append("price_per_month", propertyInfo.price_per_month);
+
+  formData.append("is_sold", propertyInfo.is_sold);
   formData.append("is_occupied", propertyInfo.is_occupied);
+
   // formData.append("property_images", propertyInfo.property_images);
+
   // propertyInfo.property_images.forEach((image, index) => {
   //   formData.append(`property_image_${index}`, image);
   // });
 
-  console.log(formData);
-  console.log(propertyInfo.name);
   console.log("formData:");
-  console.log(formData.property_name);
-  console.log(formData.get("property_name"));
-  console.log(formData.get("property_images"));
+  formData.entries().forEach((value) => {
+    console.log(value);
+  });
 
   const response = await fetch("http://localhost:8000/api/v1/properties", {
     method: "POST",
