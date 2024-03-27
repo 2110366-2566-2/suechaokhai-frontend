@@ -107,7 +107,7 @@ export default function FeaturesPropCatalog() {
             .slice(start, start + windowSize)
             .map((item: PropertyData) => (
               <Link
-                href={"/property/" + item.property_id}
+                href={"/properties/" + item.property_id}
                 key={item.property_id}
               >
                 <SmallPropertyCard

@@ -64,8 +64,8 @@ export default function PropertyDetail({
 
   return (
     <div className="flex w-11/12 flex-col gap-y-10 text-xl">
-      <div className="flex w-full flex-row justify-between">
-        <div className="flex flex-col gap-y-4 py-6">
+      <div className="flex w-full flex-row items-center">
+        <div className="flex w-1/2 flex-col gap-y-4 py-6">
           <div className="flex flex-row gap-x-10">
             <div className="text-4xl font-bold">{property.property_name}</div>
             {user && (
