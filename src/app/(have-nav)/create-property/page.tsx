@@ -111,7 +111,29 @@ export default function CreateProperty() {
 
   return (
     <div>
-      {/* <button
+      <button
+        onClick={() => {
+          setName("Property Name");
+          setListingType("rent/sell");
+          setPropertyType("CONDOMINIUM");
+          setRentPrice("100");
+          setSalePrice("100000");
+          setDescription("Property Description");
+          setAddress("Address");
+          setAdditionalDetailPaneProps({
+            ...additionalDetailPaneProps,
+            bedrooms: "2",
+            bathrooms: "1",
+            furnishing: "READY_TO_MOVE_IN",
+            floor: "1",
+            floorSize: "30",
+            unitNumber: "101",
+          });
+        }}
+      >
+        fill |{" "}
+      </button>
+      <button
         onClick={() => {
           console.log(name);
           console.log(listingType);
@@ -125,7 +147,7 @@ export default function CreateProperty() {
         test var |
       </button>
       <button onClick={nextStage}>Next | </button>
-      <button onClick={backStage}>Back | </button> */}
+      <button onClick={backStage}>Back | </button>
       {createStage === 0 ? (
         <div>
           <ListingDetailPage

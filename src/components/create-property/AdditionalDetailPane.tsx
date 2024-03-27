@@ -73,7 +73,7 @@ export default function AdditionalDetailPane({
     <div>
       <button onClick={test}>test</button>
       <TrackingCircle page="Additional" className="pb-10" />
-      <div className="m-20 my-20 h-auto min-w-fit max-w-4xl items-center justify-center space-y-10 rounded-2xl border-2 border-ci-gray bg-white p-4 px-20 pt-10">
+      <div className="m-20 my-20 h-auto items-center justify-center space-y-10 rounded-2xl border-2 border-ci-gray bg-white p-4 px-20 pt-10">
         <h2 className="text-c-2xl mb-4 font-bold">Additional Details</h2>
         <div className="mb-4">
           <div className="flex space-x-4">
@@ -321,10 +321,13 @@ export default function AdditionalDetailPane({
                   className="absolute bottom-0 right-0 m-1 rounded-full bg-red-500 p-1 text-white"
                   onClick={() => {
                     const newImages = [...images];
+                    const newImageURLs = [...imageURLs];
+                    newImageURLs.splice(index, 1);
                     newImages.splice(index, 1);
                     setAdditionalDetailPaneProps({
                       ...additionalDetailPaneProps,
                       images: newImages,
+                      imageURLs: newImageURLs,
                     });
                   }}
                 >
