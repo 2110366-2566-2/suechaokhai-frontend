@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { isSameDay } from "date-fns";
 import { DayClickEventHandler, DayPicker } from "react-day-picker";
@@ -19,11 +19,11 @@ const RoomTourRes = ({
 }) => {
   const today = new Date();
   const [isReserving, setReserve] = useState<boolean>(false);
-  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
+  const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
   const [message, setMessage] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const messageRef = useRef("");
 
   const handleDayClick: DayClickEventHandler = (day: Date, modifiers: any) => {
@@ -33,7 +33,7 @@ const RoomTourRes = ({
       //   isSameDay(day, selectedDay)
       // );
       // newSelectedDays.splice(index, 1);
-      setSelectedDay(null);
+      setSelectedDay(undefined);
     } else {
       // newSelectedDays.push(day);
       setSelectedDay(day);
@@ -102,7 +102,7 @@ const RoomTourRes = ({
   return (
     <div className="flex w-full flex-col bg-white p-4">
       {isReserving ? (
-        <div className="fixed left-[0] top-[0] z-[60] flex h-[100vh] w-[100%] flex-col items-center justify-center bg-black bg-opacity-20">
+        <div className="fixed left-0 top-0 z-50 flex h-screen w-full flex-col items-center justify-center bg-black/20">
           <div className="relative flex flex-col rounded-lg bg-white p-[32px]">
             <div className="font-bold">Room Tour Reservation</div>
             <div className="">Please select whenever you are free.</div>
@@ -146,7 +146,7 @@ const RoomTourRes = ({
             <div className="">
               Message (Optional)
               <textarea
-                className="text-gray-700` mx-auto h-[220px] w-full rounded-[10px] border border-black p-2"
+                className="mx-auto h-[220px] w-full rounded-[10px] border border-black p-2 text-gray-700"
                 name=""
                 id=""
                 placeholder="Enter text"
@@ -196,7 +196,7 @@ const RoomTourRes = ({
                     e.preventDefault();
                     setReserve(true);
                     const strDay =
-                      selectedDay.toISOString().split("T")[0] +
+                      selectedDay?.toISOString().split("T")[0] +
                       "T" +
                       selectedTime?.toISOString().split("T")[1].slice(0, -5) +
                       "Z";
