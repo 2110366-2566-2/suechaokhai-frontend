@@ -9,6 +9,7 @@ type Tab = "personal" | "financial" | "owner";
 const personalIcon = "/img/edit-profile/personal-icon.svg";
 const financialIcon = "/img/edit-profile/financial-icon.svg";
 const ownerIcon = "/img/edit-profile/owner-icon.svg";
+
 const EditProfile = () => {
   const [tab, setTab] = useState<Tab>("personal");
 
