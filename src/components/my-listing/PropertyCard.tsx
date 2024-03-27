@@ -10,7 +10,8 @@ import deleteProperty from "@/services/property/deleteProperty";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import { resolve } from "path";
 
 const PropertyCard = ({
   propData,
@@ -23,10 +24,11 @@ const PropertyCard = ({
 }) => {
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
-  const imgSrc = propData.property_images.length !== 0
-    ? propData.property_images[0].image_url
-    : "/img/Property.png";
-  const router = useRouter()
+  const imgSrc =
+    propData.property_images.length !== 0
+      ? propData.property_images[0].image_url
+      : "/img/Property.png";
+  const router = useRouter();
   const { toast } = useToast();
 
   function formatPrice(num: number): string {
@@ -127,8 +129,8 @@ const PropertyCard = ({
           <div className=" flex flex-col items-center ">
             <button
               className="small-text  in-card-button  bg-ci-blue "
-              onClick={()=>{
-                router.push("/properties/"+propData.property_id);
+              onClick={() => {
+                router.push("/properties/" + propData.property_id);
               }}
             >
               View more details
@@ -163,12 +165,14 @@ const PropertyCard = ({
                   setDel(!isDeleting);
                   const res = await deleteProperty(propData.property_id);
                   if (res) {
-                    window.location.href = "/listing";
                     toast({
                       title: "Deleted",
                       description:
                         "Your property has been deleted successfully.",
                     });
+                    await new Promise((resolve)=>setTimeout(resolve,3000))
+                    window.location.href = "/listing";
+
                   }
                   console.log(res.message);
                 }}
@@ -179,7 +183,7 @@ const PropertyCard = ({
           </div>
         </div>
       ) : null}
-      <Toaster></Toaster>
+      <Toaster ></Toaster>
     </div>
   );
 };
