@@ -116,7 +116,6 @@ const PropertyCards = ({
             <PropertyCard
               propData={prop}
               editable={isEditable}
-              imgSrc="/img/Property.png"
               canFav={isLogin}
               key={prop.property_id}
             ></PropertyCard>

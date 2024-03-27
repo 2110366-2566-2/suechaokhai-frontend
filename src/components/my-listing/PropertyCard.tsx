@@ -13,16 +13,17 @@ import { Toaster } from "@/components/ui/toaster";
 const PropertyCard = ({
   propData,
   editable,
-  imgSrc,
-  canFav
+  canFav,
 }: {
   propData: PropertyData;
   editable: boolean;
-  imgSrc: string;
-  canFav:boolean;
+  canFav: boolean;
 }) => {
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
+  const imgSrc = propData.property_images.length !== 0
+    ? propData.property_images[0].image_url
+    : "/img/Property.png";
 
   const { toast } = useToast();
 
@@ -39,6 +40,7 @@ const PropertyCard = ({
     <div className="h-full w-full rounded-lg bg-[#ECECEC] pb-4 ">
       <div className="relative h-[200px] w-full rounded-t-lg lg:h-[300px]  ">
         <Image
+          // src={propData.property_images[0].image_url}
           src={imgSrc}
           alt="Product Picture"
           fill={true}
@@ -50,18 +52,18 @@ const PropertyCard = ({
           <div className="medium-text  w-full font-semibold ">
             {propData.property_name}
           </div>
-          {canFav && fav ?(
+          {canFav && fav ? (
             <FavoriteIcon
-            className="text-ci-red"
-            sx={{ fontSize: 30 }}
-            onClick={async () => {
-              setFav(!fav);
-              const res = await unfavoriteProperty(propData.property_id);
-              if (res) console.log(res.message);
-            }}
-          ></FavoriteIcon>
-          ):null}
-          {canFav && !fav ?(
+              className="text-ci-red"
+              sx={{ fontSize: 30 }}
+              onClick={async () => {
+                setFav(!fav);
+                const res = await unfavoriteProperty(propData.property_id);
+                if (res) console.log(res.message);
+              }}
+            ></FavoriteIcon>
+          ) : null}
+          {canFav && !fav ? (
             <FavoriteBorderIcon
               className="text-ci-red"
               sx={{ fontSize: 30 }}
@@ -71,8 +73,8 @@ const PropertyCard = ({
                 if (res) console.log(res.message);
               }}
             ></FavoriteBorderIcon>
-          ):null}
-          
+          ) : null}
+
           {/* {fav ? (
             <FavoriteIcon
               className="text-ci-red"
