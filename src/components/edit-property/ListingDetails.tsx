@@ -114,7 +114,6 @@ export default function ListingDetail({
     fetchPropDetail();
   }, []);
 
-
   const handleMouseEnter = (option: string) => {
     setHoveredOption(option);
   };
@@ -276,7 +275,8 @@ export default function ListingDetail({
                         value=""
                         className="text-[20px] text-ci-dark-gray"
                       >
-                        Select Property Type
+                        {listingFormData.propertyType? listingFormData.propertyType:"Select Property Type"}
+                        
                       </option>
                       {propertyTypes.map((option, index) => (
                         <option
@@ -388,15 +388,15 @@ export default function ListingDetail({
                   <Map name="" />
                 </div>
               </div>
-              {/* <div className="flex justify-end">
+              <div className="flex justify-end">
                 <button
                   type="submit"
-                  onClick={nextPage}
+                  onClick={() => console.log(listingFormData, "test edit")}
                   className="font- h-[60px] w-[190px] rounded-[10px] bg-ci-light-blue px-10 py-2 text-[24px] font-medium text-white"
                 >
                   Next
                 </button>
-              </div> */}
+              </div>
             </div>
           </form>
         </div>
