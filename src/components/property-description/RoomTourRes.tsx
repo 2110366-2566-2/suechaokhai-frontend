@@ -62,7 +62,7 @@ const RoomTourRes = ({ property, handlePost }: RoomTourResProps) => {
   };
 
   const chatWithOwnerHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(property.owner_id);
+    ctx.openChat(property.owner_id);
   };
 
   const handleReservation = () => {

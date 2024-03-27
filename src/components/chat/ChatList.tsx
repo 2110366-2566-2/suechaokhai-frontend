@@ -1,4 +1,4 @@
-import { Chat } from "@/models/chat";
+import { Chat } from "@/models/Chat";
 import UserCard from "./UserCard";
 
 interface ChatListProps {
