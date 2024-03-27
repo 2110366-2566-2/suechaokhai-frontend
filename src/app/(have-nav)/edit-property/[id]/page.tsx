@@ -13,6 +13,8 @@ const EditProperty = ({ params }: { params: { id: string } }) => {
 
   const [isChangesExist, setIsChangesExist] = useState<boolean>(false);
   const [isSwitchingTab, setIsSwitchingTab] = useState<boolean>(false);
+
+
   const switchToListing = () => setTab("Listing Details");
   const switchToAdditional = () => {
     if (!isChangesExist) {
@@ -45,7 +47,7 @@ const EditProperty = ({ params }: { params: { id: string } }) => {
       <div className="m-5 min-w-[40%] max-w-full">
         {tab === "Listing Details" && (
           // <PersonalPage setIsChangesExist={setIsChangesExist} />
-          <ListingDetail propId={params.id} setIsChangesExist={setIsChangesExist}></ListingDetail>
+          <ListingDetail propId={params.id} setIsChangesExist={setIsChangesExist} ></ListingDetail>
         )}
         {tab === "Additional Details" && (
           <FinancialPage setIsChangesExist={setIsChangesExist} />
@@ -58,6 +60,7 @@ const EditProperty = ({ params }: { params: { id: string } }) => {
           setIsSwitchingTab={setIsSwitchingTab}
         />
       )}
+      
     </div>
   );
 };

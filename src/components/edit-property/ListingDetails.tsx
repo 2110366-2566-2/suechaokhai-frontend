@@ -82,6 +82,15 @@ export default function ListingDetail({
   setIsChangesExist: Function;
   propId: string;
 }) {
+  const [originalData, setOriginalData] = useState<ListingFormDataType>({
+    name: "",
+    listingType: "",
+    propertyType: "",
+    rentPrice: "",
+    salePrice: "",
+    description: "",
+    address: "",
+  });
   const [listingFormData, setListingFormData] = useState<ListingFormDataType>({
     name: "",
     listingType: "",
@@ -91,8 +100,6 @@ export default function ListingDetail({
     description: "",
     address: "",
   });
-
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [hoveredOption, setHoveredOption] = useState<string>("");
 
   useEffect(() => {
@@ -109,10 +116,15 @@ export default function ListingDetail({
           address: propDetail.address,
         };
         setListingFormData(tmp);
+        setOriginalData(tmp);
       }
     };
     fetchPropDetail();
   }, []);
+
+  useEffect(() => {
+    setIsChangesExist(true);
+  }, [listingFormData]);
 
   const handleMouseEnter = (option: string) => {
     setHoveredOption(option);
@@ -129,11 +141,16 @@ export default function ListingDetail({
     }));
   };
 
+  const handleSubmit = (e:any)=>{
+    e.preventDefault()
+    console.log(listingFormData, "test edit")
+  }
+
   return (
-    <div>
+    
       <div className="flex">
         <div className="m-20 flex-grow rounded-[20px] border-2 border-gray-300 p-10">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit}>
             <div className="flex w-full flex-col gap-10">
               <div className="text-[36px] font-bold text-ci-black">
                 Listing Details
@@ -244,15 +261,7 @@ export default function ListingDetail({
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
-                {/* !fix thissssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss */}
                 <div className="grid gap-6">
-                  {/* <Dropdown
-                    label="Property Type"
-                    options={propertyTypes}
-                    onSelect={handleSelectPropertyType}
-                    placeholder="Select Property Type"
-                    selected={listingFormData.propertyType}
-                  /> */}
                   <div className="flex flex-col gap-[24px]">
                     <label
                       className="text-[28px] font-medium text-ci-black"
@@ -275,8 +284,9 @@ export default function ListingDetail({
                         value=""
                         className="text-[20px] text-ci-dark-gray"
                       >
-                        {listingFormData.propertyType? listingFormData.propertyType:"Select Property Type"}
-                        
+                        {listingFormData.propertyType
+                          ? listingFormData.propertyType
+                          : "Select Property Type"}
                       </option>
                       {propertyTypes.map((option, index) => (
                         <option
@@ -390,17 +400,24 @@ export default function ListingDetail({
               </div>
               <div className="flex justify-end">
                 <button
-                  type="submit"
-                  onClick={() => console.log(listingFormData, "test edit")}
-                  className="font- h-[60px] w-[190px] rounded-[10px] bg-ci-light-blue px-10 py-2 text-[24px] font-medium text-white"
+                  type="reset"
+                  onClick={()=>setListingFormData(originalData)}
+                  className="m-3 h-[60px] w-[190px] rounded-[10px] bg-ci-dark-gray px-10 py-2 text-[24px] font-medium text-white"
                 >
-                  Next
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                //   onClick={() => }
+                  className="m-3 h-[60px] w-[190px] rounded-[10px] bg-ci-blue px-10 py-2 text-[24px] font-medium text-white"
+                >
+                  Save
                 </button>
               </div>
             </div>
           </form>
         </div>
       </div>
-    </div>
+
   );
 }
