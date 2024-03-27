@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import { isSameDay } from "date-fns";
+import PropertyData from "@/models/PropertyData";
 import { DayClickEventHandler, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -9,22 +10,24 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { toast } from "sonner";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import { ChatContext } from "@/context/ChatContext";
 
-const RoomTourRes = ({
-  property,
-  handlePost,
-}: {
-  property: string;
+interface RoomTourResProps {
+  property: PropertyData;
   handlePost: Function;
-}) => {
+}
+
+const RoomTourRes = ({ property, handlePost }: RoomTourResProps) => {
   const today = new Date();
   const [isReserving, setReserve] = useState<boolean>(false);
-  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
+  const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
   const [message, setMessage] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const messageRef = useRef("");
+
+  const ctx = useContext(ChatContext);
 
   const handleDayClick: DayClickEventHandler = (day: Date, modifiers: any) => {
     // const newSelectedDays = [...selectedDays];
@@ -33,7 +36,7 @@ const RoomTourRes = ({
       //   isSameDay(day, selectedDay)
       // );
       // newSelectedDays.splice(index, 1);
-      setSelectedDay(null);
+      setSelectedDay(undefined);
     } else {
       // newSelectedDays.push(day);
       setSelectedDay(day);
@@ -56,6 +59,10 @@ const RoomTourRes = ({
       return true;
     }
     return false;
+  };
+
+  const chatWithOwnerHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    ctx.openChat(property.owner_id);
   };
 
   const handleReservation = () => {
@@ -102,7 +109,7 @@ const RoomTourRes = ({
   return (
     <div className="flex w-full flex-col bg-white p-4">
       {isReserving ? (
-        <div className="fixed left-[0] top-[0] z-[60] flex h-[100vh] w-[100%] flex-col items-center justify-center bg-black bg-opacity-20">
+        <div className="fixed left-0 top-0 z-50 flex h-screen w-full flex-col items-center justify-center bg-black/20">
           <div className="relative flex flex-col rounded-lg bg-white p-[32px]">
             <div className="font-bold">Room Tour Reservation</div>
             <div className="">Please select whenever you are free.</div>
@@ -146,7 +153,7 @@ const RoomTourRes = ({
             <div className="">
               Message (Optional)
               <textarea
-                className="text-gray-700` mx-auto h-[220px] w-full rounded-[10px] border border-black p-2"
+                className="mx-auto h-[220px] w-full rounded-[10px] border border-black p-2 text-gray-700"
                 name=""
                 id=""
                 placeholder="Enter text"
@@ -218,10 +225,7 @@ const RoomTourRes = ({
         {/* <div className="text-xl font-bold">Room Tour Reservation</div> */}
         <button
           className="w-1/4 min-w-60 rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
-          onClick={(e) => {
-            e.preventDefault();
-            handleReservation();
-          }}
+          onClick={chatWithOwnerHandler}
         >
           Chat with Owner
         </button>
