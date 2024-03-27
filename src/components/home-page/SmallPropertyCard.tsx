@@ -25,7 +25,7 @@ export default function SmallPropertyCard({
   return (
     <div>
       {property ? (
-        <div className="w-[320px] rounded-3xl bg-white xl:w-[400px]">
+        <div className="w-[320px] select-none rounded-3xl bg-white xl:w-[400px]">
           <div className="relative h-60 w-full">
             <Image
               src="/img/home-page/lumpini.png"
