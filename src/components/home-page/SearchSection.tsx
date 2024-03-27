@@ -3,13 +3,13 @@
 import { min } from "date-fns/fp/min";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSearchContext } from "@/context/SearchContext";
 
 export default function SearchSection() {
   const router = useRouter();
 
-  const { searchContent } = useSearchContext();
+  const { searchContent, searchFilters } = useSearchContext();
 
   const [filterPrice, setFilterPrice] = useState(false);
   const [filterSize, setFilterSize] = useState(false);
@@ -21,6 +21,8 @@ export default function SearchSection() {
   const [maxSize, setMaxSize] = useState<number>(0);
   const [bedrooms, setBedrooms] = useState<number>(0);
 
+  const [bedNull, setBedNull] = useState<boolean>(true);
+
   function formatBedroom(val: number) {
     if (val < 0) {
       setBedrooms(0);
@@ -28,6 +30,11 @@ export default function SearchSection() {
       setBedrooms(val);
     }
   }
+
+  useEffect(() => {
+    if (!bedNull) searchFilters.current.numBedrooms = bedrooms;
+    // console.log(searchFilters.current.numBedrooms,"test filter home")
+  }, [bedrooms]);
 
   return (
     <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl ">
@@ -225,7 +232,7 @@ export default function SearchSection() {
                   className="size-10 rounded-xl border border-ci-gray px-2 text-center sm:size-14"
                   onChange={(e) => {
                     if (e.target.value === "") {
-                      setBedrooms(0);
+                      formatBedroom(0);
                     } else {
                       formatBedroom(Number(e.target.value));
                     }
@@ -235,6 +242,7 @@ export default function SearchSection() {
                 <button
                   onClick={() => {
                     formatBedroom(bedrooms + 1);
+                    setBedNull((prev) => false);
                   }}
                   className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
                 >
