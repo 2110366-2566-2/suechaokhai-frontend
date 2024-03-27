@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import { isSameDay } from "date-fns";
+import PropertyData from "@/models/PropertyData";
 import { DayClickEventHandler, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -9,14 +10,14 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { toast } from "sonner";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import { ChatContext } from "@/context/ChatContext";
 
-const RoomTourRes = ({
-  property,
-  handlePost,
-}: {
-  property: string;
+interface RoomTourResProps {
+  property: PropertyData;
   handlePost: Function;
-}) => {
+}
+
+const RoomTourRes = ({ property, handlePost }: RoomTourResProps) => {
   const today = new Date();
   const [isReserving, setReserve] = useState<boolean>(false);
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
@@ -25,6 +26,8 @@ const RoomTourRes = ({
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const messageRef = useRef("");
+
+  const ctx = useContext(ChatContext);
 
   const handleDayClick: DayClickEventHandler = (day: Date, modifiers: any) => {
     // const newSelectedDays = [...selectedDays];
@@ -56,6 +59,10 @@ const RoomTourRes = ({
       return true;
     }
     return false;
+  };
+
+  const chatWithOwnerHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(property.owner_id);
   };
 
   const handleReservation = () => {
@@ -217,10 +224,7 @@ const RoomTourRes = ({
         {/* <div className="text-xl font-bold">Room Tour Reservation</div> */}
         <button
           className="w-1/4 min-w-60 rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
-          onClick={(e) => {
-            e.preventDefault();
-            handleReservation();
-          }}
+          onClick={chatWithOwnerHandler}
         >
           Chat with Owner
         </button>
