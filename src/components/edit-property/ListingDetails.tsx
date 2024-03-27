@@ -114,10 +114,7 @@ export default function ListingDetail({
     fetchPropDetail();
   }, []);
 
-  const handleSelectPropertyType = (option: any) => {
-    setSelectedPropertyType(option);
-    setPropertyType(option);
-  };
+
   const handleMouseEnter = (option: string) => {
     setHoveredOption(option);
   };
@@ -173,7 +170,7 @@ export default function ListingDetail({
                       name="listingType"
                       value="rent"
                       checked={listingFormData.listingType === "rent"}
-                      onChange={handleFormChange }
+                      onChange={handleFormChange}
                       style={{ display: "none" }}
                     />
                     <label
@@ -225,7 +222,7 @@ export default function ListingDetail({
                       name="listingType"
                       value="rent/sell"
                       checked={listingFormData.listingType === "rent/sell"}
-                      onChange={ handleFormChange}
+                      onChange={handleFormChange}
                       style={{ display: "none" }}
                     />
                     <label
@@ -250,13 +247,48 @@ export default function ListingDetail({
               <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
                 {/* !fix thissssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss */}
                 <div className="grid gap-6">
-                  <Dropdown
+                  {/* <Dropdown
                     label="Property Type"
                     options={propertyTypes}
                     onSelect={handleSelectPropertyType}
                     placeholder="Select Property Type"
                     selected={listingFormData.propertyType}
-                  />
+                  /> */}
+                  <div className="flex flex-col gap-[24px]">
+                    <label
+                      className="text-[28px] font-medium text-ci-black"
+                      htmlFor="txt"
+                    >
+                      Property Type
+                    </label>
+
+                    <select
+                      className={`dropdown-select font-regular block h-[60px] w-full rounded-[10px] border ${listingFormData.propertyType === "" ? "border-ci-red" : "border-ci-dark-gray"} p-2 text-[20px] ${
+                        listingFormData.propertyType === ""
+                          ? "text-ci-dark-gray"
+                          : "text-ci-black"
+                      }`}
+                      value={listingFormData.propertyType}
+                      onChange={handleFormChange}
+                      name="propertyType"
+                    >
+                      <option
+                        value=""
+                        className="text-[20px] text-ci-dark-gray"
+                      >
+                        Select Property Type
+                      </option>
+                      {propertyTypes.map((option, index) => (
+                        <option
+                          className="text-[20px] text-ci-black"
+                          key={index}
+                          value={option}
+                        >
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <div className="grid gap-6">
                   <div className="text-[28px] font-medium text-ci-black">
