@@ -112,7 +112,9 @@ const PropertyCard = ({
           <div className=" flex flex-col items-center ">
             <button
               className="small-text  in-card-button  bg-ci-blue"
-              //! link to edit prop page
+              onClick={() => {
+                router.push("/edit-property/" + propData.property_id);
+              }}
             >
               Edit details
             </button>
