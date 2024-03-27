@@ -55,9 +55,13 @@ export default function MyAgreement() {
           const data = await getUserAgreement();
           console.log(data);
           setOwnerAgreementData(data.owner_agreements);
-          setOwnerTotal(data.owner_agreements.length);
+          if (ownerAgreementData !== null) {
+            setOwnerTotal(data.owner_agreements.length);
+          }
           setDwellerAgreementData(data.dweller_agreements);
-          setDwellerTotal(data.dweller_agreements.length);
+          if (dwellerAgreementData !== null) {
+            setDwellerTotal(data.dweller_agreements.length);
+          }
         };
         fetchData();
         setFinishFetching(true);
