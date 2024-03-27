@@ -100,7 +100,7 @@ const RoomTourRes = ({
   };
 
   return (
-    <div className="flex flex-col  bg-white p-4 ">
+    <div className="flex w-full flex-col bg-white p-4">
       {isReserving ? (
         <div className="fixed left-[0] top-[0] z-[60] flex h-[100vh] w-[100%] flex-col items-center justify-center bg-black bg-opacity-20">
           <div className="relative flex flex-col rounded-lg bg-white p-[32px]">
@@ -213,10 +213,10 @@ const RoomTourRes = ({
         </div>
       ) : null}
 
-      <div className="flex w-full flex-col items-center justify-center">
+      <div className="flex w-full flex-col items-start justify-start gap-y-6">
         {/* <div className="text-xl font-bold">Room Tour Reservation</div> */}
         <button
-          className="mx-1 my-4 rounded-full bg-ci-blue px-4 py-2 font-semibold text-white shadow hover:bg-blue-800 "
+          className="w-1/4 min-w-fit rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
           onClick={(e) => {
             e.preventDefault();
             handleReservation();
@@ -225,7 +225,7 @@ const RoomTourRes = ({
           Chat with Owner
         </button>
         <button
-          className="mx-1 my-4 rounded-full bg-ci-blue px-4 py-2 font-semibold text-white shadow hover:bg-blue-800 "
+          className="w-1/4 min-w-fit rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
           onClick={(e) => {
             e.preventDefault();
             setReserve(true);
