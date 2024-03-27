@@ -26,19 +26,17 @@ export default function ChatModule() {
   }, []);
 
   return (
-    <ChatContextProvider>
-      <div className="fixed bottom-0 right-0 flex">
-        {user && (
-          <div className="flex flex-row items-end justify-end gap-x-6">
-            {isChat && <MessageBox user={ctx.chatUserId} setChat={setChat} />}
-            {isOpen && <ChatBox setOpen={setOpen} setChat={setChat} />}
-            <div className="relative p-4" onClick={() => setOpen(!isOpen)}>
-              <ChatNotification />
-              <ChatIcon />
-            </div>
+    <div className="fixed bottom-0 right-0 flex">
+      {user && (
+        <div className="flex flex-row items-end justify-end gap-x-6">
+          {isChat && <MessageBox user={ctx.chatUserId} setChat={setChat} />}
+          {isOpen && <ChatBox setOpen={setOpen} setChat={setChat} />}
+          <div className="relative p-4" onClick={() => setOpen(!isOpen)}>
+            <ChatNotification />
+            <ChatIcon />
           </div>
-        )}
-      </div>
-    </ChatContextProvider>
+        </div>
+      )}
+    </div>
   );
 }
