@@ -1,14 +1,15 @@
-"use client";
-import { useEffect, useState } from "react";
-import SmallPropertyCard from "./SmallPropertyCard";
-import Image from "next/image";
-import getTopProperty from "@/services/property/getTopProperty";
 import PropertyData from "@/models/PropertyData";
-import Link from "next/link";
-import getCurrentUser from "@/services/users/getCurrentUser";
 import UserData from "@/models/UserData";
+import getTopProperty from "@/services/property/getTopProperty";
+import getCurrentUser from "@/services/users/getCurrentUser";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import getProperties from "@/services/property/getProperties";
+import SmallPropertyCard from "../home-page/SmallPropertyCard";
+import Link from "next/link";
+import RelatedPropertyCard from "./RelatedPropertyCard";
 
-export default function FeaturesPropCatalog() {
+export default function RelatedProperty({ street }: { street: string }) {
   const [start, setStart] = useState<number>(0);
   const [windowSize, setWindowSize] = useState<number>(3);
   const [propertiesId, setPropsId] = useState<PropertyData[]>([]);
@@ -77,19 +78,13 @@ export default function FeaturesPropCatalog() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-y-10 bg-ci-gray px-16 py-24 sm:px-32">
+    <div className="flex w-full flex-col gap-y-10 bg-ci-gray px-16 py-12 sm:px-32">
       <div className="flex flex-col gap-y-5">
-        <div className="text-3xl font-semibold text-ci-blue sm:text-4xl">
-          Featured Listings
-        </div>
-        <div className="text-xl sm:text-2xl">
-          Here are some featured listings deals sourced by our experienced real
-          estate experts
-        </div>
+        <div className="text-3xl font-bold">Other Listings</div>
       </div>
 
       {propertiesId ? (
-        <div className="flex select-none flex-row justify-between gap-x-4">
+        <div className="flex flex-row items-center justify-between gap-x-4">
           {start > 0 ? (
             <Image
               src="/img/home-page/back.svg"

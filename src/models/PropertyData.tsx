@@ -1,4 +1,4 @@
-interface Image {
+export default interface PropertyImages {
   created_at: string;
   image_url: string;
 }
@@ -27,7 +27,7 @@ export default interface PropertyData {
   floor_size: number;
   floor_size_unit: string;
   furnishing: string;
-  property_images: Image[];
+  property_images: PropertyImages[];
   is_favorite: boolean;
   owner_id: string;
   postal_code: string;
