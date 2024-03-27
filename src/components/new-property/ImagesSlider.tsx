@@ -78,7 +78,7 @@ const Slider = ({
             </div>
           )}
           <img
-            src={imageList[active].image_url}
+            src={imageList[active]?.image_url || "/img/home-page/lumpini.png"}
             style={{
               width: width,
               height: height,
