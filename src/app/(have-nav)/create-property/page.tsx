@@ -111,7 +111,7 @@ export default function CreateProperty() {
 
   return (
     <div>
-      <button
+      {/* <button
         onClick={() => {
           setName("Property Name");
           setListingType("rent/sell");
@@ -147,7 +147,7 @@ export default function CreateProperty() {
         test var |
       </button>
       <button onClick={nextStage}>Next | </button>
-      <button onClick={backStage}>Back | </button>
+      <button onClick={backStage}>Back | </button> */}
       {createStage === 0 ? (
         <div>
           <ListingDetailPage

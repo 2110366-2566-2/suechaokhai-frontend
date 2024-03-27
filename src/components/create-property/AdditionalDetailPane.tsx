@@ -71,7 +71,7 @@ export default function AdditionalDetailPane({
 
   return (
     <div>
-      <button onClick={test}>test</button>
+      {/* <button onClick={test}>test</button> */}
       <TrackingCircle page="Additional" className="pb-10" />
       <div className="m-20 my-20 h-auto items-center justify-center space-y-10 rounded-2xl border-2 border-ci-gray bg-white p-4 px-20 pt-10">
         <h2 className="text-c-2xl mb-4 font-bold">Additional Details</h2>
