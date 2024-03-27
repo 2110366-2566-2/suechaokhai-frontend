@@ -195,8 +195,9 @@ const RoomTourRes = ({
                   onClick={(e) => {
                     e.preventDefault();
                     setReserve(true);
+                    const newSelectedDay = new Date(selectedDay.getTime() + (1000*60*60*24));
                     const strDay =
-                      selectedDay.toISOString().split("T")[0] +
+                      newSelectedDay.toISOString().split("T")[0] +
                       "T" +
                       selectedTime?.toISOString().split("T")[1].slice(0, -5) +
                       "Z";

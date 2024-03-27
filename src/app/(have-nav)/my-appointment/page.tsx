@@ -51,11 +51,11 @@ export default function MyAppointment() {
       const data = await getUserAppointment();
       console.log(data);
       setOwnerAppointmentData(data.owner_appointments);
-      if (ownerAppointmentData !== null) {
+      if (data.owner_appointments !== null) {
         setOwnerTotal(data.owner_appointments.length);
       }
       setDwellerAppointmentData(data.dweller_appointments);
-      if (dwellerAppointmentData !== null) {
+      if (data.dweller_appointments !== null) {
         setDwellerTotal(data.dweller_appointments.length);
       }
     };
@@ -104,6 +104,7 @@ export default function MyAppointment() {
 
   const getDate = (dateString: string) => {
     const date = new Date(dateString);
+    console.log(date)
 
     const day = date.getDate();
     const month = date.getMonth();
@@ -124,7 +125,7 @@ export default function MyAppointment() {
       "Dec",
     ];
 
-    return `${day} ${months[month - 1]} ${year}`;
+    return `${day} ${months[month]} ${year}`;
   };
 
   const getTime = (dateString: string) => {

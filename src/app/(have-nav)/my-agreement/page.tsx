@@ -55,11 +55,11 @@ export default function MyAgreement() {
           const data = await getUserAgreement();
           console.log(data);
           setOwnerAgreementData(data.owner_agreements);
-          if (ownerAgreementData !== null) {
+          if (data.owner_agreements !== null) {
             setOwnerTotal(data.owner_agreements.length);
           }
           setDwellerAgreementData(data.dweller_agreements);
-          if (dwellerAgreementData !== null) {
+          if (data.dweller_agreements !== null) {
             setDwellerTotal(data.dweller_agreements.length);
           }
         };

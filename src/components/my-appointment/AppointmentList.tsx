@@ -88,7 +88,7 @@ export default function AppointmentList({
         <div className="my-auto ml-28 flex h-full w-[12.5%] flex-col justify-between">
           <DetailButton appointmentId={apptId} />
           <CancelButton
-            status={status}
+            status={currentStatus}
             reasontmp={reason}
             setReason={setReason}
             setCancel={setCancel}
