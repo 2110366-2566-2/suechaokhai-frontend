@@ -36,18 +36,13 @@ export function CancelButton({
     setCancel: Function
 }) {
     const [isPending, setPending] = useState<Boolean>(false);
-    const [isValid, setValid] = useState<boolean>(false);
 
-    function checkValid() {
-        return (status === 'Renting')? setValid(true): setValid(false);
-    }
-
-    function checkOpen() {
-        return setPending(!isPending);
+    function checkStatus() {
+        return (status === 'Awaiting_deposit')? setPending(true): setPending(false);
     }
     
     const setButtonColor = (value: string) => {
-        return (status === 'Pending')? 'bg-ci-blue': 'bg-ci-dark-gray';
+        return (status === 'Awaiting_deposit')? 'bg-ci-blue': 'bg-ci-dark-gray';
     }
 
     const buttonColor = setButtonColor(status);
@@ -57,17 +52,17 @@ export function CancelButton({
     return (
         <div>
             <div className="h-[30%]">
-                {isValid ? (
+                {status === 'Awaiting_deposit'? (
                     <button 
                     className={`w-full ${buttonColor} text-white rounded-lg font-medium text-2xl text-center py-3 hover:shadow-blue-950 hover:shadow-inner`}
-                    onClick={() => checkOpen()}
+                    onClick={() => checkStatus()}
                     >
                         Cancel
                     </button>
                 ) : (
                     <button 
                     className={`w-full ${buttonColor} text-white rounded-lg font-medium text-2xl text-center py-3`}
-                    onClick={() => checkOpen()}
+                    onClick={() => checkStatus()}
                     disabled
                     >
                         Cancel

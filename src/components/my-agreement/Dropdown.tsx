@@ -17,7 +17,7 @@ interface IDropdownProps {
 	labelName?: string;
     selectedItem: string | number;
     setSelectedItem: Function;
-	id: string;
+	sid: string | undefined;
 	setId: Function;
 }
 
@@ -32,7 +32,7 @@ function Dropdown({
 	tabIndex,
     selectedItem,
     setSelectedItem,
-	id,
+	sid,
 	setId
 }: IDropdownProps) {
 	const [isFocused, setFocused] = useState<boolean>(false);

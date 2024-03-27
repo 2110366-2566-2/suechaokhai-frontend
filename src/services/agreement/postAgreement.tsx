@@ -3,7 +3,6 @@ import AgreementData from "@/models/AgreementData";
 export default async function postAgreement({
   agreementType,
   propertyId,
-  ownerId,
   dwellerId,
   agreementDate,
   status,
@@ -13,14 +12,13 @@ export default async function postAgreement({
   totalPayment
 } : {
   agreementType: string,
-  propertyId: string,
-  ownerId: string,
-  dwellerId: string,
+  propertyId: string | undefined,
+  dwellerId: string | undefined,
   agreementDate: string,
   status: string,
-  depositAmt: number,
-  paymentPerMonth: number,
-  paymentDuration: number,
+  depositAmt: number | undefined,
+  paymentPerMonth: number | undefined,
+  paymentDuration: number | undefined,
   totalPayment: number 
 }) {
     // const apptISODate = apptDate.toISOString()

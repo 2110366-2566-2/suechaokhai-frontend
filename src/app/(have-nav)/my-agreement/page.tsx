@@ -43,6 +43,7 @@ export default function MyAgreement() {
     const [showFilter, setShowFilter] = useState(false);
     const [isMakingAgreement, setMakingAgreement] = useState<boolean>(false);
     const [isCreateValid, setCreateValid] = useState<boolean>(false);
+    const [isPosted, setPosted] = useState<boolean>(false);
     const [selectedStatus, setSelectedStatus] = useState<Array<string>>([
         "Archive", 
         "Await Deposit", 
@@ -90,7 +91,8 @@ export default function MyAgreement() {
         };
         fetchData();
         setFinishFetching(true);
-      }, []);
+        setPosted(false);
+      }, [isPosted]);
 
     // useEffect(() => {
     //     console.log(total);
@@ -174,22 +176,22 @@ export default function MyAgreement() {
     }, [])
 
     useEffect(() => {
-      if (selectedPropertyOption === null || 
-          selectedDwellerOption === null ||
-          deptAmount === null ||
-          paymentPerMonth === null ||
-          paymentDuration === null  
+      if (selectedPropertyOption === undefined || 
+          selectedDwellerOption === undefined ||
+          deptAmount === undefined ||
+          paymentPerMonth === undefined ||
+          paymentDuration === undefined 
         ) {
           setCreateValid(false);
         }
       else {
         setCreateValid(true);
       }
-      // console.log(selectedPropertyOption)
-      // console.log(selectedDwellerOption)
-      // console.log(deptAmount)
-      // console.log(paymentPerMonth)
-      // console.log(paymentDuration)
+      console.log(selectedPropertyOption)
+      console.log(selectedDwellerOption)
+      console.log(deptAmount)
+      console.log(paymentPerMonth)
+      console.log(paymentDuration)
     }, [selectedPropertyOption, selectedDwellerOption, deptAmount, paymentPerMonth, paymentDuration])
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -210,23 +212,27 @@ export default function MyAgreement() {
     };
 
     const handlePost = async () => {
-      const agreementType = selectOn % 2 == 0 ? 'RENTING': 'SELLING'
+      const agreementType = selectOn % 2 == 0 ? 'RENTING': 'SELLING';
+      const propertyId = selectedPropertyId;
+      const dwellerId = selectedDwellerId;
       const date = new Date().toISOString();
       const firstStatus = 'AWAITING_DEPOSIT';
       const sum = deptAmount + (paymentPerMonth * paymentDuration);
-      const data = await postAgreement({
-        agreementType,
-        selectedPropertyId,
-        userId,
-        selectedDwellerId,
-        date,
-        firstStatus,
-        deptAmount,
-        paymentPerMonth,
-        paymentDuration,
-        sum
-      });
+      const data = {
+        agreementType: agreementType,
+        propertyId: propertyId,
+        dwellerId: dwellerId,
+        agreementDate: date,
+        status: firstStatus,
+        depositAmt: deptAmount,
+        paymentPerMonth: paymentPerMonth,
+        paymentDuration: paymentDuration,
+        totalPayment: sum
+      };
+      const response = await postAgreement(data);
+      console.log(response)
       console.log('posted');
+      setPosted(true);
     }
 
     const getDate = (dateString: string) => {
@@ -358,7 +364,7 @@ export default function MyAgreement() {
                                 </div>
                                 <div className="">
                                     <Dropdown 
-                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedPropertyOption} setSelectedItem={setSelectedPropertyOption} id={selectedPropertyId} setId={setSelectedPropertyId}
+                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedPropertyOption} setSelectedItem={setSelectedPropertyOption} sid={selectedPropertyId} setId={setSelectedPropertyId}
                                     />
                                 </div>
                             </div>
@@ -369,7 +375,7 @@ export default function MyAgreement() {
                                 <div className="">
                                     <Dropdown 
                                         name="Dweller" options={dwellersOptions} required={true} placeHolder="Select Dweller" 
-                                        type="arrow-down" selectedItem={selectedDwellerOption} setSelectedItem={setSelectedDwellerOption} id={selectedDwellerId} setId={setSelectedDwellerId}
+                                        type="arrow-down" selectedItem={selectedDwellerOption} setSelectedItem={setSelectedDwellerOption} sid={selectedDwellerId} setId={setSelectedDwellerId}
                                     />
                                 </div>
                             </div>
@@ -450,7 +456,11 @@ export default function MyAgreement() {
                             {isCreateValid ? (
                                 <button 
                                   className="w-full h-1/3 text-white font-semibold text-xl bg-ci-blue rounded-full my-auto"
-                                  onClick={handlePost}
+                                  onClick={() => {
+                                    setCreateValid(false);
+                                    setMakingAgreement(false);
+                                    handlePost();
+                                  }}
                                 >
                                   Create
                                 </button>
