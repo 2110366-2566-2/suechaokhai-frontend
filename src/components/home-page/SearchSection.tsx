@@ -2,20 +2,26 @@
 
 import { min } from "date-fns/fp/min";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, useState, useEffect } from "react";
+import { useSearchContext } from "@/context/SearchContext";
 
 export default function SearchSection() {
+  const router = useRouter();
+
+  const { searchContent, searchFilters } = useSearchContext();
+
   const [filterPrice, setFilterPrice] = useState(false);
   const [filterSize, setFilterSize] = useState(false);
   const [filterBedroom, setFilterBedroom] = useState(false);
 
-  const [searchContent, setSearchContent] = useState("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [minSize, setMinSize] = useState<number>(0);
   const [maxSize, setMaxSize] = useState<number>(0);
   const [bedrooms, setBedrooms] = useState<number>(0);
+
+  const [bedNull, setBedNull] = useState<boolean>(true);
 
   function formatBedroom(val: number) {
     if (val < 0) {
@@ -25,37 +31,33 @@ export default function SearchSection() {
     }
   }
 
-  function test() {
-    console.log(searchContent);
-    console.log(minPrice);
-    console.log(maxPrice);
-    console.log(minSize);
-    console.log(maxSize);
-    console.log(bedrooms);
-    window.location.href = `http://localhost:3000/search?search=${searchContent}&min-price=${minPrice}&max-price=${maxPrice}&min-size=${minSize}&max-size=${maxSize}&bedrooms=${bedrooms}`;
-  }
+  useEffect(() => {
+    if (!bedNull) searchFilters.current.numBedrooms = bedrooms;
+    // console.log(searchFilters.current.numBedrooms,"test filter home")
+  }, [bedrooms]);
 
   return (
-    <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl">
+    <div className="mt-6 flex h-96 w-10/12 flex-col gap-y-6 text-sm sm:text-sm md:text-base lg:w-1/2 2xl:text-xl ">
       <div className="flex h-32 flex-row items-center justify-center gap-x-7 rounded-2xl bg-white px-7 text-black">
         <input
           type="text"
           className="h-1/2 w-full rounded-xl border border-ci-dark-gray px-5"
           placeholder="Location, building"
           onChange={(e) => {
-            setSearchContent(e.target.value);
+            searchContent.current = e.target.value;
+            console.log(searchContent.current, "testing");
           }}
         ></input>
         <button
-          onClick={test}
-          className="h-1/2 w-56 rounded-xl bg-ci-blue font-semibold text-white"
+          onClick={() => router.push("/search")}
+          className="h-1/2 w-56 select-none rounded-xl bg-ci-blue font-semibold text-white"
         >
           Search Now!
         </button>
       </div>
 
-      <div className="flex w-full flex-row gap-x-7 text-ci-black">
-        <div className="flex w-1/3 min-w-24 flex-col gap-3">
+      <div className="flex w-full select-none flex-row gap-x-7 text-ci-black">
+        <div className="flex w-1/3 min-w-24 flex-col gap-3 ">
           <div
             onClick={() => setFilterPrice(!filterPrice)}
             className="flex h-16 w-full cursor-pointer place-content-between items-center rounded-xl bg-white px-6 text-left "
@@ -230,7 +232,7 @@ export default function SearchSection() {
                   className="size-10 rounded-xl border border-ci-gray px-2 text-center sm:size-14"
                   onChange={(e) => {
                     if (e.target.value === "") {
-                      setBedrooms(0);
+                      formatBedroom(0);
                     } else {
                       formatBedroom(Number(e.target.value));
                     }
@@ -240,6 +242,7 @@ export default function SearchSection() {
                 <button
                   onClick={() => {
                     formatBedroom(bedrooms + 1);
+                    setBedNull((prev) => false);
                   }}
                   className="cursor-pointer rounded-xl px-2 text-2xl hover:bg-ci-gray"
                 >

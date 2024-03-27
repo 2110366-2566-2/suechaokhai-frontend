@@ -1,27 +1,31 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import PropertyData from "../models/PropertyData";
-import addUserFavorite from "@/services/addUserFavorite";
-import deleteUserFavorite from "@/services/removeUserFavorite";
+import PropertyData from "../../models/PropertyData";
+import unfavoriteProperty from "@/services/property/unfavoriteProperty";
+import favoriteProperty from "@/services/property/favoriteProperty";
+import getCurrentUser from "@/services/users/getCurrentUser";
+import UserData from "@/models/UserData";
 export default function SmallPropertyCard({
   property,
+  user,
 }: {
   property: PropertyData;
+  user: UserData | undefined;
 }) {
   const [isFavorite, setIsFavorite] = useState<boolean>(property.is_favorite);
 
   async function favoriting() {
     if (isFavorite) {
-      const res = await deleteUserFavorite(property.property_id);
+      const res = await unfavoriteProperty(property.property_id);
     } else {
-      const res = await addUserFavorite(property.property_id);
+      const res = await favoriteProperty(property.property_id);
     }
   }
 
   return (
     <div>
       {property ? (
-        <div className="w-[320px] rounded-3xl bg-white xl:w-[400px]">
+        <div className="w-[320px] select-none rounded-3xl bg-white xl:w-[400px]">
           <div className="relative h-60 w-full">
             <Image
               src="/img/home-page/lumpini.png"
@@ -35,30 +39,32 @@ export default function SmallPropertyCard({
               <div className="text-lg font-semibold xl:text-2xl">
                 {property.property_name}
               </div>
-              <div
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsFavorite(!isFavorite);
-                  favoriting();
-                }}
-                className="cursor-pointer"
-              >
-                {isFavorite ? (
-                  <Image
-                    src="/img/home-page/heart-like.svg"
-                    alt="heart"
-                    width={32}
-                    height={32}
-                  />
-                ) : (
-                  <Image
-                    src="/img/home-page/heart-outline.svg"
-                    alt="heart"
-                    width={32}
-                    height={32}
-                  />
-                )}
-              </div>
+              {user && (
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsFavorite(!isFavorite);
+                    favoriting();
+                  }}
+                  className="cursor-pointer"
+                >
+                  {isFavorite ? (
+                    <Image
+                      src="/img/home-page/heart-like.svg"
+                      alt="heart"
+                      width={32}
+                      height={32}
+                    />
+                  ) : (
+                    <Image
+                      src="/img/home-page/heart-outline.svg"
+                      alt="heart"
+                      width={32}
+                      height={32}
+                    />
+                  )}
+                </div>
+              )}
             </div>
 
             <span className="w-full border-t border-black"></span>
@@ -68,7 +74,7 @@ export default function SmallPropertyCard({
                 {property.street}, {property.province}
               </div>
               <div className="font-semibold">
-                {property.renting.price_per_month}/month
+                {property.renting_property.price_per_month}/month
               </div>
             </div>
 

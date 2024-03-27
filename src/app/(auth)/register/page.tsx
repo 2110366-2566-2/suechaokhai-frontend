@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import RegisterPage1 from "@/components/register-login/RegisterPage1";
 import PersonalInformation from "@/components/register-login/PersonalInformation";
-import AccountCreated from "@/components/register-login/AccountCreated";
-import userRegister from "@/services/userRegister";
+import userRegister from "@/services/users/userRegister";
 import { useSearchParams } from "next/navigation";
-import authCallback from "@/services/authCallback";
+import authCallback from "@/services/auth/authCallback";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import EmailVerificationPage from "@/components/register-login/EmailVerificationPage";
+import sendVerification from "@/services/emails/sendVerificationEmail";
+import AccountCreated from "@/components/register-login/AccountCreated";
 
 export interface PersonalInfo {
   email: string;
@@ -46,7 +48,6 @@ export default function RegisterPage() {
   useEffect(() => {
     async function getUser() {
       try {
-        // const data = await getCurrentUserRegister();
         const data = await authCallback(queryString);
 
         if (data.registered_type === "GOOGLE")
@@ -90,7 +91,6 @@ export default function RegisterPage() {
       img: img,
       registered_type: registeredType,
     });
-    console.log(userRegis);
     setFinReg(userRegis);
   };
 
@@ -132,6 +132,17 @@ export default function RegisterPage() {
 
       {registerStage === 1 ? (
         <div>
+          <EmailVerificationPage
+            email={email}
+            changeRegState={changeRegState}
+            finReg={finReg}
+            isGoogle={isGoogle}
+          />
+        </div>
+      ) : null}
+
+      {registerStage === 2 ? (
+        <div>
           <PersonalInformation
             firsttmp={firstName}
             lasttmp={lastName}
@@ -142,13 +153,14 @@ export default function RegisterPage() {
             changeRegState={changeRegState}
             setImg={setImg}
             register={register}
+            isGoogle={isGoogle}
           />
         </div>
       ) : null}
 
-      {registerStage === 2 ? (
+      {registerStage === 3 ? (
         <div>
-          <AccountCreated changeRegState={changeRegState} finReg={finReg} />
+          <AccountCreated />
         </div>
       ) : null}
     </div>
