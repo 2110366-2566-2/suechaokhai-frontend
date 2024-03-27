@@ -10,18 +10,23 @@ import deleteProperty from "@/services/property/deleteProperty";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
+import {useRouter} from "next/navigation";
+
 const PropertyCard = ({
   propData,
   editable,
-  imgSrc,
+  canFav,
 }: {
   propData: PropertyData;
   editable: boolean;
-  imgSrc: string;
+  canFav: boolean;
 }) => {
   const [fav, setFav] = useState<boolean>(propData.is_favorite);
   const [isDeleting, setDel] = useState<boolean>(false);
-
+  const imgSrc = propData.property_images.length !== 0
+    ? propData.property_images[0].image_url
+    : "/img/Property.png";
+  const router = useRouter()
   const { toast } = useToast();
 
   function formatPrice(num: number): string {
@@ -48,7 +53,7 @@ const PropertyCard = ({
           <div className="medium-text  w-full font-semibold ">
             {propData.property_name}
           </div>
-          {fav ? (
+          {canFav && fav ? (
             <FavoriteIcon
               className="text-ci-red"
               sx={{ fontSize: 30 }}
@@ -58,7 +63,8 @@ const PropertyCard = ({
                 if (res) console.log(res.message);
               }}
             ></FavoriteIcon>
-          ) : (
+          ) : null}
+          {canFav && !fav ? (
             <FavoriteBorderIcon
               className="text-ci-red"
               sx={{ fontSize: 30 }}
@@ -68,7 +74,7 @@ const PropertyCard = ({
                 if (res) console.log(res.message);
               }}
             ></FavoriteBorderIcon>
-          )}
+          ) : null}
         </div>
         <hr className="border-black "></hr>
 
@@ -89,7 +95,7 @@ const PropertyCard = ({
               <Image src="/img/mylisting/bed.svg" alt="bed" fill={true} />
             </div>
 
-            <div className="small-text">2 Bedrooms</div>
+            <div className="small-text">{propData.bathrooms} Bedrooms</div>
           </div>
 
           <div className="my-1 flex  w-full flex-row items-center justify-around lg:w-1/2">
@@ -97,14 +103,14 @@ const PropertyCard = ({
               <Image src="/img/mylisting/arrow.svg" alt="arrow" fill={true} />
             </div>
 
-            <div className="small-text">60 m²</div>
+            <div className="small-text">{propData.floor_size} m²</div>
           </div>
         </div>
         {editable ? (
           <div className=" flex flex-col items-center ">
             <button
               className="small-text  in-card-button  bg-ci-blue "
-              //! link to edit prop page\
+              //! link to edit prop page
             >
               Edit details
             </button>
@@ -121,9 +127,11 @@ const PropertyCard = ({
           <div className=" flex flex-col items-center ">
             <button
               className="small-text  in-card-button  bg-ci-blue "
-              //! link to propDesc page
+              onClick={()=>{
+                router.push("/properties/"+propData.property_id);
+              }}
             >
-              Views more details
+              View more details
             </button>
           </div>
         )}
@@ -155,10 +163,8 @@ const PropertyCard = ({
                   setDel(!isDeleting);
                   const res = await deleteProperty(propData.property_id);
                   if (res) {
-                    // router.push("listing");
                     window.location.href = "/listing";
                     toast({
-                      // variant: "destructive",
                       title: "Deleted",
                       description:
                         "Your property has been deleted successfully.",
