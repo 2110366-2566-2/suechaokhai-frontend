@@ -75,7 +75,10 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
 
   formData.append("property_name", propertyInfo.name);
   formData.append("property_description", propertyInfo.description);
-  formData.append("property_type", propertyInfo.propertyType.toUpperCase());
+  formData.append(
+    "property_type",
+    propertyInfo.propertyType.replaceAll(" ", "_").toUpperCase()
+  );
   formData.append("address", propertyInfo.address);
 
   formData.append("alley", propertyInfo.alley);
@@ -88,11 +91,14 @@ export default async function propertyCreate(propertyInfo: PropertyInfo) {
 
   formData.append("bedrooms", propertyInfo.bedrooms);
   formData.append("bathrooms", propertyInfo.bathrooms);
-  formData.append("furnishing", propertyInfo.furnishing.toUpperCase());
+  formData.append(
+    "furnishing",
+    propertyInfo.furnishing.replaceAll("-", "_").toUpperCase()
+  );
   formData.append("floor", propertyInfo.floor);
   formData.append("floor_size", propertyInfo.floorSize);
-  // formData.append("floor_size_unit", propertyInfo.floorSizeUnit);
-  formData.append("floor_size_unit", "SQFT");
+  formData.append("floor_size_unit", propertyInfo.floorSizeUnit);
+  // formData.append("floor_size_unit", "SQFT");
   formData.append("unit_number", propertyInfo.unitNumber);
 
   formData.append("price", propertyInfo.salePrice);

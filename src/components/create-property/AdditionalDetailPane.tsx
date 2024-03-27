@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { redirect } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import FurnishingButton from "@/components/create-property/FurnishingButton";
 import TrackingCircle from "@/components/create-property/TrackingCircle";
@@ -31,10 +33,17 @@ export default function AdditionalDetailPane({
     imageURLs,
   } = additionalDetailPaneProps;
 
+  // const router = useRouter();
+
   async function nextPageStatus() {
     console.log(additionalDetailPaneProps);
     const res = await createProperty();
     console.log(res);
+    // redirect to the homepage
+    window.location.href = "/";
+    // redirect("/");
+    // router.push("/app/(have-nav)/page");
+    alert("Property created successfully!");
   }
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,11 +85,11 @@ export default function AdditionalDetailPane({
                     <FurnishingButton
                       furnishing={furnishing}
                       label="Ready to Move"
-                      tag={"ready-to-move"}
+                      tag={"ready-to-move-in"}
                       onClick={() =>
                         setAdditionalDetailPaneProps({
                           ...additionalDetailPaneProps,
-                          furnishing: "ready-to-move",
+                          furnishing: "ready-to-move-in",
                         })
                       }
                     />
@@ -152,7 +161,7 @@ export default function AdditionalDetailPane({
                     bedrooms: e.target.value,
                   })
                 }
-                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 text-ci-light-gray shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -173,7 +182,7 @@ export default function AdditionalDetailPane({
                     bathrooms: e.target.value,
                   })
                 }
-                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -194,7 +203,7 @@ export default function AdditionalDetailPane({
                     floor: e.target.value,
                   })
                 }
-                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
@@ -216,7 +225,7 @@ export default function AdditionalDetailPane({
                       floorSize: e.target.value,
                     })
                   }
-                  className="sm:text-c-sm block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-blue-500"
+                  className="sm:text-c-sm block rounded-l-md border-gray-300 pr-12 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 />
                 <div className="flex items-center rounded-md bg-ci-light-blue hover:bg-ci-dark-blue">
                   <label htmlFor="floorSizeUnit" className="sr-only">
@@ -224,7 +233,13 @@ export default function AdditionalDetailPane({
                   </label>
                   <select
                     id="floorSizeUnit"
-                    className="sm:text-sm h-full border-transparent bg-transparent py-0 pl-2 pr-7  text-white focus:border-blue-500 focus:ring-blue-500"
+                    className="sm:text-sm h-full border-transparent bg-transparent py-0 pl-2 pr-7  text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                    onChange={(e) =>
+                      setAdditionalDetailPaneProps({
+                        ...additionalDetailPaneProps,
+                        floorSizeUnit: e.target.value.toUpperCase(),
+                      })
+                    }
                   >
                     <option value="sqm">sqm</option>
                     <option value="sqft">sqft</option>
@@ -251,7 +266,7 @@ export default function AdditionalDetailPane({
                     unitNumber: e.target.value,
                   })
                 }
-                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="sm:text-c-sm mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>

@@ -62,7 +62,7 @@ export default function CreateProperty() {
       furnishing: "",
       floor: "",
       floorSize: "",
-      floorSizeUnit: "",
+      floorSizeUnit: "SQM",
       unitNumber: "",
       images: [],
       imageURLs: [],
@@ -84,7 +84,7 @@ export default function CreateProperty() {
       rentPrice: rentPrice,
       salePrice: salePrice,
       address: address,
-      
+
       alley: "",
       street: "",
       sub_district: "",
@@ -111,6 +111,21 @@ export default function CreateProperty() {
 
   return (
     <div>
+      {/* <button
+        onClick={() => {
+          console.log(name);
+          console.log(listingType);
+          console.log(propertyType);
+          console.log(rentPrice);
+          console.log(salePrice);
+          console.log(description);
+          console.log(address);
+        }}
+      >
+        test var |
+      </button>
+      <button onClick={nextStage}>Next | </button>
+      <button onClick={backStage}>Back | </button> */}
       {createStage === 0 ? (
         <div>
           <ListingDetailPage
@@ -130,8 +145,6 @@ export default function CreateProperty() {
             setDescription={setDescription}
             setAddress={setAddress}
           />
-          <button onClick={nextStage}>Next</button>
-          <button onClick={backStage}>Back</button>
         </div>
       ) : null}
       {createStage === 1 ? (
@@ -143,21 +156,6 @@ export default function CreateProperty() {
             nextStage={nextStage}
             backStage={backStage}
           />
-          <button onClick={nextStage}>Back</button>
-          <div></div>
-          <button
-            onClick={() => {
-              console.log(name);
-              console.log(listingType);
-              console.log(propertyType);
-              console.log(rentPrice);
-              console.log(salePrice);
-              console.log(description);
-              console.log(address);
-            }}
-          >
-            test
-          </button>
         </div>
       ) : null}
     </div>
