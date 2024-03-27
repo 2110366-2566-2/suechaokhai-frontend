@@ -63,11 +63,13 @@ export default function PropertyDetail({
   }, []);
 
   return (
-    <div className="flex w-11/12 flex-col gap-y-10 text-xl">
+    <div className="flex w-11/12 flex-col gap-y-10 text-base sm:text-xl">
       <div className="flex w-full flex-row items-center">
         <div className="flex w-1/2 flex-col gap-y-4 py-6">
           <div className="flex flex-row gap-x-10">
-            <div className="text-4xl font-bold">{property.property_name}</div>
+            <div className="text-2xl font-bold sm:text-4xl">
+              {property.property_name}
+            </div>
             {user && (
               <div
                 onClick={(e) => {
@@ -75,7 +77,7 @@ export default function PropertyDetail({
                   setIsFavorite(!isFavorite);
                   favoriting();
                 }}
-                className="cursor-pointer"
+                className="min-h-8 min-w-8 cursor-pointer"
               >
                 {isFavorite ? (
                   <Image

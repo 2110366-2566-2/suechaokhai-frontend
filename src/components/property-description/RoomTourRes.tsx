@@ -216,7 +216,7 @@ const RoomTourRes = ({
       <div className="flex w-full flex-col items-start justify-start gap-y-6">
         {/* <div className="text-xl font-bold">Room Tour Reservation</div> */}
         <button
-          className="w-1/4 min-w-fit rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
+          className="w-1/4 min-w-60 rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
           onClick={(e) => {
             e.preventDefault();
             handleReservation();
@@ -225,7 +225,7 @@ const RoomTourRes = ({
           Chat with Owner
         </button>
         <button
-          className="w-1/4 min-w-fit rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
+          className="w-1/4 min-w-60 rounded-full bg-ci-blue px-4 py-2 text-lg font-semibold text-white shadow hover:bg-blue-800 sm:text-xl"
           onClick={(e) => {
             e.preventDefault();
             setReserve(true);
