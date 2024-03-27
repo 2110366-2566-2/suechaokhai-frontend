@@ -211,10 +211,11 @@ export default function MyAppointment() {
       </div>
 
       <div className="h-[80px] rounded-t-3xl bg-ci-dark-blue text-2xl font-semibold text-white">
-        <div className="mx-auto my-auto flex h-full w-[90%] flex-row">
-          <div className="my-auto ml-2 w-[40%]">Property</div>
-          <div className="mx-[80px] my-auto">Date - Time</div>
-          <div className="mx-[80px] my-auto">Status</div>
+        <div className="mx-auto my-auto flex h-full w-[90%] flex-row justify-start">
+          <div className="my-auto w-[40%]">Property</div>
+          <div className="w-[15%] mx-auto my-auto">Date - Time</div>
+          <div className="w-[15%] mx-auto my-auto">Status</div>
+          <div className="mx-auto"></div>
         </div>
       </div>
       {finishFetching ? (

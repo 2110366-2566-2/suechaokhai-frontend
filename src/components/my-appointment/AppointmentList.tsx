@@ -48,8 +48,8 @@ export default function AppointmentList({
   }, [isCancelled]);
 
   return (
-    <div className="h-[240px] w-full border-x-4 border-y-2 border-ci-dark-gray bg-ci-light-gray">
-      <div className="mx-auto my-10 flex h-[67%] w-[90%] flex-row justify-between">
+    <div className="flex h-[240px] w-full border-x-4 border-y-2 border-ci-dark-gray bg-ci-light-gray">
+      <div className="mx-auto flex h-[67%] w-[90%] flex-row my-auto">
         <div className="my-auto flex w-[40%] flex-row">
           <div className="my-auto w-[40%]">
             <Image
@@ -78,14 +78,14 @@ export default function AppointmentList({
             </div>
           </div>
         </div>
-        <div className="font-regular my-auto ml-20 flex w-[15%] flex-col text-2xl">
+        <div className="font-regular my-auto mx-auto flex w-[15%] flex-col text-2xl">
           <div>{date}</div>
           <div className="mt-2">{time}</div>
         </div>
-        <div className="my-auto ml-20 h-[30%] w-[12.5%]">
+        <div className="my-auto mx-auto h-[30%] w-[12.5%]">
           <StatusBox status={currentStatus} />
         </div>
-        <div className="my-auto ml-28 flex h-full w-[12.5%] flex-col justify-between">
+        <div className="my-auto ml-auto flex h-full w-[12.5%] flex-col justify-between">
           <DetailButton appointmentId={apptId} />
           <CancelButton
             status={currentStatus}
