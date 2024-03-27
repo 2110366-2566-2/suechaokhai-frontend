@@ -274,7 +274,7 @@ export default function MyAgreement() {
                       </div>
           
                       <Image
-                        src="/img/mylisting/home.svg"
+                        src="/img/my-agreement/handshake.svg"
                         alt="home"
                         width={100}
                         height={100}
@@ -325,7 +325,7 @@ export default function MyAgreement() {
                       </div>
           
                       <Image
-                        src="/img/mylisting/home.svg"
+                        src="/img/my-agreement/handshake.svg"
                         alt="home"
                         width={100}
                         height={100}

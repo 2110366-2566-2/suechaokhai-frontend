@@ -11,8 +11,10 @@ import AppointmentDetailData from "@/models/AppointmentDetailData";
 import getOwnerData from "@/services/users/getOwnerData";
 
 export default function MyAppointment() {
-  const [appointmentData, setAppointmentData] = useState<AppointmentData[]>([]);
-  const [total, setTotal] = useState<number>(0);
+  const [ownerAppointmentData, setOwnerAppointmentData] = useState<AppointmentData[]>([]);
+  const [dwellerAppointmentData, setDwellerAppointmentData] = useState<AppointmentData[]>([]);
+  const [ownerTotal, setOwnerTotal] = useState<number>(0);
+  const [dwellerTotal, setDwellerTotal] = useState<number>(0);
   const [appointmentDetail, setAppointmentDetail] = useState<
     AppointmentDetailData[]
   >([]);
@@ -48,8 +50,10 @@ export default function MyAppointment() {
     const fetchData = async () => {
       const data = await getUserAppointment();
       console.log(data);
-      setAppointmentData(data);
-      setTotal(data.length);
+      setOwnerAppointmentData(data.owner_appointments);
+      setOwnerTotal(data.owner_appointments.length);
+      setDwellerAppointmentData(data.dweller_appointments);
+      setDwellerTotal(data.dweller_appointments.length);
     };
     fetchData();
     setFinishFetching(true);
@@ -73,9 +77,11 @@ export default function MyAppointment() {
   // }, [appointmentData])
 
   useEffect(() => {
-    console.log(appointmentData);
-    console.log(total);
-  }, [appointmentData]);
+    console.log(ownerAppointmentData);
+    console.log(ownerTotal);
+    console.log(dwellerAppointmentData);
+    console.log(dwellerTotal);
+  }, [ownerAppointmentData]);
 
   useEffect(() => {
     console.log(appointmentDetail);
@@ -208,40 +214,122 @@ export default function MyAppointment() {
       </div>
       {finishFetching ? (
         <div>
-          {appointmentData.map((appt) => {
-            return (
-              <AppointmentList
-                apptId={appt.appointment_id}
-                propertyImgSrc={
-                  appt.property.property_images.length === 0
-                    ? "/img/my-appointment/mhadaeng.png"
-                    : appt.property.property_images[0].image_url
-                }
-                propertyName={appt.property.property_name}
-                propertySubName={
-                  appt.property.property_type.charAt(0) +
-                  appt.property.property_type.toLowerCase().slice(1)
-                }
-                ownerImgSrc={appt.owner.owner_profile_image_url}
-                ownerName={
-                  appt.owner.owner_first_name + " " + appt.owner.owner_last_name
-                }
-                date={getDate(appt.appointment_date)}
-                time={getTime(appt.appointment_date)}
-                status={
-                  appt.status.charAt(0) + appt.status.toLowerCase().slice(1)
-                }
-              />
-            );
-          })}
+          {selectOn % 2 == 0 ? (
+              <div>
+                {dwellerTotal == 0 ? (
+                    <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
+                      <div className="large-text text-center font-bold">
+                        Empty appointment listing
+                      </div>
+          
+                      <Image
+                        src="/img/my-agreement/handshake.svg"
+                        alt="home"
+                        width={100}
+                        height={100}
+                      />
+                      
+                      <div className="m-1 text-center text-2xl">
+                        Your appointment is empty.
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                        {dwellerAppointmentData.map((appt) => {
+                          return (
+                            <AppointmentList
+                              apptId={appt.appointment_id}
+                              propertyImgSrc={
+                                appt.property.property_images.length === 0
+                                  ? "/img/my-appointment/mhadaeng.png"
+                                  : appt.property.property_images[0].image_url
+                              }
+                              propertyName={appt.property.property_name}
+                              propertySubName={
+                                appt.property.property_type.charAt(0) +
+                                appt.property.property_type.toLowerCase().slice(1)
+                              }
+                              ownerImgSrc={appt.owner.owner_profile_image_url}
+                              ownerName={
+                                appt.owner.owner_first_name + " " + appt.owner.owner_last_name
+                              }
+                              date={getDate(appt.appointment_date)}
+                              time={getTime(appt.appointment_date)}
+                              status={
+                                appt.status.charAt(0) + appt.status.toLowerCase().slice(1)
+                              }
+                            />
+                          );
+                        })}
+                    </div>
+                )}
+              </div>
+          ) : (
+            <div>
+                {ownerTotal == 0 ? (
+                    <div className="mx-72 mt-8 flex h-1/2 flex-col items-center justify-around">
+                      <div className="large-text text-center font-bold">
+                        Empty appointment listing
+                      </div>
+          
+                      <Image
+                        src="/img/my-agreement/handshake.svg"
+                        alt="home"
+                        width={100}
+                        height={100}
+                      />
+                      
+                      <div className="m-1 text-center text-2xl">
+                        Your appointment is empty.
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                        {ownerAppointmentData.map((appt) => {
+                          return (
+                            <AppointmentList
+                              apptId={appt.appointment_id}
+                              propertyImgSrc={
+                                appt.property.property_images.length === 0
+                                  ? "/img/my-appointment/mhadaeng.png"
+                                  : appt.property.property_images[0].image_url
+                              }
+                              propertyName={appt.property.property_name}
+                              propertySubName={
+                                appt.property.property_type.charAt(0) +
+                                appt.property.property_type.toLowerCase().slice(1)
+                              }
+                              ownerImgSrc={appt.owner.owner_profile_image_url}
+                              ownerName={
+                                appt.owner.owner_first_name + " " + appt.owner.owner_last_name
+                              }
+                              date={getDate(appt.appointment_date)}
+                              time={getTime(appt.appointment_date)}
+                              status={
+                                appt.status.charAt(0) + appt.status.toLowerCase().slice(1)
+                              }
+                            />
+                          );
+                        })}
+                    </div>
+                )}
+              </div>
+          )}
+
+          
         </div>
       ) : null}
 
-      {/* <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 3" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2005" time="13:39" status="Pending"/>
-            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 2" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="1 Apr 2003" time="13:26" status="Cancelled"/>
-            <AppointmentList apptId="abc" propertyImgSrc="/img/my-appointment/mhadaeng.png" propertyName="Bhan Mha Daeng 1" propertySubName="Project House of Mha Daeng" ownerImgSrc="/img/my-appointment/owapapi.png" ownerName="Owa Papi" date="30 Dec 2002" time="19:00" status="Archive"/> */}
       <div className="mx-auto flex h-20 w-full place-items-center justify-center text-2xl font-medium">
-        {total} lists
+        {selectOn % 2 == 0 ? (
+          <div>
+            {dwellerTotal} lists
+          </div>
+        ) : (
+          <div>
+            {ownerTotal} lists
+          </div>
+        )}
       </div>
     </div>
   );
