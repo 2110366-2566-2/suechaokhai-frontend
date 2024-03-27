@@ -5,55 +5,54 @@ import PersonalPage from "@/components/edit-profile/PersonalPage";
 import OwnerPage from "@/components/edit-profile/OwnerPage";
 import FinancialPage from "@/components/edit-profile/FinancialPage";
 import { NotSavedPopUp } from "@/components/edit-profile/NotSavedPopUp";
-type Tab = "personal" | "financial" | "owner";
-const personalIcon = "/img/edit-profile/personal-icon.svg";
-const financialIcon = "/img/edit-profile/financial-icon.svg";
-const ownerIcon = "/img/edit-profile/owner-icon.svg";
+import ListingDetail from "@/components/edit-property/ListingDetails";
+type Tab = "Listing Details" | "Additional Details" | "Contact Details";
 
-const EditProfile = () => {
-  const [tab, setTab] = useState<Tab>("personal");
+const EditProperty = ({ params }: { params: { id: string } }) => {
+  const [tab, setTab] = useState<Tab>("Listing Details");
 
   const [isChangesExist, setIsChangesExist] = useState<boolean>(false);
   const [isSwitchingTab, setIsSwitchingTab] = useState<boolean>(false);
-  const switchToPersonal = () => setTab("personal");
-  const switchToFinancial = () => {
+
+
+  const switchToListing = () => setTab("Listing Details");
+  const switchToAdditional = () => {
     if (!isChangesExist) {
-      setTab("financial");
+      setTab("Additional Details");
       setIsSwitchingTab(false);
     } else {
       setIsSwitchingTab(true);
     }
   };
-  const switchToOwner = () => {
+  const switchToContact = () => {
     if (!isChangesExist) {
-      setTab("owner");
+      setTab("Contact Details");
       setIsSwitchingTab(false);
     } else {
       setIsSwitchingTab(true);
     }
   };
+
   return (
     <div className=" flex min-h-dvh  flex-row">
       <Sidebar
-        switchTo1={switchToPersonal}
-        switchTo2={switchToFinancial}
-        switchTo3={switchToOwner}
-        header="Edit Profile"
-        text1="Personal Information"
-        text2="Financial Informations"
-        text3="Owner Information"
-        iconSrc1={personalIcon}
-        iconSrc2={financialIcon}
-        iconSrc3={ownerIcon}
+        switchTo1={switchToListing}
+        switchTo2={switchToAdditional}
+        switchTo3={switchToContact}
+        header="Edit Property"
+        text1="Listing Details"
+        text2="Additional Details"
+        text3="Contact Details"
       />
       <div className="m-5 min-w-[40%] max-w-full">
-        {tab === "personal" && (
-          <PersonalPage setIsChangesExist={setIsChangesExist} />
+        {tab === "Listing Details" && (
+          // <PersonalPage setIsChangesExist={setIsChangesExist} />
+          <ListingDetail propId={params.id} setIsChangesExist={setIsChangesExist} ></ListingDetail>
         )}
-        {tab === "financial" && (
+        {tab === "Additional Details" && (
           <FinancialPage setIsChangesExist={setIsChangesExist} />
         )}
-        {tab === "owner" && <OwnerPage />}
+        {tab === "Contact Details" && <OwnerPage />}
       </div>
       {isSwitchingTab && isChangesExist && (
         <NotSavedPopUp
@@ -61,7 +60,8 @@ const EditProfile = () => {
           setIsSwitchingTab={setIsSwitchingTab}
         />
       )}
+      
     </div>
   );
 };
-export default EditProfile;
+export default EditProperty;

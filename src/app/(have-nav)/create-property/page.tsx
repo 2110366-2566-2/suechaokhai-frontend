@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ListingDetailPage from "@/components/create-property/ListingDetailPage";
 import AdditionalDetailPane from "@/components/create-property/AdditionalDetailPane";
-import propertyCreate from "@/services/propertyCreate";
+import propertyCreate from "@/services/property/propertyCreate";
 
 export interface ListingDetailPageProps {
   name: string;
