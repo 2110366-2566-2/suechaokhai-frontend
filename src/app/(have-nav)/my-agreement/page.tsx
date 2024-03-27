@@ -7,6 +7,7 @@ import AgreementData from "@/models/AgreementData";
 import getUserAgreement from "@/services/agreement/getUserAgreement";
 import Dropdown, { IDropdownOption } from "@/components/my-agreement/Dropdown";
 import getUserProperties from "@/services/agreement/getUserProperties";
+import getUsersFromChat from "@/services/agreement/getUsersFromChat";
 
 export default function MyAgreement() {
 
@@ -16,7 +17,9 @@ export default function MyAgreement() {
     const [dwellerTotal, setDwellerTotal] = useState<number>(0);
     const [finishFetching, setFinishFetching] = useState<boolean>(false);
     const [properties, setProperties] = useState<string[]>([]);
-    const [options, setOptions] = useState<IDropdownOption[]>([]);
+    const [dwellers, setDwellers] = useState<string[]>([]);
+    const [propertiesOptions, setPropertiesOptions] = useState<IDropdownOption[]>([]);
+    const [dwellersOptions, setDwellersOptions] = useState<IDropdownOption[]>([]);
 
     const [selectedOption, setSelectedOption] = useState<string | number>();
 
@@ -75,27 +78,72 @@ export default function MyAgreement() {
       const getProperty = async () => {
         const allProperties = await getUserProperties();
         console.log(allProperties)
-        const props: string[] = [];
-        (allProperties.properties).map((prop) => {
-          props.push(prop.property_name)
-        })
-        setProperties(props)
-      }
-      getProperty();
-    }, [])
 
-    useEffect(() => {
         let label: string | number;
         let labelValue: string | number;
         const optionArray: IDropdownOption[] = [];
-        properties.map((prop) => {
-            label = prop;
-            labelValue = prop;
+
+        (allProperties.properties).map((prop) => {
+            label = prop.property_name;
+            labelValue = prop.property_id;
             let option = {label, labelValue};
             optionArray.push(option);
         })
-        setOptions(optionArray);
-    }, [properties])
+
+        setPropertiesOptions(optionArray);
+      }
+
+      getProperty();
+
+      //   const props: string[] = [];
+      //   (allProperties.properties).map((prop) => {
+      //     props.push(prop.property_name)
+      //   })
+      //   setProperties(props)
+      // }
+      // getProperty();
+    }, [])
+
+    // useEffect(() => {
+    //     let label: string | number;
+    //     let labelValue: string | number;
+    //     const optionArray: IDropdownOption[] = [];
+    //     properties.map((prop) => {
+    //         label = prop;
+    //         labelValue = prop;
+    //         let option = {label, labelValue};
+    //         optionArray.push(option);
+    //     })
+    //     setPropertiesOptions(optionArray);
+    // }, [properties])
+
+    useEffect(() => {
+      const getDweller = async () => {
+        const allDwellers = await getUsersFromChat();
+        console.log(allDwellers)
+
+        let label: string | number;
+        let labelValue: string | number;
+        const optionArray: IDropdownOption[] = [];
+
+        allDwellers.map((dwlr) => {
+            label = `${dwlr.first_name} ${dwlr.last_name}`;
+            labelValue = dwlr.user_id;
+            let option = {label, labelValue};
+            optionArray.push(option);
+        })
+
+        setDwellersOptions(optionArray);
+
+        // const dwlrs: string[] = [];
+        // allDwellers.map((dwlr) => {
+        //   dwlrs.push(`${dwlr.first_name} ${dwlr.last_name}`)
+        // })
+        // setDwellers(dwlrs)
+      }
+      getDweller();
+    }, [])
+
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(event.target.value);
@@ -235,7 +283,7 @@ export default function MyAgreement() {
                                 </div>
                                 <div className="">
                                     <Dropdown 
-                                        name="Property" options={options} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
+                                        name="Property" options={propertiesOptions} required={true} placeHolder="Select Property" type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
                                     />
                                 </div>
                             </div>
@@ -245,7 +293,7 @@ export default function MyAgreement() {
                                 </div>
                                 <div className="">
                                     <Dropdown 
-                                        name="Dweller" options={options} required={true} placeHolder="Select Dweller" 
+                                        name="Dweller" options={dwellersOptions} required={true} placeHolder="Select Dweller" 
                                         type="arrow-down" selectedItem={selectedOption} setSelectedItem={setSelectedOption}
                                     />
                                 </div>

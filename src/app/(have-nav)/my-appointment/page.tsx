@@ -51,9 +51,13 @@ export default function MyAppointment() {
       const data = await getUserAppointment();
       console.log(data);
       setOwnerAppointmentData(data.owner_appointments);
-      setOwnerTotal(data.owner_appointments.length);
+      if (ownerAppointmentData !== null) {
+        setOwnerTotal(data.owner_appointments.length);
+      }
       setDwellerAppointmentData(data.dweller_appointments);
-      setDwellerTotal(data.dweller_appointments.length);
+      if (dwellerAppointmentData !== null) {
+        setDwellerTotal(data.dweller_appointments.length);
+      }
     };
     fetchData();
     setFinishFetching(true);
@@ -223,7 +227,7 @@ export default function MyAppointment() {
                       </div>
           
                       <Image
-                        src="/img/my-agreement/handshake.svg"
+                        src="/img/my-appointment/contract.svg"
                         alt="home"
                         width={100}
                         height={100}
@@ -273,7 +277,7 @@ export default function MyAppointment() {
                       </div>
           
                       <Image
-                        src="/img/my-agreement/handshake.svg"
+                        src="/img/my-appointment/contract.svg"
                         alt="home"
                         width={100}
                         height={100}
