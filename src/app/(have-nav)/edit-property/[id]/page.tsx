@@ -45,7 +45,7 @@ const EditProperty = ({ params }: { params: { id: string } }) => {
       <div className="m-5 min-w-[40%] max-w-full">
         {tab === "Listing Details" && (
           // <PersonalPage setIsChangesExist={setIsChangesExist} />
-          <ListingDetail propId={params.id}></ListingDetail>
+          <ListingDetail propId={params.id} setIsChangesExist={setIsChangesExist}></ListingDetail>
         )}
         {tab === "Additional Details" && (
           <FinancialPage setIsChangesExist={setIsChangesExist} />

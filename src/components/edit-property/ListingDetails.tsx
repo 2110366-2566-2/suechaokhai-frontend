@@ -27,6 +27,37 @@ const propertyTypes = [
   "Townhouse",
 ];
 
+const labelStyle: React.CSSProperties = {
+  display: "inline-block",
+  padding: "10px 20px",
+  backgroundColor: "#FFFFFF",
+  border: "1px solid #B3B3B3",
+  borderRadius: "10px",
+  cursor: "pointer",
+  width: "100%",
+  height: "60px",
+  fontSize: "24px",
+  textAlign: "center",
+  color: "#0F142E",
+  overflow: "hidden",
+};
+
+const selectedStyle: React.CSSProperties = {
+  ...labelStyle,
+  backgroundColor: "#0F142E",
+  color: "#FFFFFF",
+};
+
+const hoverStyle: React.CSSProperties = {
+  ...labelStyle,
+  backgroundColor: "#B3B3B3",
+};
+
+const noOptionSelectedStyle: React.CSSProperties = {
+  ...labelStyle,
+  border: "1px solid red",
+};
+
 function checkValidFormData(listingFormData: ListingFormDataType): boolean {
   return (
     listingFormData.name.trim() !== "" &&
@@ -44,7 +75,13 @@ function checkValidFormData(listingFormData: ListingFormDataType): boolean {
   );
 }
 
-export default function ListingDetail({ propId }: { propId: string }) {
+export default function ListingDetail({
+  setIsChangesExist,
+  propId,
+}: {
+  setIsChangesExist: Function;
+  propId: string;
+}) {
   const [listingFormData, setListingFormData] = useState<ListingFormDataType>({
     name: "",
     listingType: "",
@@ -56,6 +93,7 @@ export default function ListingDetail({ propId }: { propId: string }) {
   });
 
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const [hoveredOption, setHoveredOption] = useState<string>("");
 
   useEffect(() => {
     const fetchPropDetail = async () => {
@@ -79,6 +117,13 @@ export default function ListingDetail({ propId }: { propId: string }) {
   const handleSelectPropertyType = (option: any) => {
     setSelectedPropertyType(option);
     setPropertyType(option);
+  };
+  const handleMouseEnter = (option: string) => {
+    setHoveredOption(option);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredOption("");
   };
 
   const handleFormChange = (e: any) => {
@@ -121,13 +166,89 @@ export default function ListingDetail({ propId }: { propId: string }) {
                   <div className="text-[28px] font-medium text-ci-black">
                     Listing Type
                   </div>
-                  <ListingType
-                    selectedType={listingFormData.listingType}
-                    onOptionChange={handleFormChange}
-                  />
+                  <div className="grid gap-6 sm:grid-cols-3">
+                    <input
+                      type="radio"
+                      id="rent"
+                      name="listingType"
+                      value="rent"
+                      checked={listingFormData.listingType === "rent"}
+                      onChange={handleFormChange }
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="rent"
+                      style={{
+                        ...(listingFormData.listingType === "rent"
+                          ? selectedStyle
+                          : hoveredOption === "rent"
+                            ? hoverStyle
+                            : listingFormData.listingType === ""
+                              ? noOptionSelectedStyle
+                              : labelStyle),
+                      }}
+                      onMouseEnter={() => handleMouseEnter("rent")}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      Rent
+                    </label>
+
+                    <input
+                      type="radio"
+                      id="sell"
+                      name="listingType"
+                      value="sell"
+                      checked={listingFormData.listingType === "sell"}
+                      onChange={handleFormChange}
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="sell"
+                      style={{
+                        ...(listingFormData.listingType === "sell"
+                          ? selectedStyle
+                          : hoveredOption === "sell"
+                            ? hoverStyle
+                            : listingFormData.listingType === ""
+                              ? noOptionSelectedStyle
+                              : labelStyle),
+                      }}
+                      onMouseEnter={() => handleMouseEnter("sell")}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      Sell
+                    </label>
+
+                    <input
+                      type="radio"
+                      id="rent/sell"
+                      name="listingType"
+                      value="rent/sell"
+                      checked={listingFormData.listingType === "rent/sell"}
+                      onChange={ handleFormChange}
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="rent/sell"
+                      style={{
+                        ...(listingFormData.listingType === "rent/sell"
+                          ? selectedStyle
+                          : hoveredOption === "rent/sell"
+                            ? hoverStyle
+                            : listingFormData.listingType === ""
+                              ? noOptionSelectedStyle
+                              : labelStyle),
+                      }}
+                      onMouseEnter={() => handleMouseEnter("rent/sell")}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      Rent/Sell
+                    </label>
+                  </div>
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
+                {/* !fix thissssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss */}
                 <div className="grid gap-6">
                   <Dropdown
                     label="Property Type"
@@ -167,7 +288,7 @@ export default function ListingDetail({ propId }: { propId: string }) {
                     Sale Price (THB)
                   </div>
                   <input
-                  name="salePrice"
+                    name="salePrice"
                     id="txt"
                     autoComplete="off"
                     className={`block h-[60px] w-full rounded-[10px] border ${
@@ -194,7 +315,7 @@ export default function ListingDetail({ propId }: { propId: string }) {
                     Description
                   </div>
                   <textarea
-                  name="description"
+                    name="description"
                     className={`flex w-full rounded-[10px] border ${
                       listingFormData.description.trim() === ""
                         ? "border-ci-red"
@@ -220,7 +341,7 @@ export default function ListingDetail({ propId }: { propId: string }) {
                     Address
                   </div>
                   <input
-                  name="address"
+                    name="address"
                     type="text"
                     value={listingFormData.address}
                     className={`block h-[60px] rounded-[10px] border ${
