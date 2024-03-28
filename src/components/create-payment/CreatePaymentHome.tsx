@@ -2,7 +2,7 @@ import TextBox from "../register-login/TextField";
 import Dropdown from "../register-login/DropDown";
 import { useState, useEffect } from "react"
 import { CreditCardData } from "../edit-profile/FinancialPage";
-import getUserFinancial from "@/services/getUserFinancial";
+import getUserFinancial from "@/services/users/getUserFinancial";
 type PaymentInfo = {
     title:string,
     sub_title: string,
